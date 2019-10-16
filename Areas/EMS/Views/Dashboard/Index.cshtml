@@ -1,0 +1,422 @@
+﻿@using AJSolutions.Models;
+@model AJSolutions.Models.GetUserTaskInvoiceView
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+    UserViewModel userDetails = ViewData["UserProfile"] as UserViewModel;
+    GetInvoiceStatusCountView empInvStatus = ViewData["EmpInvoiceStatus"] as GetInvoiceStatusCountView;
+    GetTaskCountView TaskStatus = ViewData["TaskStatus"] as GetTaskCountView;
+    GetTrainingStatusCountView TrainingStatus = ViewData["TrainingStatus"] as GetTrainingStatusCountView;
+    int Count = TaskStatus.TotalAbonded + TaskStatus.TotalAssigned + TaskStatus.TotalCompleted + TaskStatus.TotalNew + TaskStatus.TotalRejected;
+}
+@using (Html.BeginForm("Index", "Dashboard", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Result", ViewBag.Result as string)
+    <div class="container">
+        <div class="row">
+            @if (userDetails.DepartmentId == "FAC" || userDetails.DepartmentId == "VFA")
+            {
+                if (!(Model.TotalTasks == 0 && Model.TotalInvoices == 0 && Model.TrainingScheduled == 0))
+                {
+            <div class="col_one_fourth">
+                <br /><br />
+                <a href="@Url.Action("MyTraining", "TMS", new { Area = "TMS", TId = userDetails.UserId })">
+                    <div class="feature-box fbox-center fbox-bg fbox-light fbox-effect">
+                        <div class="fbox-icon">
+                            <div class="counter counter-large"><i class="i-alt"><span data-from="100" data-to='@Model.TrainingScheduled' data-refresh-interval="50" data-speed="2000">  </span></i></div>
+                        </div>
+                        <label>Trainings -  @Model.TrainingScheduled</label>
+                    </div>
+                </a>
+                <br />
+                <a href=@Url.Action("MyTasks", "Task", new { Area = "CMS"})>
+                    <div class="feature-box fbox-center fbox-bg fbox-light fbox-effect">
+                        <div class="fbox-icon">
+                            @*var toatltask=parseInt(@TaskStatus.TotalAbonded) + parseInt(@TaskStatus.TotalAssigned) +parseInt(@TaskStatus.TotalCompleted)+parseInt(@TaskStatus.TotalInProgress)+parseInt(@TaskStatus.TotalNew)+parseInt(@TaskStatus.TotalRejected);
+                                alert(totaltask);*@
+                            <div class="counter counter-large"><i class="i-alt"><span data-from="100" data-to='@(@TaskStatus.TotalNew + @TaskStatus.TotalAssigned + @TaskStatus.TotalCompleted + @TaskStatus.TotalRejected + @TaskStatus.TotalAbonded)' data-refresh-interval="50" data-speed="2000">  </span></i></div>
+                        </div>
+                        <label> Tasks- @(@TaskStatus.TotalNew + @TaskStatus.TotalAssigned + @TaskStatus.TotalCompleted + @TaskStatus.TotalRejected + @TaskStatus.TotalAbonded)</label>
+                        @*<label>Tasks- 'parseInt(@TaskStatus.TotalAbonded) + parseInt(@TaskStatus.TotalAssigned) +parseInt(@TaskStatus.TotalCompleted)+parseInt(@TaskStatus.TotalInProgress)+parseInt(@TaskStatus.TotalNew)+parseInt(@TaskStatus.TotalRejected)' </label>*@
+                    </div>
+                </a>
+                <br />
+                <a href="@Url.Action("MyInvoices", "Invoice", new { Area = "CMS"})">
+                    <div class="feature-box fbox-center fbox-bg fbox-light fbox-effect">
+                        <div class="fbox-icon">
+                            <div class="counter counter-large"><i class="i-alt"><span data-from="100" data-to='@Model.TotalInvoices' data-refresh-interval="50" data-speed="2000">  </span></i></div>
+                        </div>
+                        <label>Invoices -  @Model.TotalInvoices</label>
+                    </div>
+                </a>
+
+
+            </div>
+            <div class="col_one_fourth center">
+                @if (Model.TotalTasks > 0)
+                        {
+                        <br />
+                        <a href="@Url.Action("MyTasks", "Task", new { Area = "CMS" })"> <label class="center">My Tasks</label></a>
+                        <div class="row" style="background-color: #fff; opacity: 0;" id="pieChart">
+                            <canvas id="pieChartCanvas" width="200" height="200" class="topmargin bottommargin"></canvas>
+                            <script type="text/javascript">
+                                    jQuery(window).load(function () {
+
+                                        var pieChartData = [
+                                                {
+                                                    label: "New",
+                                                    value: @TaskStatus.TotalNew,
+                                                    color: "pink"
+                                                },
+                                                {
+                                                    label: "Assigned",
+                                                    value: @TaskStatus.TotalAssigned,
+                                                    color: "green"
+                                                },
+                                                {
+                                                    label: "Completed",
+                                                    value: @TaskStatus.TotalCompleted,
+                                                    color: "blue"
+                                                },
+                                                {
+                                                    label: "Rejected",
+                                                    value: @TaskStatus.TotalRejected,
+                                                    color: "teal"
+                                                },
+                                                {
+                                                    label: "Discarded",
+                                                    value: @TaskStatus.TotalAbonded,
+                                                    color: "red"
+                                                }
+
+                                        ];
+                                        var globalGraphSettings = { animation: Modernizr.canvas };
+                                        function showPieChart() {
+                                            var ctx = document.getElementById("pieChartCanvas").getContext("2d");
+                                            new Chart(ctx).Pie(pieChartData, globalGraphSettings);
+                                        }
+                                        $('#pieChart').appear(function () { $(this).css({ opacity: 1 }); setTimeout(showPieChart, 300); }, { accX: 0, accY: -155 }, 'easeInCubic');
+                                    });
+
+                            </script>
+                        </div>
+                        }
+
+            </div>
+            <div class="col_one_fourth center">
+
+                @if (TrainingStatus != null)
+                        {
+                        <br />
+                        <a href="@Url.Action("MyTraining", "TMS", new { Area = "TMS", TrainerId = userDetails.UserId })"> <label class="center">My Trainings</label></a>
+
+                        <div class="row" style="background-color: #fff; opacity: 0;" id="pieChart1">
+
+                            <canvas id="pieChartCanvas1" width="200" height="200" class="topmargin bottommargin"></canvas>
+
+                            <script type="text/javascript">
+                                        jQuery(window).load(function () {
+
+                                            var pieChartData = [
+                                                    {
+                                                        label: "Assigned",
+                                                        value: @TrainingStatus.TotalAssigned,
+                                                        color: "pink"
+                                                    },
+                                                    {
+                                                        label: "InProgress",
+                                                        value: @TrainingStatus.TotalInProgress,
+                                                        color: "#FDB45C"
+                                                    },
+                                                    {
+                                                        label: "Completed",
+                                                        value: @TrainingStatus.TotalCompleted,
+                                                        color: "teal"
+                                                    },
+                                                    {
+                                                        label: "Cancelled",
+                                                        value: @TrainingStatus.TotalCancelled,
+                                                        color: "red"
+                                                    },
+                                                    {
+                                                        label: "Rejected",
+                                                        value: @TrainingStatus.TotalRejected,
+                                                        color: "green"
+                                                    }
+
+                                            ];
+                                            var globalGraphSettings = { animation: Modernizr.canvas };
+                                            function showPieChart() {
+                                                var ctx = document.getElementById("pieChartCanvas1").getContext("2d");
+                                                new Chart(ctx).Pie(pieChartData, globalGraphSettings);
+                                            }
+
+                                            $('#pieChart1').appear(function () { $(this).css({ opacity: 1 }); setTimeout(showPieChart, 300); }, { accX: 0, accY: -155 }, 'easeInCubic');
+                                        });
+                            </script>
+
+                        </div>
+                        }
+
+            </div>
+            <div class="col_one_fourth col_last center">
+                <br />
+                @if (Model.TotalInvoices != 0)
+                        {
+                        <a href="@Url.Action("MyInvoices", "Invoice", new { Area = "CMS", IsClientView = true })"> <label class="center">My Invoices</label></a>
+                        <div class="row" style="background-color: #fff; opacity: 0;" id="pieChart2">
+
+                            <canvas id="pieChartCanvas2" width="200" height="200" class="topmargin bottommargin"></canvas>
+
+                            <script type="text/javascript">
+
+                                    jQuery(window).load(function () {
+
+                                        var pieChartData = [
+                                                {
+                                                    label: "Submitted",
+                                                    value: @empInvStatus.TotalSubmitted,
+                                                    color: "GREY"
+                                                },
+                                            {
+                                                label: "Accepted",
+                                                value: @empInvStatus.TotalAccepted,
+                                                color: "pink"
+                                            },
+                                            {
+                                                label: "Paid",
+                                                value: @empInvStatus.TotalPaid,
+                                                color: "teal"
+                                            },
+                                            {
+                                                label: "OnHold",
+                                                value: @empInvStatus.TotalOnHold,
+                                                color: "#FDB45C"
+                                            },
+                                            {
+                                                label: "UnPaid",
+                                                value: @empInvStatus.TotalUnPaid,
+                                                color: "green"
+                                            },
+                                            {
+                                                label: "Rejected",
+                                                value: @empInvStatus.TotalRejected,
+                                                color: "AQUA"
+                                            }
+
+                                        ];
+                                        var globalGraphSettings = { animation: Modernizr.canvas };
+                                        function showPieChart() {
+                                            var ctx = document.getElementById("pieChartCanvas2").getContext("2d");
+                                            new Chart(ctx).Pie(pieChartData, globalGraphSettings);
+                                        }
+                                        $('#pieChart2').appear(function () { $(this).css({ opacity: 1 }); setTimeout(showPieChart, 300); }, { accX: 0, accY: -155 }, 'easeInCubic');
+                                    });
+                            </script>
+
+                        </div>
+                        }
+
+            </div>
+                }
+                else
+                {
+            <div class="col_full">
+                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                    <div class="fbox-icon">
+                        <i class="icon-user3"></i>
+                    </div>
+                    <h3>Welcome @userDetails.Name @*<span class="subtitle">Your profile seems to be Incomplete.<a href="@Url.Action("BasicDetails", "Employee", new { Area = "EMS" })"> CLICK HERE to update your profile.</a></span>*@</h3>
+                </div>
+            </div>
+                }
+            }
+            else
+            {
+                if (!(Model.TotalTasks == 0 && Model.TotalInvoices == 0 && Model.TrainingScheduled == 0))
+                {
+            <div class="col_one_fifth">
+                <br /><br />
+                <a href=@Url.Action("MyTasks", "Task", new { Area = "CMS"})>
+                    <div class="feature-box fbox-center fbox-bg fbox-light fbox-effect">
+                        <div class="fbox-icon">
+                            @*var toatltask=parseInt(@TaskStatus.TotalAbonded) + parseInt(@TaskStatus.TotalAssigned) +parseInt(@TaskStatus.TotalCompleted)+parseInt(@TaskStatus.TotalInProgress)+parseInt(@TaskStatus.TotalNew)+parseInt(@TaskStatus.TotalRejected);
+                                alert(totaltask);*@
+                            <div class="counter counter-large"><i class="i-alt"><span data-from="100" data-to='@(@TaskStatus.TotalNew + @TaskStatus.TotalAssigned + @TaskStatus.TotalCompleted + @TaskStatus.TotalRejected + @TaskStatus.TotalAbonded)' data-refresh-interval="50" data-speed="2000">  </span></i></div>
+                        </div>
+                        <label> Tasks- @(@TaskStatus.TotalNew + @TaskStatus.TotalAssigned + @TaskStatus.TotalCompleted + @TaskStatus.TotalRejected + @TaskStatus.TotalAbonded)</label>
+                        @*<label>Tasks- 'parseInt(@TaskStatus.TotalAbonded) + parseInt(@TaskStatus.TotalAssigned) +parseInt(@TaskStatus.TotalCompleted)+parseInt(@TaskStatus.TotalInProgress)+parseInt(@TaskStatus.TotalNew)+parseInt(@TaskStatus.TotalRejected)' </label>*@
+                    </div>
+                </a>
+                <br />
+                <a href="@Url.Action("MyInvoices", "Invoice", new { Area = "CMS"})">
+                    <div class="feature-box fbox-center fbox-bg fbox-light fbox-effect">
+                        <div class="fbox-icon">
+                            <div class="counter counter-large"><i class="i-alt"><span data-from="100" data-to='@Model.TotalInvoices' data-refresh-interval="50" data-speed="2000">  </span></i></div>
+                        </div>
+                        <label>Invoices -  @Model.TotalInvoices</label>
+                    </div>
+                </a>
+            </div>
+            <div class="col_two_fifth center">
+                <br />
+
+                <a href="@Url.Action("MyTasks", "Task", new { Area = "CMS" })"> <label class="center">My Tasks</label></a>
+                <div class="row" style="background-color: #eeeeee; opacity: 0;" id="pieChart">
+                    <canvas id="pieChartCanvas" width="200" height="200" class="topmargin bottommargin"></canvas>
+                    <script type="text/javascript">
+                                jQuery(window).load(function () {
+
+                                    var pieChartData = [
+                                           {
+                                               label: "New",
+                                               value: @TaskStatus.TotalNew,
+                                               color: "pink"
+                                           },
+                                            {
+                                                label: "Assigned",
+                                                value: @TaskStatus.TotalAssigned,
+                                                color: "green"
+                                            },
+                                            {
+                                                label: "Completed",
+                                                value: @TaskStatus.TotalCompleted,
+                                                color: "blue"
+                                            },
+                                            {
+                                                label: "Rejected",
+                                                value: @TaskStatus.TotalRejected,
+                                                color: "teal"
+                                            },
+                                            {
+                                                label: "Discarded",
+                                                value: @TaskStatus.TotalAbonded,
+                                                color: "red"
+                                            }
+
+                                    ];
+                                    var globalGraphSettings = { animation: Modernizr.canvas };
+                                    function showPieChart() {
+                                        var ctx = document.getElementById("pieChartCanvas").getContext("2d");
+                                        new Chart(ctx).Pie(pieChartData, globalGraphSettings);
+                                    }
+                                    $('#pieChart').appear(function () { $(this).css({ opacity: 1 }); setTimeout(showPieChart, 300); }, { accX: 0, accY: -155 }, 'easeInCubic');
+                                });
+                    </script>
+                </div>
+
+
+            </div>
+            <div class="col_two_fifth col_last center">
+                <br />
+
+                <a href="@Url.Action(" myinvoices", "Invoice" , new { area="CMS" , isclientview=true })"> <label class="center">My Invoices</label></a>
+                <div class="row" style="background-color: #eeeeee; opacity: 0;" id="pieChart2">
+
+                    <canvas id="pieChartCanvas2" width="200" height="200" class="topmargin bottommargin"></canvas>
+
+                    <script type="text/javascript">
+                                jQuery(window).load(function () {
+
+                                    var pieChartData = [
+                                            {
+                                                label: "Submitted",
+                                                value: @empInvStatus.TotalSubmitted,
+                                                color: "GREY"
+                                            },
+                                        {
+                                            label: "Accepted",
+                                            value: @empInvStatus.TotalAccepted,
+                                            color: "pink"
+                                        },
+                                        {
+                                            label: "Paid",
+                                            value: @empInvStatus.TotalPaid,
+                                            color: "teal"
+                                        },
+                                        {
+                                            label: "OnHold",
+                                            value: @empInvStatus.TotalOnHold,
+                                            color: "#FDB45C"
+                                        },
+                                        {
+                                            label: "UnPaid",
+                                            value: @empInvStatus.TotalUnPaid,
+                                            color: "green"
+                                        },
+                                        {
+                                            label: "Rejected",
+                                            value: @empInvStatus.TotalRejected,
+                                            color: "AQUA"
+                                        }
+
+                                    ];
+                                    var globalGraphSettings = { animation: Modernizr.canvas };
+                                    function showPieChart() {
+                                        var ctx = document.getElementById("pieChartCanvas2").getContext("2d");
+                                        new Chart(ctx).Pie(pieChartData, globalGraphSettings);
+                                    }
+                                    $('#pieChart2').appear(function () { $(this).css({ opacity: 1 }); setTimeout(showPieChart, 300); }, { accX: 0, accY: -155 }, 'easeInCubic');
+                                });
+                    </script>
+
+                </div>
+
+            </div>
+                }
+                else
+                {
+            <div class="col_full">
+                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                    <div class="fbox-icon">
+                        <i class="icon-user3"></i>
+                    </div>
+                    <h3>Welcome @userDetails.Name  @*<span class="subtitle">Your profile seems to be Incomplete.<a href="@Url.Action("BasicDetails", "Employee", new { Area = "EMS" })"> CLICK HERE to update your profile.</a></span>*@</h3>
+                </div>
+            </div>
+                }
+            }
+
+
+        </div>
+        <br />
+        <center>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- JEResponsive -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6029014565691295"
+                 data-ad-slot="6109277368"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </center>
+    </div>
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                if(TrainingStatus==null)
+                {
+                    this.closest.remove
+                }
+            });
+        </script>*@
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#Result").val() != null && $("#Result").val() != "") {
+            $.alert({
+                title: 'Cheers',
+                content: 'Your Candidate is added Successfully',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-amber',
+                icon: 'icon-thumbs-up icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+
+                }
+            });
+        }
+    });
+</script>

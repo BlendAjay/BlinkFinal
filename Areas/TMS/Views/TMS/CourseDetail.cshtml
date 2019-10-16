@@ -1,0 +1,2213 @@
+﻿@using AJSolutions.DAL;
+@using AJSolutions.Models;
+@model IEnumerable<AJSolutions.Areas.Candidate.Models.CandidateViewModel>
+@{
+    ViewBag.Title = "Course Details";
+    //Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
+    AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
+    if (user.Role != "Employee")
+    {
+        Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
+    }
+    UserViewModel pro = ViewData["UserProfile"] as UserViewModel;
+    CourseMaster CourseeM = new CourseMaster();
+    List<AJSolutions.Models.TrainingScheduleAttachment> attachments = ViewData["Attachment"] as List<AJSolutions.Models.TrainingScheduleAttachment>;
+    List<AJSolutions.Models.TrainingScheduleFinalAttachment> finalattachments = ViewData["FinalAttach"] as List<AJSolutions.Models.TrainingScheduleFinalAttachment>;
+    CourseBatchViewModel batches = ViewData["CourseBatches"] as CourseBatchViewModel;
+    List<AJSolutions.Areas.LMS.Models.ReviewReplyView> reply = ViewData["Reply"] as List<AJSolutions.Areas.LMS.Models.ReviewReplyView>;
+    List<AJSolutions.Areas.LMS.Models.DiscussionForumView> forum = ViewData["Forum"] as List<AJSolutions.Areas.LMS.Models.DiscussionForumView>;
+    List<CourseBatchViewModel> batch = ViewData["CourseBatch"] as List<CourseBatchViewModel>;
+    List<TrainingScheduleView> training = ViewData["Training"] as List<TrainingScheduleView>;
+    CourseMasterView cs = ViewData["CourseView"] as CourseMasterView;
+    CourseMasterViewModel courseDetail = ViewData["LMSCourseView"] as CourseMasterViewModel;
+    List<AJSolutions.Areas.LMS.Models.COURSETOPICSVIEW> coursetopic = ViewData["CourseTopic"] as List<AJSolutions.Areas.LMS.Models.COURSETOPICSVIEW>;
+    List<AnalyticsViewModel> Analytics = ViewData["AnalyticsAssessment"] as List<AnalyticsViewModel>;
+
+    //  List<AJSolutions.Areas.LMS.Models.TopicMaster> topics = ViewData["topic"] as List<AJSolutions.Areas.LMS.Models.TopicMaster>;
+    List<AJSolutions.Areas.LMS.Models.TopicLecturesView> topicLectures = ViewData["Lecture"] as List<AJSolutions.Areas.LMS.Models.TopicLecturesView>;
+    //List<CheckInCheckOutView> checkIn = ViewData["CheckInDate"] as List<CheckInCheckOutView>;
+    // AJSolutions.Areas.EMS.Models.EmployeeViewModel faculty = ViewData["TrainerDetail"] as AJSolutions.Areas.EMS.Models.EmployeeViewModel;
+    //TrainingScheduleView attendence = ViewData["attendence"] as TrainingScheduleView;
+    //CandidateAttendanceView candidate = ViewData["AttendenceRecord"] as CandidateAttendanceView;
+    int Count = 0;
+    Int16 ReplyCount = 0;
+    int i = 0;
+    string CDWurl = ViewBag.LMSUrl + "Admin/Admin/CourseDetail?CourseCode=";
+    string CMWurl = ViewBag.LMSUrl + "Admin/Admin/MIStoLMS?UserId=" + pro.UserId;
+}
+
+<div class="si-sticky toast-top-left topmargin-sm">
+    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
+        <i class="icon-question"></i>
+        <i class="icon-question"></i>
+    </a>
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+    if (@ViewBag.Message != null)
+    {
+        <div class="container">
+            <div id="contact-form-overlay" class="clearfix">
+                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                    <div class="fbox-icon">
+                        <i class="icon-thumbs-down2"></i>
+                    </div>
+                    <h3>@ViewBag.Message<span class="subtitle"></span></h3>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container clearfix">
+            <div class="postcontent nobottommargin clearfix">
+                @if (cs != null)
+                {
+                    <h3>@cs.CourseName</h3>
+                    <div class="tabs tab-nav2  tabs-justify clearfix" id="tabs">
+                        <ul class="tab-nav clearfix">
+                            <li id="tabCourseDetails"><a href=" #tabs-1"><nobr>Course Details</nobr></a></li>
+                            <li id="tabBatches"><a href="#tabs-2" data-toggle="tab">Batches</a></li>
+                            <li id="tabTrainings"><a href="#tabs-3" data-toggle="tab">Trainings</a></li>
+                            @if (pro.Role != "Client" && ViewBag.IsLMS)
+                            {
+
+                                @*<li id="tabCourseContent"><a href="#tabs-4" data-toggle="tab"><nobr>Course Content</nobr></a></li>*@
+                                <li id="tabDiscussion"><a href="#tabs-5" data-toggle="tab"><nobr>Discussion</nobr></a></li>
+                            }
+                            <li id="tabCandidates"><a href="#tabs-6" style="tab-size:3;" data-toggle="tab">Candidates</a></li>
+                            <li id="tabAttendence"><a href="#tabs-7" data-toggle="tab">Attendance</a></li>
+                            <li id="tabEvaluation"><a href="#tabs-8" data-toggle="tab">Evaluation</a></li>
+                            <li id="tabReport"><a href="#tabs-9" data-toggle="tab">Report</a></li>
+                            <li id="tabAnalysis"><a href="#tabs-10" data-toggle="tab">Analysis</a></li>
+                        </ul>
+
+                        <div class="tab-container">
+                            <div class="tab-content clearfix" id="tabs-1">
+                                <div class="col_full clearfix">
+                                    <div class="pricing-box pricing-extended bottommargin clearfix">
+                                        <div class="pricing-desc">
+                                            <div class="pricing-title">
+                                                <h4>@cs.CourseName</h4>
+                                            </div>
+                                            <div class="pricing-features">
+                                                <ul class="iconlist-color clearfix">
+                                                    @*<li><i class="icon-desktop"></i> Course Code : @cs.CourseCode</li>*@
+                                                    <li><i class="icon-calendar"></i> @cs.CourseDuration Days</li>
+                                                    <li><i class="icon-magic"></i> @cs.TotalBatches Batch</li>
+                                                    @if (pro.Role != "Client")
+                                                    {
+                                                        if (courseDetail != null)
+                                                        {
+                                                            if (courseDetail.CourseCode == cs.LMSCourseCode)
+                                                            {
+                                                                <li><i class="icon-line-paper-stack"></i> @courseDetail.TotalTopics Topics</li>
+                                                                <li><i class="icon-line-paper"></i> @courseDetail.TotalLecture Lectures</li>
+                                                            }
+                                                        }
+                                                    }
+                                                    <li><i class="icon-thumbs-up"></i> @cs.CountLikes Likes</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="pricing-action-area">
+
+                                            <div class="pricing-price">
+                                                @cs.TotalFees<span class="price-tenure">@cs.Currency</span>
+                                            </div>
+                                            @if (pro.Role != "Client")
+                                            {
+                                                <div class="pricing-action">
+                                                    <a href="@Url.Action("CourseMasters", "TMS", new { area = "TMS", @cs.CourseCode, @cs.CourseName, useraction = "Edit" })" class="button button-3d" align="right">Edit </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <p style="text-align:justify;" class="nomargin">@cs.CourseDescription</p>
+                                </div>
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-2">
+                                @if (pro.Role != "Client")
+                                {
+                                    <a href="@Url.Action("CourseBatch", "TMS", new { Area = "TMS", CourseCode = cs.CourseCode })" class="btn btn-default btn-xs" style="float:right" target="_blank">Add Batches</a>
+                                }
+                                <br /><br />
+                                @if (batch != null)
+                                {
+                                    if (batch.Count() > 0)
+                                    {
+                                        foreach (var item in batch)
+                                        {
+
+                                            <div class="col_full dark col-padding ohidden" style="background-color: #1c313e;">
+                                                @*@if (pro.Role != "Client" && item.ToDate >= DateTime.Now.Date)*@
+                                                @if (pro.Role != "Client")
+                                                {
+                                                    <a href="@Url.Action("CourseBatch", "TMS", new { Area = "TMS", BatchId = item.BatchId, useraction = "Edit" })" class="btn btn-default btn-xs" style="float:right" target="_blank"><i class="icon-pencil"></i></a>
+                                                }
+                                                <div>
+                                                    <h4 class="uppercase" style="font-weight: 100;">
+                                                        @Html.DisplayFor(modelItem => item.BatchName) ( BatchId - @item.BatchId )
+                                                        @*@if (pro.Role != "Client" && item.ToDate >= DateTime.Now.Date)*@
+                                                        @if (pro.Role != "Client")
+                                                        {
+                                                            <a href="@Url.Action("TrainingSchedule", "TMS", new { Area = "TMS", CourseCode = cs.CourseCode, BatchId = @item.BatchId })" class="btn btn-default btn-xs"><i class="icon-plus"></i> Schedule Training</a>
+                                                        }
+                                                    </h4>
+
+                                                    <div class="col_half">
+                                                        <ul class="iconlist-color clearfix">
+                                                            <li><i class="icon-calendar"></i> Start Date : @(item.FromDate.ToString("dd-MMM-yyyy")) - End Date : @(item.ToDate.ToString("dd-MMM-yyyy"))</li>
+                                                            <li><i class="icon-time"></i> Time From : @(item.FromTime.ToString(" hh:mm:ss tt")) - Time To : @(item.ToTime.ToString("hh:mm:ss tt"))</li>
+                                                            @if (@item.ContentAvailability == true)
+                                                            {
+                                                                <li><i class="icon-font"></i> Content Availability : Yes</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li><i class="icon-font"></i> Content Availability : No</li>
+                                                            }
+                                                            @if (@item.AvailableTillDate != null)
+                                                            {
+                                                                <li><i class="icon-stack3"></i> Show content till : @item.AvailableTillDate.Value.ToString("dd-MMM-yyyy") </li>
+                                                            }
+                                                            <li><i class="icon-users"></i>Total Candidates @item.CandidateCount</li>
+                                                            @if (item.WardenId != null)
+                                                            {
+                                                                <li><i class="icon-user"></i>Warden : @item.Name</li>
+                                                            }
+                                                            @if (item.CountryId > 0 && item.StateId > 0 && item.CityId > 0)
+                                                            {
+                                                                <li><i class="icon-location"></i>Location : @item.Country - @item.State - @item.City</li>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(@item.ContentLink))
+                                                            {
+                                                                <li><i class="icon-pen"></i> <a href="@item.ContentLink" title="Click here to view content" target="_blank">Training Content</a></li>
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <i class="icon-bulb bgicon"></i>
+                                                </div>
+                                            </div>
+                                        }
+                                        <br />
+                                    }
+                                    else
+                                    {
+                                        <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                            @if (pro.Role != "Client")
+                                            {
+                                                <a href="@Url.Action("CourseBatch", "TMS", new { Area = "TMS", CourseCode = cs.CourseCode })" class="btn btn-default btn-xs" target="_blank" align="right">Add Batches</a>
+                                            }
+                                            <div class="fbox-icon">
+                                                <i class="icon-thumbs-down2"></i>
+                                            </div>
+                                            <h3>No Batches<span class="subtitle"></span></h3>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-3">
+
+                                <div class="post-timeline events">
+                                    @if (training != null)
+                                    {
+                                        if (training.Count() > 0)
+                                        {
+                                            foreach (var item in training)
+                                            {
+
+                                                <div class="timeline-border"></div>
+                                                <div class="entry clearfix">
+                                                    <div class="entry-timeline">
+                                                        @if (item.CreatedOn.HasValue)
+                                                        {
+                                                            @item.CreatedOn.Value.Day<span>@item.CreatedOn.Value.ToString("MMM") @item.CreatedOn.Value.Year.ToString().Substring(2)</span>
+                                                        }
+                                                        <div class="timeline-divider"></div>
+                                                    </div>
+                                                    <div class="entry-title">
+                                                        <div class="col_two_third nobottommargin">
+                                                            <h4 class="nobottommargin"><a typeid="System.Web.Mvc.AllowHtmlAttribute" href="@Url.Action("TrainingDetails", "TMS", new { area = "TMS", Id = item.TrainingId })">@item.SubjectLine </a></h4>
+
+                                                            @if (!string.IsNullOrEmpty(@item.Description))
+                                                            {
+                                                                if (item.Description.Length > 140)
+                                                                {
+                                                                    <p align="justify" class="nobottommargin">
+                                                                        @item.Description.Substring(0, 140) ...
+                                                                    </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p align="justify" class="nobottommargin">
+                                                                        @item.Description
+                                                                    </p>
+                                                                }
+                                                            }
+
+                                                            <div class="col_full entry-content nobottommargin">
+                                                                <ul class="entry-meta clearfix">
+                                                                    @if (item.DepartmentId == "FAC")
+                                                                    {
+                                                                        <li><a href="@Url.Action("EmployeeProfile", "Employee", new { area = "EMS", UserId = item.TrainerId })" target="_blank"><i class="icon-user"></i><span>Trainer: </span>@item.Name </a></li>
+                                                                        if (item.TrainerMentor != "NA")
+                                                                        {
+                                                                            <li><i class="icon-user-md"></i><span>Mentor Trainer: </span>@item.TrainerMentor</li>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li><a href="@Url.Action("AdminProfile", "Admin", new { area = "Admin", SubscriberId = item.TrainerId })" target="_blank"><i class="icon-user"></i><span>Trainer: </span>@item.Name </a></li>
+                                                                        if (item.TrainerMentor != "NA")
+                                                                        {
+                                                                            <li><i class="icon-user-md"></i><span>Mentor Trainer: </span>@item.TrainerMentor</li>
+                                                                        }
+                                                                    }
+                                                                    @*<li><a href="#"><i class="icon-user"></i>@item.Name</a></li>*@
+                                                                    <li><a href="#"><i class="icon-folder-open"></i>@item.BatchName</a></li>
+                                                                    @*<li><a href="#"><i class="icon-check"></i>City: @item.City , State :@item.City</a></li>*@
+                                                                    @*<li><a href="#"><i class="icon-check"></i>@item.Status</a></li>*@
+
+                                                                    @if (item.Status != "Completed" && (user.DepartmentId == "ADI" || user.DepartmentId == "ACD" || user.DepartmentId == "FIN"))
+                                                                    {
+                                                                        <li>
+                                                                            <a href="@Url.Action("TrainingSchedule", "TMS", new { area = "TMS", TrainingId = item.TrainingId, UserAction = "Edit" })" title="Edit Training" target="_blank"><i class="icon-pen"></i></a>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.Status == "Assigned" && (user.DepartmentId == "ADI" || user.DepartmentId == "ACD" || user.DepartmentId == "FIN"))
+                                                                    {
+                                                                        <li>
+                                                                            <a href="#" id="Remove" onclick="javascript: ConfirmationDialogs('@item.TrainingId', '@item.CourseCode', 'Delete');" title="Delete Training"><i class="icon-trash"></i></a>
+                                                                        </li>
+                                                                    }
+                                                                    @if (attachments != null)
+                                                                    {
+                                                                        foreach (var attach in attachments)
+                                                                        {
+                                                                            if (attach.TrainingId == item.TrainingId)
+                                                                            {
+                                                                                <li><a href="~/File/TrainingScheduleAttachment?id=@attach.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Admin</a></li>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    @if (finalattachments != null)
+                                                                    {
+                                                                        foreach (var final in finalattachments)
+                                                                        {
+                                                                            if (final.TrainingId == item.TrainingId)
+                                                                            {
+                                                                                <li><a href="~/File/TrainingFinalAttachment?id=@final.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Employee</a></li>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    @if (item.Status == "Completed")
+                                                                    {
+                                                                        <li><a href="#" id="Report" onclick="javascript: TrainingSummReport('@item.BatchId','@item.TrainingId');" title="Download Training Summary"><i class="icon-download"></i></a></li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col_one_third col_last nobottommargin">
+                                                            <center>
+                                                                <label>@item.Status</label>
+                                                            </center>
+                                                            <br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                                <div class="fbox-icon">
+                                                    <i class="icon-thumbs-down2"></i>
+                                                </div>
+                                                <h3>No Trainings<span class="subtitle"></span></h3>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+
+                            </div>
+
+                            @if (pro.Role != "Client")
+                            {
+                                @*<div class="tab-content clearfix" id="tabs-4">
+
+                                        <div class="panel-group nobottommargin">
+                                            @if (courseDetail != null)
+                                            {
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">@cs.CourseName</div>
+                                                    <div class="panel-body nomargin">
+                                                        <div class="col_five_sixth">
+                                                            <label>This course is integrated with @courseDetail.CourseName</label>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">Select Course to integrate</div>
+                                                    <div class="panel-body nomargin">
+                                                        <div class="col_full">
+                                                            <div class="input-group divcenter">
+                                                                    <span class="input-group-addon"><i class="icon-file"> </i></span>
+                                                                    @Html.DropDownList("WikiCourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Course", id = "WikiCourseCode" })
+                                                                </div>
+                                                        </div>
+                                                        <div class="col_one_fourth">
+                                                            <input type="button" id="assignToWikiCourse" class="btn btn-warning" value="Integrate with Wikipian" />
+                                                        </div>
+                                                        <div class="col_one_fourth">
+                                                            <a href="@CMWurl" class="btn btn-primary" target="_blank" title="Add Course To Wikipian">Add Course To Wikipian</a>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+
+                                                </div>
+                                            }
+
+
+                                            @if (coursetopic != null)
+                                            {
+                                                foreach (var item in coursetopic)
+                                                {
+                                                    Count = Count + 1;
+
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading"><span>@Count. </span> @item.TopicName </div>
+                                                        <div class="panel-body nomargin">
+                                                            <div class="col_three_fourth " style="padding-left:10px;">
+                                                                @Html.Raw(item.TopicDescription.Replace("&nbsp;", " "))
+                                                            </div>
+                                                        </div>
+                                                        @if (topicLectures != null)
+                                                        {
+                                                            if (topicLectures.Where(t => t.TopicId == item.TopicId).ToList().Count != 0)
+                                                            {
+                                                                i = 0;
+                                                                <table class="table">
+                                                                    @foreach (var lecture in topicLectures.Where(t => t.TopicId == item.TopicId))
+                                                                    {
+                                                                        i++;
+                                                                        if (i == 1)
+                                                                        {
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Lecture On</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                        }
+
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>@i </td>
+                                                                                <td>@lecture.LectureName </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    }
+                                                                </table>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                                                    <div class="fbox-icon">
+                                                                        <i class="icon-thumbs-down2"></i>
+                                                                    </div>
+                                                                    <h3>No Lecture has been added.<span class="subtitle"></span></h3>
+                                                                </div>
+                                                                <br />
+                                                            }
+                                                        }
+                                                    </div>
+                                                    <br />
+                                                }
+                                                if (Count == 0)
+                                                {
+                                                    <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                                        <div class="fbox-icon">
+                                                            <i class="icon-thumbs-down2"></i>
+                                                        </div>
+                                                        <h3>No Topics Assigned<span class="subtitle"></span></h3>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>*@
+
+                                <div class="tab-content clearfix" id="tabs-5">
+                                    <div class="container">
+
+                                        @Html.Hidden("CourseCode", cs.CourseCode)
+
+                                        <div id="comments" class="clearfix">
+                                            <div class="row">
+                                                <h3>Leave a <span>Comment</span></h3>
+                                                @Html.TextArea("Comments", "", 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
+                                                <div id="textarea_feedback" class="text-danger"></div>
+                                            </div>
+                                            <div class="row">
+                                                <br />  <input type="submit" id="create" value="Post" class="button button-3d button-rounded button-teal" style="float: right;" />
+                                            </div>
+                                            <h4 id="comments-title"><span>@ViewBag.CommentsCount</span> Comments</h4>
+
+                                            <ol class="commentlist clearfix">
+                                                <li class="comment even thread-even depth-1" id="li-comment-1">
+                                                    @if (forum != null)
+                                                    {
+                                                        foreach (var item in forum)
+                                                        {
+                                                            <div id="comment-1" class="col_full comment-wrap clearfix">
+                                                                <div class="comment-meta">
+                                                                    <div class="comment-author vcard">
+                                                                        <span class="comment-avatar clearfix">
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="comment-content clearfix">
+
+                                                                    <div class="comment-author"><span><b>@item.Name</b>(@item.CommentedOn)</span></div>
+                                                                    <p>@item.Comments</p>
+                                                                    <a class="comment-reply-link" id="yourreply" onclick="javascript: ShowHideDivOnButtonClick(@item.CommentId)" style="padding-right:5em" title="Reply"><i class="icon-reply"></i></a>
+                                                                    @if (pro.Role == "Admin")
+                                                                    {
+                                                                        <a id="CommentRemove" onclick="javascript: ConfirmationDialogComment('@cs.CourseCode','@item.CommentId');" class="comment-reply-link" title="Remove"><i class="icon-line-cross"></i></a>
+                                                                    }
+                                                                </div>
+
+                                                                <div class="row comment-content clearfix" id="@item.CommentId" style="display:none">
+                                                                    <div class="col_full" id="reply">
+                                                                        <lable>New Reply</lable>
+                                                                        @Html.TextArea("Reply", "", 5, 124, htmlAttributes: new { @class = "sm-form-control", @id = "userReply" + item.CommentId, @Maxlength = 2048, @placeholder = "Reply here...." })
+                                                                        <br />  <input type="button" id="reply" value="Reply" class="button button-3d button-rounded button-teal" onclick="SubmitData(@item.CommentId)" />
+                                                                        @*<div id="textarea_feedback" class="text-danger"></div>*@
+                                                                    </div>
+                                                                </div>
+
+                                                                <br />
+                                                                @if(reply!=null)
+                                                                { 
+                                                                foreach (var ritem in reply.Where(r => r.CommentId == item.CommentId))
+                                                                {
+                                                                    ReplyCount++;
+                                                                    <ul class='children'>
+                                                                        <li>
+                                                                            <div id="comment-3" class="comment-wrap clearfix">
+                                                                                <div class="comment-meta">
+                                                                                    <div class="comment-author">
+                                                                                        <span><b>@ritem.Name</b>(@ritem.RepliedOn)</span>
+                                                                                    </div>
+                                                                                    @if (ritem.Reply != null)
+                                                                                    {
+                                                                                        <p>@ritem.Reply </p>
+                                                                                    }
+                                                                                    @if (pro.Role == "Admin")
+                                                                                    {
+                                                                                        <a id="ReplyRemove" onclick="javascript: ConfirmationDialogReply('@item.CourseCode', '@ritem.ReplyId');" cla class="comment-reply-link" style="padding-top:8px;padding-right:2em" title="Remove"><i class="icon-line-cross"></i></a>
+                                                                                    }
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                }
+                                                                } 
+
+                                                                @if (ReplyCount > 1)
+                                                                {
+                                                                    <span><b>@ReplyCount Replies</b></span>
+                                                                    ReplyCount = 0;
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span><b>@ReplyCount Reply</b></span>
+                                                                    ReplyCount = 0;
+                                                                }
+
+                                                            </div>
+                                                        }
+                                                    }
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="tab-content clearfix" id="tabs-6">
+
+                                @if (Model != null)
+                                {
+                                    if (batches != null)
+                                    {
+                                        <div class="container">
+
+                                            <div class="col_half nobottommargin">
+                                                <label>Batch<small>*</small></label>
+                                                <div class="input-group divcenter" id="Batch">
+                                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "BatchId" })
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div class="col_half col_last nobottommargin">
+                                                <div class="col_half">
+                                                    <div><h3></h3></div>
+                                                    <div class="input-group divcenter">
+                                                        <button type="button" id="btnSearch" class="btn btn-green button-3d btnalignleft" onclick="SendValue('@batches.CourseCode','@ViewBag.Url')" title="Search">Filter</button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col_half col_last">
+                                                    <div><h3></h3></div>
+                                                    @if (pro.Role != "Client")
+                                                    {
+                                                        <div class="input-group divcenter">
+                                                            @*@Html.ActionLink("Assign Candidate", "Candidate", "Course", new { area = "TMS", CourseCode = batches.CourseCode }, htmlAttributes: new { target = "_blank" , @class="btn btn-green btnalignleft"})*@
+                                                            <a href="@Url.Action("Candidate", "Course", new { area = "TMS", CourseCode = batches.CourseCode })" target="_blank" class="button button-3d">Assign Candidates </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="row">
+                                        <div class="fancy-title title-bottom-border title-right">
+                                            @*@if (@pro.Role != "Client")
+                                                {
+                                                    if (batches != null)
+                                                    {
+                                                        <button type="button" id="btnSearch" class="btn btn-default btn-xs" onclick="CandidateCredentials('@batches.CourseCode')" title="Search">Download Candidate Credentials</button>
+                                                            <a id='btnSearch' onclick="CandidateCredentials('@batches.CourseCode')"> Download Candidate Credentials</a>
+                                                        }*@
+                                            <br />
+                                            <div class="col_full" id="totalCand"></div>
+                                            <h3> </h3>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+
+                                        <table class="table table-striped" id="CandiadateDT">
+                                            @*<thead>
+                                                    <tr>
+                                                        <th>    S.No</th>
+                                                        <th>    Candidate Name</th>
+                                                        <th>    Course Name</th>
+                                                        <th>    Batch Name</th>
+                                                        <th>    Start Date</th>
+                                                        <th>    End Date</th>
+                                                        <th>    Course Fee</th>
+                                                        <th>    Hostel Detail</th>
+
+                                                        @if (user.DepartmentId != "CLI")
+                                                        {
+                                                            <th>Training Scheduled</th>
+                                                        }
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (batches != null)
+                                                    {
+                                                        int count = 1;
+                                                        foreach (var item in Model)
+                                                        {
+
+                                                            <tr>
+                                                                <td>@(count++)</td>
+                                                                <td>
+                                                                    @Html.ActionLink(item.Name, "CandidateProfile", "Candidate", new { area = "Candidate", UserId = item.UserId }, htmlAttributes: new { target = "_blank" })
+                                                                </td>
+                                                                <td>@item.CourseName</td>
+                                                                <td>@item.BatchName</td>
+                                                                <td>@(item.CourseStartDate.HasValue ? item.CourseStartDate.Value.ToString("dd-MMM-yyyy") : "")</td>
+                                                                <td>@(item.CourseEndDate.HasValue ? item.CourseEndDate.Value.ToString("dd-MMM-yyyy") : "")</td>
+                                                                @if (item.TotalFeeAmount > 0)
+                                                                {
+                                                                    <td>@item.TotalFeeAmount</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>@item.TotalCourseFees</td>
+                                                                }
+                                                                <td class="hidden"><input type="text" class="CCheckInDate" value="@item.CheckInDate" /></td>
+                                                                <td class="hidden"><input type="text" class="CCheckOutDate" value="@item.CheckOutDate" /></td>
+                                                                <td class="hidden"><input type="text" class="TTotalDays" value="@item.TotalDays" /></td>
+                                                                @if (item.AccomondationNeeded == true)
+                                                                {
+                                                                    <td><a id="hostel" href="#" data-toggle="modal" data-target=".bs-example-modal-lg"> Hostel</a></td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>NA</td>
+                                                                }
+                                                                @if (user.DepartmentId != "CLI")
+                                                                {
+                                                                    <td><a id="ShowUser" href="#" onclick=UsassignedCourseBatch('@item.UserId','@item.CourseCode','@item.BatchId')>Unassign</a></td>
+                                                                }
+
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    </tbody>*@
+                                        </table>
+                                    </div><!-- /.table-responsive -->
+                                    <div id="SHOW">
+                                        @if (ViewBag.BatchList == "NA")
+                                        {
+                                            <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                                <div class="fbox-icon">
+                                                    <i class="icon-thumbs-down2"></i>
+                                                </div>
+                                                <h3>No Candidates Record Please select Batch<span class="subtitle"></span></h3>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-7">
+                                <div class="container">
+                                    @if (batches != null)
+                                    {
+                                        if (batches.BatchId != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col_one_third">
+                                                    <label>Batch<small>*</small></label>
+                                                    <div class="input-group divcenter" id="Batch">
+                                                        <span class="input-group-addon"><i class="icon-book3"> </i></span>
+                                                        @Html.DropDownList("ABatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "ABatchId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third">
+                                                    <label>Training</label>
+                                                    <div class="input-group divcenter">
+                                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                        @Html.DropDownList("TrainingId", null, "---  Select Training ---", htmlAttributes: new { @class = "sm-form-control", placeholder = "Select Training", id = "TrainingId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third col_last" style="padding-top:1.3em;">
+                                                    <br /> <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick="GetAttendance()" title="Search" style=" float: right">Get Attendance</button>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col_full" id="TrainingAttendance">
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-8">
+                                <div class="container">
+                                    @if (batches != null)
+                                    {
+                                        if (batches.BatchId != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col_one_third">
+                                                    <label>Batch<small>*</small></label>
+                                                    <div class="input-group divcenter" id="Batch">
+                                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                        @Html.DropDownList("EBatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "EBatchId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third">
+                                                    <label>Training<small>*</small></label>
+                                                    <div class="input-group divcenter">
+                                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                        @Html.DropDownList("ETrainingId", null, "---  Select Training ---", htmlAttributes: new { @class = "sm-form-control", placeholder = "Select Training", id = "ETrainingId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third col_last" style="padding-top:1.3em;">
+                                                    <br /> <button type="button" id="btnEvaluation" class="btn btn-green btnalignleft" onclick="GetEvaluation()" title="Search" style=" float: right">Get Evaluation</button>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col_full" id="TrainingEvaluation">
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-9">
+                                <div class="container">
+                                    @if (batches != null)
+                                    {
+                                        if (batches.BatchId != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col_one_third">
+                                                    <label>Batch<small>*</small></label>
+                                                    <div class="input-group divcenter" id="Batch">
+                                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                        @Html.DropDownList("RBatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "RBatchId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third">
+                                                    <label>Training<small>*</small></label>
+                                                    <div class="input-group divcenter">
+                                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                                        @Html.DropDownList("RTrainingId", null, "---  Select Training ---", htmlAttributes: new { @class = "sm-form-control", placeholder = "Select Training", id = "RTrainingId" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="col_one_third col_last" style="padding-top:1.3em;">
+                                                    <br /> <button type="button" id="btnEvaluation" class="btn btn-green btnalignleft" onclick="GetReports()" title="Search" style=" float: right">Get Reports</button>
+                                                </div>
+                                            </div>
+                                            <div class="col_full" id="TrainingReports">
+
+                                            </div>
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-content clearfix" id="tabs-10">
+                                <div class="container">
+                                    @if (batches != null)
+                                    {
+                                        if (batches.BatchId != null)
+                                        {
+                                            <div class="fancy-title title-bottom-border">
+                                                <h4>Batch wise consolidated analytics</h4>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> Batch</th>
+                                                            <th> Passed</th>
+                                                            <th> Failed</th>
+                                                            <th> Absent</th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                            int lCount = 0;
+                                            int mCount = 0;
+                                            int nCount = 0;
+                                            int oCount = 0;
+                                                        }
+                                                        @foreach (var item in batch.Where(c => c.ToDate < DateTime.Now))
+                                                        {
+                                                            <tr>
+                                                                <td>@item.BatchName</td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 45).Count()
+                                                                    @{ lCount = @lCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 45).Count();}
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total < 45 && c.Total > 0).Count()
+                                                                    @{ mCount = @mCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total <= 44).Count();}
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total == 0).Count()
+                                                                    @{ nCount = @nCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total == 0).Count();}
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId).Count()
+                                                                    @{ oCount = @oCount + @Analytics.Where(c => c.BatchId == @item.BatchId).Count();}
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td>@lCount</td>
+                                                            <td>@mCount</td>
+                                                            <td>@nCount</td>
+                                                            <td>@oCount</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div><!-- /.table-responsive -->
+                                            <br />
+                                            <div class="fancy-title title-bottom-border">
+                                                <h4>Percentage of Marks (Distribution Pattern) %</h4>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> Batch</th>
+                                                            <th> 0-10</th>
+                                                            <th> 11-20</th>
+                                                            <th> 21-30</th>
+                                                            <th> 31-40</th>
+                                                            <th> 41-50</th>
+                                                            <th> 51-60</th>
+                                                            <th> 61-70</th>
+                                                            <th> 71-80</th>
+                                                            <th> 81-90</th>
+                                                            <th> 91-100</th>
+                                                            <th>Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                                        int aCount = 0;
+                                                        int bCount = 0;
+                                                        int cCount = 0;
+                                                        int dCount = 0;
+                                                        int eCount = 0;
+                                                        int fCount = 0;
+                                                        int gCount = 0;
+                                                        int hCount = 0;
+                                                        int iCount = 0;
+                                                        int jCount = 0;
+                                                        int kCount = 0;
+                                                        }
+                                                        @foreach (var item in batch.Where(c => c.ToDate < DateTime.Now))
+                                                        {
+
+                                                            <tr>
+                                                                <td>@item.BatchName</td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total < 11).Count()
+                                                                    @{ aCount = @aCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total <= 10).Count();}
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 11 && c.Total < 21).Count()
+                                                                    @{ bCount = @bCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 11 && c.Total <= 20).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 21 && c.Total < 31).Count()
+                                                                    @{  cCount = @cCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 21 && c.Total <= 30).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 31 && c.Total < 41).Count()
+                                                                    @{ dCount = @dCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 31 && c.Total <= 40).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 41 && c.Total < 51).Count()
+                                                                    @{  eCount = @eCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 41 && c.Total <= 50).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 51 && c.Total < 61).Count()
+                                                                    @{  fCount = @fCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 51 && c.Total <= 60).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 61 && c.Total < 71).Count()
+                                                                    @{  gCount = @gCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 61 && c.Total <= 70).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 71 && c.Total < 81).Count()
+                                                                    @{   hCount = @hCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 71 && c.Total <= 80).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 81 && c.Total < 91).Count()
+                                                                    @{ iCount = @iCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 81 && c.Total <= 90).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 91 && c.Total <= 100).Count()
+                                                                    @{  jCount = @jCount + @Analytics.Where(c => c.BatchId == @item.BatchId && c.Total >= 91 && c.Total <= 100).Count(); }
+                                                                </td>
+                                                                <td>
+                                                                    @Analytics.Where(c => c.BatchId == @item.BatchId).Count()
+                                                                    @{  kCount = @kCount + @Analytics.Where(c => c.BatchId == @item.BatchId).Count(); }
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td>@aCount</td>
+                                                            <td>@bCount</td>
+                                                            <td>@cCount</td>
+                                                            <td>@dCount</td>
+                                                            <td>@eCount</td>
+                                                            <td>@fCount</td>
+                                                            <td>@gCount</td>
+                                                            <td>@hCount</td>
+                                                            <td>@iCount</td>
+                                                            <td>@jCount</td>
+                                                            <td>@kCount</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div><!-- /.table-responsive -->
+
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="hostel">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-body">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Candidate Record</h4>
+                                        </div>
+                                        <div class="modal-body" id="hostel">
+                                            <div style=" text-align :center;margin :20px; tab-size:20; font-size:large; font-style:italic;">Check In Date :&nbsp; <input type="text" id="CheckInDate" value="" style="font-size:large" /> </div>
+                                            <div style=" text-align :center;margin :20px; tab-size:20; font-size:large; font-style:italic;">Check Out Date : <input type="text" id="CheckOutDate" value="" /></div>
+                                            <div style=" text-align :center;margin :20px; tab-size:20; font-size:large; font-style:italic;">Total Days: <input type="text" id="TotalDays" value="" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*modal popup for candidate attendence Detail*@
+                        <div class="modal fade bs-example-modallg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="Attendence">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-body">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModal">Attendence Detail</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-bordered nobottommargin" id="tblStuattendence">
+                                                <tr>
+                                                    <th>Student Name</th>
+                                                    <th>Status</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- .postcontent end -->
+                }
+            </div>
+            <input type="hidden" id="weburl" value="@Global.WebsiteUrl()" />
+            @Html.Hidden("RedirectTo", Url.Action("CourseDetail", "TMS"))
+            @Html.Hidden("RedirectToReplies", Url.Action("RemoveReplies", "TMS"))
+            @Html.Hidden("RedirectToRemove", Url.Action("RemoveComment", "TMS"))
+            @Html.Hidden("UassigneCourse", Url.Action("UnassignedCourse", "TMS"))
+            @Html.Hidden("TBatchId", ViewBag.TBatchId as string)
+            @Html.Hidden("TCourseCode", ViewBag.TCourseCode as string)
+            @Html.Hidden("PostTab", ViewBag.Tab as string)
+            @Html.Hidden("User", user.UserId)
+            @Html.Hidden("RedirectToReport", Url.Action("DownloadTrainingAssessmentSummary", "TMS", new { area = "TMS" }))
+            @Html.Hidden("RedirectToCandidateCredentials", Url.Action("DownloadCandidateCredentials", "TMS", new { area = "TMS" }))
+            @Html.Hidden("DownloadCourseCertificate", Url.Action("DownloadCandidateCertificate", "TMS"))
+        </div>
+
+
+        <div class="modal fade" id="modBody" tabindex="-1" role="dialog" aria-labelledby="myModalLabel23" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-body">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel23"><b>Help & Support</b> </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="tabs clearfix" id="tab-1">
+
+                                <ul class="tab-nav clearfix">
+                                    <li><a href="#tabs-1"><nobr>Course Details</nobr></a></li>
+                                    <li><a href="#tabs-2">Batches </a></li>
+                                    <li><a href="#tabs-3">Training</a></li>
+                                    <li><a href="#tabs-4">Candidates</a></li>
+                                    <li><a href="#tabs-5">Attendance</a></li>
+                                    <li><a href="#tabs-6">Evaluation</a></li>
+                                </ul>
+
+                                <div class="tab-container">
+                                    <div class="tab-content clearfix" id="tabs-1">
+                                        <div class="tabs clearfix" id="tab-1">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-25"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-26">Page Elements </a></li>
+                                                <li><a href="#tabs-27">Video</a></li>
+                                            </ul>
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-25">
+                                                    <h4> Navigation to Courses   </h4>
+
+                                                    <img src="~/images/gif/navigation to course details tab.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-26">
+
+                                                    <h4>Course Page Description</h4>
+                                                    <h6>• Click on course Name  to see the full details of course</h6>
+                                                    <img src="~/images/Images1/203.png" width="500" height="150">
+                                                    <h6> Here you can see course duration </h6>
+                                                    <img src="~/images/Images1/204.png" width="500" height="150">
+                                                    <h6> Here you can see the total number of batch under the course  </h6>
+                                                    <img src="~/images/Images1/205.png" width="500" height="150">
+                                                    <h6> Here you can see the course fee.  </h6>
+                                                    <img src="~/images/Images1/206.png" width="500" height="150">
+                                                    <p>•Course contains details of Courses,Batches,Trainings,Attendance & Evaluations</p>
+                                                    <h6>After clicking on course name you can see the full details of course </h6>
+                                                    <img src="~/images/Images1/207.png" width="700" height="250">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-27">
+
+                                                    <h4> Training Video for course details view   </h4>
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/VDs0wqaIAuE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                                                </div>
+                                                @*<div class="tab-content clearfix" id="tabs-4">
+                                                        <p>
+                                                                            <img src="C:\Reckonn Help\HTML\images\link images\j3.png" width="700" height="150">
+                                                        </p>
+
+                                                                        <a href="#" onclick="showImage();">DOP Trainers  </a><br>
+
+                                                                        <div id="course">
+
+                                                    </div>
+                                                                        <script type="text/javascript">
+                                                                            function showImage() {
+                                                                                $("#course").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j4.PNG" />');
+                                                                            }
+
+
+                                                                        </script>
+                                                                    </div>*@<div class="tab-content clearfix" id="tabs-4">
+                                                    <p>
+                                                        <img src="C:\Reckonn Help\HTML\images\link images\j3.png" width="700" height="150">
+                                                    </p>
+
+                                                    <a href="#" onclick="showImage();"></a><br>
+
+                                                    <div id="course">
+
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        function showImage() {
+                                                            $("#course").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j4.PNG" />');
+                                                        }
+
+
+                                                    </script>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content clearfix" id="tabs-6">
+                                        <div class="tabs clearfix" id="tab-6">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-22"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-23">Page Elements </a></li>
+                                                <li><a href="#tabs-24">Video</a></li>
+                                            </ul>
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-22">
+                                                    <h4> Navigation to Evaluation    </h4>
+
+                                                    <img src="~/images/gif/Navigation to evaluation.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-23">
+
+
+                                                    <h6>Here you can see the details of Evaluation</h6>
+
+                                                    <img src="~/images/Images1/330.png" width="600" height="350">
+                                                    <h6>Here you can see the Evaluation score.   </h6>
+
+                                                    <img src="~/images/Images1/331.png" width="600" height="350">
+                                                    <h6>Here you can see the count of total candidates.   </h6>
+
+                                                    <img src="~/images/Images1/332.png" width="600" height="350">
+                                                    <h6>You can download marks of the candidate.  </h6>
+
+                                                    <img src="~/images/Images1/333.png" width="600" height="350">
+                                                    <h6>You can download certificate of the candidate.  </h6>
+
+                                                    <img src="~/images/Images1/334.png" width="600" height="350">
+
+                                                    <h6>You can download Assesment Evaluation report.   </h6>
+
+                                                    <img src="~/images/Images1/335.png" width="600" height="350">
+
+                                                    <h6>You can see Assesment Evaluation report in pdf form .   </h6>
+
+                                                    <img src="~/images/Images1/336.png" width="600" height="350">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-24">
+
+                                                    <h4> Training Video to view Evaluation Score     </h4>
+
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/k29MrKE7fsw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                                    <h4> Training Video to download  Evaluation Score  record    </h4>
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/xWNnbJP6L2g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    @*<button type="button" class="btn btn-primary">Save changes</button>*@<button type="button" class="btn btn-primary"></button>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content clearfix" id="tabs-5">
+                                        <div class="tabs clearfix" id="tab-5">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-19"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-20">Page Elements </a></li>
+                                                <li><a href="#tabs-21">Video</a></li>
+                                            </ul>
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-19">
+                                                    <h4> Navigation to Attendance     </h4>
+
+                                                    <img src="~/images/gif/Navigation to attendance - Edited.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-20">
+                                                    <h6>You can see attendance record of the candidates according to batch.Select batch then select training & click on get attendance  </h6>
+
+                                                    <img src="~/images/Images1/321.png" width="600" height="350">
+                                                    <h6>Here you can see the attendance record   </h6>
+
+                                                    <img src="~/images/Images1/322.jpg" width="600" height="350">
+                                                    <h6>Here you can see the count of total candidates in the batch   </h6>
+
+                                                    <img src="~/images/Images1/323.png" width="600" height="350">
+                                                    <h6>Here P mark means candidate present  </h6>
+
+                                                    <img src="~/images/Images1/326.png" width="600" height="350">
+                                                    <h6>Here A mark means candidate Absent  </h6>
+
+                                                    <img src="~/images/Images1/327.png" width="600" height="350">
+                                                    <h6>Here you can see the ratio of present / total days</h6>
+
+                                                    <img src="~/images/Images1/324.png" width="600" height="350">
+                                                    <h6>Here you can see the ratio of present / total candidates </h6>
+
+                                                    <img src="~/images/Images1/325.png" width="600" height="350">
+                                                    <h6>You can download attendance analytics .  </h6>
+
+                                                    <img src="~/images/Images1/328.png" width="600" height="350">
+
+                                                    <h6>You can see attendance analytics in pdf form.  </h6>
+
+                                                    <img src="~/images/Images1/329.png" width="600" height="350">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-21">
+
+                                                    <h4>Here You Can See the Training Video to view Attendance record    </h4>
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/NGqnsmQoQDo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                                                    <h4> Training Video to download  Attendance record    </h4>
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/x-hKULup3S4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content clearfix" id="tabs-4">
+                                        <div class="tabs clearfix" id="tab-4">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-16"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-17">Page Elements </a></li>
+                                                <li><a href="#tabs-18">Video</a></li>
+                                            </ul>
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-16">
+                                                    <h4> Navigation to Candidate    </h4>
+
+                                                    <img src="~/images/gif/Navigation to candidates.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-17">
+
+                                                    <h6>This page contain details of Candidates .  </h6>
+                                                    <img src="~/images/Images1/314.PNG" width="800" height="350">
+                                                    <h6>
+                                                        If you want to see the specific batch candidates you can use the filter option here.
+                                                        you can filter candidates according to batch
+                                                    </h6>
+
+                                                    <img src="~/images/Images1/315.png">
+                                                    <h6> To filter candidates according to batch  select batch from the drop down ,then click on filter </h6>
+                                                    <img src="~/images/Images1/316.png" width="636" height="200">
+                                                    <h6> Filter-click on filter button to see list of candidates according to batch  </h6>
+                                                    <img src="~/images/Images1/317.png" width="600" height="250">
+
+                                                    <h6> You can see general details of the candidates,click on candidate name.   </h6>
+                                                    <img src="~/images/Images1/319.png" width="600" height="250">
+
+                                                    <h6> You can see the candidate's general detail here.</h6>
+                                                    <img src="~/images/Images1/320.png" width="600" height="250">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-18">
+
+                                                    <h4> Training Video for Candidates list view   </h4>
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/j7il5Zh2_qg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content clearfix" id="tabs-3">
+                                        <div class="tabs clearfix" id="tab-3">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-13"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-14">Page Elements </a></li>
+                                                <li><a href="#tabs-15">Video</a></li>
+                                            </ul>
+
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-13">
+                                                    <h4> See the Navigation to Training    </h4>
+
+                                                    <img src="~/images/gif/Navigation to training.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-14">
+
+                                                    <h6>This page contain details of Training of a particular course </h6>
+                                                    <img src="~/images/Images1/306.PNG" width="800" height="350">
+                                                    <h6>Here You can see the training creation date  </h6>
+
+                                                    <img src="~/images/Images1/307.png" width="600" height="250">
+                                                    <h6> Click on training name to see full details of trinings  </h6>
+                                                    <img src="~/images/Images1/308.png" width="600" height="250">
+                                                    <h6> Here you can see the trainer profile .  </h6>
+                                                    <img src="~/images/Images1/309.png" width="600" height="250">
+                                                    <h6> Here you can see the Batch Name .  </h6>
+                                                    <img src="~/images/Images1/310.png" width="600" height="250">
+                                                    <h6> Here you can see the Training status    </h6>
+                                                    <img src="~/images/Images1/311.png" width="600" height="250">
+
+                                                    <h6> Here you can download training summary  </h6>
+                                                    <img src="~/images/Images1/312.png" width="600" height="250">
+                                                    <h6> Here you can download training status  </h6>
+                                                    <img src="~/images/Images1/313.png" width="600" height="250">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-15">
+
+                                                    <h4>Training Video for Training  details view   </h4>
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/0e3bjeQ7uKQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                                                </div>
+                                                @*<div class="tab-content clearfix" id="tabs-4">
+                                                        <p>
+                                                                            <img src="C:\Reckonn Help\HTML\images\link images\j7.png" width="700" height="350">
+                                                        </p>
+
+                                                                        <a href="#" onclick="showImage();">Trainings  </a><br>
+
+                                                                        <div id="Trainings">
+
+                                                    </div>
+                                                                        <script type="text/javascript">
+                                                                            function showImage() {
+                                                                                $("#Trainings").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j8.PNG" />');
+                                                                            }
+                                                                        </script>
+                                                                    </div>*@<div class="tab-content clearfix" id="tabs-4">
+                                                    <p>
+                                                        <img src="C:\Reckonn Help\HTML\images\link images\j7.png" width="700" height="350">
+                                                    </p>
+
+                                                    <a href="#" onclick="showImage();"></a><br>
+
+                                                    <div id="Trainings">
+
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        function showImage() {
+                                                            $("#Trainings").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j8.PNG" />');
+                                                        }
+                                                    </script>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-content clearfix" id="tabs-2">
+                                        <div class="tabs clearfix" id="tab-2">
+                                            <h4><b>Help & Support</b></h4>
+                                            <ul class="tab-nav clearfix">
+                                                <li><a href="#tabs-10"><nobr>Navigation</nobr></a></li>
+                                                <li><a href="#tabs-11">Page Elements </a></li>
+                                                <li><a href="#tabs-12">Video</a></li>
+                                            </ul>
+                                            <div class="tab-container">
+
+                                                <div class="tab-content clearfix" id="tabs-10">
+                                                    <h4> Navigation to Batch    </h4>
+
+                                                    <img src="~/images/gif/Navigation to Batches.gif" alt="Save icon" />
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-11">
+
+                                                    <h6>This page contain details of Batches of a particular course </h6>
+                                                    <img src="~/images/Images1/208.PNG" width="800" height="350">
+                                                    <h6>You can see the batch name here </h6>
+
+                                                    <img src="~/images/Images1/209.png" width="600" height="250">
+                                                    <h6> Here you can see the Batch Schedule </h6>
+                                                    <img src="~/images/Images1/300.png" width="600" height="250">
+                                                    <h6> Here you can see the Batch Time duration  </h6>
+                                                    <img src="~/images/Images1/301.png" width="600" height="250">
+                                                    <h6> Here you can see the content availability .  </h6>
+                                                    <img src="~/images/Images1/303.png" width="600" height="250">
+                                                    <h6> Here you can see the Total no. of candidates of a particular batch   </h6>
+                                                    <img src="~/images/Images1/304.png" width="600" height="250">
+
+                                                    <h6> Here you can see the Location   </h6>
+                                                    <img src="~/images/Images1/305.png" width="600" height="250">
+                                                </div>
+                                                <div class="tab-content clearfix" id="tabs-12">
+
+                                                    <h4> Training Video for Batch details view   </h4>
+
+
+                                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/Ugo_SD95vVw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen id="myVideo"></iframe>
+                                                </div>
+                                                @*<script>
+                                                    if (window.matchMedia("(min-width: 320px)").matches) {
+                                                    var myPlayer = videojs('myVideo');
+                                                    resizeVideoJS();
+                                                    function resizeVideoJS() {
+                                                    var width = document.getElementById('myVideo').parentElement.offsetWidth;
+                                                    myPlayer.width(width);
+                                                    }
+
+                                                    window.onresize = resizeVideoJS;
+                                                    }
+                                                    </script>*@
+                                                <script>
+                                                    if (window.matchMedia("(min-width: 320px)").matches) {
+                                                        var myPlayer = videojs('myVideo');
+                                                        resizeVideoJS();
+                                                        function resizeVideoJS() {
+                                                            var width = document.getElementById('myVideo').parentElement.offsetWidth;
+                                                            myPlayer.width(width);
+                                                        }
+
+                                                        window.onresize = resizeVideoJS;
+                                                    }
+                                                </script>
+                                                @*<div class="tab-content clearfix" id="tabs-13">
+                                                                            <p>
+                                                                                <img src="C:\Reckonn Help\HTML\images\link images\j5.png" width="700" height="350">
+                                                                            </p>
+                                                                            <a href="#" onclick="showImage();">Batches  </a><br>
+                                                                            <div id="Batches">
+                                                    </div>
+                                                                            <script type="text/javascript">
+                                                                                function showImage() {
+                                                                                    $("#Batches").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j6.PNG" />');
+                                                                                }
+                                                                            </script>
+                                                                        </div>*@<div class="tab-content clearfix" id="tabs-13">
+                                                    <p>
+                                                        <img src="C:\Reckonn Help\HTML\images\link images\j5.png" width="700" height="350">
+                                                    </p>
+                                                    <a href="#" onclick="showImage();"></a><br>
+                                                    <div id="Batches">
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        function showImage() {
+                                                            $("#Batches").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j6.PNG" />');
+                                                        }
+                                                    </script>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+
+<script language="javascript">
+
+    $(document).ready(function () {
+        $('.tab-nav a[href="#tabs-2"]').tab('show');
+        //$('#tabs div').hide();
+        //$('#tabs div').eq(2).show();
+        //$('#tabs ul li').eq(2).addClass('active');
+        $("#tabs").click(function () {
+            $('.tab-nav a[href="#tabs-2"]').tab('show');
+        });
+
+        //  $("#tabs").tabs("option", "active", 2);
+        //$('#tabBatches').children('a').get(0).click();
+        //$('#tabCourseDetails').removeClass('active');
+        //$('#tabBatches').addClass('active');
+        //alert($('#PostTab').val());
+
+        //if($('#PostTab').val() == "2")
+        //{
+        //    //$('.tab-nav > .active').next('li').find('a').trigger('click');
+        //    $('#tabBatches').click();
+        //}
+        //if($('#Tab').val() == "2")
+        //{
+        //    document.getElementById("defaultOpen").click();
+        //    $('#Tab').val(0);
+        //}
+    });
+
+
+
+    //function openTab(evt, tabName) {
+    //    var i, tabcontent, tablinks;
+    //    tabcontent = document.getElementsByClassName("tab-content");
+    //    for (i = 0; i < tabcontent.length; i++) {
+    //        tabcontent[i].style.display = "none";
+    //    }
+    //    tablinks = document.getElementsByClassName("tablinks");
+    //    for (i = 0; i < tablinks.length; i++) {
+    //        tablinks[i].className = tablinks[i].className.replace("active", "");
+    //    }
+    //    document.getElementById(tabName).style.display = "block";
+    //    evt.currentTarget.className += "active";
+    //}
+
+
+    function ShowHideDivOnButtonClick(commentid) {
+        $('#' + commentid).toggle("fast");
+        return true;
+    }
+    //For Reply
+    function SubmitData(commentId) {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/CourseDetail",
+            data: {
+                CourseCode: $('#CourseCode').val(),
+                CommentId: commentId,
+                Reply: $('#userReply' + commentId).val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var url = $("#RedirectTo").val() + "?CourseCode=" + $('#CourseCode').val();
+                location.href = url;
+            }
+        });
+    }
+
+    function GetAttendance() {
+
+        if ($("#ABatchId :selected").val() == undefined || $("#ABatchId :selected").val() == '') {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select Batch',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-red',
+                icon: 'icon-thumbs-down2 icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+            $("#ABatchId").focus();
+            return false;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/GetsCourseDetail",
+            data: {
+                ABatchId: $("#ABatchId :selected").val(),
+                TrainingId: $("#TrainingId :selected").val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data != null && data.length > 0) {
+                    $('#TrainingAttendance').html(data);
+                }
+            }
+        })
+    }
+
+    function ConfirmationDialogReply(CourseCode, RId) {
+        $.confirm({
+            title: 'Confirmation',
+            content: 'Are you sure you want to delete review?',
+            confirmButton: 'Yes',
+            confirmButtonClass: 'btn-info',
+            cancelButton: 'No',
+            cancelButtonClass: 'btn-warning',
+            icon: 'fa fa-question-circle fa-2x',
+            animation: 'scale',
+            animationClose: 'top',
+            confirm: function () {
+                var url = $("#RedirectToReplies").val() + "?CC=" + CourseCode + "&RId=" + RId;
+                location.href = url;
+            }
+        });
+        return false;
+    }
+
+    function ConfirmationDialogComment(CourseCode, CId) {
+        $.confirm({
+            title: 'Confirmation',
+            content: 'Are you sure you want to delete comment?',
+            confirmButton: 'Yes',
+            confirmButtonClass: 'btn-info',
+            cancelButton: 'No',
+            cancelButtonClass: 'btn-warning',
+            icon: 'fa fa-question-circle fa-2x',
+            animation: 'scale',
+            animationClose: 'top',
+            confirm: function () {
+                var url = $("#RedirectToRemove").val() + "?CC=" + CourseCode + "&CId=" + CId;
+                location.href = url;
+            }
+        });
+        return false;
+    }
+
+    function UsassignedCourseBatch(UserId, CourseCode, BatchId) {
+        $.confirm({
+            title: 'Confirmation',
+            content: 'Are you sure you want to unassign batch for this candidate?',
+            confirmButton: 'Yes',
+            confirmButtonClass: 'btn-info',
+            cancelButton: 'No',
+            cancelButtonClass: 'btn-warning',
+            icon: 'fa fa-question-circle fa-2x',
+            animation: 'scale',
+            animationClose: 'top',
+            confirm: function () {
+                var url = $("#UassigneCourse").val() + "?UID=" + UserId + "&CC=" + CourseCode + "&BID=" + BatchId;
+                location.href = url;
+            }
+        });
+        return false;
+    }
+
+    function SendValue(CourseCode, url) {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/GetBatchWiseStudent",
+            data: {
+                CourseCode: CourseCode,
+                BatchId: $("#BatchId :selected").val(),
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var UserProfile = JSON.parse('@Html.Raw(Json.Encode(ViewData["UserProfile"]))');
+                var tr; TrainingAttendance
+                var dateString = data[0].CourseStartDate.substr(6);
+                var dateFormatted = new Date(parseInt(dateString));
+                var month = parseInt(dateString.substring(4, 6), 10);
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var month = dateFormatted.getMonth();
+                var day = dateFormatted.getDate();
+                var year = dateFormatted.getFullYear();
+                mm = months[month];
+                var date = day + "-" + mm + "-" + year;
+                var dateString1 = data[0].CourseEndDate.substr(6);
+                var dateFormatted1 = new Date(parseInt(dateString1));
+                var month1 = dateFormatted1.getMonth();
+                var day1 = dateFormatted1.getDate();
+                var year1 = dateFormatted1.getFullYear();
+                mm1 = months[month1];
+                var date1 = day1 + "-" + mm1 + "-" + year1;
+                var CourseCode = data[0].CourseCode;
+                var BatchId = data[0].BatchId;
+                var jsonObjQue = @Html.Raw(Json.Encode(ViewBag.User));
+                var candidatecreden = '';
+
+                $('#totalCand').empty();
+                $('#totalCand').append('' +
+
+                 '<div class="col_one_fifth fleft">TotalCandidate :' + data.length+
+                 '</div>'+
+                  '<div class="col_one_fifth fleft">start Date :' + date+
+                 '</div>'+
+                  '<div class="col_one_fifth fleft">End Date :' + date1+
+                 '</div>' +
+                 '<div class="col_one_sixth col_last">');
+                if (UserProfile.Role != "Client") {
+                    candidatecreden = '<a id="btnSearch" onclick="CandidateCredentials(' + BatchId + ')"> Download Candidate Credentials</a> ';
+                }
+                if (UserProfile.Role != "Client" && jsonObjQue) {
+                    candidatecreden = candidatecreden +'/';
+                }
+                if(jsonObjQue){
+                    candidatecreden = candidatecreden + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadCandidateRecordBatchWise?CourseCode=' + CourseCode + '&BatchId=' + BatchId + '>Export</a>';
+                }
+                '</div>';
+                $('#totalCand').append(candidatecreden);
+
+                $('#CandiadateDT').empty();
+                tr = $('<tr>');
+                tr.append("<th> S.No</th>");
+                tr.append("<th> Candidate Name</th>");
+                tr.append("<th> Registration Number</th>");
+                tr.append("<th> Designation</th>");
+                tr.append("<th> Region</th>");
+                //tr.append("<th> Course Name</th>");
+                //tr.append("<th> Batch Name</th>");
+                //tr.append("<th> start Date</th>");
+                //tr.append("<th> End Date</th>");
+                //tr.append("<th>Course Fee</th>");
+                tr.append("<th>Hostel Detail</th>");
+                if (UserProfile.Role != "Client") {
+
+                    tr.append("<th>Training Scheduled</th>");
+                }
+                // tr.append("<th>Download Certificate</th></tr>");
+                $('#CandiadateDT').append(tr);
+
+                for (var i = 0; i < data.length; i++) {
+                    var coun = 1
+                    var count1 = i + coun;
+                    tr = $('<tr>');
+                    tr.append("<td>" + count1 + "</td>");
+                    tr.append("<td> <a href='" + url + "Candidate/Candidate/CandidateProfile?UserId=" + data[i].UserId + "'>" + data[i].Name + "</a></td>");
+                    //tr.append("<td>" + data[i].CourseName + "</td>");
+                    //tr.append("<td>" + data[i].BatchName + "</td>");
+                    //tr.append("<td>" + date + "</td>");
+                    //tr.append("<td>" + date1 + "</td>");
+                    //if (data.TotalFeeAmount > 0) {
+                    //    tr.append("<td>" + data[i].TotalFeeAmount + "</td>");
+                    //}
+                    //else {
+                    //    tr.append("<td>" + data[i].TotalCourseFees + "</td>");
+                    //}
+
+                    tr.append("<td>" + data[i].RegistrationId + "</td>");
+                    tr.append("<td>" + data[i].Designation + "</td>");
+                    tr.append("<td>" + data[i].Region + "</td>");
+                    tr.append("<td class='hidden'>$(' <input type='hidden'  class='CCheckInDate'  value= '" + data[i].CheckInDate + "'>')></td>");
+                    tr.append("<td class ='hidden'>$(' <input type ='hidden' class = 'CCheckOutDate' value = '" + data[i].CheckOutDate + "'>')></td>");
+                    tr.append("<td class ='hidden'>$(' <input type ='hidden' class ='TTotalDays' value = '" + data[i].TotalDays + "'>')></td>");
+                    if (data[i].CorporateId != $('#User').val()) {
+                        if (data[i].AccomondationNeeded) {
+                            tr.append("<td><a id='hostel' data-toggle='modal' data-target='.bs-example-modal-lg' > Hostel</a></td>");
+                        }
+                        else {
+                            tr.append("<td>NA</td>");
+                        }
+                    }
+                    else {
+                        tr.append("<td>NA</td>");
+                    }
+                    if (UserProfile.Role != "Client") {
+                        tr.append("<td><a id='ShowUser' onclick=UsassignedCourseBatch('" + data[i].UserId + "," + data[i].CourseCode + "," + data[i].BatchId + "')> Unassign</a></td>");
+                    }
+                    // tr.append("<td><a onclick=DownloadCertificate('"+data[i].UserId+"')>Download Certificate</a></td></tr>");
+                    $('#CandiadateDT').append(tr);
+                }
+                document.getElementById('SHOW').hidden = true;
+            }
+        });
+    }
+
+    $("#CandiadateDT").on('click', "#hostel", function () {
+        $("#CheckInDate").val($(this).closest('tr').find(".CCheckInDate").val());
+        $("#CheckOutDate").val($(this).closest('tr').find(".CCheckOutDate").val());
+        $("#TotalDays").val($(this).closest('tr').find(".TTotalDays").val());
+    });
+    //$("#Stuattendence").on('click', "#Showcandidate", function () {
+    //    $("#StudentName").val($(this).closest('tr').find(".Studentname").val());
+    //    $("#StudentStatus").val($(this).closest('tr').find(".Status").val());
+    //    $("#StudentRemarks").val($(this).closest('tr').find(".StuRemarks").val());
+    //});
+
+    function CandidateExport(CourseCode, BatchId) {
+        var url = $('#weburl').val() + "/TMS/TMS/DownloadCandidateRecordBatchWise?CourseCode=" + CourseCode + "&BatchId=" + BatchId;
+        location.href = url;
+    }
+
+</script>
+
+<script type="text/javascript">
+    $('#TrainerId').change(function () {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/TrainerAvailability",
+            data: {
+                TrainerId: $('#TrainerId').val(),
+                BatchId: $('#BatchId').val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data == false) {
+                    $.alert({
+                        title: 'Alert',
+                        content: '<b>Selected trainer not Available </b> on this duration please select another trainer',
+                        confirmButton: 'OK',
+                        confirmButtonClass: 'button button-3d button-rounded button-red',
+                        icon: 'icon-thumbs-down2 icon-2x ',
+                        animation: 'zoom',
+                        confirm: function () {
+                        }
+                    });
+                    $("#TrainerId").focus();
+                }
+            }
+        });
+    });
+    $('#CourseCode').change(function () {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/GetBatch",
+            data: { CourseCode: $('#CourseCode').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var batch = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='sm-form-control' id='BatchId'>";
+                batch = batch + '<option value="">--- Select Batch ---</option>';
+                for (var i = 0; i < data.length; i++) {
+                    batch = batch + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                }
+                batch = batch + '</select>';
+                $('#Batch').html(batch);
+            }
+        });
+    });
+    $('#ABatchId').change(function () {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/TrainingForBatch",
+            data: {
+                BatchId: $('#ABatchId :selected').val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var trainings = "   <span class='input-group-addon'><i class='icon-user2'> </i></span><select class='sm-form-control' id='TrainingId'>";
+                trainings = trainings + '<option value="">--- Select Training ---</option>';
+                for (var i = 0; i < data.length; i++) {
+                    trainings = trainings + '<option value=' + data[i].TrainingId + '>' + data[i].SubjectLine + '</option>';
+                }
+                trainings = trainings + '</select>';
+                $('#TrainingId').html(trainings);
+
+                if (($('#ABatchId :selected').val() == undefined || $('#ABatchId :selected').val() == '') && (data.length == 0)) {
+                    $('#TrainingAttendance').html('');
+                }
+            }
+        });
+    });
+
+    $('#assignToWikiCourse').click(function () {
+        if ($("#WikiCourseCode").val() == "" || $("#WikiCourseCode").val() <= 0) {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select a course to Integrate',
+                confirmButton: 'OK',
+                confirmButtonClass: 'btn btn-warning',
+                icon: 'icon-warning-sign icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+        }
+        else {
+
+            $.ajax({
+                type: "post",
+                url: "/TMS/TMS/CourseIntegrateToLMS",
+                data: {
+                    WikiCourseCode: $('#WikiCourseCode').val(),
+                    CourseCode: $('#CourseCode').val()
+                },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data == true) {
+                        $.alert({
+                            title: 'Cheers',
+                            content: 'Course integrated <b>Successfully</b>',
+                            confirmButton: 'OK',
+                            confirmButtonClass: 'button button-3d button-rounded button-teal',
+                            icon: 'icon-thumbs-up2 icon-2x ',
+                            animation: 'zoom',
+                            confirm: function () {
+                                location.href = $("#RedirectTo").val() + "?CourseCode=" + $('#CourseCode').val();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+    });
+
+
+    function pagehelp() {
+        $('#modBody').modal('show');
+        $("#modBody").modal({
+            backdrop: 'static',
+            keyboard: false,
+        })
+    };
+
+
+
+    function TrainingSummReport(BatchId, TrainingId) {
+        var url = $("#RedirectToReport").val() + "?BatchId=" + BatchId + "&TrainingId=" + TrainingId;
+        window.location.href = url;
+    }
+    function DownloadCertificate(UserId) {
+        var url = $("#DownloadCourseCertificate").val() + "?Id=" + UserId;
+        window.location.href = url;
+    }
+    function CandidateCredentials(BatchId) {
+
+        var url = $("#RedirectToCandidateCredentials").val() + "?BatchId=" + BatchId;
+        window.location.href = url;
+    }
+
+    function ConfirmationDialogs(TrainingId, CourseCode, UserAction) {
+        $.confirm({
+            title: 'Confirmation',
+            content: 'Are you sure you want to Delete this Training?',
+            confirmButton: 'Yes',
+            confirmButtonClass: 'btn-success',
+            cancelButton: 'No',
+            cancelButtonClass: 'btn-danger',
+            icon: 'icon-thumbs-up icon-2x ',
+            animation: 'Zoom',
+            confirm: function () {
+
+                var url = $("#RedirectTo").val() + "?TrainingId=" + TrainingId + "&CourseCode=" + CourseCode + "&UserAction=" + UserAction;
+                location.href = url;
+            }
+        });
+        return false;
+    };
+
+    $('#EBatchId').change(function () {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/TrainingForBatch",
+            data: {
+                BatchId: $('#EBatchId :selected').val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var trainings = "   <span class='input-group-addon'><i class='icon-user2'> </i></span><select class='sm-form-control' id='ETrainingId'>";
+                trainings = trainings + '<option value="">--- Select Training ---</option>';
+                for (var i = 0; i < data.length; i++) {
+                    trainings = trainings + '<option value=' + data[i].TrainingId + '>' + data[i].SubjectLine + '</option>';
+                }
+                trainings = trainings + '</select>';
+                $('#ETrainingId').html(trainings);
+
+                if (($('#EBatchId :selected').val() == undefined || $('#EBatchId :selected').val() == '') && (data.length == 0)) {
+                    $('#TrainingEvaluation').html('');
+                }
+            }
+        });
+    });
+
+    function GetEvaluation() {
+        if ($("#EBatchId :selected").val() == undefined || $("#EBatchId :selected").val() == '') {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select Batch',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-red',
+                icon: 'icon-thumbs-down2 icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+            $("#EBatchId").focus();
+            return false;
+        }
+
+        if ($("#ETrainingId :selected").val() == undefined || $("#ETrainingId :selected").val() == '') {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select Training',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-red',
+                icon: 'icon-thumbs-down2 icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+            $("#ETrainingId").focus();
+            return false;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/GetEvaluationPerBatchNTraining",
+            data: {
+                TrainingId: $("#ETrainingId :selected").val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data != null) {
+                    if (data.TrainingAssessments.length == 0) {
+                        $('#TrainingEvaluation').html("No Evaluations Found for the Training.");
+                    }
+                    else if (data.Assessments.length == 0) {
+                        $('#TrainingEvaluation').html("No Evaluations Found for the Training.");
+                    }
+                    else {
+                        $('#TrainingEvaluation').html("");
+                        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        var fromdate = new Date(data.TrainingAssessments[0].FromDate.substring(6, data.TrainingAssessments[0].FromDate.length - 2) * 1);
+                        fd = (fromdate.getDate() < 10 ? ('0' + fromdate.getDate()) : ('' + fromdate.getDate())) + '-' + months[fromdate.getMonth()] + '-' + fromdate.getFullYear();
+                        var todate = new Date(data.TrainingAssessments[0].ToDate.substring(6, data.TrainingAssessments[0].ToDate.length - 2) * 1);
+                        td = (todate.getDate() < 10 ? ('0' + todate.getDate()) : ('' + todate.getDate())) + '-' + months[todate.getMonth()] + '-' + todate.getFullYear();
+                        var TEContent = '<div class="col_full"><div class="fancy-title title-bottom-border"><h6>' + data.TrainingAssessments[0].SubjectLine + '</h6></div>' +
+                            '<small class="fright">Total Candidate: ' + data.CandidateCount + '</small>';
+                        //'<div class="col_one_third"><label>Trainer:</label>' + data.TrainingAssessments[0].Name + '</div>' +
+                        //'<div class="col_one_third"><label>Total Trainee:</label>' + data.CandidateCount + '</div><div class="col_one_third col_last">' +
+                        //'<label>Training From: </label>' + fd + '<br /><label>Training To:</label>' + td + '</div></div>';
+                        TEContent = TEContent + '<div class="col_full"><table class="table table-bordered table-striped table-responsive nobottommargin">' +
+                            '<thead><tr><th>S.No.</th><th>Candidate Name</th>';
+                        var percentTd = "";
+                        var certificateTd = "";
+                        for (var i = 0; i < data.TrainingAssessments.length; i++) {
+                            TEContent = TEContent + '<th> ' + data.TrainingAssessments[i].Assessment + ' (' + data.TrainingAssessments[i].Weightage + ' %)</th>';
+                        }
+                        TEContent = TEContent + '<th>Percentage</th>';
+                        TEContent = TEContent + '<th>Download Marks</th>';
+                        TEContent = TEContent + '<th>Download Certificate</th>';
+                        TEContent = TEContent + '</tr></thead>';
+                        TEContent = TEContent + '<tbody>';
+                        var count = 1;
+                        for (var j = 0; j < data.candidate.length; j++) {
+                            TEContent = TEContent + '<tr><td>' + count + '</td><td>' + data.candidate[j].Name + '</td>';
+                            count = count + 1;
+                            for (var k = 0; k < data.TrainingAssessments.length; k++) {
+                                var qItem = data.Assessments.filter(function (asmt) { return (asmt.UserId == data.candidate[j].UserId && asmt.AssessmentId == data.TrainingAssessments[k].AssessmentId) });
+                                if (qItem.length > 0) {
+                                    TEContent = TEContent + '<td>' + qItem[0].Percentage + '</td>';
+                                    percentTd = '<td><a href="/TMS/TMS/DownloadAssessmentMarks?TrainingId=' + data.TrainingAssessments[0].TrainingId + '&CandidateId=' + data.candidate[j].UserId + '" ><i class="icon-download"></i></a></td>';
+                                    certificateTd = '<td><a href="/TMS/TMS/DownloadCandidateCertificate?Id=' + data.candidate[j].UserId + '&CourseCode=' + data.candidate[j].CourseCode + '"><i class="icon-download"></i></a></td>';
+                                }
+                                else {
+                                    TEContent = TEContent + '<td> </td>';
+                                    percentTd = '<td> </td>';
+                                    certificateTd = '<td></td>';
+                                }
+                            }
+                            if (data.Assessments.length > 0) {
+                                var aItem = data.Assessments.filter(function (asmt) { return (asmt.UserId == data.candidate[j].UserId && asmt.TrainingId == data.TrainingAssessments[0].TrainingId) });
+                                var total = 0;
+                                if (aItem.length > 0) {
+                                    for (var y = 0; y < aItem.length; y++) {
+                                        if (aItem[y].Weightage == 0 || aItem[y].Weightage == undefined || aItem[y].Weightage == '' || aItem[y].Weightage == "") {
+                                            total = total + parseFloat(aItem[y].Percentage);
+                                        }
+                                        else {
+                                            total = total + parseFloat(aItem[y].Percentage * aItem[y].Weightage) / 100;
+                                        }
+                                    }
+
+                                    // percentTd = '<td><a href="/TMS/TMS/DownloadAssessmentMarks?TrainingId=' + data.TrainingAssessments[0].TrainingId + '&CandidateId=' + data.candidate[j].UserId + '" ><i class="icon-download"></i></a></td>';
+
+                                    //percentTd = '<td></td>';
+
+                                }
+                                TEContent = TEContent + '<td>' + parseFloat(total.toFixed(2)) + ' %</td>';
+                            }
+                            else {
+                                TEContent = TEContent + '<td>NIL</td>';
+                            }
+
+                            // TEContent = TEContent + '<td><a href="/TMS/TMS/DownloadAssessmentMarks?TrainingId=' + data.TrainingAssessments[0].TrainingId + '&CandidateId=' + data.candidate[j].UserId + '" ><i class="icon-download"></i></a></td>';
+
+                            TEContent = TEContent + percentTd;
+
+                            TEContent = TEContent + certificateTd;
+                        }
+
+                        TEContent = TEContent + '</tr></tbody></table>';
+                        TEContent = TEContent + '<br><a href="/TMS/TMS/DownloadAssessmentEvaluation?TrainingId=' + data.TrainingAssessments[0].TrainingId + '" >Download Assessment Evaluation</a>';
+                        $('#TrainingEvaluation').html(TEContent);
+                    }
+                }
+            }
+        })
+    }
+
+    $('#RBatchId').change(function () {
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/TrainingForBatch",
+            data: {
+                BatchId: $('#RBatchId :selected').val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                var trainings = "   <span class='input-group-addon'><i class='icon-user2'> </i></span><select class='sm-form-control' id='RTrainingId'>";
+                trainings = trainings + '<option value="">--- Select Training ---</option>';
+                for (var i = 0; i < data.length; i++) {
+                    trainings = trainings + '<option value=' + data[i].TrainingId + '>' + data[i].SubjectLine + '</option>';
+                }
+                trainings = trainings + '</select>';
+                $('#RTrainingId').html(trainings);
+
+                if (($('#RBatchId :selected').val() == undefined || $('#RBatchId :selected').val() == '') && (data.length == 0)) {
+                    $('#TrainingReports').html('');
+                }
+            }
+        });
+    });
+    function GetReports() {
+        if ($("#RBatchId :selected").val() == undefined || $("#RBatchId :selected").val() == '') {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select Batch',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-red',
+                icon: 'icon-thumbs-down2 icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+            $("#RBatchId").focus();
+            return false;
+        }
+
+        if ($("#RTrainingId :selected").val() == undefined || $("#RTrainingId :selected").val() == '') {
+            $.alert({
+                title: 'Alert',
+                content: 'Please select Training',
+                confirmButton: 'OK',
+                confirmButtonClass: 'button button-3d button-rounded button-red',
+                icon: 'icon-thumbs-down2 icon-2x ',
+                animation: 'zoom',
+                confirm: function () {
+                }
+            });
+            $("#RTrainingId").focus();
+            return false;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/TMS/TMS/GetTrainingReports",
+            data: {
+                TrainingId: $("#RTrainingId :selected").val(),
+                BatchId: $("#RBatchId :selected").val()
+            },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                if (data != null) {
+
+                    $('#TrainingReports').html("");
+                    var TEContent = '<div class="col_full"><div class="fancy-title title-bottom-border"><h6>Training Reports</h6></div>' ;
+
+                    TEContent = TEContent + '<div class="col_full"><table class="table table-bordered table-striped table-responsive nobottommargin">' +
+                        '<thead><tr><th>Reports</th><th>Excel</th><th>PDF</th>';
+                    TEContent = TEContent + '</tr></thead>';
+                    TEContent = TEContent + '<tbody>';
+
+                    TEContent = TEContent + '<tr><td>' + "Candidate Credentials" + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadCandidateCredentialsExcel?BatchId=' +  data.BatchId + '><i class="icon-download"></i></a>' + '</td><td>' + '<a id="btnSearch" onclick="CandidateCredentials(' + data.BatchId + ')"> <i class="icon-download"></i></a> ' + '</td>';
+                    if (data.CandidateAttendance.length > 0) {
+                        TEContent = TEContent + '<tr><td>' + "Candidate Attendance" + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadCandidateAttendenceExcel?BatchId=' + data.BatchId + '&SubscriberId=' + "null" + '&TrainingId=' + data.TrainingId + '><i class="icon-download"></i></a>' + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadCandidateAttendence?BatchId=' + data.BatchId + '&SubscriberId=' + "null" + '&TrainingId=' + data.TrainingId + '><i class="icon-download"></i></a>' + '</td>';
+                    }
+                    if (data.OnlineTrainingAssessments.length > 0) {
+                        for (var i = 0; i < data.OnlineTrainingAssessments.length; i++) {
+                            TEContent = TEContent + '<tr><td>' + data.OnlineTrainingAssessments[i].Assessment + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/CandidateAssessmentExcelReport?PublicationId=' + data.OnlineTrainingAssessments[i].PublicationId + '&BatchId=' +  data.BatchId + '&TrainingId=' +  data.TrainingId + '><i class="icon-download"></i></a>' + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/CandidateAssessmentSummaryReport?PublicationId=' + data.OnlineTrainingAssessments[i].PublicationId + '&BatchId=' +  data.BatchId + '&TrainingId=' +  data.TrainingId + '><i class="icon-download"></i></a> ' + '</td>';
+                        }
+                    }
+                    if (data.OfflineTrainingAssessments.length > 0) {
+                        for (var i = 0; i < data.OfflineTrainingAssessments.length; i++) {
+                            TEContent = TEContent + '<tr><td>' + data.OfflineTrainingAssessments[i].Assessment + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadOfflineTrainingAssessmentExcel?TrainingId=' +  data.TrainingId + '&AssessmentId=' + data.OfflineTrainingAssessments[i].AssessmentId +'><i class="icon-download"></i></a>' + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadOfflineTrainingAssessmentPDF?TrainingId=' +  data.TrainingId + '&AssessmentId=' + data.OfflineTrainingAssessments[i].AssessmentId  + '><i class="icon-download"></i></a> ' + '</td>';
+                        }
+                    }
+                    TEContent = TEContent + '<tr><td>' + "Consolidated Assessment Evaluation" + '</td><td>' + '<a href="/TMS/TMS/DownloadAssessmentEvaluationExcel?TrainingId=' + data.TrainingId + '" ><i class="icon-download"></i></a>' + '</td><td>' + '<a href="/TMS/TMS/DownloadAssessmentEvaluation?TrainingId=' + data.TrainingId + '" ><i class="icon-download"></i></a>' + '</td>';
+                    TEContent = TEContent + '<tr><td>' + "Training Summary" + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadTrainingAssessmentSummaryExcel?BatchId=' + data.BatchId + '&TrainingId=' +  data.TrainingId + '><i class="icon-download"></i></a>' + '</td><td>' + '<a href=' + $('#weburl').val() + 'TMS/TMS/DownloadTrainingAssessmentSummary?BatchId=' + data.BatchId + '&TrainingId=' +  data.TrainingId + '><i class="icon-download"></i></a> ' + '</td>';
+                }
+
+                TEContent = TEContent + '</tr></tbody></table>';
+                $('#TrainingReports').html(TEContent);
+            }
+        })
+    }
+</script>
