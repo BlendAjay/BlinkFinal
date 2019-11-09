@@ -10,8 +10,8 @@
     @Html.Hidden("TMS", ViewBag.TMS as string)
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="card ">
-        <div class="card-header text-center"><a href="../index.html"><img class="logo-img" src="~/img/BlinkLogo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+    <div class="card">
+        <div class="card-header text-center"><a href="@Url.Action("Index", "Home", new { area = ""})"><img class="logo-img" src="~/img/BlinkLogo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
         <div class="card-body">
             <form>
                 <div class="form-group">

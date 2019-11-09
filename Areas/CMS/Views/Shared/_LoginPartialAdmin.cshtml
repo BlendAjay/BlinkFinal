@@ -86,13 +86,13 @@
     }
 
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="icon-stack"></i>Payroll Setup</a>
+        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="icon-stack"></i>Settings</a>
         <div id="submenu-6" class="collapse submenu" style="">
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("CompanySetting", "User", new { Area = "CMS"})"><i class="icon-settings"></i>Company Settings</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("EngagementType", "Employee", new { Area = "EMS" })"><i class="icon-calendar"></i>Leave Settings</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Payrollheads", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payroll Setting</a></li>
+                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Payrollheads", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payroll Setting</a></li>*@
             </ul>
         </div>
     </li>
@@ -168,18 +168,18 @@
             </ul>
         </div>
     </li>
-    <li class="nav-item">
+    @*<li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-14" aria-controls="submenu-14"><i class="icon-pen"></i>PMS</a>
         <div id="submenu-14" class="collapse submenu" style="">
             <ul class="nav flex-column">
-                @*<li class="nav-item">
+                <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Resignation", "Letter", new { Area = "EMS" })"><i class="icon-file"></i>Resignation</a>
-                    </li>*@
+                    </li>
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Letter", new { Area = "EMS" })"><i class="icon-calendar-1"></i>Employee Resigantion</a></li>
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeeConfirmation", "Payroll", new { Area = "PMS" })"><i class="icon-calendar-1"></i>Employee Confimation</a></li>
             </ul>
         </div>
-    </li>
+    </li>*@
     @*if (AJSolutions.DAL.Global.IsIPPBStatusReportAccess(user.SubscriberId))
         {
             //<li class="nav-item"><a class="nav-link" href="@Url.Action("MasterTrainerTrainingOrder", "Course", new { Area = "TMS" })"><i class="icon-file"></i>Master Trainer Training Order</a></li>
