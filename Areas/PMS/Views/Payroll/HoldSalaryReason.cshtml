@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("HoldSalaryReason", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "HoldSalaryReason", role = "form" }))
+@using (Html.BeginForm("HoldSalaryReason", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "HoldSalaryReason", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -25,14 +25,14 @@
                     @Html.LabelFor(model => model.HoldReason, "Reason")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-cog"> </i></span>
-                        @Html.EditorFor(model => model.HoldReason, new { htmlAttributes = new { @class = "sm-form-control required", id = "HoldReason", placeholder = "Enter Reason" } })
+                        @Html.EditorFor(model => model.HoldReason, new { htmlAttributes = new { @class = "form-control required", id = "HoldReason", placeholder = "Enter Reason" } })
                     </div>
                 </div>
 
                 <div class="col_full">
                     @Html.LabelFor(model => model.Description, "Description")
                     <div class="input-group divcenter">
-                        @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Description", @placeholder = "Enter Description Here.." })
+                        @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 2048, id = "Description", @placeholder = "Enter Description Here.." })
                     </div>
                 </div>
 

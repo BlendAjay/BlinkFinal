@@ -8,7 +8,7 @@
 
 }
 
-@using (Html.BeginForm("ApproveCandidate", "Candidate", FormMethod.Post, new { area = "CMS", id = "ApproveCandidate", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ApproveCandidate", "Candidate", FormMethod.Post, new { area = "CMS", id = "ApproveCandidate", @class = "form-horizontal needs-validation", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.status as string)
@@ -36,7 +36,7 @@
                     @Html.LabelFor(m => m.Name, "Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.TextBoxFor(m => m.Name, new { @class = "sm-form-control required", placeholder = "e.g. john smith", id = "FullName" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "e.g. john smith", id = "FullName" })
                     </div>
                     @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                 </div>
@@ -44,7 +44,7 @@
                     @Html.LabelFor(m => m.EmailId, "Email")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-mail"> </i></span>
-                        @Html.TextBoxFor(m => m.EmailId, new { @class = "sm-form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
+                        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
                     </div>
                     @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
                 </div>
@@ -52,7 +52,7 @@
                     @Html.LabelFor(m => m.PhoneNumber, "Phone Number")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-phone"> </i></span>
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "sm-form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
                     </div>
                     @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
@@ -62,7 +62,7 @@
                         @Html.LabelFor(model => model.Gender, "Gender")<small></small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
-                            @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "sm-form-control", @id = "Gender" })
+                            @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
 
@@ -75,7 +75,7 @@
                         @Html.LabelFor(m => m.RegistrationId, "Registration/Candidate/Employee ID")<small></small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"></i></span>
-                            @Html.TextBoxFor(m => m.RegistrationId, new { @class = "sm-form-control", placeholder = "ID", id = "RegistrationId" })
+                            @Html.TextBoxFor(m => m.RegistrationId, new { @class = "form-control", placeholder = "ID", id = "RegistrationId" })
                         </div>
                         @Html.ValidationMessageFor(model => model.RegistrationId, "", new { @class = "text-danger" })
                     }
@@ -86,7 +86,7 @@
                         @Html.LabelFor(m => m.Designation, "Designation/Role")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"></i></span>
-                            @Html.TextBox("Designation", "Student", new { @class = "sm-form-control required", placeholder = "", id = "Designation", @readonly = "ReadOnly" })
+                            @Html.TextBox("Designation", "Student", new { @class = "form-control required", placeholder = "", id = "Designation", @readonly = "ReadOnly" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                     }
@@ -101,14 +101,14 @@
                     @Html.LabelFor(m => m.CorporateId, "Corporate")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user"> </i></span>
-                        @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", htmlAttributes: new { @class = "sm-form-control required", id = "CorporateId" })
+                        @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", htmlAttributes: new { @class = "form-control required", id = "CorporateId" })
                     </div>
                 </div>
                 <div class="col_half col_last">
                     @Html.LabelFor(m => m.Region, "Region")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.TextBoxFor(m => m.Region, new { @class = "sm-form-control", placeholder = "East/West/North/South", id = "Region" })
+                        @Html.TextBoxFor(m => m.Region, new { @class = "form-control", placeholder = "East/West/North/South", id = "Region" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
                 </div>
@@ -116,7 +116,7 @@
                     @Html.LabelFor(m => m.Branch, "Branch Name")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-road"> </i></span>
-                        @Html.TextBoxFor(m => m.Branch, new { @class = "sm-form-control", placeholder = "Branch Name", id = "Branch" })
+                        @Html.TextBoxFor(m => m.Branch, new { @class = "form-control", placeholder = "Branch Name", id = "Branch" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
                 </div>
@@ -125,7 +125,7 @@
                     @Html.LabelFor(m => m.BranchCategory, "Branch Category")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.TextBoxFor(m => m.BranchCategory, new { @class = "sm-form-control", placeholder = "Rural/Urban/Semi-Urban", id = "BranchCategory" })
+                        @Html.TextBoxFor(m => m.BranchCategory, new { @class = "form-control", placeholder = "Rural/Urban/Semi-Urban", id = "BranchCategory" })
                     </div>
                     @Html.ValidationMessageFor(m => m.BranchCategory, "", new { @class = "text-danger" })
                 </div>
@@ -134,7 +134,7 @@
                     @Html.LabelFor(m => m.BranchState, "Branch State")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.TextBoxFor(m => m.BranchState, new { @class = "sm-form-control", placeholder = "State", id = "BranchState" })
+                        @Html.TextBoxFor(m => m.BranchState, new { @class = "form-control", placeholder = "State", id = "BranchState" })
                     </div>
                     @Html.ValidationMessageFor(model => model.BranchState, "", new { @class = "text-danger" })
                 </div>
@@ -142,7 +142,7 @@
                     @Html.LabelFor(m => m.BranchCode, "Branch Code")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-line-anchor"> </i></span>
-                        @Html.TextBoxFor(m => m.BranchCode, new { @class = "sm-form-control", placeholder = "Branch Code", id = "BranchCode" })
+                        @Html.TextBoxFor(m => m.BranchCode, new { @class = "form-control", placeholder = "Branch Code", id = "BranchCode" })
                     </div>
                     @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
                 </div>

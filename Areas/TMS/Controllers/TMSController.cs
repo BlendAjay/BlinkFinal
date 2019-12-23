@@ -634,8 +634,8 @@ namespace AJSolutions.Areas.TMS.Controllers
                 courseMaster.CourseCode = admin.GenerateCourseCode();
 
             CourseMaster CourseMasterDetails = new CourseMaster();
-            CourseMasterDetails.CategoryId = courseMaster.CategoryId;
-            CourseMasterDetails.ContentVisiblity = courseMaster.ContentVisiblity;
+            CourseMasterDetails.CategoryId = 1;
+            CourseMasterDetails.ContentVisiblity = 1;
             CourseMasterDetails.CorporateId = courseMaster.CorporateId;
             CourseMasterDetails.CountLikes = courseMaster.CountLikes;
             CourseMasterDetails.CourseCode = courseMaster.CourseCode;
@@ -807,7 +807,7 @@ namespace AJSolutions.Areas.TMS.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Admin,Employee")]
-        public ActionResult TrainingSchedule(string TrainingId, string CourseCode, string Course, string TaskId, string UserAction = "Add", bool status = false, Int64 BatchId = 0)
+        public ActionResult TrainingSchedule(DateTime? FromDate, DateTime? ToDate, DateTime? FromTime, DateTime? ToTime, DateTime? AvailableTillDate, string TrainingId, string CourseCode, string Course, string TaskId, string UserAction = "Add", bool status = false, Int64 BatchId = 0, long batchId = 0, bool ContentAvailability = false)
         {
             string UserId = User.Identity.GetUserId();
             UserViewModel userDetail = generic.GetUserDetail(UserId);
@@ -910,7 +910,6 @@ namespace AJSolutions.Areas.TMS.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult> TrainingSchedule(string TrainingId, string SubjectLine, string Description, string UserAction, string TrainerId, string CountryId,
                                              string Address, string Status, string TaskId, DateTime? CreatedOn,
                                              string SelCity, string SelState, string StateId, string SelBatch, string CreatedBy, string[] OtherTrainerId, string UpdatedBy, DateTime? UpdatedOn,
@@ -1003,16 +1002,13 @@ namespace AJSolutions.Areas.TMS.Controllers
                             EndTime = endTime
                         });
                     }
-
                     i++;
                 }
                 await EnrollForAssessment(trainAsst);
 
             }
-
-
             //admin.AddNotification(TrainerId, UserId, body, "Training", TrainingId, Nstatus, DateTime.Now);
-            return RedirectToAction("TrainingSchedule", "TMS", new { area = "TMS", status = result, Course = batches.CourseCode });
+            return RedirectToAction("CourseDetail", "TMS", new { area = "TMS", status = result, CourseCode = batches.CourseCode });
         }
 
 
@@ -1445,10 +1441,10 @@ namespace AJSolutions.Areas.TMS.Controllers
                 SchemeId = 4;
                 PopulateEngagementType(userDetail.SubscriberId, SchemeId);
             }
-            else 
+            else
             {
                 if (employeeDetails != null)
-                SchemeId = employeeDetails.SchemeId;
+                    SchemeId = employeeDetails.SchemeId;
                 PopulateEngagementType(userDetail.SubscriberId, SchemeId, empDetail.Gender);
             }
 
@@ -1531,14 +1527,14 @@ namespace AJSolutions.Areas.TMS.Controllers
             bool result = tms.AddTrainerPlan(trainerPlan);
             if (result && uploadPhoto != null)
             {
-                if(trainerPlan.PlannerId == 0)
+                if (trainerPlan.PlannerId == 0)
                     trainerPlan.PlannerId = db.TrainerPlanner.OrderByDescending(t => t.PlannerId).FirstOrDefault().PlannerId;
                 //foreach (string file in Request.Files)
                 //{
                 //    HttpPostedFileBase attachment = Request.Files[file] as HttpPostedFileBase;
                 tms.uploadLeaveAttachment(trainerPlan.PlannerId, uploadPhoto);
                 //}
-            
+
             }
 
 
@@ -1549,7 +1545,7 @@ namespace AJSolutions.Areas.TMS.Controllers
                 if (userDetail.Role != "Admin")
                 {
                     string callbackUrl = await SendApplicationLeaveEmailTokenAsync(userDetail.ReportingAuthority, userDetail.ReportingAuthorityname, userDetail.Name, trainerPlan.Remarks, EngagementType.EngagementType, trainerPlan.FromDate, trainerPlan.ToDate);
-                    admin.AddNotification(userDetail.ReportingAuthority, userDetail.UserId, "You received Leave application from " + userDetail.Name + ".", "Engagement", trainerPlan.PlannerId.ToString(),false , DateTime.Now);
+                    admin.AddNotification(userDetail.ReportingAuthority, userDetail.UserId, "You received Leave application from " + userDetail.Name + ".", "Engagement", trainerPlan.PlannerId.ToString(), false, DateTime.Now);
                 }
             }
             return RedirectToAction("TrainerPlanner", "TMS", new { area = "TMS", status = result });
@@ -1698,7 +1694,7 @@ namespace AJSolutions.Areas.TMS.Controllers
             if (Assessment > 0)
             {
                 var TrainingAssessments = tms.GetTrainingAssessments(Id).Where(c => c.AssessmentId == Assessment);
-                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId,TrainingAssessments.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
+                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId, TrainingAssessments.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
                 ViewBag.CandidateCount = candidate.Count;
                 ViewData["Candidate"] = candidate;
                 PopulateMarksList();
@@ -1932,7 +1928,7 @@ namespace AJSolutions.Areas.TMS.Controllers
                 });
             }
             return Json(StateId, JsonRequestBehavior.AllowGet);
-        }       
+        }
 
         [HttpPost]
         public ActionResult GetBranch(string StateId)
@@ -2133,7 +2129,7 @@ namespace AJSolutions.Areas.TMS.Controllers
                             Redirectionurl = Global.WebsiteUrl() + "/Home/Index",
                             PublicationId = Ast.PublicationId,
                             Password = candi.PCode,
-                            Category = !string.IsNullOrEmpty(candi.BatchName) ? candi.BatchName : Convert.ToString( BatchId),
+                            Category = !string.IsNullOrEmpty(candi.BatchName) ? candi.BatchName : Convert.ToString(BatchId),
                             TrainingId = Ast.TrainingId,
                             StartDate = Ast.StartDate,
                             EndDate = Ast.EndDate,
@@ -3019,16 +3015,16 @@ namespace AJSolutions.Areas.TMS.Controllers
                                         join cr in CandidateResult
                                         on cd.UserId equals cr.CandidateId
                                         select new
-                                       {
-                                           UserName = cd.UserName,
-                                           RegistrationNo = cd.RegistrationId,
-                                           Name = cd.Name,
-                                           TotalQuestions = cr.TotalQuestions,
-                                           Attempted = cr.TotalAttemptedQues,
-                                           Score = cr.NoOfCorrectAns,
-                                           Percentage = cr.Percentage,
-                                           Status = cr.Status
-                                       }).ToList();
+                                        {
+                                            UserName = cd.UserName,
+                                            RegistrationNo = cd.RegistrationId,
+                                            Name = cd.Name,
+                                            TotalQuestions = cr.TotalQuestions,
+                                            Attempted = cr.TotalAttemptedQues,
+                                            Score = cr.NoOfCorrectAns,
+                                            Percentage = cr.Percentage,
+                                            Status = cr.Status
+                                        }).ToList();
 
 
             var StatusCount = GetStatusWiseResponseCount(PublicationId, TrainingId);
@@ -3300,7 +3296,7 @@ namespace AJSolutions.Areas.TMS.Controllers
             string UserId = User.Identity.GetUserId();
             UserViewModel UserDetails = generic.GetUserDetail(UserId);
             var TrainingAssessments = tms.GetTrainingAssessments(TrainingId);
-            var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId,TrainingAssessments.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
+            var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId, TrainingAssessments.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
             if (candidate.Count() > 0)
             {
                 foreach (var item in candidate)
@@ -3398,7 +3394,7 @@ namespace AJSolutions.Areas.TMS.Controllers
             if (UserDetails.Role == "Employee")
             {
                 var TrainingAssessmentsrec = tms.GetTrainingAssessments(Id).Where(c => c.AssessmentId == Assessment);
-                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId,TrainingAssessmentsrec.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
+                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId, TrainingAssessmentsrec.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
                 var Assessments = tms.GetAssessmentEvaluation(Id).Where(c => c.AssessmentId == Assessment).ToList();
                 sb.Append("CandidateName" + ',');
                 sb.Append("CandidateId" + ',');
@@ -3426,7 +3422,7 @@ namespace AJSolutions.Areas.TMS.Controllers
             else
             {
                 var TrainingAssessment = tms.GetTrainingAssessments(Id);
-                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId,TrainingAssessment.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
+                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId, TrainingAssessment.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
                 var Assessments = tms.GetAssessmentEvaluation(Id).ToList();
                 sb.Append("CandidateName" + ',');
                 sb.Append("CandidateId" + ',');
@@ -3572,7 +3568,7 @@ namespace AJSolutions.Areas.TMS.Controllers
             {
                 UserViewModel UserDetails = generic.GetUserDetail(UserId);
                 var TrainingAssessment = tms.GetTrainingAssessments(Id);
-                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId,TrainingAssessment.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
+                var candidate = student.GetSubscriberWiseCandidateList(UserDetails.SubscriberId, TrainingAssessment.FirstOrDefault().BatchId).OrderBy(c => c.Name).ToList();
                 var CandidateUserId = candidate.Where(c => c.UserName == UserName).FirstOrDefault().UserId;
                 bool res = false;
                 if (Marks == "")
@@ -3760,7 +3756,7 @@ namespace AJSolutions.Areas.TMS.Controllers
                 PopulatePaymentModeType();
                 return View(candidate);
             }
-          
+
         }
 
         [HttpPost]
@@ -4015,7 +4011,7 @@ namespace AJSolutions.Areas.TMS.Controllers
         {
             var UserId = User.Identity.GetUserId();
             UserViewModel userDetails = generic.GetUserDetail(UserId);
-            CandidateViewModel Details = student.GetSubscriberWiseCandidateList(userDetails.SubscriberId,BatchId).FirstOrDefault();
+            CandidateViewModel Details = student.GetSubscriberWiseCandidateList(userDetails.SubscriberId, BatchId).FirstOrDefault();
             ReportViewer rptViewer = new ReportViewer();
             rptViewer.LocalReport.ReportPath = "Views/Report/CandidateRecordBatchWise.rdlc";
             string thisConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;

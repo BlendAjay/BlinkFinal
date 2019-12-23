@@ -24,7 +24,7 @@
         <div id="submenu-2" class="collapse submenu" style="">
             <ul class="nav flex-column">
 
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("MyJobOrders", "JobOrder", new { Area = "CMS", IsClientView = true })"><i class="icon-list-ol"></i>Job Orders</a></li>
+                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("MyJobOrders", "JobOrder", new { Area = "CMS", IsClientView = true })"><i class="icon-list-ol"></i>Job Orders</a></li>*@
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("MyInvoices", "Invoice", new { Area = "CMS", Tag = "Outgoing" })"><i class="icon-bill"></i>Invoices</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("Mycourses", "TMS", new { Area = "TMS"})"><i class="icon-book"></i>Courses</a></li>
@@ -34,14 +34,14 @@
             </ul>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="icon-cogs"></i>Create New</a>
-        <div id="submenu-3" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Create", "JobOrder", new { area = "CMS" })"><i class="icon-list-ol"></i>Job Order</a></li>
-            </ul>
-        </div>
-    </li>
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="icon-cogs"></i>Create New</a>
+            <div id="submenu-3" class="collapse submenu" style="">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Create", "JobOrder", new { area = "CMS" })"><i class="icon-list-ol"></i>Job Order</a></li>
+                </ul>
+            </div>
+        </li>*@
 
     <li class="nav-item"><a class="nav-link" href="@Url.Action("MeetingMinutesListing", "User", new { area = "CMS" })"><i class="icon-list"></i>Meeting Minutes</a></li>
 

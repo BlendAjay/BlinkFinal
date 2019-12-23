@@ -18,7 +18,7 @@
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.ProgrammeId, htmlAttributes: new { @class = "input-group-addon" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.ModuleId, new { htmlAttributes = new { @class = "sm-form-control", placeholder = "Module Id" } })
+                        @Html.EditorFor(model => model.ModuleId, new { htmlAttributes = new { @class = "form-control", placeholder = "Module Id" } })
                         @Html.ValidationMessageFor(model => model.ModuleId, "", new { @class = "text-danger" })
                     </div><br />
                 </div>
@@ -27,7 +27,7 @@
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.ProgrammeName, htmlAttributes: new { @class = "input-group-addon" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.Module, new { htmlAttributes = new { @class = "sm-form-control", placeholder = "Module Name" } })
+                        @Html.EditorFor(model => model.Module, new { htmlAttributes = new { @class = "form-control", placeholder = "Module Name" } })
                         @Html.ValidationMessageFor(model => model.Module, "", new { @class = "text-danger" })
 
                     </div><br />

@@ -24,14 +24,14 @@ namespace AJSolutions.Areas.EMS.Controllers
             string UserId = User.Identity.GetUserId();
             var UserDetails = generic.GetUserDetail(UserId);
             ViewData["UserProfile"] = UserDetails;
-            ViewData["EmpInvoiceStatus"] = cms.GetEMPInvoicetatusCount(UserId);
-            ViewData["TaskStatus"] = cms.GetTaskCount(UserId);
+            //ViewData["EmpInvoiceStatus"] = cms.GetEMPInvoicetatusCount(UserId);
+            //ViewData["TaskStatus"] = cms.GetTaskCount(UserId);
             ViewData["TrainingStatus"] = cms.GetTrainingCount(UserId);
             ViewBag.NotificationCount = admin.SPCountNotification(UserId).TOTALNOTIFICATION;
             ViewData["EmpDetails"] = ems.GetEmployeeBasicDetails(UserId).FirstOrDefault();
             ViewData["CompanyLogo"] = cms.GetCompanyLogo(UserDetails.SubscriberId).FirstOrDefault();
-            var plandetail = admin.GetUserplanDetails(UserDetails.SubscriberId).Where(c => c.AddOnId == 3).FirstOrDefault();
-            ViewData["plandetail"] = plandetail;
+            //var plandetail = admin.GetUserplanDetails(UserDetails.SubscriberId).Where(c => c.AddOnId == 3).FirstOrDefault();
+            //ViewData["plandetail"] = plandetail;
             if (Status == true)
             {
                 ViewBag.Result = Status;

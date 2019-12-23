@@ -114,8 +114,8 @@
                                     @Html.CheckBoxFor(model => item.IsMobileDevice, new { Id = "IsMobileDevice" + item.CertifiedUsersId })
                                 </td>*@
                             <td>
-                                @Html.TextBoxFor(model => item.Comments, new { Id = "Comments" + item.CertifiedUsersId, @class = "sm-form-control", @placeholder = "Enter Remarks" })
-                                @*<input type="text" name="Remarks" + @item.CertifiedUsersId " id=" remarks + @item.CertifiedUsersId " value=" @item.Comments " size=" 22" tabindex="4" class="sm-form-control number" />*@
+                                @Html.TextBoxFor(model => item.Comments, new { Id = "Comments" + item.CertifiedUsersId, @class = "form-control", @placeholder = "Enter Remarks" })
+                                @*<input type="text" name="Remarks" + @item.CertifiedUsersId " id=" remarks + @item.CertifiedUsersId " value=" @item.Comments " size=" 22" tabindex="4" class="form-control number" />*@
                             </td>
                             <td>
                                 @*<button type="button" class="btn btn-default btn-xs" onclick="CertifiedUser( @item.CertifiedUsersId)">Submit</button>*@

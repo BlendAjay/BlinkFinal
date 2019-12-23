@@ -52,9 +52,10 @@ namespace AJSolutions.Areas.CMS.Controllers
             //var plandetail = admin.GetUserplanDetails(userdetails.SubscriberId).Where(c => c.AddOnId == 3).FirstOrDefault();
             //ViewData["plandetail"] = plandetail;
             var myTraining = tms.GetTrainingSchedule(userdetails.SubscriberId, "NA");
-            ViewData["myTraining"] = myTraining.Where(c => c.Status == "Inprogress").Take(4).ToList();
-            var details = student.GetCandidatePaymentTransaction(userdetails.SubscriberId).Where(c => c.Status != "Initiate");
-            ViewData["FeeDetails"] = details.Take(4).ToList();
+            ViewData["myTraining"] = myTraining.ToList();
+            //ViewData["myTraining"] = myTraining.Where(c => c.Status == "Inprogress").Take(4).ToList();
+            //var details = student.GetCandidatePaymentTransaction(userdetails.SubscriberId).Where(c => c.Status != "Initiate");
+            //ViewData["FeeDetails"] = details.Take(4).ToList();
             //var userplan = admin.GetUserplanDetails(userdetails.SubscriberId).OrderByDescending(c => c.UserPlanId).FirstOrDefault();
             //if (userplan == null || userplan.PlanEndDate < DateTime.UtcNow || userplan.Status != "Succeeded")
             //{

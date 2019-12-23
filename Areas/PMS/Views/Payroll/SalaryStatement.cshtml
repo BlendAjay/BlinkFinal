@@ -8,7 +8,7 @@
 
 }
 
-@using (Html.BeginForm("SalaryStatement", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "SalaryStatement", role = "form" }))
+@using (Html.BeginForm("SalaryStatement", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "SalaryStatement", role = "form" }))
 {
 
     @Html.AntiForgeryToken()
@@ -23,7 +23,7 @@
                         Salary Statement for the month of
                     </div>
                     <div class="col_one_fifth">
-                        @Html.DropDownList("Month", null, "Select Month", htmlAttributes: new { @class = "sm-form-control", id = "Month" })
+                        @Html.DropDownList("Month", null, "Select Month", htmlAttributes: new { @class = "form-control", id = "Month" })
                     </div>
                     <div class="col_two_fifth col_last floatRight">
                         <input type="submit" id="Process" value="Search" class="button button-rounded button-teal" />

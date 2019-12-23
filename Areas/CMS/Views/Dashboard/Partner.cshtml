@@ -9,7 +9,7 @@
     GetTrainingStatusCountView TrainingStatus = ViewData["TrainingStatus"] as GetTrainingStatusCountView;
     int totalTask = TaskStatus.TotalAbonded + TaskStatus.TotalAssigned + TaskStatus.TotalCompleted + TaskStatus.TotalNew + TaskStatus.TotalRejected;
     }
-@using (Html.BeginForm("Partner", "Dashboard", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Partner", "Dashboard", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">

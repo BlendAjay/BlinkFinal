@@ -21,7 +21,7 @@
     double TotalFeeAmount = 0;
     CourseMasterView Installment = ViewData["InstallmentDetail"] as CourseMasterView;
 }
-@using (Html.BeginForm("CourseFeeSetting", "TMS", FormMethod.Post, new { area = "TMS", id = "CourseFeeSetting", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("CourseFeeSetting", "TMS", FormMethod.Post, new { area = "TMS", id = "CourseFeeSetting", @class = "form-horizontal needs-validation", role = "form" }))
 {
     <div class="container">
         <div id="contact-form-overlay" class="clearfix">
@@ -37,8 +37,8 @@
                     @Html.Label("JEId")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        <input type="text" class="sm-form-control required" placeholder="Enter the JEID..." id="JEID" value="@ViewBag.UserName" />
-                        @*@Html.TextBoxFor(m => Model.Name, new { @class = "sm-form-control required", placeholder = "e.g. john smith", id = "FullName" })*@
+                        <input type="text" class="form-control required" placeholder="Enter the JEID..." id="JEID" value="@ViewBag.UserName" />
+                        @*@Html.TextBoxFor(m => Model.Name, new { @class = "form-control required", placeholder = "e.g. john smith", id = "FullName" })*@
                     </div>
                 </div><br />
                 <div class="col_half col_last">
@@ -77,7 +77,7 @@
                     @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                        @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Course", id = "CourseCode" })
+                        @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode" })
                     </div>
                     <br>
                 </div>
@@ -86,7 +86,7 @@
                     @Html.Label("Select Batch")<small>*</small>
                     <div class="input-group divcenter" id="Batch">
                         <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                        @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "BatchId" })
+                        @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId" })
                     </div>
                     <br />
                 </div>
@@ -136,8 +136,8 @@
                             <tr>
                                 <td>Total Fee</td>
                                 <td id="TotalFeeRecord">
-                                    <input type="text" id="TotalAmt" name="TotalAmt" value="@totalamt" readonly="readonly" class="sm-form-control" />
-                                    <input type="text" id="TotalFeeAmount" name="TotalFeeAmount" value="@TotalFeeAmount" class="sm-form-control" style="display:none" />
+                                    <input type="text" id="TotalAmt" name="TotalAmt" value="@totalamt" readonly="readonly" class="form-control" />
+                                    <input type="text" id="TotalFeeAmount" name="TotalFeeAmount" value="@TotalFeeAmount" class="form-control" style="display:none" />
                                 </td>
                             </tr>
                         </table>
@@ -145,7 +145,7 @@
                             <label>Select Installments</label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                @Html.DropDownList("Installments", null, "--- Select Installment ---", htmlAttributes: new { @class = "sm-form-control", id = "Installments" })
+                                @Html.DropDownList("Installments", null, "--- Select Installment ---", htmlAttributes: new { @class = "form-control", id = "Installments" })
                             </div>
                         </div>
                         <br />
@@ -155,7 +155,7 @@
                                     <tr>
                                         <td>Installment Amount</td>
                                         <td>
-                                            <input type="text" id="InstallmentAmount" name="InstallmentAmount" value="" placeholder="Enter Amount" class="sm-form-control" />
+                                            <input type="text" id="InstallmentAmount" name="InstallmentAmount" value="" placeholder="Enter Amount" class="form-control" />
                                         </td>
                                     </tr>
                                     <tr id="Remaining"></tr>
@@ -166,14 +166,14 @@
                             <label>Payment Mode</label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-list-ul"> </i></span>
-                                @Html.DropDownList("PaymentModeId", null, "--- Select Payment Mode ---", htmlAttributes: new { @id = "PaymentModeId", @class = "sm-form-control", placeholder = "Payment Mode" })
+                                @Html.DropDownList("PaymentModeId", null, "--- Select Payment Mode ---", htmlAttributes: new { @id = "PaymentModeId", @class = "form-control", placeholder = "Payment Mode" })
                             </div>
                         </div>
                         <div class="col_half  col_last" id="bankName">
                             <label>Bank Name</label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-building"> </i></span>
-                                @Html.EditorFor(model => FeeModel.BankName, new { htmlAttributes = new { @id = "PayeeBankName", @class = "sm-form-control", placeholder = "Bank Name" } })
+                                @Html.EditorFor(model => FeeModel.BankName, new { htmlAttributes = new { @id = "PayeeBankName", @class = "form-control", placeholder = "Bank Name" } })
                             </div>
                         </div>
                         <div class="col_half">
@@ -182,7 +182,7 @@
                                 <div class="input-group divcenter">
                                     <span class="input-group-addon"><i class="icon-calendar3"> </i></span>
 
-                                    @Html.EditorFor(model => FeeModel.PaymentDate, new { htmlAttributes = new { @id = "PaymentDate", @class = "sm-form-control", placeholder = "Payment Date"} })
+                                    @Html.EditorFor(model => FeeModel.PaymentDate, new { htmlAttributes = new { @id = "PaymentDate", @class = "form-control", placeholder = "Payment Date"} })
                                 </div>
                             </div>
                         </div>
@@ -190,13 +190,13 @@
                             <label>Reference No</label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-barcode"> </i></span>
-                                @Html.EditorFor(model => FeeModel.ReferenceNumber, new { htmlAttributes = new { @id = "ChequeNo", @class = "sm-form-control", placeholder = "Reference Number" } })
+                                @Html.EditorFor(model => FeeModel.ReferenceNumber, new { htmlAttributes = new { @id = "ChequeNo", @class = "form-control", placeholder = "Reference Number" } })
                             </div>
                         </div>
                         <div class="col_full">
                             <label>Comments</label>
                             <div class="input-group divcenter">
-                                @Html.TextAreaFor(model => FeeModel.Remarks, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
+                                @Html.TextAreaFor(model => FeeModel.Remarks, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
                             </div>
                         </div>
                         <div class="col_full">
@@ -244,12 +244,12 @@
 
             if (Accommodation == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Accommodationval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Accommodationval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
         });
@@ -265,12 +265,12 @@
 
             if (Transport == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Transportval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Transportval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
         });
@@ -286,12 +286,12 @@
 
             if (Others == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Othersval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Othersval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
         });
@@ -307,12 +307,12 @@
 
             if (InstallmentInterest == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(InstallmentInterestval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(InstallmentInterestval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
         });
@@ -328,12 +328,12 @@
 
             if (Discount == false) {
                 sum = (parseFloat(TotalAmt) + parseFloat(Discountval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) - parseFloat(Discountval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#TotalFeeRecord").html(total);
             }
         });
@@ -373,7 +373,7 @@
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    var batch = "   <span class='input-group-addon'><i class='icon-book3'> </i></span><select class='sm-form-control' id='BatchId'>";
+                    var batch = "   <span class='input-group-addon'><i class='icon-book3'> </i></span><select class='form-control' id='BatchId'>";
                     batch = batch + '<option value="">--- Select Batch ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         batch = batch + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';

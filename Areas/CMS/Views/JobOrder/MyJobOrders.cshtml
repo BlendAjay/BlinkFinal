@@ -21,63 +21,48 @@
 </div>
 @using (Html.BeginForm("MyJobOrders", "JobOrder", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", id = "MyJobOrders", role = "form" }))
 {
-    @*if (@ViewBag.Message != null)
-    {
-        <div class="container">
-            <div id="contact-form-overlay" class="clearfix">
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-thumbs-down2"></i>
-                    </div>
-                    <h3>@ViewBag.Message<span class="subtitle"></span></h3>
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {*@
-        <div class="promo nobottommargin">
-            <div class="container clearfix">
+    <div class="promo nobottommargin">
+        <div class="container clearfix">
 
-                <div class="row combination-filter nobottommargin nopadding">
-                    @if (@user.Role != "Client")
+            <div class="row combination-filter nobottommargin nopadding">
+                @if (@user.Role != "Client")
+                {
+                    <div class="col-md-3 filter-group">
+                        <label>Select Client</label>
+                        @Html.DropDownList("CorporateId", null, "---  Select Client ---", htmlAttributes: new { @class = "form-control", id = "CorporateId", placeholder = "Select Client" })
+                    </div>
+                }
+                <div class="col-md-3 filter-group">
+                    <label>Select Job Type</label>
+                    @Html.DropDownList("JobOrderTypeId", null, "---  Select Job Type ---", htmlAttributes: new { @class = "form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
+                </div>
+
+                <div class="col-md-3 filter-group">
+                    <label>Select Status</label>
+                    @Html.DropDownList("Status", null, "---  Select Job Status ---", htmlAttributes: new { @class = "form-control", id = "Status", placeholder = "Select Job Order status" })
+                </div>
+                <div class="col-md-3 filter-group" style="padding-top:2.4em">
+
+                    @if (user.Role == "Client")
                     {
-                        <div class="col-md-3 filter-group">
-                            <label>Select Client</label>
-                            @Html.DropDownList("CorporateId", null, "---  Select Client ---", htmlAttributes: new { @class = "sm-form-control", id = "CorporateId", placeholder = "Select Client" })
-                        </div>
+                        IsClientView = true;
                     }
-                    <div class="col-md-3 filter-group">
-                        <label>Select Job Type</label>
-                        @Html.DropDownList("JobOrderTypeId", null, "---  Select Job Type ---", htmlAttributes: new { @class = "sm-form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
-                    </div>
+                    else
+                    {
+                        IsClientView = false;
+                    }
 
-                    <div class="col-md-3 filter-group">
-                        <label>Select Status</label>
-                        @Html.DropDownList("Status", null, "---  Select Job Status ---", htmlAttributes: new { @class = "sm-form-control", id = "Status", placeholder = "Select Job Order status" })
-                    </div>
-                    <div class="col-md-3 filter-group" style="padding-top:2.4em">
-
-                        @if (user.Role == "Client")
-                        {
-                            IsClientView = true;
-                        }
-                        else
-                        {
-                            IsClientView = false;
-                        }
-
-                        <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick="SendValue();" title="Search">Filter</button>
-                        <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { Area = "CMS", IsClientView = IsClientView })'" title="Clear">Clear</button>
-                    </div>
+                    <button type="button" id="btnSearch" class="btn btn-primary" onclick="SendValue();" title="Search">Filter</button>
+                    <button type="button" class="btn btn-primary " onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { Area = "CMS", IsClientView = IsClientView })'" title="Clear">Clear</button>
                 </div>
-                <div class="row">
-                    <div class="fancy-title title-bottom-border title-right">
-                        <br /><h3></h3>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="fancy-title title-bottom-border title-right">
+                    <br /><h3></h3>
                 </div>
             </div>
         </div>
+    </div>
 
     <div class="container">
         <div class="postcontent nobottommargin">
@@ -102,8 +87,6 @@
                         </div>
                         <div class="entry-c">
                             <div class="col_two_third entry-title nobottommargin">
-                                @*<h4 class="nobottommargin"><a href="@Url.Action("JobOrderDetails", "JobOrder")">@item.Subject</a></h4>*@
-                                @*<h4 class="nobottommargin">@Html.ActionLink(item.Subject, "JobOrderDetails", "JobOrder", new { @maxlength = 1, Id = item.JobOrderNumber, CV = IsClientView }, new AllowHtmlAttribute { })</h4>*@
                                 @if (item.Subject.Length < 55)
                                 {
                                     <h4 class="nobottommargin">@Html.ActionLink(item.Subject, "JobOrderDetails", "JobOrder", new { Id = item.JobOrderNumber, CV = IsClientView }, htmlAttributes: new { target = "_blank" }@*, new AllowHtmlAttribute { }*@)</h4>
@@ -113,7 +96,6 @@
                                     <h4 class="nobottommargin">@Html.ActionLink(item.Subject.Substring(0, 55) + "...", "JobOrderDetails", "JobOrder", new { Id = item.JobOrderNumber, CV = IsClientView }, htmlAttributes: new { target = "_blank" }@*, new AllowHtmlAttribute { }*@)</h4>
                                 }
 
-                                @*<p align="justify" class="nobottommargin">@item.Description.Substring(0,25)</p>*@
                                 @if (item.Description != null)
                                 {
                                     if (item.Description.Length < 150)
@@ -135,55 +117,39 @@
                                     {
                                         <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { area = "CMS", Id = item.JobOrderNumber,  IsClientView = IsClientView, Status = "Assigned" })'">Accept Job</button>
                                     }
-                                    //else if (item.JobOrderStatus == "Assigned" && item.TotalTask == "0" && IsClientView == false)
                                     else if (item.JobOrderStatus != "Unassigned" && item.JobOrderStatus != "Completed" && item.JobOrderStatus != "Rejected" && IsClientView == false)
                                     {
                                         @Html.ActionLink("Create Task", "Task", "Task", new { area = "CMS", JobOrderNumber = item.JobOrderNumber }, htmlAttributes: new { target = "_blank", @class = "btn btn-warning" })
 
                                     }
-                                    @*else if (userId != item.ClientId && item.TotalTask != "0" && item.JobOrderStatus != "Completed")
-                                        {
-                                            <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("MyTasks", "Task", new { area = "CMS", JobOrderNumber = item.JobOrderNumber })'">@item.TotalTask Tasks</button>
-                                        }*@
-
-
-                                        @* @Html.ActionLink("MyJobOrders", "JobOrder", "CMS", new { Id = item.JobOrderNumber, JobOrderStatus = "Assigned", IsClientView = IsClientView })*@
-
-
-                                        @if (item.JobOrderStatus == "Unassigned" && IsClientView == false)
-                                        {
-                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { area = "CMS", Id = item.JobOrderNumber, IsClientView = IsClientView, Status = "Rejected" })'">Reject Job</button>
-                                        }
-                                        else if ((item.JobOrderStatus == "Inprogress" || item.JobOrderStatus == "Assigned") && IsClientView == false)
-                                        {
-                                            @*<button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { area = "CMS", Id = item.JobOrderNumber, IsClientView = IsClientView, Status = "Completed" })'">Job Done</button>*@
-                                            <button type="button" class="btn btn-primary" onclick="CompleteConfirmation('@item.JobOrderNumber', 'false', 'Completed');">Job Done</button>
-                                        }
-
-                                        else if (item.JobOrderStatus == "Rejected" && item.TotalInv == "0" && IsClientView == false)
-                                        {
-                                            @* <button type="button" class="btn btn-primary" style="float:right">Rejected</button>*@
-                                            <label style="color:red">Rejected</label>
-                                        }
-                                        @*else if (item.TotalInv != "0" && item.TotalInv != null && item.TotalInv != "" && item.TotalCost > 0)
-                                            {
-                                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InvoiceDetails", "Invoice", new { area = "CMS", Id = item.InvNo })'">View Invoice</button>
-                                            }*@
-                                        else if (item.JobOrderStatus == "Completed")
-                                        {
-                                            <label>Completed</label>
-                                        }
-                                    </center>
-
-                                    @if (item.Duration > 0 && item.StartDate != null && (item.JobOrderStatus != "Completed" && item.JobOrderStatus != "Rejected"))
+                                    @if (item.JobOrderStatus == "Unassigned" && IsClientView == false)
                                     {
-                                        EndDate = Convert.ToDateTime(item.StartDate).AddDays(Convert.ToInt32(item.Duration));
-                                        if (EndDate >= DateTime.Now)
-                                        {
-                                            <center>Time Remaining</center>
-                                            <div id='@CountStr' class="countdown"></div>
+                                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("MyJobOrders", "JobOrder", new { area = "CMS", Id = item.JobOrderNumber, IsClientView = IsClientView, Status = "Rejected" })'">Reject Job</button>
+                                    }
+                                    else if ((item.JobOrderStatus == "Inprogress" || item.JobOrderStatus == "Assigned") && IsClientView == false)
+                                    {
+                                        <button type="button" class="btn btn-primary" onclick="CompleteConfirmation('@item.JobOrderNumber', 'false', 'Completed');">Job Done</button>
+                                    }
 
-                                            <script>
+                                    else if (item.JobOrderStatus == "Rejected" && item.TotalInv == "0" && IsClientView == false)
+                                    {
+                                        <label style="color:red">Rejected</label>
+                                    }
+                                    else if (item.JobOrderStatus == "Completed")
+                                    {
+                                        <label>Completed</label>
+                                    }
+                                </center>
+
+                                @if (item.Duration > 0 && item.StartDate != null && (item.JobOrderStatus != "Completed" && item.JobOrderStatus != "Rejected"))
+                                {
+                                    EndDate = Convert.ToDateTime(item.StartDate).AddDays(Convert.ToInt32(item.Duration));
+                                    if (EndDate >= DateTime.Now)
+                                    {
+                                        <center>Time Remaining</center>
+                                        <div id='@CountStr' class="countdown"></div>
+
+                                        <script>
                                                 jQuery(document).ready(function () {
                                                     var dd = @item.StartDate.Value.Day;
                                                     var mm = @item.StartDate.Value.Month -1;
@@ -194,105 +160,105 @@
                                                     newDate.setDate(newDate.getDate() + duration);
                                                     $('#@CountStr').countdown({ until: newDate });
                                                 });
-                                            </script>
+                                        </script>
 
-                                        }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        <center>
+                                            <label style="color:red">Time Up</label>
+                                        </center>
+                                    }
+                                }
+                            </div>
+                            <div class="col_full entry-content nobottommargin">
+                                <ul class="entry-meta clearfix">
+
+                                    @if (userId != item.ClientId)
+                                    {
+                                        <li><a href="#"><i class="icon-user"></i>@item.ClientName</a></li>
+                                    }
+                                    <li><a href="#"><i class="icon-folder-open"></i>@item.JobOrderType</a></li>
+                                    @if (item.JobOrderStatus == "Unassigned")
+                                    {
+                                        <li style="color:orange"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
+
+                                    }
+                                    @if (item.JobOrderStatus == "Assigned")
+                                    {
+                                        <li style="color:purple"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
+                                    }
+                                    @if (item.JobOrderStatus == "Completed")
+                                    {
+                                        <li style="color:green"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
+                                    }
+                                    @if (item.JobOrderStatus == "Inprogress")
+                                    {
+                                        <li style="color:blue"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
+                                    }
+                                    @if (item.JobOrderStatus == "Rejected")
+                                    {
+                                        <li style="color:red"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
+                                    }
+                                    @if (item.JobOrderStatus == "Inprogress" || item.JobOrderStatus == "Completed" && item.TotalCost > 0)
+                                    {
+                                        <li> <a href="@Url.Action("MyInvoices", "Invoice", new { area = "CMS", Invoice = item.JobOrderNumber })" target="_blank"><i class="icon-bill"></i><span>@item.TotalInv</span> Invoice(s)</a></li>
+                                    }
+                                    <li><a href="#"><i class="icon-check"></i>@item.JobOrderNumber</a></li>
+                                    @if ((item.JobOrderStatus == "Assigned" || item.JobOrderStatus == "Inprogress" && item.TotalTask != "0") && (IsClientView == false))
+                                    {
+                                        <li><a href="@Url.Action("MyTasks", "Task", new { area = "CMS", JobOrderNumber = item.JobOrderNumber })">Total Task :- @item.TotalTask </a></li>
+                                    }
+
+                                    @if (content != null)
+                                    {
+                                        foreach (var attachment in content)
                                         {
-                                            <center>
-                                                <label style="color:red">Time Up</label>
-                                            </center>
+                                            if (attachment.JobOrderNumber == item.JobOrderNumber)
+                                            {
+                                                <li><a href="~/File/JobOrderAttachment?id=@attachment.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i></a></li>
+                                            }
                                         }
                                     }
-                                </div>
-                                <div class="col_full entry-content nobottommargin">
-                                    <ul class="entry-meta clearfix">
-
-                                        @if (userId != item.ClientId)
+                                    @if (finalattachments != null)
+                                    {
+                                        foreach (var final in finalattachments)
                                         {
-                                            <li><a href="#"><i class="icon-user"></i>@item.ClientName</a></li>
-                                        }
-                                        <li><a href="#"><i class="icon-folder-open"></i>@item.JobOrderType</a></li>
-                                        @if (item.JobOrderStatus == "Unassigned")
-                                        {
-                                            <li style="color:orange"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
-
-                                        }
-                                        @if (item.JobOrderStatus == "Assigned")
-                                        {
-                                            <li style="color:purple"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
-                                        }
-                                        @if (item.JobOrderStatus == "Completed")
-                                        {
-                                            <li style="color:green"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
-                                        }
-                                        @if (item.JobOrderStatus == "Inprogress")
-                                        {
-                                            <li style="color:blue"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
-                                        }
-                                        @if (item.JobOrderStatus == "Rejected")
-                                        {
-                                            <li style="color:red"><i class="icon-anchor"></i>@item.JobOrderStatus</li>
-                                        }
-                                        @if (item.JobOrderStatus == "Inprogress" || item.JobOrderStatus == "Completed" && item.TotalCost > 0)
-                                        {
-                                            <li> <a href="@Url.Action("MyInvoices", "Invoice", new { area = "CMS", Invoice = item.JobOrderNumber })" target="_blank"><i class="icon-bill"></i><span>@item.TotalInv</span> Invoice(s)</a></li>
-                                        }
-                                        <li><a href="#"><i class="icon-check"></i>@item.JobOrderNumber</a></li>
-                                        @if ((item.JobOrderStatus == "Assigned" || item.JobOrderStatus == "Inprogress" && item.TotalTask != "0") && (IsClientView == false))
-                                        {
-                                            @*<li> <a href="@Url.Action("Task", "Task", new { area = "CMS", JobOrderNumber = item.JobOrderNumber })">Create Task</a></li>*@
-                                            <li><a href="@Url.Action("MyTasks", "Task", new { area = "CMS", JobOrderNumber = item.JobOrderNumber })">Total Task :- @item.TotalTask </a></li>
-                                        }
-
-                                        @if (content != null)
-                                        {
-                                            foreach (var attachment in content)
+                                            if (final.JobOrderNumber == item.JobOrderNumber)
                                             {
-                                                if (attachment.JobOrderNumber == item.JobOrderNumber)
-                                                {
-                                                    <li><a href="~/File/JobOrderAttachment?id=@attachment.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i></a></li>
-                                                }
+                                                <li><a href="~/File/JobOrderFinalAttachment?id=@final.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Employee</a></li>
                                             }
                                         }
-                                        @if (finalattachments != null)
+                                    }
+                                    @if (item.JobOrderStatus == "Unassigned")
+                                    {
+                                        if (user.CorporateId != null && user.CorporateId != user.SubscriberId)
                                         {
-                                            foreach (var final in finalattachments)
-                                            {
-                                                if (final.JobOrderNumber == item.JobOrderNumber)
-                                                {
-                                                    <li><a href="~/File/JobOrderFinalAttachment?id=@final.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Employee</a></li>
-                                                }
-                                            }
+                                            <li> <a href="@Url.Action("Create", "JobOrder", new { JobOrderNumber = item.JobOrderNumber, IsClientView = IsClientView })" title="Click here to edit job order"><i class="icon-pencil2"></i></a></li>
+                                            <li><a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.JobOrderNumber');" title="Click here to remove job order"><i class="icon-trash"></i></a></li>
                                         }
-                                        @if (item.JobOrderStatus == "Unassigned")
+                                        else if (userId == item.ClientId && IsClientView == true)
                                         {
-                                            if (user.CorporateId != null && user.CorporateId != user.SubscriberId)
-                                            {
-                                                <li> <a href="@Url.Action("Create", "JobOrder", new { JobOrderNumber = item.JobOrderNumber, IsClientView = IsClientView })" title="Click here to edit job order"><i class="icon-pencil2"></i></a></li>
-                                                <li><a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.JobOrderNumber');" title="Click here to remove job order"><i class="icon-trash"></i></a></li>
-                                            }
-                                            else if (userId == item.ClientId && IsClientView == true)
-                                            {
-                                                <li> <a href="@Url.Action("Create", "JobOrder", new { JobOrderNumber = item.JobOrderNumber, IsClientView = IsClientView })" title="Click here to edit job order"><i class="icon-pencil2"></i></a></li>
-                                                <li><a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.JobOrderNumber');" title="Click here to remove job order"><i class="icon-trash"></i></a></li>
-                                            }
+                                            <li> <a href="@Url.Action("Create", "JobOrder", new { JobOrderNumber = item.JobOrderNumber, IsClientView = IsClientView })" title="Click here to edit job order"><i class="icon-pencil2"></i></a></li>
+                                            <li><a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.JobOrderNumber');" title="Click here to remove job order"><i class="icon-trash"></i></a></li>
                                         }
-                              @if (Count == 0)
-                {
-                    <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                        <div class="fbox-icon">
-                            <i class="icon-thumbs-down2"></i>
-                        </div>
-                        <h3>No Job Orders<span class="subtitle"></span></h3>
-                    </div>
-                }             </ul>
-                                </div>
-
+                                    }
+                                    @if (Count == 0)
+                                    {
+                                        <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                                            <div class="fbox-icon">
+                                                <i class="icon-thumbs-down2"></i>
+                                            </div>
+                                            <h3>No Job Orders<span class="subtitle"></span></h3>
+                                        </div>
+                                    }
+                                </ul>
                             </div>
+
                         </div>
+                    </div>
                 }
-         
+
                 @*For Upload Attachment*@
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="cutoff">
                     <div class="form-process"></div>
@@ -317,219 +283,6 @@
         @Html.Hidden("RedirectTo", Url.Action("MyJobOrders", "JobOrder", new { area = "CMS" }))
     </div><!-- .sidebar end -->
 
-
-        @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-body">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Help</h4>
-                        </div>
-                        <div class="modal-body" id="moBody">
-
-                            <div class="container-fluid">
-                                @if (user.Role != "Client")
-                                {
-                                    <div class="col_half">
-                                        <p>
-                                            This page contain details of Joborder created by client.
-                                        </p>
-
-                                    </div>
-                                    <div class="col_half col_last">
-                                        <div class="feature-box center media-box fbox-bg">
-                                            <div class="fbox-media">
-
-
-                                                <a href="~/images/HelpImages/joadmin.png" target="_blank" data-lightbox="gallery-item">
-                                                    <img src="~/images/HelpImages/joadmin.png" />
-
-                                                </a>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                { <div class="col_half">
-                                    <p>
-                                        This page contain details of Joborder created by you.
-                                    </p>
-
-                                </div>
-                                    <div class="col_half col_last">
-                                        <div class="feature-box center media-box fbox-bg">
-                                            <div class="fbox-media">
-
-
-                                                <a href="~/images/HelpImages/joborderdetail.png" target="_blank" data-lightbox="gallery-item">
-
-                                                    <img src="~/images/HelpImages/joborderdetail.png" />
-                                                </a>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                  
-                                }
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-    <div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel14" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel14"><b>Help & Support</b> </h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="tabs clearfix" id="tab-1">
-
-                            <ul class="tab-nav clearfix">
-                                <li><a href="#tabs-1"><nobr>Navigation</nobr></a></li>
-                                <li><a href="#tabs-2">Page Elements </a></li>
-                                <li><a href="#tabs-3">Video</a></li>
-                                @*<li><a href="#tabs-4">Links to Other Pages </a></li>*@
-
-                            </ul>
-                            <div class="tab-container">
-                                <div class="tab-content clearfix" id="tabs-1">
-                                    <h4> Navigation to Job Order  </h4>
-                                    <img src="~/images/gif/navigation to job order.gif" alt="Save icon" />
-                                </div>
-                                <div class="tab-content clearfix" id="tabs-2">
-                                    <h6>My Stuff is containing details of Job orders, Invoices, Courses, My Training </h6>
-                                    <h6>Navigation to Job Orders.</h6>
-                                    <p>•Click on Navigation bar My Stuff Then their Menu Item is open  click on Job Orders  .</p>
-                                    <img src="~/images/Images1/150.png" width="259" height="341" /><br>
-                                    </br>
-                                    @*<h6>This page contains details of Job order created by client..</h6>
-
-                                    <img src="~/images/Images1/151.PNG" />*@
-
-                                    <p>
-                                        •If you want to filter a specific job order you can use the filter option here.
-                                        you can filter job order according to job type or job status..
-                                    </p>
-
-                                    <img src="~/images/Images1/152.PNG">
-                                    <p>	•To filter job order according to job order  type, select job order  type from the drop down.Then click on filter  </p>
-                                    <img src="~/images/Images1/154.png" width="559" height="241" />
-                                    <p>
-                                        •To filter job order according to job  status, select job status  from the drop down.Then click on filter.
-                                    </p>
-
-
-                                    <img src="~/images/Images1/157.PNG " width="559" height="241">
-                                    <p>• Filter - Click on Filter Button to see the list of Job Order according to your selected Job order type/Job order Status </p>
-                                    <img src="~/images/Images1/a1.png" width="500" height="250">
-
-                                    <p>•Clear - Click on Clear  Button to remove the filter </p>
-                                    <img src="~/images/Images1/a2.png" width="500" height="250">
-
-
-                                    <h4>Job Order Page Functionality </h4>
-                                    <h6>Click on Job order Title  to see the full details of job order.</h6>
-
-                                    <img src="~/images/Images1/162.png" width="400" height="150">
-
-                                    <h6>You can  see Job Order Creation Date</h6>
-                                    <img src="~/images/Images1/158.png" width="500" height="250">
-
-                                    <h6> 	You can see Job Order Type here. </h6>
-
-                                    <img src="~/images/Images1/163.png" width="500" height="250">
-
-                                    <h6> 	You can see Job Order Status  here. </h6>
-
-                                    <img src="~/images/Images1/164.png" width="500" height="250">
-                                    <h6> 	You can see Invoice details  here. </h6>
-
-                                    <img src="~/images/Images1/159.png" width="500" height="250">
-
-                                    <h6> You Can See Job Order Id here.</h6>
-
-                                    <img src="~/images/Images1/165.png" width="500" height="250">
-                                    <h6> You Can Download Attached file from here if any .</h6>
-
-                                    <img src="~/images/Images1/160.png" width="500" height="250">
-                                    <h6> You can Edit or Delete job orders from here.</h6>
-                                    <img src="~/images/Images1/161.png" width="500" height="250">
-
-                                    <h6>Time Remaining-Here you can see the remaining time to complete job order </h6>
-                                    <img src="~/images/Images1/166.png" width="500" height="250">
-
-                                </div>
-                                <div class="tab-content clearfix" id="tabs-3">
-                                    <div class="col_full">
-                                        <h4> Training video to filter Job Order</h4>
-                                        <iframe  style="width:100%;height:200px" src="https://www.youtube.com/embed/8NVNIjEyvqk" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                    </div>
-                                    <br /><br />
-                                    <div class="col_full">
-                                        <h5> Training Video for Job Order Page Functionality </h5>
-                                        <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/2AFYUhZemNE" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                    </div>
-                                </div><br /><br />
-                                    @*<div class="tab-content clearfix" id="tabs-4">
-                <p>
-                    <img src="C:\Reckonn Help\HTML\images\link images\j1.png" width="700" height="150">
-                </p>
-
-                <a href="#" onclick="showImage();">Requirement of Branch Manager  </a><br>
-
-                <div id="detailpage">
-
-                </div>
-                <script type="text/javascript">
-                    function showImage(){
-                        $("#detailpage").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/b1.PNG" />');
-                    }
-
-                    function showEditImage(){
-                        $("#editpage").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j2.PNG" />');
-                    }
-                </script>
-                <br>
-                <a href="#" onclick="showEditImage();"><i class="icon-pencil2"></i> </a><br>
-                <div id="editpage">
-
-                </div>
-            </div>*@
-                                <div class="col_full">
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-    //}
 }
 <script>
     function SendValue() {

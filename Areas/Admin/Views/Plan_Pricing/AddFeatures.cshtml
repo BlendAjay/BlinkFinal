@@ -25,7 +25,7 @@
                         @Html.LabelFor(model => model.Feature, "Feature")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.Feature, new { htmlAttributes = new { @class = "sm-form-control required", id = "Feature", @Placeholder = "Enter Feature" } })
+                            @Html.EditorFor(model => model.Feature, new { htmlAttributes = new { @class = "form-control required", id = "Feature", @Placeholder = "Enter Feature" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Feature, "", new { @class = "text-danger" })
                         <br>
@@ -35,7 +35,7 @@
                         @Html.LabelFor(model => model.FeatureSequence, "Feature Sequence")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.FeatureSequence, new { htmlAttributes = new { @class = "sm-form-control required", id = "FeatureSequence", @Placeholder = "Enter Feature Sequence" } })
+                            @Html.EditorFor(model => model.FeatureSequence, new { htmlAttributes = new { @class = "form-control required", id = "FeatureSequence", @Placeholder = "Enter Feature Sequence" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.FeatureSequence, "", new { @class = "text-danger" })
                         <br>

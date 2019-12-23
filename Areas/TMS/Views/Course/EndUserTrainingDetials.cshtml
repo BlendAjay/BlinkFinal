@@ -5,7 +5,7 @@
     List<AJSolutions.Models.EndUserTrainingOrderView> PATrainingOrders = ViewData["PATrainingOrders"] as List<AJSolutions.Models.EndUserTrainingOrderView>;
     List<AJSolutions.Models.EndUserTrainingOrderView> GDSTrainingOrders = ViewData["GDSTrainingOrders"] as List<AJSolutions.Models.EndUserTrainingOrderView>;
 }
-@using (Html.BeginForm("EndUserTrainingDetials", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "EndUserTrainingDetials", role = "form" }))
+@using (Html.BeginForm("EndUserTrainingDetials", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "EndUserTrainingDetials", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Data as string)

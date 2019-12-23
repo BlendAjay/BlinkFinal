@@ -26,14 +26,14 @@
                     <label>FeedBack date</label>
                     <div class="input-group travel-date-group">
                         <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        <input type="text" value="" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="FeedBackdate" name="FeedBackdate">
+                        <input type="text" value="" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="FeedBackdate" name="FeedBackdate">
                     </div>
                 </div>
                 foreach (var item in Model)
                 {
                     <div class="col_full">
                         <label>@item.Question</label>
-                        <input type="hidden" class="QuestionId sm-form-control" id="QuestionId" name="QuestionId[]" value="@item.QuestionId" />
+                        <input type="hidden" class="QuestionId form-control" id="QuestionId" name="QuestionId[]" value="@item.QuestionId" />
                        
                     </div>
                 }

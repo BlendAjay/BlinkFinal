@@ -55,16 +55,16 @@
             {
                 <div class="input-group divcenter travel-date-group">
                     <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                    @*<input type="date" class="sm-form-control  required" placeholder="Attendance Date" id="AttendenceDate" name="AttendenceDate" />*@
-                    <input type="text" value="@ViewBag.date" class="sm-form-control past-enabled" placeholder="@DateTime.Today.ToString("dd-MM-yyyy")" id="AttendenceDate" name="AttendenceDate">
+                    @*<input type="date" class="form-control  required" placeholder="Attendance Date" id="AttendenceDate" name="AttendenceDate" />*@
+                    <input type="text" value="@ViewBag.date" class="form-control past-enabled" placeholder="@DateTime.Today.ToString("dd-MM-yyyy")" id="AttendenceDate" name="AttendenceDate">
                 </div>
             }
             else
             {
                 <div class="input-group divcenter travel-date-group">
                     <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                    @*<input type="date" class="sm-form-control  required" placeholder="Attendance Date" id="AttendenceDate" name="AttendenceDate" />*@
-                    <input type="text" value="" class="sm-form-control past-enabled" placeholder="@DateTime.Today.ToString("dd-MM-yyyy")" id="AttendenceDate" name="AttendenceDate">
+                    @*<input type="date" class="form-control  required" placeholder="Attendance Date" id="AttendenceDate" name="AttendenceDate" />*@
+                    <input type="text" value="" class="form-control past-enabled" placeholder="@DateTime.Today.ToString("dd-MM-yyyy")" id="AttendenceDate" name="AttendenceDate">
                 </div>
             }
         </div>
@@ -73,7 +73,7 @@
             <label>Session</label>
             <div class="input-group divcenter travel-date-group">
                 <span class="input-group-addon"><i class="icon-calendar"></i></span>
-                @Html.DropDownList("Sessions", null, "--- Select  Sessions ---", htmlAttributes: new { @class = "sm-form-control required", id = "Sessions", placeholder = "Select Sessions" })
+                @Html.DropDownList("Sessions", null, "--- Select  Sessions ---", htmlAttributes: new { @class = "form-control required", id = "Sessions", placeholder = "Select Sessions" })
             </div>
         </div>
 
@@ -87,7 +87,7 @@
                             <tr>
                                 <th>S.No.</th>
                                 <th><input type='checkbox' id='UserChkAll' name='UserChkAll' value='checkAll' onclick="CheckUncheckAllToAttendance();" /></th>
-                                <th>Candidate Name (Reckonn Id)</th>
+                                <th>Candidate Name (Blink Id)</th>
                                 @*@if (AJSolutions.DAL.Global.IsIPPBStatusReportAccess(user.SubscriberId))
                                     {
                                         <th>SI UserId</th>
@@ -120,7 +120,7 @@
                                             <td>@reord.PhoneNumber</td>
                                         }*@
 
-                                    <td><input type="text" class="sm-form-control" id="Remarks" name="Remarks[]" placeholder="Enter Remarks" /></td>
+                                    <td><input type="text" class="form-control" id="Remarks" name="Remarks[]" placeholder="Enter Remarks" /></td>
                                 </tr>
                             }
                         </tbody>
@@ -129,7 +129,7 @@
             </div>
             <div class="col_full">
                 @Html.Label("Comment", "Comment", htmlAttributes: new { @class = "control-label" })
-                @Html.TextArea("Comment", null, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 1024, id = "Comment", @placeholder = "Enter your Comment here.." })
+                @Html.TextArea("Comment", null, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 1024, id = "Comment", @placeholder = "Enter your Comment here.." })
                 <div id="textarea_feedback" class="text-danger"></div>
                 <br>
             </div>
@@ -139,7 +139,7 @@
                 @Html.Hidden("URemark")
                 @Html.Hidden("UAttendance")
 
-                <input type="submit" id="btnRecord" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" />
+                <input type="submit" id="btnRecord" value="Submit" style="float: right;" class="btn btn-primary" />
             </div>
             <br /><br /><hr />
             <div class="col_full" id="TrainingAttendance">
@@ -182,7 +182,7 @@
                                                 <td>@item.PhoneNumber</td>
                                             }*@
 
-                                        <td><input type="text" class="sm-form-control" id="Remarks" name="Remarks[]" placeholder="Enter Remarks" /></td>
+                                        <td><input type="text" class="form-control" id="Remarks" name="Remarks[]" placeholder="Enter Remarks" /></td>
                                     </tr>
                                 }
                             </tbody>
@@ -191,7 +191,7 @@
                 </div>
                 <div class="col_full">
                     @Html.Label("Comment", "Comment", htmlAttributes: new { @class = "control-label" })
-                    @Html.TextArea("Comment", null, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 1024, id = "Comment", @placeholder = "Enter your Comment here.." })
+                    @Html.TextArea("Comment", null, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 1024, id = "Comment", @placeholder = "Enter your Comment here.." })
                     <div id="textarea_feedback" class="text-danger"></div>
                     <br>
                 </div>
@@ -201,7 +201,7 @@
                     @Html.Hidden("URemark")
                     @Html.Hidden("UAttendance")
 
-                    <input type="submit" id="btnRecord" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" />
+                    <input type="submit" id="btnRecord" value="Submit" style="float: right;" class="btn btn-primary" />
                 </div>
                 <br /><br /><hr />
                 <div class="col_full" id="TrainingAttendance">
@@ -239,56 +239,6 @@
     @Html.Hidden("RedirectTo", Url.Action("TrainingDetails", "TMS", new { area = "TMS", Id = @ViewBag.TrainingId }))
     @Html.Hidden("RedirectToattendance", Url.Action("Record", "Attendance", new { area = "CMS" }))
 }
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
-
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                                Here you can make online record of attendance of candidates.
-                            </p>
-
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
-
-                                    <a href="~/images/HelpImages/takeattendence.png" target="_blank" data-lightbox="gallery-item">
-                                        <img src="~/images/HelpImages/takeattendence.png" />
-                                    </a>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <br /><center>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- JEResponsive -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6029014565691295"
-             data-ad-slot="6109277368"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </center>
-
-</div>
 
 <script type="text/javascript">
     $('#AttendenceDate').change(function () {

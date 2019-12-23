@@ -2,7 +2,7 @@
 @using System.Text.RegularExpressions;
 @{
     ViewBag.Title = "Employee Availibility";
-    
+
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     if (user.Role == "Employee")
     {
@@ -14,22 +14,11 @@
     }
     IEnumerable<TrainerPlannerView> Planner = ViewData["Planner"] as IEnumerable<TrainerPlannerView>;
 }
-  @if (user.Role != "Employee")
-    {
-<div class="si-sticky toast-top-left topmargin-sm">
-    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-        <i class="icon-question"></i>
-        <i class="icon-question"></i>
-    </a>
-</div>
-  }
 @using (Html.BeginForm("Trainers", "Calendar", FormMethod.Post, new { @class = "form-horizontal", id = "Calendar", role = "form" }))
 {
     <div class="container">
-      <div data-provide="calendar" id="calendar"></div>
-</div>
-
-
+        <div data-provide="calendar" id="calendar"></div>
+    </div>
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="actionPopup">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -40,58 +29,19 @@
                     </div>
                     <div class="modal-body" id="modBody">
                         <div class="row">
-                <div class="table-responsive">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped nobottommargin" id="tbltrainner"></table>
-                    <br />
-
-
-                </div>
-            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                   From this page you get all details about employee's leaves, and you are able to approve and disapprove them.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/approveemployeeleaves.png" target="_blank" data-lightbox="gallery-item">
-                                            <img src="~/images/HelpImages/approveemployeeleaves.png" />
-
-                                        </a>
-
-
-                                    </div>
-                                </div>
+                                <br />
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 }
-@*<input type="button" data-toggle="modal" data-target=".bs-example-modal-lg" id="btnPopup" hidden />*@ 
+@*<input type="button" data-toggle="modal" data-target=".bs-example-modal-lg" id="btnPopup" hidden />*@
 @Html.Hidden("RedirectToHome", Url.Action("Trainers", "Calendar"));
 <script>
 

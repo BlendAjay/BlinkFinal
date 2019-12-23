@@ -16,14 +16,14 @@
 </head>
 @using Microsoft.AspNet.Identity
 @{
-    BlinkPortal.Models.UserViewModel user = ViewData["UserProfile"] as BlinkPortal.Models.UserViewModel;
-    BlinkPortal.Areas.CMS.Models.AdminLogoFile content = ViewData["CompanyLogo"] as BlinkPortal.Areas.CMS.Models.AdminLogoFile;
+    AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
+    AJSolutions.Areas.CMS.Models.AdminLogoFile content = ViewData["CompanyLogo"] as AJSolutions.Areas.CMS.Models.AdminLogoFile;
 }
 <body>
     @using (Html.BeginForm("LogOff", "Dashboard", new { area = "Candidate" }, FormMethod.Post, new { id = "CandidatelogoutForm", @class = "navbar-right" }))
     {
-    <!-- navbar -->
-    <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
                 <a class="navbar-brand" href="index.html">BLINK</a>
@@ -47,12 +47,12 @@
                 </div>
             </nav>
         </div>
-    <!-- ============================================================== -->
-    <!-- end navbar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- left sidebar -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
         <div class="nav-left-sidebar sidebar-dark">
             <div class="menu-list">
                 <nav class="navbar navbar-expand-lg navbar-light">
@@ -89,24 +89,17 @@
                                     </ul>
                                 </div>
                             </li>
-                            @if (BlinkPortal.DAL.Global.IsIPPBStatusReportAccess(user.SubscriberId))
+                            @*@if (AJSolutions.DAL.Global.IsIPPBStatusReportAccess(user.SubscriberId))
                             {
-                                @*<li>
-                                        <a href="@Url.Action("feedback", "Course" , new { area="TMS" })"><i class="icon-file-text"></i>Batch-1 Tracker Report</a>
-                                    </li>*@
                                 <li class="nav-divider"><a href="@Url.Action("FeedbackBatchWise", "Course", new { area = "TMS" })"><i class="icon-file-text"></i>Add End User Training Order</a></li>
                                 <li class="nav-divider"><a href="@Url.Action("EndUserTrainingDetials", "Course", new { area = "TMS" })"><i class="icon-file-text"></i>View End User Training Order</a></li>
-
-                                @*<li><a href="@Url.Action("CertifiedUsers", "Course", new { area = "TMS" })"><i class="icon-file-text"></i>OPS Data</a></li>*@
-                                @*<li><a href="@Url.Action("CertifiedData", "Course", new { area = "TMS" })"><i class="icon-file-text"></i>Certified Data</a></li>*@
-                                @*<li><a href="https://drive.google.com/open?id=1c15bzGg_lpbstXeQgn6KaD6GyjcK_wnR" target="_blank"><i class="icon-file-text"></i>Certified End User Data</a></li>*@
-                            }
+                            }*@
                         </ul>
                     </div>
                 </nav>
             </div>
         </div>
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
     }
 
     <div class="dashboard-wrapper">
@@ -177,7 +170,7 @@
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
             }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-92087944-1', 'auto');
@@ -285,10 +278,10 @@
                 singleDatePicker: true,
                 showDropdowns: true
             },
-            function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old.");
-            });
+                function (start, end, label) {
+                    var years = moment().diff(start, 'years');
+                    alert("You are " + years + " years old.");
+                });
 
             // reportrange
             function cb(start, end) {

@@ -30,7 +30,7 @@
                     @Html.LabelFor(model => model.MeetingSubject, "Meeting Subject")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        @Html.EditorFor(model => model.MeetingSubject, new { htmlAttributes = new { @class = "sm-form-control required", id = "MeetingSubject", @placeholder = "Enter Meeting Subject" } })
+                        @Html.EditorFor(model => model.MeetingSubject, new { htmlAttributes = new { @class = "form-control required", id = "MeetingSubject", @placeholder = "Enter Meeting Subject" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.MeetingSubject)
 
@@ -39,9 +39,9 @@
                     @Html.LabelFor(model => model.MeetingDate, "Meeting Date")<small>*</small>
                     <div class="input-group divcenter travel-date-group">
                         <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        <input type="text" value="@ViewBag.MeetingDate" class="sm-form-control past-enabled required" placeholder="DD/MM/YYYY" id="MeetingDate" name="MeetingDate">
+                        <input type="text" value="@ViewBag.MeetingDate" class="form-control past-enabled required" placeholder="DD/MM/YYYY" id="MeetingDate" name="MeetingDate">
 
-                        @*@Html.EditorFor(model => model.MeetingDate, new { htmlAttributes = new { @class = "sm-form-control required", id = "MeetingDate" } })*@
+                        @*@Html.EditorFor(model => model.MeetingDate, new { htmlAttributes = new { @class = "form-control required", id = "MeetingDate" } })*@
                     </div>
                     @Html.ValidationMessageFor(model => model.MeetingDate)
 
@@ -50,7 +50,7 @@
                     @Html.LabelFor(m => m.Location, "Location")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-phone"> </i></span>
-                        @Html.TextBoxFor(m => m.Location, new { @class = "sm-form-control", placeholder = "e.g. Raipur", id = "Location" })
+                        @Html.TextBoxFor(m => m.Location, new { @class = "form-control", placeholder = "e.g. Raipur", id = "Location" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
                 </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="row">
                 @Html.LabelFor(model => model.MeetingRemarks, "Minutes Of Meeting", htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.MeetingRemarks, 5, 124, htmlAttributes: new { @class = "sm-form-control", id = "MeetingRemarks", @placeholder = "Meeting Remarks here.." })
+                @Html.TextAreaFor(model => model.MeetingRemarks, 5, 124, htmlAttributes: new { @class = "form-control", id = "MeetingRemarks", @placeholder = "Meeting Remarks here.." })
 
             </div>
             @Html.ValidationMessageFor(model => model.MeetingRemarks, "", new { @class = "text-danger" })
@@ -70,7 +70,7 @@
 
             <div class="row">
                 @Html.LabelFor(model => model.InternalRemarks, "Internal Comments", htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.InternalRemarks, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 1024, id = "InternalRemarks", @placeholder = "Internal Remarks here.." })
+                @Html.TextAreaFor(model => model.InternalRemarks, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 1024, id = "InternalRemarks", @placeholder = "Internal Remarks here.." })
                 <div id="textarea" class="text-danger"></div>
             </div>
             @Html.ValidationMessageFor(model => model.InternalRemarks, "", new { @class = "text-danger" })

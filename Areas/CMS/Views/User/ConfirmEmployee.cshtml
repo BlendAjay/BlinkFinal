@@ -4,10 +4,10 @@
     ViewBag.Title = "ConfirmEmployee";
     Layout = "~/Areas/CMS/Views/Shared/_LayoutNoHeaderNoFooter.cshtml";
 }
-@using (Html.BeginForm("ConfirmEmployee", "User", FormMethod.Post, new { area = "CMS", id = "Add", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ConfirmEmployee", "User", FormMethod.Post, new { area = "CMS", id = "Add", @class = "form-horizontal needs-validation", role = "form" }))
 {
     <div class="container">
-        <input type="text" name="UserId" id="Uid" value="@Model.UserId" class="hidden" />
+        <input type="text" name="UserId" id="Uid" value="@Model.UserId" style = "display:none" />
         <div class="row">
             @if (ViewBag.isconfirm == true)
             {
@@ -38,10 +38,10 @@
                     </div>
                 </div>
                 <div class="col_full">
-                    @Html.DropDownList("ConfirmationOperation", null, "----Select Options ----", htmlAttributes: new { @class = "sm-form-control required", id = "Status", name = "Status" })
+                    @Html.DropDownList("ConfirmationOperation", null, "----Select Options ----", htmlAttributes: new { @class = "form-control required", id = "Status", name = "Status" })
                 </div>
                 <div class="col_full">
-                    <input type="text" class="sm-form-control" id="txtextend" name="Days" style="display:none" placeholder="Number of days to be extend" />
+                    <input type="text" class="form-control" id="txtextend" name="Days" style="display:none" placeholder="Number of days to be extend" />
                 </div>
                 <div class="col_full">
                     <textarea name="Remark" cols="63" rows="5" placeholder="Remark..." id="Remaks"></textarea>

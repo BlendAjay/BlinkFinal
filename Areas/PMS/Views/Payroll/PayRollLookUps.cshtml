@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("PayRollLookUps", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "PayRollLookUps", role = "form" }))
+@using (Html.BeginForm("PayRollLookUps", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "PayRollLookUps", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -25,7 +25,7 @@
                     @Html.LabelFor(model => model.LookUpsName, "LookUp Point")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-cog"> </i></span>
-                        @Html.EditorFor(model => model.LookUpsName, new { htmlAttributes = new { @class = "sm-form-control required", id = "LookUpsName", placeholder = "Enter LookUp Points(eg. promotion)" } })
+                        @Html.EditorFor(model => model.LookUpsName, new { htmlAttributes = new { @class = "form-control required", id = "LookUpsName", placeholder = "Enter LookUp Points(eg. promotion)" } })
                     </div>
                 </div>
                 <br />

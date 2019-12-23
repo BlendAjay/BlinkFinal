@@ -25,7 +25,7 @@
 
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-road"> </i></span>
-                        @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "sm-form-control required", placeholder = "e.g. Gem Knowledge Park Raipur", id = "BranchName" } })
+                        @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "form-control required", placeholder = "e.g. Gem Knowledge Park Raipur", id = "BranchName" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
                 </div>

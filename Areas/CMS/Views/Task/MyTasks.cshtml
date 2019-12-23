@@ -31,49 +31,43 @@
             @Html.Hidden("Result", ViewBag.Result as string)
             @if (user.Role != "Employee" && user.Role != "Client")
             {
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select Employee</label>
-                    @Html.DropDownList("AssignedTo", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "AssignedTo", placeholder = "Assigned To" })
+                    @Html.DropDownList("AssignedTo", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "AssignedTo", placeholder = "Assigned To" })
                 </div>
 
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select JobOrder</label>
-                    @Html.DropDownList("JobOrderNumber", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "JobOrderNumber", placeholder = "Select Job Order Number" })
+                    @Html.DropDownList("JobOrderNumber", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "JobOrderNumber", placeholder = "Select Job Order Number" })
                 </div>
 
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select Type</label>
-                    @Html.DropDownList("JobOrderTypeId", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
+                    @Html.DropDownList("JobOrderTypeId", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
                 </div>
 
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select Status</label>
-                    @Html.DropDownList("TaskStatus", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "TaskStatus", placeholder = "Select Task Status" })
+                    @Html.DropDownList("TaskStatus", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "TaskStatus", placeholder = "Select Task Status" })
                 </div>
             }
             @if (user.Role == "Employee" || user.Role == "Client")
             {
-
-                @*<div class="col-md-2 filter-group">
-                        <label>Select JobOrder</label>
-                        @Html.DropDownList("JobOrderNumber", null, "--- Select  JobOrder Number ---", htmlAttributes: new { @class = "sm-form-control", id = "JobOrderNumber", placeholder = "Select Job Order Number" })
-                    </div>*@
-
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select Type</label>
-                    @Html.DropDownList("JobOrderTypeId", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
+                    @Html.DropDownList("JobOrderTypeId", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "JobOrderTypeId", placeholder = "Select Job Order type" })
                 </div>
 
-                <div class="col_one_fifth nobottommargin">
+                <div class="col-md-3 nobottommargin">
                     <label>Select Status</label>
-                    @Html.DropDownList("TaskStatus", null, "--- Select ---", htmlAttributes: new { @class = "sm-form-control", id = "TaskStatus", placeholder = "Select Task Status" })
+                    @Html.DropDownList("TaskStatus", null, "--- Select ---", htmlAttributes: new { @class = "form-control", id = "TaskStatus", placeholder = "Select Task Status" })
                 </div>
             }
 
-            <div class="col_one_fifth col_last nobottommargin" style="padding-top:2.4em">
+            <div class="col-md-3 nobottommargin" style="padding-top:2.4em">
                 <nobr>
-                    <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick='SendValue()' title="Search">Filter</button>
-                    <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("MyTasks", "Task", new { Area = "CMS" })'" title="Clear">Clear</button>
+                    <button type="button" id="btnSearch" class="btn btn-primary" onclick='SendValue()' title="Search">Filter</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("MyTasks", "Task", new { Area = "CMS" })'" title="Clear">Clear</button>
                 </nobr>
             </div>
         </div>
@@ -190,51 +184,43 @@
                                             <br /><a href="@Url.Action("TrainingSchedule", "TMS", new { area = "TMS", TaskId = item.TaskId })" class="btn btn-warning" target="_blank">Schedule Training</a>
                                         }
                                     }
-                                    @*else if ((item.TaskStatus != 1  && item.TaskAmount > 0) && (user.Role == "Employee" || (user.Role == "Client" && user.DepartmentId != "CLI")))
-                                        {
-                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Invoice", "Task", new { area = "CMS", Id = item.TaskId, InvoiceTo = item.CreatedBy})'">Create Invoice</button>
-                                        }*@
-                                        @*else if ((item.TaskStatus == 6 && item.TInv != "0" && item.TInv != "" && item.TInv != null && item.InvoiceNumber != null))
-                                            {
-                                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InvoiceDetails", "Invoice", new { area = "CMS", Id = @item.InvoiceNumber })'">View Invoice</button>
-                                            }*@
 
-                                        <!--TO SHOW Status for different type users-->
-                                        @if (item.TaskStatus == 0 && user.DepartmentId != "ADI" && item.CreatedBy != item.SubscriberId)
-                                        {
-                                            <h5 style="color:orangered">Waiting for approval</h5>
-                                        }
-                                        else if ((item.TaskStatus == 6))
-                                        {
-                                            <label style="color:green">Completed</label>
-                                        }
-                                        else if (item.TaskStatus == 5)
-                                        {
-
-                                            <label style="color:red">Rejected</label>
-                                        }
-                                        else if (item.TaskStatus == 7)
-                                        {
-                                            <label style="color:red">Discarded</label>
-                                        }
-                                        else if (item.TaskStatus == 8)
-                                        {
-                                            <label style="color:orangered">Disapproved</label>
-
-                                        }
-
-                                    </center>
-                                    <br />
-
-                                    @if (item.Duration > 0 && !(item.TaskStatus == 5 || item.TaskStatus == 6 || item.TaskStatus == 7))
+                                    <!--TO SHOW Status for different type users-->
+                                    @if (item.TaskStatus == 0 && user.DepartmentId != "ADI" && item.CreatedBy != item.SubscriberId)
                                     {
-                                        EndDate = Convert.ToDateTime(item.StartDate).AddDays(Convert.ToInt32(item.Duration)).AddHours(item.StartDate.Value.Hour).AddMinutes(item.StartDate.Value.Minute).AddSeconds(item.StartDate.Value.Second);
-                                        if (EndDate >= DateTime.Now)
-                                        {
-                                            <center>Time Remaining</center>
-                                            <div id='@CountStr' class="countdown"></div>
+                                        <h5 style="color:orangered">Waiting for approval</h5>
+                                    }
+                                    else if ((item.TaskStatus == 6))
+                                    {
+                                        <label style="color:green">Completed</label>
+                                    }
+                                    else if (item.TaskStatus == 5)
+                                    {
 
-                                            <script>
+                                        <label style="color:red">Rejected</label>
+                                    }
+                                    else if (item.TaskStatus == 7)
+                                    {
+                                        <label style="color:red">Discarded</label>
+                                    }
+                                    else if (item.TaskStatus == 8)
+                                    {
+                                        <label style="color:orangered">Disapproved</label>
+
+                                    }
+
+                                </center>
+                                <br />
+
+                                @if (item.Duration > 0 && !(item.TaskStatus == 5 || item.TaskStatus == 6 || item.TaskStatus == 7))
+                                {
+                                    EndDate = Convert.ToDateTime(item.StartDate).AddDays(Convert.ToInt32(item.Duration)).AddHours(item.StartDate.Value.Hour).AddMinutes(item.StartDate.Value.Minute).AddSeconds(item.StartDate.Value.Second);
+                                    if (EndDate >= DateTime.Now)
+                                    {
+                                        <center>Time Remaining</center>
+                                        <div id='@CountStr' class="countdown"></div>
+
+                                        <script>
                                                 jQuery(document).ready(function () {
                                                     var dd = @item.StartDate.Value.Day;
                                                     var mm = @item.StartDate.Value.Month -1;
@@ -245,96 +231,74 @@
                                                     newDate.setDate(newDate.getDate() + duration);
                                                     $('#@CountStr').countdown({ until: newDate });
                                                 });
-                                            </script>
+                                        </script>
 
-                                        }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        <center>
+                                            <label style="color:red">Time Up</label>
+                                        </center>
+                                    }
+                                }
+                            </div>
+                            <div class="col_full entry-content nobottommargin">
+                                <ul class="entry-meta clearfix">
+                                    @if (item.AssignedToName != null)
+                                    {
+                                        <li><a href="#"><i class="icon-user"></i> @item.AssignedToName  </a></li>
+                                    }
+                                    @if (item.TaskType != null)
+                                    {
+                                        <li><a href="#"><i class="icon-folder-open"></i>@item.TaskType</a></li>
+                                    }
+                                    @if (item.InvoiceFrequency != null)
+                                    {
+                                        <li><a href="#"><i class="icon-money"></i>@item.InvoiceFrequency</a></li>
+                                    }
+                                    <li><a href="#"><i class="icon-check"></i>@item.TaskId</a></li>
+                                    @if (item.JobOrderNumber != null)
+                                    {
+                                        <li><a href="#"><i class="icon-check"></i>@item.JobOrderNumber</a></li>
+                                    }
+                                    @if (item.TaskStatus != 1 && (user.Role == "Employee"))
+                                    {
+                                        <li> <a href="@Url.Action("MyInvoices", "Invoice", new { area = "CMS", Invoice = item.TaskId})" target="_blank"><i class="icon-bill"></i><span>@item.TInv</span> Invoice(s)</a></li>
+                                    }
+                                    @if (attachments != null)
+                                    {
+                                        foreach (var attach in attachments)
                                         {
-                                            <center>
-                                                <label style="color:red">Time Up</label>
-                                            </center>
+                                            if (attach.TaskId == item.TaskId)
+                                            {
+                                                <li><a href="~/File/TaskAttachment?id=@attach.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Admin</a></li>
+                                            }
                                         }
                                     }
-                                </div>
-                                <div class="col_full entry-content nobottommargin">
-                                    <ul class="entry-meta clearfix">
-                                        @if (item.AssignedToName != null)
+                                    @if (finalattachments != null)
+                                    {
+                                        foreach (var final in finalattachments)
                                         {
-                                            <li><a href="#"><i class="icon-user"></i> @item.AssignedToName  </a></li>
-                                        }
-                                        @if (item.TaskType != null)
-                                        {
-                                            <li><a href="#"><i class="icon-folder-open"></i>@item.TaskType</a></li>
-                                        }
-                                        @if (item.InvoiceFrequency != null)
-                                        {
-                                            <li><a href="#"><i class="icon-money"></i>@item.InvoiceFrequency</a></li>
-                                        }
-                                        <li><a href="#"><i class="icon-check"></i>@item.TaskId</a></li>
-                                        @if (item.JobOrderNumber != null)
-                                        {
-                                            <li><a href="#"><i class="icon-check"></i>@item.JobOrderNumber</a></li>
-                                        }
-                                        @if (item.TaskStatus != 1 && (user.Role == "Employee"))
-                                        {
-                                            <li> <a href="@Url.Action("MyInvoices", "Invoice", new { area = "CMS", Invoice = item.TaskId})" target="_blank"><i class="icon-bill"></i><span>@item.TInv</span> Invoice(s)</a></li>
-                                        }
-                                        @if (attachments != null)
-                                        {
-                                            foreach (var attach in attachments)
+                                            if (final.TaskId == item.TaskId)
                                             {
-                                                if (attach.TaskId == item.TaskId)
-                                                {
-                                                    <li><a href="~/File/TaskAttachment?id=@attach.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Admin</a></li>
-                                                }
+                                                <li><a href="~/File/TaskFinalAttachment?id=@final.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Employee</a></li>
                                             }
                                         }
-                                        @if (finalattachments != null)
-                                        {
-                                            foreach (var final in finalattachments)
-                                            {
-                                                if (final.TaskId == item.TaskId)
-                                                {
-                                                    <li><a href="~/File/TaskFinalAttachment?id=@final.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i>By Employee</a></li>
-                                                }
-                                            }
-                                        }
-                                        @if ((item.TaskStatus == 0 || item.TaskStatus == 8 || item.TaskStatus == 1) && (user.DepartmentId == "ADI" || (item.CreatedBy == user.UserId)))
-                                        {
-                                            <li> <a href="@Url.Action("Task", "Task", new { TaskId = item.TaskId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a></li>
-                                            <li><a href="#" onclick="javascript: ConfirmationDialog('@item.TaskId');" title="Remove"><i class="icon-trash"></i></a></li>
-                                        }
-                                    </ul>
-
-                                </div>
+                                    }
+                                    @if ((item.TaskStatus == 0 || item.TaskStatus == 8 || item.TaskStatus == 1) && (user.DepartmentId == "ADI" || (item.CreatedBy == user.UserId)))
+                                    {
+                                        <li> <a href="@Url.Action("Task", "Task", new { TaskId = item.TaskId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a></li>
+                                        <li><a href="#" onclick="javascript: ConfirmationDialog('@item.TaskId');" title="Remove"><i class="icon-trash"></i></a></li>
+                                    }
+                                </ul>
 
                             </div>
+
                         </div>
+                    </div>
 
                 }
-                @*For Question to upload or not *@
-                @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="cutoff">
-                        <div class="form-process"></div>
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-body">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Would you like to add some attachment</h4>
-                                        <br />
-                                        <center>
-                                            <button type="button" class="button button-3d button-small button-rounded button-teal" onclick="attach('@item.TaskId', '@item.AssignedTo');">Yes</button> &nbsp;&nbsp; &nbsp;&nbsp;
-                                            <button type="button" class="button button-3d button-small button-rounded button-red" onclick="location.href='@Url.Action("MyTasks", "Task", new { area = "CMS", Id = item.TaskId, AssignedTo = item.AssignedTo, TaskStatus = 6 })'">No</button>
-                                        </center>
-                                    </div>
-                                    <div class="modal-body" id="cndBody">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
-                @*For Upload Attachment*@
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="cutoff">
                     <div class="form-process"></div>
                     <div class="modal-dialog modal-lg">
@@ -354,132 +318,16 @@
             }
             @if (Count == 0)
             {
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-thumbs-down2"></i>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">No Tasks</h3>
                     </div>
-                    <h3>No Tasks<span class="subtitle"></span></h3>
                 </div>
             }
         </div>
-
-
     </div>
     <input type="hidden" id="weburl" value="@Global.WebsiteUrl()" />
     @Html.Hidden("RedirectTo", Url.Action("MyTasks", "Task", new { area = "CMS" }))
-</div>
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
-
-                    <div class="container-fluid">
-                        @*@if (user.Role == "Employee" || (user.DepartmentId == "BPT" || user.DepartmentId == "CPT" || user.DepartmentId == "FRN" || user.DepartmentId == "FRL" || user.DepartmentId == "OTP" || user.DepartmentId == "VND"))
-                            {
-                            <div class="col_half">
-                                <p>
-                                    This page contain details tasks that are assigned to you and you have the libility to accept and reject them.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-                                        <a href="~/images/HelpImages/taskdetail.png" target="_blank" data-lightbox="gallery-item">
-
-                                            <img src="~/images/HelpImages/taskdetail.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                            else
-                            {
-
-                                <div class="col_half">
-                                    <p>
-                                        This page contain details of tasks created by you, you can see in what state your task is and to whome the task is assigned.                             </p>
-
-                                </div>
-                                <div class="col_half col_last">
-                                    <div class="feature-box center media-box fbox-bg">
-                                        <div class="fbox-media">
-                                            <a href="~/images/HelpImages/taskadmin.png" target="_blank" data-lightbox="gallery-item">
-                                                <img src="~/images/HelpImages/taskadmin.png" />
-                                            </a>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }*@
-
-
-
-                        @if (user.Role == "Admin")
-                        {
-
-
-
-                            <div class="col_half">
-                                <p>
-                                    This page contain details of tasks created by you, you can see in what state your task is and to whome the task is assigned.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-                                        <a href="~/images/HelpImages/taskadmin.png" target="_blank" data-lightbox="gallery-item">
-                                            <img src="~/images/HelpImages/taskadmin.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col_half">
-                                <p>
-                                    This page contain details tasks that are assigned to you and you have the libility to accept and reject them.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-                                        <a href="~/images/HelpImages/taskdetail.png" target="_blank" data-lightbox="gallery-item">
-
-                                            <img src="~/images/HelpImages/taskdetail.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-
-
-
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
     $(document).ready(function () {
@@ -504,7 +352,7 @@
         var jobOrderNumber = $("#JobOrderNumber").find(":selected").val();
         var tasktype = $("#JobOrderTypeId").find(":selected").val();
         var statusType = $("#TaskStatus").find(":selected").val();
-        var url = $("#RedirectTo").val()+"?AssignedTo=" + assignedTo + "&JobOrderNumber=" + jobOrderNumber + "&JobOrderTypeId=" + tasktype +"&TaskStatus=" +statusType;
+        var url = $("#RedirectTo").val() + "?AssignedTo=" + assignedTo + "&JobOrderNumber=" + jobOrderNumber + "&JobOrderTypeId=" + tasktype + "&TaskStatus=" + statusType;
         window.location.href = url;
     }
     $('#buttonclear').click(function (e) {
@@ -556,8 +404,8 @@
                     keyboard: false,
                 })
             },
-            cancel: function(){
-                var url = $("#RedirectTo").val() + "?Id=" + TaskId +"&AssignedTo=" + AssignTo +"&TaskStatus=" + TaskStatus;;
+            cancel: function () {
+                var url = $("#RedirectTo").val() + "?Id=" + TaskId + "&AssignedTo=" + AssignTo + "&TaskStatus=" + TaskStatus;;
                 location.href = url;
             }
 

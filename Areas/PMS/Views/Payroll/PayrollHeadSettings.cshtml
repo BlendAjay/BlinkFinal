@@ -32,14 +32,14 @@
                         <label>Head Name</label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user3"></i></span>
-                            @Html.DropDownList("HeadId", null, " --- Select Head --- ", htmlAttributes: new { @class = "sm-form-control", @id = "HeadId" })
+                            @Html.DropDownList("HeadId", null, " --- Select Head --- ", htmlAttributes: new { @class = "form-control", @id = "HeadId" })
                         </div>
                     </div>
                     <div class="col_half">
                         @Html.LabelFor(model => model.Deduction, "Deduction")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-banknote"> </i></span>
-                            @Html.EditorFor(model => model.Deduction, new { htmlAttributes = new { @class = "sm-form-control required", id = "Deduction", placeholder = "e.g. CL" } })
+                            @Html.EditorFor(model => model.Deduction, new { htmlAttributes = new { @class = "form-control required", id = "Deduction", placeholder = "e.g. CL" } })
 
                         </div>
                         @Html.ValidationMessageFor(model => model.Deduction, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
                         @Html.LabelFor(model => model.DeductionCriteria, "Deduction Criteria")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user3"></i></span>
-                            @Html.DropDownList("MethodName", null, " --- Select Head --- ", htmlAttributes: new { @class = "sm-form-control", @id = "MethodName" })
+                            @Html.DropDownList("MethodName", null, " --- Select Head --- ", htmlAttributes: new { @class = "form-control", @id = "MethodName" })
                         </div>
                         @Html.ValidationMessageFor(model => model.DeductionCriteria, "", new { @class = "text-danger" })
                         <br>
@@ -64,7 +64,7 @@
                     </div>
                     @*@Html.Hidden("HeadId")*@
                     <input type="hidden" id="hidheadText" name="hidheadText" />
-                    @Html.HiddenFor(m => m.DateFrom, htmlAttributes: new { @class = "sm-form-control", @id = "hfDateFrom" })
+                    @Html.HiddenFor(m => m.DateFrom, htmlAttributes: new { @class = "form-control", @id = "hfDateFrom" })
                 </div>
             </div>
             <div class="row">

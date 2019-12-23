@@ -11,13 +11,7 @@
             ;
 }
 
-<div class="si-sticky toast-top-left topmargin-sm">
-    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-        <i class="icon-question"></i>
-        <i class="icon-question"></i>
-    </a>
-</div>
-@using (Html.BeginForm("SkillDetails", "Employee", FormMethod.Post, new { @class = "form-horizontal", id = "SkillDetails", role = "form" }))
+@using (Html.BeginForm("SkillDetails", "Employee", FormMethod.Post, new { @class = "form-horizontal needs-validation", id = "SkillDetails", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Result as string)
@@ -44,7 +38,7 @@
                 <h5 class="card-header">My Skills</h5>
                 <div class="card-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                         <label>Select Profile<small>*</small></label><small style="float:right"><a href="@Url.Action(" profiletype", "Employee" , new {p="skill" , area="EMS" })">Add New Profile</a></small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-trophy"></i></span>
@@ -67,7 +61,7 @@
                             <span class="input-group-addon"><i class="icon-food2"> </i></span>
                             @if (ViewBag.Action == "Add")
                             {
-                                @Html.TextBox("SkillName", "", new { @class = "form-control required", @id = "SkillName", placeholder = "Skill Name " })
+                                @Html.TextBox("SkillName", "", new { @class = "form-control required", @id = "SkillName", placeholder = "Skill Name ", @required = "required"  })
                             }
                             else
                             {
@@ -80,7 +74,7 @@
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-cog"> </i></span>
 
-                            @Html.DropDownList("YearofExperience", null, "--- Year of Experience ---", new { @class = "form-control required ", @id = "YearofExperience", placeholder = "Year of Experience" })
+                            @Html.DropDownList("YearofExperience", null, "--- Year of Experience ---", new { @class = "form-control required ", @id = "YearofExperience", placeholder = "Year of Experience", @required = "required"  })
                         </div>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

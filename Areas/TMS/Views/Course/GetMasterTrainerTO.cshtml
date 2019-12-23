@@ -4,7 +4,7 @@
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
     List<AJSolutions.Models.MTTrainingOrderTraineeDetailsView> TrainingOrders = ViewData["MTTrainingOrders"] as List<AJSolutions.Models.MTTrainingOrderTraineeDetailsView>;
 }
-@using (Html.BeginForm("GetMasterTrainerTO", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "GetMasterTrainerTO", role = "form" }))
+@using (Html.BeginForm("GetMasterTrainerTO", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "GetMasterTrainerTO", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Data as string)

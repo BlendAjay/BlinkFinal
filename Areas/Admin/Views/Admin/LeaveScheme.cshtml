@@ -7,7 +7,7 @@
 }
 }
 
- @using (Html.BeginForm("LeaveScheme", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal", id = "LeaveScheme", role = "form" }))
+ @using (Html.BeginForm("LeaveScheme", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal needs-validation", id = "LeaveScheme", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @*@Html.Hidden("SaveStatus", ViewBag.Result as string)*@
@@ -22,7 +22,7 @@
                     @Html.LabelFor(m=>m.SchemeName, "Leave Scheme Type")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.SchemeName, new { htmlAttributes = new { @class = "sm-form-control required", id = "SchemeName", placeholder = "Enter Leave Scheme Name" } })
+                        @Html.EditorFor(model => model.SchemeName, new { htmlAttributes = new { @class = "form-control required", id = "SchemeName", placeholder = "Enter Leave Scheme Name" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.SchemeName, "", new { @class = "text-danger" })
                     <br>

@@ -17,7 +17,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("Payrollheads", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "Payrollheads", role = "form" }))
+@using (Html.BeginForm("Payrollheads", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "Payrollheads", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("CorporatePayrollHeadID", ViewBag.CorporatePayrollHeadID as string)
@@ -61,15 +61,15 @@
                         }
                     </td>
                     <td>
-                        @Html.DropDownList("Marks", null, htmlAttributes: new { @class = "sm-form-control", @id = "Marks", name = "Marks", placeholder = " Select Default Percentage " })
+                        @Html.DropDownList("Marks", null, htmlAttributes: new { @class = "form-control", @id = "Marks", name = "Marks", placeholder = " Select Default Percentage " })
                     </td>
                     <td>
                         @if (ViewBag.HeadId == Global.BasicHeadId() )
                         {
-                            @Html.DropDownList("PayrollCategory", null, htmlAttributes: new { @class = "sm-form-control", @id = "PayrollCategory", name = "PayrollCategory", placeholder = "Payroll Category", @disabled = "disabled" })
+                            @Html.DropDownList("PayrollCategory", null, htmlAttributes: new { @class = "form-control", @id = "PayrollCategory", name = "PayrollCategory", placeholder = "Payroll Category", @disabled = "disabled" })
                         }
                         else
-                        { @Html.DropDownList("PayrollCategory", null, htmlAttributes: new { @class = "sm-form-control", @id = "PayrollCategory", name = "PayrollCategory", placeholder = "Payroll Category" })}
+                        { @Html.DropDownList("PayrollCategory", null, htmlAttributes: new { @class = "form-control", @id = "PayrollCategory", name = "PayrollCategory", placeholder = "Payroll Category" })}
                     </td>
 
                     <td>
@@ -77,24 +77,24 @@
                         {
                             if (ViewBag.HeadId == Global.BasicHeadId() )
                             {
-                                <input type="text" id="MaxLimit" name="MaxLimit" value="@ViewBag.MaxLimit" class="sm-form-control" readonly="readonly" />
+                                <input type="text" id="MaxLimit" name="MaxLimit" value="@ViewBag.MaxLimit" class="form-control" readonly="readonly" />
                             }
                             else
                             { 
-                            <input type="text" id="MaxLimit" name="MaxLimit" value="@ViewBag.MaxLimit" class="sm-form-control" />}
+                            <input type="text" id="MaxLimit" name="MaxLimit" value="@ViewBag.MaxLimit" class="form-control" />}
                         }
                         else
                         {
-                            <input type="text" id="MaxLimit" name="MaxLimit" class="sm-form-control" style="width:80px;" />
+                            <input type="text" id="MaxLimit" name="MaxLimit" class="form-control" style="width:80px;" />
                         }
                     </td>
                     <td>
                         @if (ViewBag.HeadId == Global.BasicHeadId() )
                         {
-                            @Html.DropDownList("PeriodFrequencyStatus", null, htmlAttributes: new { @class = "sm-form-control", @id = "PeriodFrequencyStatus", name = "PeriodFrequencyStatus", placeholder = "Payroll Period", @disabled = "disabled" })
+                            @Html.DropDownList("PeriodFrequencyStatus", null, htmlAttributes: new { @class = "form-control", @id = "PeriodFrequencyStatus", name = "PeriodFrequencyStatus", placeholder = "Payroll Period", @disabled = "disabled" })
                         }
                         else
-                        { @Html.DropDownList("PeriodFrequencyStatus", null, htmlAttributes: new { @class = "sm-form-control", @id = "PeriodFrequencyStatus", name = "PeriodFrequencyStatus", placeholder = "Payroll Period" })}
+                        { @Html.DropDownList("PeriodFrequencyStatus", null, htmlAttributes: new { @class = "form-control", @id = "PeriodFrequencyStatus", name = "PeriodFrequencyStatus", placeholder = "Payroll Period" })}
 
                     </td>
                     <td>
@@ -103,16 +103,16 @@
                         {
                             if (ViewBag.HeadId == Global.BasicHeadId())
                             {
-                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "sm-form-control", @id = "TaxExemption", name = "TaxExemption", value = @ViewBag.TaxExemption, disabled = "disabled" })
+                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "form-control", @id = "TaxExemption", name = "TaxExemption", value = @ViewBag.TaxExemption, disabled = "disabled" })
                             }
                             else
                             {
-                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "sm-form-control", @id = "TaxExemption", name = "TaxExemption", value = @ViewBag.TaxExemption })
+                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "form-control", @id = "TaxExemption", name = "TaxExemption", value = @ViewBag.TaxExemption })
                             }
                         }
                         else
                         {
-                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "sm-form-control ", @id = "TaxExemption", name = "TaxExemption" })
+                                @Html.CheckBox("TaxExemption", htmlAttributes: new { @class = "form-control ", @id = "TaxExemption", name = "TaxExemption" })
                         }
 
                     </td>
@@ -398,7 +398,7 @@
             @:{ lim: @i.Marks },
             }
         ];
-        var selectlimit = '<select class="sm-form-control" id="limit[]" name="limit[]"><option selected="selected" value=""> --- Select Percent --- </option>';
+        var selectlimit = '<select class="form-control" id="limit[]" name="limit[]"><option selected="selected" value=""> --- Select Percent --- </option>';
         for(i=0;i<LeaveLimit.length;i++)
         {
             if(LeaveLimit[i].lim==0)
@@ -419,7 +419,7 @@
             @:{ per: "@k.PeriodFrequencyStatus" },
             }
         ];
-        var selectFrequency = '<select class="sm-form-control" id="periods[]" name="periods[]"><option selected="selected" value=""> --- Select periods --- </option>';
+        var selectFrequency = '<select class="form-control" id="periods[]" name="periods[]"><option selected="selected" value=""> --- Select periods --- </option>';
         for(k=0;k<Frequency.length;k++)
         {
             if(Frequency[k].per==0)
@@ -444,7 +444,7 @@
         ];
 
 
-        var selectcategory = '<select class="sm-form-control" id="category[]" name="category[]"><option selected="selected" value=""> --- Select Percent --- </option>';
+        var selectcategory = '<select class="form-control" id="category[]" name="category[]"><option selected="selected" value=""> --- Select Percent --- </option>';
         for(j=0;j<PCategory.length;j++)
         {
             if(PCategory[j].cate==0)
@@ -459,15 +459,15 @@
         selectcategory = selectcategory + '</select>';
 
 
-        $('#addheads').append('<tr>' + '<td><input type="checkbox" id="PayrollHeadID[]"  name="PayrollHeadID[]" class="hidden" checked="checked"/>' +
-            '<input type="text" id="CorporatePayrollHeadID[]" name="CorporatePayrollHeadID[]" value="0" class="hidden" /></td>' +
-            '<td><input type="text" id="PayrollHeadName[]" name="PayrollHeadName[]" class="sm-form-control" value=""/>'+
+        $('#addheads').append('<tr>' + '<td><input type="checkbox" id="PayrollHeadID[]"  name="PayrollHeadID[]" style = "display:none" checked="checked"/>' +
+            '<input type="text" id="CorporatePayrollHeadID[]" name="CorporatePayrollHeadID[]" value="0" style = "display:none" /></td>' +
+            '<td><input type="text" id="PayrollHeadName[]" name="PayrollHeadName[]" class="form-control" value=""/>'+
             '<input type="hidden" id="HeadID[]" name="HeadID[]" value="0" /></td>' +
             '<td>' + selectlimit + ' </td>' +
             '<td>' + selectcategory + ' </td>' +
-            '<td><input type="text" id="MaxLimit[]" name="MaxLimit[]" class="sm-form-control" value=""/></td>' +
+            '<td><input type="text" id="MaxLimit[]" name="MaxLimit[]" class="form-control" value=""/></td>' +
            '<td>' + selectFrequency + ' </td>' +
-        '<td><input type="checkbox" id="chekTaxExemption" name="TaxExemption[]" class="sm-form-control" value="true"> <br /><a href="javascript:void(0);" class="btn btn-default btn-xs" id="remCF1">Remove</a></td>' +
+        '<td><input type="checkbox" id="chekTaxExemption" name="TaxExemption[]" class="form-control" value="true"> <br /><a href="javascript:void(0);" class="btn btn-default btn-xs" id="remCF1">Remove</a></td>' +
          '</tr>'
             );
     });

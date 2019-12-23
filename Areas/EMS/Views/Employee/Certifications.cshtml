@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("Certifications", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal", id = "Certifications", role = "form" }))
+@using (Html.BeginForm("Certifications", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal needs-validation", id = "Certifications", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Data as string)

@@ -27,13 +27,13 @@
                     @Html.Label("Template Name")<small>*</small>
                 </div>
                 <div class="col_two_third col_last">
-                    @Html.DropDownList("TemplateId", null, "Select Template", htmlAttributes: new { @class = "sm-form-control required", id = "TemplateId" })
+                    @Html.DropDownList("TemplateId", null, "Select Template", htmlAttributes: new { @class = "form-control required", id = "TemplateId" })
                 </div>
                 <div class="col_one_third">
                     @Html.Label("Employee Name")<small>*</small>
                 </div>
                 <div class="col_two_third col_last">
-                    @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "sm-form-control required", id = "UserId" })
+                    @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "form-control required", id = "UserId" })
                 </div>
                 <div class="col_full fright">
                     <input type="submit" value="Genreate Letter" class="button button-3d" id="GenreateCorporateLetter" />
@@ -107,7 +107,6 @@
 
     @Html.Hidden("RedirectToHome", Url.Action("GenreateCorporateLetter", "Payroll"))
 </div>
-@*<script src="~/js/Jspdf.js"></script>*@
 
 
 <script type="text/javascript">

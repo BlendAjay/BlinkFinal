@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
     CourseFileManagerView content = ViewData["Content"] as CourseFileManagerView;
 }
-@using (Html.BeginForm("WCourseEntry", "TMS", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", enctype = "multipart/form-data", id = "WCourseEntry", role = "form" }))
+@using (Html.BeginForm("WCourseEntry", "TMS", FormMethod.Post, new { area = "Admin", @class = "form-horizontal needs-validation", enctype = "multipart/form-data", id = "WCourseEntry", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("CourseCode", Model.CourseCode)
@@ -24,7 +24,7 @@
                     <label>Course Category</label><small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-file"> </i></span>
-                        @Html.DropDownList("CategoryId", null, "--- Select Category ---", htmlAttributes: new { @class = "sm-form-control required", id = "CategoryId" })
+                        @Html.DropDownList("CategoryId", null, "--- Select Category ---", htmlAttributes: new { @class = "form-control required", id = "CategoryId" })
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                     <label>Course Duration</label><small>*</small><small style="float:right">In Days</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        @Html.DropDownList("CourseDuration", null, "--- Select Duration ---", htmlAttributes: new { @class = "sm-form-control required", id = "CourseDuration" })
+                        @Html.DropDownList("CourseDuration", null, "--- Select Duration ---", htmlAttributes: new { @class = "form-control required", id = "CourseDuration" })
                     </div>
                 </div>
                 <br />
@@ -41,14 +41,14 @@
                     <label>Course Name<small>*</small></label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                        @*@Html.TextBox("CourseName", ViewBag.CourseName as string, new { @class = "sm-form-control required", @id = "CourseName", placeholder = "Course Name" })*@
-                        @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "sm-form-control required", id = "CourseName", placeholder = "Course Name" } })
+                        @*@Html.TextBox("CourseName", ViewBag.CourseName as string, new { @class = "form-control required", @id = "CourseName", placeholder = "Course Name" })*@
+                        @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control required", id = "CourseName", placeholder = "Course Name" } })
                     </div>
                 </div>
 
                 <div class="col_full">
                     <label>Course Description<small>*</small></label>
-                    @Html.TextAreaFor(model => model.CourseDescription, 4, 124, htmlAttributes: new { @Maxlength = 1024, @class = "sm-form-control required", @id = "CourseDescription", placeholder = "Enter The Description" })
+                    @Html.TextAreaFor(model => model.CourseDescription, 4, 124, htmlAttributes: new { @Maxlength = 1024, @class = "form-control required", @id = "CourseDescription", placeholder = "Enter The Description" })
                     <div id="textarea_feedback" class="text-danger"></div>
                 </div>
             </div>
@@ -61,8 +61,8 @@
                     <label>Course Fee</label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-money"></i></span>
-                        @*@Html.TextBox("CourseFee", ViewBag.CourseFee as string, new { @class = "CourseFee sm-form-control", @id = "CourseFee", placeholder = "Course Fee" })*@
-                        @Html.EditorFor(model => model.CourseFee, new { htmlAttributes = new { @class = "sm-form-control", id = "CourseFee", placeholder = "Course Fee" } })
+                        @*@Html.TextBox("CourseFee", ViewBag.CourseFee as string, new { @class = "CourseFee form-control", @id = "CourseFee", placeholder = "Course Fee" })*@
+                        @Html.EditorFor(model => model.CourseFee, new { htmlAttributes = new { @class = "form-control", id = "CourseFee", placeholder = "Course Fee" } })
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     <label>Content Visibility<small>*</small></label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.DropDownList("ContentVisiblity", null, "---Select Visibility ---", htmlAttributes: new { @class = "sm-form-control required", id = "ContentVisiblity" })
+                        @Html.DropDownList("ContentVisiblity", null, "---Select Visibility ---", htmlAttributes: new { @class = "form-control required", id = "ContentVisiblity" })
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                             <tr>
                                 <td class="checkbox">
                                     <div>
-                                        @Html.CheckBoxFor(model => model.DiscussionForum, new { htmlAttributes = new { @class = "sm-form-control", id = "DiscussionForum", @value = true } })
+                                        @Html.CheckBoxFor(model => model.DiscussionForum, new { htmlAttributes = new { @class = "form-control", id = "DiscussionForum", @value = true } })
                                         @Html.LabelFor(model => model.DiscussionForum, "Allow Discussion on these course?")
                                     </div>
                                 </td>
@@ -107,12 +107,12 @@
                     @Html.LabelFor(model => content.ActualFileName, "Name your Document")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-line2-doc"></i></span>
-                        @Html.TextBox("NewFileName", content.NewFileName as string, new { @class = "sm-form-control", @id = "NewFileName", placeholder = "Enter Document Name" })
+                        @Html.TextBox("NewFileName", content.NewFileName as string, new { @class = "form-control", @id = "NewFileName", placeholder = "Enter Document Name" })
                     </div>
                 </div>
                 <div class="col_half col_last">
                     @Html.LabelFor(model => content.ContentFileId, "Browse")
-                    <input id="uploadImage" type="file" name="banner" class="sm-form-control" enctype='multipart/form-data' />
+                    <input id="uploadImage" type="file" name="banner" class="form-control" enctype='multipart/form-data' />
                 </div>
                 <div class=" col_full">
                     <br /><input type="submit" value="Submit" style="float: right;" class="btn btn-primary nomargin" id="SubmitForm" name="SubmitForm" />

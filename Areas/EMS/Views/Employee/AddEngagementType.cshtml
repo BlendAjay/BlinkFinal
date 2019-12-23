@@ -5,7 +5,7 @@
     Layout = "~/Areas/CMS/Views/Shared/_LayoutNoHeaderNoFooter.cshtml";
 }
 
-@using (Html.BeginForm("AddEngagementType", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal", id = "AddEngagementType", role = "form" }))
+@using (Html.BeginForm("AddEngagementType", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal needs-validation", id = "AddEngagementType", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SchemeId", ViewBag.SchemeId as string);

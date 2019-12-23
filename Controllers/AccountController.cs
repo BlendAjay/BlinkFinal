@@ -860,7 +860,8 @@ namespace AJSolutions.Controllers
             }
             else if (roleId.ToUpper() == "EMPLOYEE")
             {
-                return RedirectToAction("Index", "Dashboard", new { area = "EMS" });
+                return RedirectToAction("MyTraining", "TMS", new { area = "TMS", TId = userId });
+                //return RedirectToAction("Index", "Dashboard", new { area = "EMS" });
             }
             else if (roleId.ToUpper() == "ADMINISTRATOR")
             {

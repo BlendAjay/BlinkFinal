@@ -35,11 +35,11 @@
 
                 <div class="col_half filter-group">
                     <label>Select Course</label>
-                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Course", id = "CourseCode" })
+                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode" })
                 </div>
                 <div class="col_half col_last filter-group" id="Batch">
                     <label>Select Batch</label>
-                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "BatchId" })
+                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId" })
                 </div>
                 <br />
                 <div class="col_full">
@@ -134,7 +134,7 @@
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    var batch = "<label>Select Batch</label><select class='sm-form-control' id='BatchId'>";
+                    var batch = "<label>Select Batch</label><select class='form-control' id='BatchId'>";
                     batch = batch + '<option value="">--- Select Batch ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         batch = batch + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
@@ -170,7 +170,7 @@
         if ($("#CourseCode :selected").val() == null || $("#CourseCode :selected").val() == '' || $("#CourseCode :selected").val() == undefined) {
             $.alert({
                 title: 'Alert',
-                content: 'Select <b>Course Code</b> to download <b>Candidate List</b>',
+                content: 'Select <b>Sector Code</b> to download <b>Candidate List</b>',
                 confirmButton: 'OK',
                 confirmButtonClass: 'button button-3d button-rounded button-red',
                 icon: 'icon-thumbs-down2 icon-2x ',
@@ -230,7 +230,7 @@
         if ($("#CourseCode :selected").val() == null || $("#CourseCode :selected").val() == '' || $("#CourseCode :selected").val() == undefined) {
             $.alert({
                 title: 'Alert',
-                content: 'Select <b>Course Code</b> to download <b>Candidate List</b>',
+                content: 'Select <b>Sector Code</b> to download <b>Candidate List</b>',
                 confirmButton: 'OK',
                 confirmButtonClass: 'button button-3d button-rounded button-red',
                 icon: 'icon-thumbs-down2 icon-2x ',

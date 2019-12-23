@@ -21,7 +21,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("GradeMaster", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "GradeMaster", role = "form" }))
+@using (Html.BeginForm("GradeMaster", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "GradeMaster", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("Result", ViewBag.ReturnResult as string)
@@ -37,7 +37,7 @@
                         @Html.LabelFor(model => model.GradeName, "Grade Name")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-banknote"> </i></span>
-                            @Html.EditorFor(model => model.GradeName, new { htmlAttributes = new { @class = "sm-form-control required", id = "GradeName", placeholder = "eg. Grade A" } })
+                            @Html.EditorFor(model => model.GradeName, new { htmlAttributes = new { @class = "form-control required", id = "GradeName", placeholder = "eg. Grade A" } })
 
                         </div>
                      

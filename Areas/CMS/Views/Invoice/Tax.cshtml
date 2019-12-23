@@ -14,7 +14,7 @@
     </a>
 </div>
 
-@using (Html.BeginForm("Tax", "Invoice", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal", id = "Tax", role = "form" }))
+@using (Html.BeginForm("Tax", "Invoice", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal needs-validation", id = "Tax", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Result as string)
@@ -30,7 +30,7 @@
 
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-money"> </i></span>
-                        @Html.EditorFor(model => model.TaxName, new { htmlAttributes = new { @class = "sm-form-control required", placeholder = "e.g.Service Tax", id = "TaxationName" } })
+                        @Html.EditorFor(model => model.TaxName, new { htmlAttributes = new { @class = "form-control required", placeholder = "e.g.Service Tax", id = "TaxationName" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.TaxName, "", new { @class = "text-danger" })
                 </div>
@@ -39,7 +39,7 @@
                     @Html.LabelFor(model => model.TaxationValue, "Percentage Value")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-measure "> </i></span>
-                        @Html.EditorFor(model => model.TaxationValue, new { htmlAttributes = new { @class = "sm-form-control required", placeholder = "e.g. value in %", id = "TaxationValue" } })
+                        @Html.EditorFor(model => model.TaxationValue, new { htmlAttributes = new { @class = "form-control required", placeholder = "e.g. value in %", id = "TaxationValue" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.TaxationValue, "", new { @class = "text-danger" })
                 </div>

@@ -14,17 +14,17 @@
     }
     double remaining = 0;
 }
-@using (Html.BeginForm("CandidateFeeDetails", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", id = "CandidateCourse", role = "form" }))
+@using (Html.BeginForm("CandidateFeeDetails", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", id = "CandidateCourse", role = "form" }))
 {
     <div class="container">
         <div class="row">
             <div class="col_half">
                 <label>Select Course</label><br />
-                @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "sm-form-control", id = "CourseCode", placeholder = "Select Course" })
+                @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control", id = "CourseCode", placeholder = "Select Course" })
             </div>
             <div class="col_half col_last">
                 <label>Select Batch</label><br />
-                @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control", id = "BatchId", placeholder = "Select course batch" })
+                @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control", id = "BatchId", placeholder = "Select course batch" })
             </div>
             @*<a href="/CMS/Transactions/DownloadCandidateFeeRecord?CourseCode=@Model.FirstOrDefault().CourseCode&BatchId=@Model.FirstOrDefault().BatchId">Download Candidate Fee Record</a>*@
             @if (ViewBag.Batch != 0 && ViewBag.Course != null && Model.Count() > 0)

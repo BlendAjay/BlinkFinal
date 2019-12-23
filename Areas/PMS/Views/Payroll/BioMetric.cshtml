@@ -23,7 +23,7 @@
     </a>
 </div>
 
-@using (Html.BeginForm("BioMetric", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "BioMetric", role = "form" }))
+@using (Html.BeginForm("BioMetric", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "BioMetric", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("LoggedInIp", ViewBag.LoggedInIp as string)
@@ -63,7 +63,7 @@
         else
         {
             <div class="col_half">
-                @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "sm-form-control required", id = "UserId" })
+                @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "form-control required", id = "UserId" })
             </div>
             <div class="col_half col_last">
                 <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick='SendValue()'>Filter</button>&nbsp;

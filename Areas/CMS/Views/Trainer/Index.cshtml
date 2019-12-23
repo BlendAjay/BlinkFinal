@@ -38,36 +38,36 @@
             </div>
             <div class="col_one_fourth">
                 <span>Name</span>
-                @Html.TextBox("Name", null, htmlAttributes: new { @class = "sm-form-control", @id = "Name", placeholder = "Trainer Name" })
+                @Html.TextBox("Name", null, htmlAttributes: new { @class = "form-control", @id = "Name", placeholder = "Trainer Name" })
 
             </div>
             <div class="col_one_fourth">
                 <span>Location</span>
-                @Html.TextBox("City", null, htmlAttributes: new { @class = "sm-form-control", @id = "City", placeholder = "Location" })
+                @Html.TextBox("City", null, htmlAttributes: new { @class = "form-control", @id = "City", placeholder = "Location" })
 
             </div>
             <div class="col_one_fourth">
-                @*@Html.TextBox("Zone", null, htmlAttributes: new { @class = "sm-form-control", @id = "Zone", placeholder = "Zone" })*@
+                @*@Html.TextBox("Zone", null, htmlAttributes: new { @class = "form-control", @id = "Zone", placeholder = "Zone" })*@
                 <span>Zone</span>
-                @Html.DropDownList("Zone", null, "---  Select Zone ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Zone", id = "Zone" })
+                @Html.DropDownList("Zone", null, "---  Select Zone ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Zone", id = "Zone" })
             </div>
             <div class="col_one_fourth col_last ">
                 <span>Qualification</span>
-                @Html.DropDownList("Qualification", null, "---Select Qualification---", htmlAttributes: new { id = "Qualification", @class = "sm-form-control" })
+                @Html.DropDownList("Qualification", null, "---Select Qualification---", htmlAttributes: new { id = "Qualification", @class = "form-control" })
             </div>
 
             <div class="col_full">
                 <div class="col_one_fourth ">
                     <span>Domain</span>
-                    @Html.DropDownList("Domain", null, "---Select Domain---", htmlAttributes: new { id = "Domain", placeholder = "Select Domain", @class = "sm-form-control" })
+                    @Html.DropDownList("Domain", null, "---Select Domain---", htmlAttributes: new { id = "Domain", placeholder = "Select Domain", @class = "form-control" })
                 </div>
                 <div class="col_one_fourth ">
                     <sapn>Organization</sapn>
-                    @Html.DropDownList("Organization", null, "---Select Organization---", htmlAttributes: new { id = "TrainerMentor", placeholder = "Select Organization", @class = "sm-form-control" })
+                    @Html.DropDownList("Organization", null, "---Select Organization---", htmlAttributes: new { id = "TrainerMentor", placeholder = "Select Organization", @class = "form-control" })
                 </div>
                 <div class="col_one_fourth ">
                     <span>LanguageKnown</span>
-                    @Html.DropDownList("LanguageKnown", null, "---Select Language---", htmlAttributes: new { id = "LanguageKnown", placeholder = "Select LanguageKnown", @class = "sm-form-control" })
+                    @Html.DropDownList("LanguageKnown", null, "---Select Language---", htmlAttributes: new { id = "LanguageKnown", placeholder = "Select LanguageKnown", @class = "form-control" })
                 </div>
                 <div class="col_one_fourth  col_last">
                     <br /><button type="submit" id="search" class="button_apply" title="click here to Search">Search</button>&nbsp;

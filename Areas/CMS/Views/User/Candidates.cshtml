@@ -1,6 +1,6 @@
 ﻿@*@model IEnumerable<AJSolutions.Areas.Candidate.Models.CandidateViewModel>*@
 @using PagedList.Mvc;
-@using AJSolutions.Helpers;
+@using AJSolutions.DAL;
 @model  PagedList.IPagedList<AJSolutions.Areas.Candidate.Models.CandidateViewModel>
 @{
     ViewBag.Title = "My Candidates";
@@ -22,7 +22,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("Candidates", "User", FormMethod.Post, new { area = "CMS", id = "Candidates", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Candidates", "User", FormMethod.Post, new { area = "CMS", id = "Candidates", @class = "form-horizontal needs-validation", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -33,151 +33,144 @@
         </div>
 
         <div class="row">
-            <div class="fancy-title title-bottom-border title-right">
-                <h4>My Candidates (@ViewBag.CCount)</h4>
-            </div>
-            <div class="col_one_sixth">
-                Search By  User Name
-                @Html.TextBox("UserName", ViewBag.UserName as string, new { @class = "form-control", @id = "UserName", placeholder = "User Name" })
-            </div>
-            <div class="col_one_sixth">
-                Search By Name
-                @Html.TextBox("Name", ViewBag.Name as string, new { @class = "form-control", @id = "Name", placeholder = "Name" })
-            </div>
-            <div class="col_one_sixth">
-                Search By Email Id
-                @Html.TextBox("EmailId", ViewBag.EmailId as string, new { @class = "form-control", @id = "EmailId", placeholder = "EmailId" })
-            </div>
-            @if (AJSolutions.DAL.Global.IsStatusReportAccess(user.SubscriberId))
-            {
-                <div class="col_one_sixth">
-                    ReferenceId
-                    @Html.DropDownList("Reference", null, "--- Select Reference ---", new { @class = "form-control", @id = "Reference", placeholder = "", @onchange = "submitform();" })
-                    @*@Html.TextBox("ReferenceId", ViewBag.ReferenceId as string, new { @class = "form-control", @id = "ReferenceId", placeholder = "ReferenceId" })*@
+            @*<div class="fancy-title title-bottom-border title-right">
+                    <h4>My Candidates (@ViewBag.CCount)</h4>
                 </div>
-            }
-            <div class="col_one_sixth">
-                Search By Corporate
-                @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", new { @class = "form-control", @id = "CorporateId", placeholder = "", @onchange = "submitform();" })
-            </div>
+                <div class="col_one_sixth">
+                    Search By  User Name
+                    @Html.TextBox("UserName", ViewBag.UserName as string, new { @class = "form-control", @id = "UserName", placeholder = "User Name" })
+                </div>
+                <div class="col_one_sixth">
+                    Search By Name
+                    @Html.TextBox("Name", ViewBag.Name as string, new { @class = "form-control", @id = "Name", placeholder = "Name" })
+                </div>
+                <div class="col_one_sixth">
+                    Search By Email Id
+                    @Html.TextBox("EmailId", ViewBag.EmailId as string, new { @class = "form-control", @id = "EmailId", placeholder = "EmailId" })
+                </div>
+                @if (AJSolutions.DAL.Global.IsStatusReportAccess(user.SubscriberId))
+                {
+                    <div class="col_one_sixth">
+                        ReferenceId
+                        @Html.DropDownList("Reference", null, "--- Select Reference ---", new { @class = "form-control", @id = "Reference", placeholder = "", @onchange = "submitform();" })
+                       </div>
+                }
+                <div class="col_one_sixth">
+                    Search By Corporate
+                    @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", new { @class = "form-control", @id = "CorporateId", placeholder = "", @onchange = "submitform();" })
+                </div>
 
-            <div class="col_one_sixth col_last">
-                <br /><button type="submit" id="search" class="button_apply" title="click here to Search">Search</button>&nbsp;
-                <button class="button_apply" id="buttonclear" title="click here to Clear Search">Clear</button>
-            </div>
-            <br />
+                <div class="col_one_sixth col_last">
+                    <br /><button type="submit" id="search" class="button_apply" title="click here to Search">Search</button>&nbsp;
+                    <button class="button_apply" id="buttonclear" title="click here to Clear Search">Clear</button>
+                </div>
+                <br />*@
 
             @if (Model != null)
             {
                 if (Model.Count() > 0)
                 {
-                    <div class="col_full">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped nobottommargin">
-                                <tr>
-                                    <th>
-                                        S.No.
-                                    </th>
-                                    @*<th>
-                                            <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.UserNameSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">User Name&nbsp;<span class="icon-sort"></span></a>
-                                        </th>*@
-                                    <th>
-                                        <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.NameSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Name&nbsp;<span class="icon-sort"></span></a>
-                                    </th>
-                                    <th>
-                                        <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.EmailSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Email&nbsp;<span class="icon-sort"></span></a>
-                                    </th>
-                                    <th>
-                                        <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.RegisteredOnSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Registered On&nbsp;<span class="icon-sort"></span></a>
-                                    </th>
-                                    <th>
-                                        <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.LastLoggedInSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Last Logged In&nbsp;<span class="icon-sort"></span></a>
-                                    </th>
-                                    <th>
-                                        <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.CorporateSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Corporate&nbsp;<span class="icon-sort"></span></a>
-                                    </th>
-                                    @*<th>Course</th>
-                                        <th>Batch</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Course Fee</th>
-                                        <th>Installment</th>
-                                        <th>Due Amount</th>*@
-                                    <th>Edit</th>
-                                    <th>
-                                        Generate Password
-                                    </th>
-                                    <th>
-                                        Deactivated
-                                    </th>
-                                </tr>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h5 class="card-header">My Candidates (@ViewBag.CCount)</h5>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">#</th>
+                                                <th class="border-0">
+                                                    <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.NameSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Name&nbsp;<span class="icon-sort"></span></a>
+                                                </th>
+                                                <th class="border-0">
+                                                    <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.EmailSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Email&nbsp;<span class="icon-sort"></span></a>
+                                                </th>
+                                                <th class="border-0">
+                                                    <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.RegisteredOnSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Registered On&nbsp;<span class="icon-sort"></span></a>
+                                                </th>
+                                                <th class="border-0">
+                                                    <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.LastLoggedInSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Last Logged In&nbsp;<span class="icon-sort"></span></a>
+                                                </th>
+                                                <th class="border-0">
+                                                    <a href="@Url.Action("Candidates", "User", new { sortOrder = ViewBag.CorporateSortParam, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page = ViewBag.Page, PageSize = ViewBag.Paging })">Corporate&nbsp;<span class="icon-sort"></span></a>
+                                                </th>
 
-                                @{
-                    int count = (currPageSize * (currPage - 1)) + 1;
-                    foreach (var item in Model)
-                    {
-                        //var dueAmount = item.CourseFee - item.PaidAmount;
-                        <tr>
-                            <td class="text-center">
-                                @count
-                            </td>
-                            <td>
-                                @Html.ActionLink(item.Name, "CandidateProfile", "Candidate", new { area = "Candidate", UserId = item.UserId }, htmlAttributes: new { target = "_blank" })
+                                                <th class="border-0">Edit</th>
+                                                <th class="border-0">
+                                                    Generate Password
+                                                </th>
+                                                <th class="border-0">
+                                                    Deactivated
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int count = (currPageSize * (currPage - 1)) + 1;
+                                                foreach (var item in Model)
+                                                {
+                                                    //var dueAmount = item.CourseFee - item.PaidAmount;
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            @count
+                                                        </td>
+                                                        <td>
+                                                            @Html.ActionLink(item.Name, "CandidateProfile", "Candidate", new { area = "Candidate", UserId = item.UserId }, htmlAttributes: new { target = "_blank" })
 
-                                <br />
-                                <small>  (@item.UserName)</small>
-                            </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>*@
-                            <td class="text-center">
+                                                            <br />
+                                                            <small>  (@item.UserName)</small>
+                                                        </td>
+                                                        <td class="text-center">
 
-                                <a href="mailto:@item.Email" title="mail:@item.Email"><i class="icon-mail"></i></a>&nbsp;
-                                <a href="tel:@item.PhoneNumber" title="tel:@item.PhoneNumber"><i class="icon-call"></i></a>
-                            </td>
-                            <td class="text-center">
-                                @if (item.RegisteredOn != null)
-                                {
-                                    <nobr> @item.RegisteredOn.ToString("dd-MMM-yyyy")</nobr>
-                                }
-                            </td>
+                                                            <a href="mailto:@item.Email" title="mail:@item.Email"><i class="icon-mail"></i></a>&nbsp;
+                                                            <a href="tel:@item.PhoneNumber" title="tel:@item.PhoneNumber"><i class="icon-call"></i></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if (item.RegisteredOn != null)
+                                                            {
+                                                                <nobr> @item.RegisteredOn.ToString("dd-MMM-yyyy")</nobr>
+                                                            }
+                                                        </td>
 
-                            <td class="text-center">
-                                @if (item.LastLogin != null)
-                                {
-                                    //  DateTime log = item.LastLogin.Value.AddHours(5).AddMinutes(30);
-                                    //  @log
-                                    <nobr>  @item.LastLogin.Value.ToString("dd-MMM-yyyy")</nobr>
-                                }
-                            </td>
+                                                        <td class="text-center">
+                                                            @if (item.LastLogin != null)
+                                                            {
+                                                                //  DateTime log = item.LastLogin.Value.AddHours(5).AddMinutes(30);
+                                                                //  @log
+                                                                <nobr>  @item.LastLogin.Value.ToString("dd-MMM-yyyy")</nobr>
+                                                            }
+                                                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CorporateName)
-                            </td>
-                            <td class="text-center">
-                                <a href="@Url.Action("Add", "User", new { area = "CMS", Id = "CND", Uid = item.UserId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a>
-                            </td>
-                            <td class="text-center">
-                                <input type="button" class="icon-lock" id="btnGeneratePassword" value="Generate" onclick="javascript: GeneratePassword('@item.UserId', '@item.Name', '@item.Email', '@item.PCode', '@item.UserName');" />
-                                @*<a href="" title="Generate Password" onclick="javascript: GeneratePassword('@item.UserId', '@item.Name', '@item.PCode');"><i class="icon-lock"></i></a>*@
-                            </td>
-                            @if (item.Deactivated == true)
-                            {
-                                <td class="text-center">
-                                    @Html.CheckBoxFor(model => item.Deactivated, new { Id = "Deactivated", onclick = "ActivateUser('" + item.UserId + "','" + item.Name + "');" })
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="text-center">
-                                    @Html.CheckBoxFor(model => item.Deactivated, new { Id = "Deactivated", onclick = "DeactivateUser('" + item.UserId + "','" + item.Name + "');" })
-                                </td>
-                            }
-                        </tr>
-                            count++;
-                    }
-                                }
-                            </table>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.CorporateName)
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a href="@Url.Action("Add", "User", new { area = "CMS", Id = "CND", Uid = item.UserId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <input type="button" class="icon-lock" id="btnGeneratePassword" value="Generate" onclick="javascript: GeneratePassword('@item.UserId', '@item.Name', '@item.Email', '@item.PCode', '@item.UserName');" />
+                                                            @*<a href="" title="Generate Password" onclick="javascript: GeneratePassword('@item.UserId', '@item.Name', '@item.PCode');"><i class="icon-lock"></i></a>*@
+                                                        </td>
+                                                        @if (item.Deactivated == true)
+                                                        {
+                                                            <td class="text-center">
+                                                                @Html.CheckBoxFor(model => item.Deactivated, new { Id = "Deactivated", onclick = "ActivateUser('" + item.UserId + "','" + item.Name + "');" })
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="text-center">
+                                                                @Html.CheckBoxFor(model => item.Deactivated, new { Id = "Deactivated", onclick = "DeactivateUser('" + item.UserId + "','" + item.Name + "');" })
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                    count++;
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
@@ -206,13 +199,6 @@
                 @Html.PagedListPager(Model, page => Url.Action("Candidates", "User", new { sortOrder = ViewBag.CurrentSort, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, ReferenceId = ViewBag.ReferenceId, CorporateId = ViewBag.CorporateIdFilter, page, PageSize = ViewBag.Paging }))
             </div>
         </div>
-        @*<ul class="pagination" style="float:right">
-                <li style="float:right">, ReferenceId = ViewBag.ReferenceId
-                    @Html.DropDownList("PageSize", null, htmlAttributes: new { @id = "PageSize", @onchange = "submitform();" })
-                    @Html.PagedListPager(Model, page => Url.Action("Candidates", "User", new { sortOrder = ViewBag.CurrentSort, UserName = ViewBag.UserName, Name = ViewBag.Name, EmailId = ViewBag.EmailId, CorporateId = ViewBag.CorporateIdFilter, page, PageSize = ViewBag.Paging }))
-                </li>
-                <li></li>
-            </ul>*@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="genPwd">
@@ -234,51 +220,9 @@
     @Html.Hidden("RedirectTo", Url.Action("Candidates", "User"));
     @Html.Hidden("sortOrder", ViewBag.CurrentSort as string)
 }
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
-
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                                This page contain list of candidates, you can get all details regarding them from this page.
-                            </p>
-
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
-
-                                    <a href="~/images/HelpImages/candidatelist.png" target="_blank" data-lightbox="gallery-item">
-
-                                        <img src="~/images/HelpImages/candidatelist.png" />
-                                    </a>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     function submitform() {
-        //if ($("#PageSize :selected").val() != 0) {
-        //    $('#spinner').show();
-        //    var PageSize = $("#PageSize :selected").val();
-        //    var url = $("#RedirectTo").val() + "?PageSize=" + PageSize;
-        //    location.href = url;
-        //}
+
         $('#Candidates').submit();
     }
 
@@ -434,8 +378,6 @@
                             });
                         }
 
-
-
                         if (data == false) {
                             $.alert({
                                 title: 'Cheers',
@@ -451,12 +393,6 @@
                                 }
                             });
                         }
-
-
-
-
-
-
                     }
                 });
             },
@@ -474,8 +410,6 @@
         location.href = url;
 
     });
-
-
 
     function pagehelp() {
         $('#Popup').modal('show');

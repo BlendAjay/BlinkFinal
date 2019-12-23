@@ -7,7 +7,7 @@
 }
 
 
-@using (Html.BeginForm("Relation", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "Relation", role = "form" }))
+@using (Html.BeginForm("Relation", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "Relation", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -21,7 +21,7 @@
                     @Html.LabelFor(model => model.RelationType, "Relation Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-cog"> </i></span>
-                        @Html.EditorFor(model => model.RelationType, new { htmlAttributes = new { @class = "sm-form-control required", id = "RelationType", placeholder = "Enter relation(eg. Mother)" } })
+                        @Html.EditorFor(model => model.RelationType, new { htmlAttributes = new { @class = "form-control required", id = "RelationType", placeholder = "Enter relation(eg. Mother)" } })
                     </div>
 
 

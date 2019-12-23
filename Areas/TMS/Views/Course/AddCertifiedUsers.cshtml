@@ -11,7 +11,7 @@
         Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
     }
 }
-@using (Html.BeginForm("AddCertifiedUsers", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "AddCertifiedUsers", role = "form" }))
+@using (Html.BeginForm("AddCertifiedUsers", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "AddCertifiedUsers", role = "form" }))
 {
     @Html.AntiForgeryToken()
     if (Model != null)
@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col_half">
                         <label>Name of Circle</label>
-                        <select name="CircleName" id="CircleName" tabindex="9" class="sm-form-control required">
+                        <select name="CircleName" id="CircleName" tabindex="9" class="form-control required">
                             @if (string.IsNullOrEmpty(Model.CircleName))
                             {
                                 <option value="" selected="selected">-- Select --</option>
@@ -224,7 +224,7 @@
                         @Html.LabelFor(model => model.IPPBSOLID, "IPPB SOL ID")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.IPPBSOLID, new { htmlAttributes = new { @class = "sm-form-control required", id = "IPPBSOLID", @Placeholder = "Enter IPPB SOL ID" } })
+                            @Html.EditorFor(model => model.IPPBSOLID, new { htmlAttributes = new { @class = "form-control required", id = "IPPBSOLID", @Placeholder = "Enter IPPB SOL ID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.IPPBSOLID, "", new { @class = "text-danger" })
                     </div>
@@ -232,7 +232,7 @@
                         @Html.LabelFor(model => model.IPPBSolName, "IPPB Sol Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.IPPBSolName, new { htmlAttributes = new { @class = "sm-form-control required", id = "IPPBSolName", @Placeholder = "Enter IPPB Sol Name" } })
+                            @Html.EditorFor(model => model.IPPBSolName, new { htmlAttributes = new { @class = "form-control required", id = "IPPBSolName", @Placeholder = "Enter IPPB Sol Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.IPPBSolName, "", new { @class = "text-danger" })
                     </div>
@@ -240,13 +240,13 @@
                         @Html.LabelFor(model => model.FacilityID, "Facility ID")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-building"> </i></span>
-                            @Html.EditorFor(model => model.FacilityID, new { htmlAttributes = new { @class = "sm-form-control required", id = "FacilityID", minlength = 13, maxlength = 13, @Placeholder = "Enter Facility ID" } })
+                            @Html.EditorFor(model => model.FacilityID, new { htmlAttributes = new { @class = "form-control required", id = "FacilityID", minlength = 13, maxlength = 13, @Placeholder = "Enter Facility ID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.FacilityID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_half">
                         <label>Faclity Type</label>
-                        <select name="FacilityType" id="FacilityType" tabindex="9" class="sm-form-control required">
+                        <select name="FacilityType" id="FacilityType" tabindex="9" class="form-control required">
                             @if (string.IsNullOrEmpty(Model.FacilityType))
                             {
                                 <option value="" selected="selected">-- Select --</option>
@@ -285,7 +285,7 @@
                         @Html.LabelFor(model => model.EmpID, "Employee Id")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.EmpID, new { htmlAttributes = new { @class = "sm-form-control", id = "EmpID", @Placeholder = "Enter Employee Id" } })
+                            @Html.EditorFor(model => model.EmpID, new { htmlAttributes = new { @class = "form-control", id = "EmpID", @Placeholder = "Enter Employee Id" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.EmpID, "", new { @class = "text-danger" })
                     </div>
@@ -293,7 +293,7 @@
                         @Html.LabelFor(model => model.FullName, "Full Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "sm-form-control required", @id = "FullName", @Placeholder = "Enter Full Name" } })
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control required", @id = "FullName", @Placeholder = "Enter Full Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                     </div>
@@ -302,7 +302,7 @@
                         @Html.LabelFor(model => model.MobileNumber, "Mobile Number")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "sm-form-control required", @id = "MobileNumber", @Placeholder = "Enter Mobile Number" } })
+                            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control required", @id = "MobileNumber", @Placeholder = "Enter Mobile Number" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
                     </div>
@@ -310,13 +310,13 @@
                         @Html.LabelFor(model => model.EmailID, "Email ID")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "sm-form-control", id = "EmailID", @Placeholder = "Enter Email ID" } })
+                            @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", id = "EmailID", @Placeholder = "Enter Email ID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_half col_last">
                         @Html.LabelFor(model => model.EmployeeDesignation, "Employee Designation")
-                        <select name="EmployeeDesignation" id="EmployeeDesignation" tabindex="9" class="sm-form-control required">
+                        <select name="EmployeeDesignation" id="EmployeeDesignation" tabindex="9" class="form-control required">
                             @if (string.IsNullOrEmpty(Model.EmployeeDesignation))
                             {
                                 <option value="" selected="selected">-- Select --</option>
@@ -363,7 +363,7 @@
                         @Html.LabelFor(model => model.ReportingOfficerName, "Reporting Officer Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.ReportingOfficerName, new { htmlAttributes = new { @class = "sm-form-control required", id = "ReportingOfficerName", @Placeholder = "Enter Reporting Officer Name" } })
+                            @Html.EditorFor(model => model.ReportingOfficerName, new { htmlAttributes = new { @class = "form-control required", id = "ReportingOfficerName", @Placeholder = "Enter Reporting Officer Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.ReportingOfficerName, "", new { @class = "text-danger" })
                     </div>
@@ -371,7 +371,7 @@
                         @Html.LabelFor(model => model.ReportingOfficerEmpID, "Reporting Officer Employee Id")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.ReportingOfficerEmpID, new { htmlAttributes = new { @class = "sm-form-control required", id = "ReportingOfficerEmpID", @Placeholder = "Enter Reporting Officer EmpID" } })
+                            @Html.EditorFor(model => model.ReportingOfficerEmpID, new { htmlAttributes = new { @class = "form-control required", id = "ReportingOfficerEmpID", @Placeholder = "Enter Reporting Officer EmpID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.ReportingOfficerEmpID, "", new { @class = "text-danger" })
                     </div>
@@ -379,7 +379,7 @@
                         @Html.LabelFor(model => model.ReportingOfficerDesignation, "Reporting Officer Designation")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.ReportingOfficerDesignation, new { htmlAttributes = new { @class = "sm-form-control required", id = "ReportingOfficerDesignation", @Placeholder = "Enter Reporting Officer Designation" } })
+                            @Html.EditorFor(model => model.ReportingOfficerDesignation, new { htmlAttributes = new { @class = "form-control required", id = "ReportingOfficerDesignation", @Placeholder = "Enter Reporting Officer Designation" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.ReportingOfficerDesignation, "", new { @class = "text-danger" })
                     </div>
@@ -387,7 +387,7 @@
                         @Html.LabelFor(model => model.Reporting_ASP_IPO_Name, "Reporting ASP / IPO Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.Reporting_ASP_IPO_Name, new { htmlAttributes = new { @class = "sm-form-control required", id = "Reporting_ASP_IPO_Name", @Placeholder = "Enter Reporting ASP / IPO Name" } })
+                            @Html.EditorFor(model => model.Reporting_ASP_IPO_Name, new { htmlAttributes = new { @class = "form-control required", id = "Reporting_ASP_IPO_Name", @Placeholder = "Enter Reporting ASP / IPO Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Reporting_ASP_IPO_Name, "", new { @class = "text-danger" })
                     </div>
@@ -395,7 +395,7 @@
                         @Html.LabelFor(model => model.Reporting_ASP_IPO_EmpID, "Reporting ASP / IPO Employee Id")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-graduation"> </i></span>
-                            @Html.EditorFor(model => model.Reporting_ASP_IPO_EmpID, new { htmlAttributes = new { @class = "sm-form-control required", id = "Reporting_ASP_IPO_EmpID", @Placeholder = "Enter Reporting ASP / IPO EmpID" } })
+                            @Html.EditorFor(model => model.Reporting_ASP_IPO_EmpID, new { htmlAttributes = new { @class = "form-control required", id = "Reporting_ASP_IPO_EmpID", @Placeholder = "Enter Reporting ASP / IPO EmpID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Reporting_ASP_IPO_EmpID, "", new { @class = "text-danger" })
                     </div>
@@ -403,28 +403,28 @@
                         @Html.LabelFor(model => model.DOP_SOL_ID, "DOP SOL ID")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-speech"> </i></span>
-                            @Html.EditorFor(model => model.DOP_SOL_ID, new { htmlAttributes = new { @class = "sm-form-control required", id = "DOP_SOL_ID", @Placeholder = "Enter DOP SOL ID" } })
+                            @Html.EditorFor(model => model.DOP_SOL_ID, new { htmlAttributes = new { @class = "form-control required", id = "DOP_SOL_ID", @Placeholder = "Enter DOP SOL ID" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.DOP_SOL_ID, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_one_third">
                         @Html.LabelFor(model => model.IsCertified, "IsCertified")
-                        @Html.CheckBoxFor(model => model.IsCertified, new { htmlAttributes = new { @class = "sm-form-control", @id = "IsCertified" } })
+                        @Html.CheckBoxFor(model => model.IsCertified, new { htmlAttributes = new { @class = "form-control", @id = "IsCertified" } })
                         @Html.ValidationMessageFor(model => model.IsCertified, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_one_third">
                         @Html.LabelFor(model => model.IsAvailableLaunch, "End-User available for Launch")
-                        @Html.CheckBoxFor(model => model.IsAvailableLaunch, new { htmlAttributes = new { @class = "sm-form-control", @id = "IsMobileDevice" } })
+                        @Html.CheckBoxFor(model => model.IsAvailableLaunch, new { htmlAttributes = new { @class = "form-control", @id = "IsMobileDevice" } })
                         @Html.ValidationMessageFor(model => model.IsAvailableLaunch, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_one_third col_last">
                         @Html.LabelFor(model => model.IsMobileDevice, "Mobile Device Available")
-                        @Html.CheckBoxFor(model => model.IsMobileDevice, new { htmlAttributes = new { @class = "sm-form-control", @id = "IsMobileDevice" } })
+                        @Html.CheckBoxFor(model => model.IsMobileDevice, new { htmlAttributes = new { @class = "form-control", @id = "IsMobileDevice" } })
                         @Html.ValidationMessageFor(model => model.IsMobileDevice, "", new { @class = "text-danger" })
                     </div>
                     <div class="col_full">
                         @Html.LabelFor(model => model.Comments, "Enter your Comments", htmlAttributes: new { @class = "control-label" })<small>*</small>
-                        @Html.TextAreaFor(model => model.Comments, 5, 124, htmlAttributes: new { @class = "sm-form-control ", id = "Comments", @placeholder = "Comments here.." })
+                        @Html.TextAreaFor(model => model.Comments, 5, 124, htmlAttributes: new { @class = "form-control ", id = "Comments", @placeholder = "Comments here.." })
                         <div id="textarea_feedback" class="text-danger"></div>
                         @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
 

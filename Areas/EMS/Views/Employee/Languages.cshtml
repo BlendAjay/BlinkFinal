@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("Languages", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal", id = "Languages", role = "form" }))
+@using (Html.BeginForm("Languages", "Employee", FormMethod.Post, new { area = "EMS", @class = "form-horizontal needs-validation", id = "Languages", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Result as string)
@@ -34,12 +34,12 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div id="contact-form-overlay" class="clearfix">
-            <div class="row">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
                 <div class="form-process"></div>
-                <h5 class="card-header">Languages</h5>
-                <div class="col_full">
+                <h5 class="card-header">Identification Details</h5>
+                <div class="card-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="table-responsive">
                         <table id="dataTable" class="table table-bordered table-striped">
@@ -57,7 +57,7 @@
                                 <tr>
 
                                     <td data-title="Language">
-                                        @Html.DropDownList("LanguageId", null, "---Select Language---", htmlAttributes: new { @class = "form-control required", @id = "Language" })
+                                        @Html.DropDownList("LanguageId", null, "---Select Language---", htmlAttributes: new { @class = "form-control required", @id = "Language", @required = "required" })
                                         @Html.ValidationMessageFor(model => model.LanguageId, "", new { @class = "text-danger" })
                                     </td>
 
@@ -77,58 +77,57 @@
                             </tbody>
                         </table>
                     </div>
-                    <input type="submit" id="Languages" value="Save" style="float: right;" class="button button-3d button-rounded button-teal" />
+                    <input type="submit" id="Languages" value="Save" style="float: right;" class="btn btn-primary" />
+                    <br />
+                    @if (language != null)
+                    {
+                        <div class="col_full">
+                            <div class="fancy-title title-bottom-border">
+                                <h4>Languages Known</h4>
+                            </div>
+                            <br />
+                            <div class="table-responsive">
+                                <table id="dataTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <!-------------------Title Section---------------------->
+                                        <tr>
+                                            <th class="strong">Language</th>
+                                            <th class="strong">Read</th>
+                                            <th class="strong">Write</th>
+                                            <th class="strong">Speak</th>
+                                            <th class="strong">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-------------------First Language Section---------------------->
+                                        @foreach (var item in language)
+                                        {
+                                            <tr>
+                                                <td data-title="Language">
+                                                    @Html.DisplayFor(modelItem => item.Language)
+                                                </td>
+                                                <td data-title="Read">
+                                                    @Html.DisplayFor(modelItem => item.ReadLanguage)
+                                                </td>
+                                                <td data-title="Write">
+                                                    @Html.DisplayFor(modelItem => item.Write)
+                                                </td>
+                                                <td data-title="Speak">
+                                                    @Html.DisplayFor(modelItem => item.Speak)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Languages", "Employee", new { UserLanguageId = item.UserLanguageId, UserAction = "Edit" }, new { title = "Edit" })
+                                                    |
+                                                    @Html.ActionLink("Delete", "Languages", "Employee", new { UserLanguageId = item.UserLanguageId, UserAction = "Delete" }, new { title = "Delete" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
                 </div>
-
-                <br />
-                @if (language != null)
-                {
-                    <div class="col_full">
-                        <div class="fancy-title title-bottom-border">
-                            <h4>Languages Known</h4>
-                        </div>
-                        <br />
-                        <div class="table-responsive">
-                            <table id="dataTable" class="table table-bordered table-striped">
-                                <thead>
-                                    <!-------------------Title Section---------------------->
-                                    <tr>
-                                        <th class="strong">Language</th>
-                                        <th class="strong">Read</th>
-                                        <th class="strong">Write</th>
-                                        <th class="strong">Speak</th>
-                                        <th class="strong">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-------------------First Language Section---------------------->
-                                    @foreach (var item in language)
-                                    {
-                                    <tr>
-                                        <td data-title="Language">
-                                            @Html.DisplayFor(modelItem => item.Language)
-                                        </td>
-                                        <td data-title="Read">
-                                            @Html.DisplayFor(modelItem => item.ReadLanguage)
-                                        </td>
-                                        <td data-title="Write">
-                                            @Html.DisplayFor(modelItem => item.Write)
-                                        </td>
-                                        <td data-title="Speak">
-                                            @Html.DisplayFor(modelItem => item.Speak)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Languages", "Employee", new { UserLanguageId = item.UserLanguageId, UserAction = "Edit" }, new { title = "Edit" })
-                                            |
-                                            @Html.ActionLink("Delete", "Languages", "Employee", new { UserLanguageId = item.UserLanguageId, UserAction = "Delete" }, new { title = "Delete" })
-                                        </td>
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                }
             </div>
         </div>
     </div>
@@ -136,42 +135,42 @@
 }
 
 @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Help</h4>
+                    </div>
+                    <div class="modal-body" id="moBody">
 
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                                Here you can add what are the diffrent languages known by you.
-                            </p>
+                        <div class="container-fluid">
+                            <div class="col_half">
+                                <p>
+                                    Here you can add what are the diffrent languages known by you.
+                                </p>
 
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
+                            </div>
+                            <div class="col_half col_last">
+                                <div class="feature-box center media-box fbox-bg">
+                                    <div class="fbox-media">
 
-                                    <a href="~/images/HelpImages/language.png" target="_blank" data-lightbox="gallery-item">
-                                        <img src="~/images/HelpImages/language.png" />
+                                        <a href="~/images/HelpImages/language.png" target="_blank" data-lightbox="gallery-item">
+                                            <img src="~/images/HelpImages/language.png" />
 
-                                    </a>
+                                        </a>
 
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -236,7 +235,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                               
+
                             </div>
 
                         </div>
@@ -245,7 +244,7 @@
             </div>
         </div>
     </div>
-</div> 						
+</div>
 
 
 <script type="text/javascript">

@@ -1,8 +1,8 @@
-﻿@model MIS.Models.Certification
+﻿@model AJSolutions.Models.Certification
 @{
     ViewBag.Title = "Certifications";
     Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
-    List<MIS.Models.Certification> certificate = ViewData["Cretifications"] as List<MIS.Models.Certification>;
+    List<AJSolutions.Models.Certification> certificate = ViewData["Cretifications"] as List<AJSolutions.Models.Certification>;
 }
 @using (Html.BeginForm("Certifications", "Candidate", FormMethod.Post, new {area = "Candidate", @class = "form-horizontal", id = "Certifications", role = "form" }))
 {

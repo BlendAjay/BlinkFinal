@@ -1,11 +1,11 @@
-﻿@using MIS.Models;
-@using MIS.DAL;
-@model MIS.Areas.LMS.Models.TopicLecturesView
+﻿@using AJSolutions.Models;
+@using AJSolutions.DAL;
+@model AJSolutions.Areas.LMS.Models.TopicLecturesView
 @{
     ViewBag.Title = "Content";
     Layout = Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
-    List<MIS.Areas.LMS.Models.COURSETOPICSVIEW> courseTopics = ViewData["CourseTopics"] as List<MIS.Areas.LMS.Models.COURSETOPICSVIEW>;
-    List<MIS.Areas.LMS.Models.TopicLecturesView> topicLectures = ViewData["TopicLetures"] as List<MIS.Areas.LMS.Models.TopicLecturesView>;
+    List<AJSolutions.Areas.LMS.Models.COURSETOPICSVIEW> courseTopics = ViewData["CourseTopics"] as List<AJSolutions.Areas.LMS.Models.COURSETOPICSVIEW>;
+    List<AJSolutions.Areas.LMS.Models.TopicLecturesView> topicLectures = ViewData["TopicLetures"] as List<AJSolutions.Areas.LMS.Models.TopicLecturesView>;
     List<CourseMasterViewModel> courses = ViewData["CourseView"] as List<CourseMasterViewModel>;
     UserViewModel userDetails = ViewData["UserProfile"] as UserViewModel;
     int Count = 0, i = 0;

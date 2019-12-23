@@ -16,12 +16,12 @@
                 <div class="col_half">
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "sm-form-control", Placeholder = "Department Id" } })
+                        @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control", Placeholder = "Department Id" } })
                         @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
                     </div><br />
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "sm-form-control", Placeholder = "Department Name" } })
+                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", Placeholder = "Department Name" } })
                         @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
                     </div><br />
                 </div>
@@ -29,7 +29,7 @@
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.DropDownList("RoleId", null,  "---  Select Role Id ---", htmlAttributes: new { @class = "sm-form-control", @id = "RoleId", placeholder = "Role List" })
+                        @Html.DropDownList("RoleId", null,  "---  Select Role Id ---", htmlAttributes: new { @class = "form-control", @id = "RoleId", placeholder = "Role List" })
                     </div><br />
                     <div>
                         <label for="IsVisible">

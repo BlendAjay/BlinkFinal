@@ -22,15 +22,15 @@
             </div>
             <div class="col_one_fourth">
                 Search By Name
-                @Html.TextBox("Name", ViewBag.Name as string, new { @class = "sm-form-control", @id = "Name", placeholder = "Name" })
+                @Html.TextBox("Name", ViewBag.Name as string, new { @class = "form-control", @id = "Name", placeholder = "Name" })
             </div>
             <div class="col_one_fourth">
                 Search By Gender
-                @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "sm-form-control", @id = "Gender" })
+                @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
             </div>
             <div class="col_one_fourth">
                 Search By  Category
-                @Html.DropDownList("AllCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "sm-form-control", @id = "AllCategory" })
+                @Html.DropDownList("AllCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "form-control", @id = "AllCategory" })
             </div>
             <div class="col_one_fourth col_last">
                 <br /><button type="submit" id="search" class="button button-3d button-mini button-rounded button-teal" title="click here to Search">Search</button>&nbsp;

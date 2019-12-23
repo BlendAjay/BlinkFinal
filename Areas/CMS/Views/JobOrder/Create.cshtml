@@ -162,7 +162,7 @@
 
 
                                     <tr>
-                                        <td class="hidden">
+                                        <td style = "display:none">
                                             <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="@joItem.ItemId" />
                                         </td>
                                         <td>
@@ -238,7 +238,7 @@
                                             else
                                             {  <a href="javascript:void(0);" id="delCF">Remove</a>}
                                         </td>
-                                        <td class="hidden">
+                                        <td style = "display:none">
                                             <input type="text" class="code form-control" id="Actions" name="Actions[]" value="U" />
                                         </td>
                                     </tr>
@@ -249,7 +249,7 @@
                             {
 
                                 <tr>
-                                    <td class="hidden">
+                                    <td style = "display:none">
                                         <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
                                     </td>
                                     <td>
@@ -287,7 +287,7 @@
                                     <td>
                                         <a href="javascript:void(0);" id="addCF">Add</a>
                                     </td>
-                                    <td class="hidden">
+                                    <td style = "display:none">
                                         <input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" />
                                     </td>
                                 </tr>
@@ -614,14 +614,14 @@
             itemDuration = itemDuration + '</select>';
 
             $("#customFields").append('<tr><td> ' + state + ' </td>' +
-                                            '<td class="hidden"><input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
+                                            '<td style = "display:none"><input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
                                             '<td><input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" /></td>' +
                                             '<td><input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" /></td>' +
                                             '<td><input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" /></td>' +
                                             '<td> ' + itemDuration + ' </td>' +
                                             '<td><input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value=""  readonly="readonly" /></td>' +
                                             '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>' +
-                                            '<td class="hidden"><input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" /></td>'
+                                            '<td style = "display:none"><input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" /></td>'
                                       );
 
             $("#customFields").on('click', '#remCF', function () {

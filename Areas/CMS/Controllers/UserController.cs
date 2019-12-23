@@ -375,12 +375,7 @@ namespace AJSolutions.Areas.CMS.Controllers
                         {
                             RegistrationId = admin.GetSIUserId(Branch, TrainingType);
                         }
-                        //if (AJSolutions.DAL.Global.IsIPPBStatusReportAccess(userDetails.SubscriberId))
-                        //{
-                        //    Region = "0";
-                        //    BranchCode = "0";
-                        //}
-                        //changes preeti 26-08-17
+
                         admin.UserRegistration(user.Id, Name, DateTime.UtcNow, ModuleAccess, Department, RoleId, SubscriberId,
                             ManagerLevel, ReportingAuthority, DateTime.UtcNow, UpdatedBy, RegistrationId, null, Branch,
                             BranchCategory, Region, BranchCode, BranchState, CorporateId, Gender, "", Source, Designation, null, TrackerId, FacilityId, Accesspoint);
@@ -396,10 +391,6 @@ namespace AJSolutions.Areas.CMS.Controllers
 
                         else if (RoleId.ToUpper() == "CANDIDATE")
                         {
-                            //int batchId = 0;
-                            //if (!string.IsNullOrEmpty(BatchId))
-                            //    batchId = Convert.ToInt32(BatchId);
-                            //admin.AddCandidateCourse(user.Id, batchId, 1);
                             var res = cmsMgr.UpdatePassword(user.Id, "changeme");
                         }
                         if (user.Id != null && Batch != 0)
@@ -1173,10 +1164,6 @@ namespace AJSolutions.Areas.CMS.Controllers
             ViewBag.Uid = Uid;
             ViewBag.UserAction = UserAction;
             EmployeeView emp = new EmployeeView();
-            var corporatePayrollHeads = userContext.CorporatePayrollHead.Where(c => c.CorporateId == userDetail.SubscriberId).ToList();
-            ViewData["CorporatePayrollHeads"] = corporatePayrollHeads.Where(c => c.PayrollHeadName != "TDS" && c.PayrollHeadName != "LoP").ToList();
-            var employeeSalaryDetails = userContext.EmployeeSalary.Where(c => c.UserId == Uid).ToList();
-            ViewData["SalaryRecords"] = employeeSalaryDetails;
 
             ViewData["EngagementType"] = userContext.EngagementTypeMaster.ToList();
             var companySetting = userContext.CompanySetting.Where(c => c.CorporateId == userDetail.SubscriberId).FirstOrDefault();
@@ -1203,7 +1190,7 @@ namespace AJSolutions.Areas.CMS.Controllers
                     PopulateDepartment("EMS", emp.DepartmentId, emp.DepartmentId);
                     PopulateStatusMaster(emp.StatusId);
                     PopulateManager(userDetail.SubscriberId, emp.ReportingAuthority);
-                    PopulateSchema(emp.SchemeId);
+                    //PopulateSchema(emp.SchemeId);
                     PopulateShift(userDetail.SubscriberId, emp.ShiftId);
                     PopulateMonth(emp.PayoutMonth);
                     PopulateBranches(userDetail.SubscriberId, emp.BranchId);
@@ -1216,16 +1203,7 @@ namespace AJSolutions.Areas.CMS.Controllers
                     ViewBag.Emplanelled = Convert.ToBoolean(emp.Emplanelled);
 
                     //  var employeeSalaryDetails = userContext.EmployeeSalary.Where(s => s.UserId == Uid).ToList();
-                    var employeeSalary = employeeSalaryDetails.OrderBy(c => c.ESID).LastOrDefault();
-                    if (employeeSalary != null)
-                    {
-                        Int64 lngTDS = corporatePayrollHeads.Where(c => c.PayrollHeadName == "TDS").FirstOrDefault().CorporatePayrollHeadID;
-                        Int64 lngLoP = corporatePayrollHeads.Where(c => c.PayrollHeadName == "LoP").FirstOrDefault().CorporatePayrollHeadID;
-                        var salaryHeadRecord = userContext.EmployeeSalaryHeads.Where(c => c.UserId == Uid && c.CorporatePayrollHeadID != lngTDS && c.CorporatePayrollHeadID != lngLoP).ToList();
-                        ViewData["SalaryHeadRecords"] = salaryHeadRecord;
-                        ViewData["LatestSalary"] = salaryHeadRecord.Where(l => l.ESID == employeeSalary.ESID).ToList();
-                    }
-                    ViewBag.Scheme = emp.SchemeId;
+
                     //ViewBag.EngagementData = "NA";
 
                     ViewData["EmpEngagement"] = emsMgr.GetEmployeeLeaveSummary(userDetail.SubscriberId, year, emp.SchemeId, null, Uid);
@@ -1243,7 +1221,7 @@ namespace AJSolutions.Areas.CMS.Controllers
                 PopulateDepartment("EMS");
                 PopulateStatusMaster();
                 PopulateManager(userDetail.SubscriberId);
-                PopulateSchema();
+                //PopulateSchema();
                 PopulateShift(userDetail.SubscriberId);
                 PopulateMonth();
                 PopulateBranches(userDetail.SubscriberId);
@@ -1287,121 +1265,6 @@ namespace AJSolutions.Areas.CMS.Controllers
                     empjoining.SchemeId = emp.SchemeId;
                     empjoining.ShiftId = emp.ShiftId;
                     jres = admin.EmployeeJoining(empjoining);
-                    if (jres)
-                    {
-                        bool salary = false;
-                        EmployeeSalary empsalary = new EmployeeSalary();
-                        empsalary.MonthlyCTC = emp.MonthlyCTC;
-                        empsalary.AnnualCTC = emp.AnnualCTC;
-                        empsalary.ESID = 0;
-                        empsalary.Remarks = emp.Remarks;
-                        empsalary.PayoutMonth = emp.PayoutMonth;
-                        empsalary.PayoutYear = DateTime.Now.Year;
-                        empsalary.EffectiveFrom = DateTime.Now;
-                        empsalary.UserId = emp.UserId;
-                        salary = admin.EmployeeSalary(empsalary);
-
-                        var employeeSalaryDetails = userContext.EmployeeSalary.Where(s => s.UserId == empsalary.UserId).ToList();
-                        var employeeSalary = employeeSalaryDetails.OrderBy(c => c.ESID).LastOrDefault();
-
-                        var CorporateHeads = userContext.CorporatePayrollHead.Where(c => c.CorporateId == userDetail.SubscriberId).ToList();
-
-
-                        //if (CorporateHeads != null)
-                        //{
-                        //    var CorporateBasichead = CorporateHeads.Where(c => c.PayrollHeadID == Global.BasicHeadId()).FirstOrDefault();
-                        //    float basic = 0;
-
-                        //    basic = ((emp.MonthlyCTC * CorporateBasichead.PayrollPercent) / 100);
-
-                        //    bool resheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, CorporateBasichead.CorporatePayrollHeadID, basic);
-
-                        //    foreach (var item in CorporateHeads.Where(c => c.PayrollHeadID != Global.BasicHeadId()).ToList())
-                        //    {
-                        //        float amount = 0;
-                        //        float FirstAmount = 0;
-                        //        if (item.PayrollHeadID == Global.BasicHeadId())
-                        //            FirstAmount = basic;
-                        //        else
-                        //            FirstAmount = (basic * item.PayrollPercent) / 100;
-
-                        //        if (item.PayrollPercent == 0)
-                        //        {
-                        //            amount = item.MaxLimit;
-                        //        }
-                        //        else if (item.PayrollPercent > 0 && item.MaxLimit > 0 && FirstAmount > item.MaxLimit)
-                        //        {
-                        //            amount = item.MaxLimit;
-                        //        }
-                        //        else
-                        //        {
-                        //            amount = FirstAmount;
-                        //        }
-                        //        resheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, item.CorporatePayrollHeadID, amount);
-                        //    }
-                        //}
-
-                        if (SalaryHeadItems.Count() > 0 && SalaryHeadItems != null)
-                        {
-                            string[] Salaryheads;
-
-                            for (int i = 0; i < SalaryHeadItems.Count(); i++)
-                            {
-                                Salaryheads = SalaryHeadItems[i].ToString().Split('-');
-                                if (Salaryheads.Count() > 0)
-                                {
-                                    bool rsheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, Convert.ToInt64(Salaryheads[0].ToString()), Convert.ToSingle(Salaryheads[1].ToString()));
-                                }
-                            }
-
-                        }
-
-                        foreach (var regularHead in CorporateHeads.Where(h => h.PayrollHeadName == "TDS" || h.PayrollHeadName == "LoP"))
-                        {
-                            bool cHead = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, regularHead.CorporatePayrollHeadID, 0);
-                        }
-
-
-
-
-                        if (EngagementTypeId != null && EngagementMaxLimit != null)
-                        {
-                            var CalendarYear = userContext.CompanySetting.Where(c => c.CorporateId == userDetail.SubscriberId).FirstOrDefault().CalendarYear;
-                            int leaveYear = DateTime.Now.Year;
-                            if (CalendarYear == "Apr-Mar")
-                            {
-                                int Leavemonth = DateTime.Now.Month;
-                                if (Leavemonth <= 3)
-                                {
-                                    leaveYear = leaveYear - 1;
-                                }
-                            }
-                            for (int i = 0; i < EngagementTypeId.Length; i++)
-                            {
-                                res = admin.AddEmployeeLeaveBulkUpload(Uid, emp.SchemeId, Convert.ToInt64(EngagementTypeId[i]), 0, leaveYear, Convert.ToInt16(EngagementMaxLimit[i]));
-                            }
-
-                            var lwp = userContext.EngagementTypeMaster.Where(e => e.CorporateId == userDetail.SubscriberId && e.LeaveTypeId == "LW").FirstOrDefault();
-
-                            if (lwp != null)
-                                res = admin.AddEmployeeLeaveBulkUpload(Uid, emp.SchemeId, lwp.EngagementTypeId, 0, leaveYear, 0);
-
-                        }
-
-
-                        if (salary)
-                        {
-                            return Json("Succeeded", JsonRequestBehavior.AllowGet);
-                        }
-                        else
-                        {
-                            return Json("Unsucceeded", JsonRequestBehavior.AllowGet);
-                        }
-                    }
-                    else
-                    {
-                        return Json("Unsucceeded", JsonRequestBehavior.AllowGet);
-                    }
                 }
             }
             else
@@ -1445,7 +1308,7 @@ namespace AJSolutions.Areas.CMS.Controllers
                         emsMgr.AddProfileTypeDetails(0, user.Id, "Default");
 
                     //Sending Email To User
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(subscriberDetail.Name, user.Id, "Account activation", userName, emp.AlternateContact, emp.Name);
+                    //string callbackUrl = await SendEmailConfirmationTokenAsync(subscriberDetail.Name, user.Id, "Account activation", userName, emp.AlternateContact, emp.Name);
 
                     //Sending SMS To User
                     //string mobile = emp.AlternateContact;
@@ -1474,111 +1337,6 @@ namespace AJSolutions.Areas.CMS.Controllers
                         empjoining.SchemeId = emp.SchemeId;
                         empjoining.ShiftId = emp.ShiftId;
                         jres = admin.EmployeeJoining(empjoining);
-
-                        if (jres)
-                        {
-                            bool salary = false;
-                            EmployeeSalary empsalary = new EmployeeSalary();
-                            empsalary.MonthlyCTC = emp.MonthlyCTC;
-                            empsalary.AnnualCTC = emp.AnnualCTC;
-                            empsalary.ESID = emp.ESID;
-                            empsalary.Remarks = emp.Remarks;
-                            empsalary.PayoutMonth = emp.PayoutMonth;
-                            empsalary.PayoutYear = DateTime.Now.Year;
-                            empsalary.EffectiveFrom = DateTime.Now;
-                            empsalary.UserId = user.Id;
-                            salary = admin.EmployeeSalary(empsalary);
-
-                            var employeeSalaryDetails = userContext.EmployeeSalary.Where(s => s.UserId == user.Id).ToList();
-                            var employeeSalary = employeeSalaryDetails.OrderBy(c => c.ESID).LastOrDefault();
-
-                            var CorporateHeads = userContext.CorporatePayrollHead.Where(c => c.CorporateId == userDetail.SubscriberId).ToList();
-
-
-                            //if (CorporateHeads != null)
-                            //{
-                            //    var CorporateBasichead = CorporateHeads.Where(c => c.PayrollHeadID == Global.BasicHeadId()).FirstOrDefault();
-                            //    float basic = 0;
-
-                            //    basic = ((emp.MonthlyCTC * CorporateBasichead.PayrollPercent) / 100);
-
-                            //    bool resheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, CorporateBasichead.CorporatePayrollHeadID, basic);
-                            //    foreach (var item in CorporateHeads.Where(c => c.PayrollHeadID != Global.BasicHeadId()).ToList())
-                            //    {
-                            //        float amount = 0;
-                            //        float FirstAmount = 0;
-                            //        if (item.PayrollHeadID == Global.BasicHeadId())
-                            //            FirstAmount = basic;
-                            //        else
-                            //            FirstAmount = (basic * item.PayrollPercent) / 100;
-
-                            //        if (item.PayrollPercent == 0)
-                            //        {
-                            //            amount = item.MaxLimit;
-                            //        }
-                            //        else if (item.PayrollPercent > 0 && item.MaxLimit > 0 && FirstAmount > item.MaxLimit)
-                            //        {
-                            //            amount = item.MaxLimit;
-                            //        }
-                            //        else
-                            //        {
-                            //            amount = FirstAmount;
-                            //        }
-                            //        resheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, item.CorporatePayrollHeadID, amount);
-                            //    }
-                            //}
-
-                            if (SalaryHeadItems.Count() > 0 && SalaryHeadItems != null)
-                            {
-                                string[] Salaryheads;
-
-                                for (int i = 0; i < SalaryHeadItems.Count(); i++)
-                                {
-                                    Salaryheads = SalaryHeadItems[i].ToString().Split('-');
-                                    if (Salaryheads.Count() > 0)
-                                    {
-                                        bool rsheads = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, Convert.ToInt64(Salaryheads[0].ToString()), Convert.ToSingle(Salaryheads[1].ToString()));
-                                    }
-                                }
-
-                            }
-
-                            foreach (var regularHead in CorporateHeads.Where(h => h.PayrollHeadName == "TDS" || h.PayrollHeadName == "LoP"))
-                            {
-                                bool cHead = admin.AddEmployeeSalaryHeads(0, employeeSalary.ESID, empsalary.UserId, regularHead.CorporatePayrollHeadID, 0);
-                            }
-
-
-                            if (EngagementTypeId != null && EngagementMaxLimit != null)
-                            {
-                                var CalendarYear = userContext.CompanySetting.Where(c => c.CorporateId == userDetail.SubscriberId).FirstOrDefault().CalendarYear;
-                                int leaveYear = DateTime.Now.Year;
-                                if (CalendarYear == "Apr-Mar")
-                                {
-                                    int Leavemonth = DateTime.Now.Month;
-                                    if (Leavemonth <= 3)
-                                    {
-                                        leaveYear = leaveYear - 1;
-                                    }
-                                }
-                                for (int i = 0; i < EngagementTypeId.Length; i++)
-                                {
-                                    res = admin.AddEmployeeLeaveBulkUpload(user.Id, emp.SchemeId, Convert.ToInt64(EngagementTypeId[i]), 0, leaveYear, Convert.ToInt16(EngagementMaxLimit[i]));
-                                }
-                            }
-                            if (salary)
-                            {
-                                return Json("Succeeded", JsonRequestBehavior.AllowGet);
-                            }
-                            else
-                            {
-                                return Json("Unsucceeded", JsonRequestBehavior.AllowGet);
-                            }
-                        }
-                        else
-                        {
-                            return Json("Unsucceeded", JsonRequestBehavior.AllowGet);
-                        }
                     }
                     else
                     {

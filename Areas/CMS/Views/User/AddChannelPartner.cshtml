@@ -12,7 +12,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("AddChannelPartner", "User", FormMethod.Post, new { area = "CMS", id = "AddChannelPartner", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("AddChannelPartner", "User", FormMethod.Post, new { area = "CMS", id = "AddChannelPartner", @class = "form-horizontal needs-validation", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -32,7 +32,7 @@
                     @Html.LabelFor(model => model.Name, "Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.TextBoxFor(m => m.Name, new { @class = "sm-form-control required", placeholder = "e.g. john smith", id = "Name" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "e.g. john smith", id = "Name" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     <br />
@@ -40,7 +40,7 @@
                     @Html.LabelFor(m => m.PhoneNumber, "Phone Number")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-phone"> </i></span>
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "sm-form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
                     </div>
                     @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
@@ -48,7 +48,7 @@
                     @Html.LabelFor(model => model.Email, "Email")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email"> </i></span>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "sm-form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     <br />

@@ -23,17 +23,12 @@
         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class=" icon-users"></i>User Directory</a>
         <div id="submenu-2" class="collapse submenu" style="">
             <ul class="nav flex-column">
-                @if (AJSolutions.DAL.Global.IsStatusReportAccess(user.SubscriberId))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("CourseFeeSetting", "TMS", new { area = "TMS" })"><i class="icon-user"></i>Add Candidate </a>
-                    </li>
-                }
+
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("Clients", "User", new { Area = "CMS" })"><i class="icon-table"></i>My Clients</a></li>
-                @if (user.Department == "Human Resource Management" || user.Department == "Admin")
-                {
-                    <li class="nav-item"><a href="@Url.Action("Employees", "User", new { Area = "CMS" })"><i class="icon-table"></i>My Employees</a></li>
-                }
+                @*@if (user.Department == "Human Resource Management" || user.Department == "Admin")
+                    {*@
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Employees", "User", new { Area = "CMS" })"><i class="icon-table"></i>My Employees</a></li>
+                @*}*@
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("Candidates", "User", new { Area = "CMS" })"><i class="icon-table"></i>My Candidates</a></li>
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("ThirdParty", "User", new { Area = "CMS" })"><i class="icon-table"></i>My Vendors</a></li>
                 @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Trainer", new { Area = "CMS" })"><i class="icon-table"></i>Instructor Lead</a></li>*@
@@ -45,155 +40,117 @@
             </ul>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class=" icon-users"></i>Task & JobOrders</a>
-        <div id="submenu-3" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("MyJobOrders", "JobOrder", new { Area = "CMS", IsClientView = false })"><i class="icon-table"></i>My Job Orders</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("MyTasks", "Task", new { area = "CMS" })"><i class="icon-table"></i>My Tasks</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("MyInvoices", "Invoice", new { Area = "CMS", Tag="Incoming"})"><i class="icon-table"></i>My Invoices</a></li>
-            </ul>
-        </div>
-    </li>
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class=" icon-users"></i>Task</a>
+            <div id="submenu-3" class="collapse submenu" style="">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("MyTasks", "Task", new { area = "CMS" })"><i class="icon-table"></i>My Tasks</a></li>
+                </ul>
+            </div>
+        </li>*@
 
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="icon-book"></i>TMS</a>
         <div id="submenu-4" class="collapse submenu" style="">
             <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })"><i class="icon-plus"></i>Add New Course</a></li>
-                @*<li class="nav-item"><a class="nav-link" href="@Global.WikipianUrl()admin/Dashboard/Index?UserId=@ViewBag.UserId" target="_blank"><i class="icon-map-marker"></i>Course Mapping to LMS</a></li>*@
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Mycourses", "TMS", new { Area = "TMS" })"><i class="icon-plus"></i>My Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })"><i class="icon-plus"></i>Add New Sector</a></li>
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Mycourses", "TMS", new { Area = "TMS" })"><i class="icon-plus"></i>My Sector</a></li>
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("MyTraining", "TMS", new { Area = "TMS" })"><i class="icon-table"></i>My Trainings</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("LoginToPrelore", "TMS", new { area = "TMS" })" target="_blank"><i class="icon-clipboard"></i>Assessments</a></li>
             </ul>
         </div>
     </li>
-    if (user.CompanyAttendance == true)
-    {
-        <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="icon-time"></i>Employee Attendance</a>
-            <div id="submenu-5" class="collapse submenu" style="">
+    @*if (user.CompanyAttendance == true)
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="icon-time"></i>Employee Attendance</a>
+                <div id="submenu-5" class="collapse submenu" style="">
+                    <ul class="nav flex-column">
+                        @if (user.Department == "Human Resource Management" || user.Department == "Admin")
+                        {
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("BioMetricResult", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Attendance Records</a></li>
+                        }
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("CurrentDayAttendance", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Today's Attendance</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("AddIp", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Add Campus Ip</a></li>
+                    </ul>
+                </div>
+            </li>
+        }*@
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="icon-stack"></i>Employee Leaves</a>
+            <div id="submenu-7" class="collapse submenu" style="">
                 <ul class="nav flex-column">
-                    @if (user.Department == "Human Resource Management" || user.Department == "Admin")
-                    {
-                        <li class="nav-item"><a class="nav-link" href="@Url.Action("BioMetricResult", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Attendance Records</a></li>
-                    }
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("CurrentDayAttendance", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Today's Attendance</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("AddIp", "Payroll", new { Area = "PMS" })"><i class="icon-clock"></i>Add Campus Ip</a></li>
-                </ul>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Trainers", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>Employee Calendar </a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeesLeaveRecords", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Leave Records</a></li>
+                    </ul>
             </div>
         </li>
-    }
-
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="icon-stack"></i>Settings</a>
-        <div id="submenu-6" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("CompanySetting", "User", new { Area = "CMS"})"><i class="icon-settings"></i>Company Settings</a></li>
-
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("EngagementType", "Employee", new { Area = "EMS" })"><i class="icon-calendar"></i>Leave Settings</a></li>
-                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Payrollheads", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payroll Setting</a></li>*@
-            </ul>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-7" aria-controls="submenu-7"><i class="icon-stack"></i>Employee Leaves</a>
-        <div id="submenu-7" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Trainers", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>Employee Calendar </a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeesLeaveRecords", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Leave Records</a></li>
-                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Holiday", "TMS", new { Area = "TMS" })"><i class="icon-plus-sign2"></i>Add Holidays </a></li>*@
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeeLeaveBulkUploadRecord", "Calendar", new { Area = "CMS" })"><i class="icon-file"></i>Leave Bulk Upload</a></li>
-                @*  <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeeEngagement", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>Employee Leaves</a></li>*@
-            </ul>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="icon-stack"></i>My Leaves</a>
-        <div id="submenu-8" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>My Leave Calendar </a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("TrainerPlanner", "TMS", new { Area = "TMS" })"><i class="icon-plus-sign2"></i>Apply Leave</a></li>
-            </ul>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="icon-stack"></i>Calendar</a>
-        <div id="submenu-9" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("HolidayCalendar", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>Holidays Calendar</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("BirthDay", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>BirthDay Calendar</a></li>
-            </ul>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10"><i class="icon-stack"></i>Letters</a>
-        <div id="submenu-10" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("DesignLetter", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Design Letter</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("GenreateCorporateLetter", "Payroll", new { Area ="PMS"})"><i class="icon-line2-envelope-letter"></i>Generate Letter</a></li>
-            </ul>
-        </div>
-    </li>
-    if (user.Department == "Human Resource Management" || user.Department == "Admin")
-    {
         <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11"><i class="icon-stack"></i>Payroll</a>
-            <div id="submenu-11" class="collapse submenu" style="">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-8"><i class="icon-stack"></i>My Leaves</a>
+            <div id="submenu-8" class="collapse submenu" style="">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("SalaryProcess", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Salary Process</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("SalaryStatement", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Salary Statement</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Payslip", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payslip</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>My Leave Calendar </a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("TrainerPlanner", "TMS", new { Area = "TMS" })"><i class="icon-plus-sign2"></i>Apply Leave</a></li>
                 </ul>
             </div>
-        </li>
-    }
-    <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12" aria-controls="submenu-12"><i class="icon-money"></i>Course Fees</a>
-        <div id="submenu-12" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("CandidateFeeDetails", "Transactions", new { Area = "CMS" })"><i class="icon-money"></i>Fee Transaction</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Candidate", "Transactions", new { Area = "CMS"})"><i class="icon-user"></i>Pending Transaction </a></li>
-            </ul>
-        </div>
-    </li>
+        </li>*@
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="icon-stack"></i>Calendar</a>
+            <div id="submenu-9" class="collapse submenu" style="">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("HolidayCalendar", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>Holidays Calendar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("BirthDay", "Calendar", new { Area = "CMS" })"><i class="icon-calendar-1"></i>BirthDay Calendar</a></li>
+                </ul>
+            </div>
+        </li>*@
+    @*if (user.Department == "Human Resource Management" || user.Department == "Admin")
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11"><i class="icon-stack"></i>Payroll</a>
+                <div id="submenu-11" class="collapse submenu" style="">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("SalaryProcess", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Salary Process</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("SalaryStatement", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Salary Statement</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Payslip", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payslip</a></li>
+                    </ul>
+                </div>
+            </li>
+        }*@
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-13" aria-controls="submenu-13"><i class="icon-play"></i>HMS</a>
         <div id="submenu-13" class="collapse submenu" style="">
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("CandidateCheckIn", "Accommodation", new { Area = "CMS" })"><i class="icon-table"></i>Candidate CheckIn</a></li>
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("CandidateCheckOut", "Accommodation", new { Area = "CMS" })"><i class="icon-table"></i>Candidate CheckOut</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("CheckInCheckOutBulkUpload", "Candidate", new { Area = "CMS" })"><i class="icon-table"></i>Candidate CheckIn CheckOut Upload</a></li>
+                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("CheckInCheckOutBulkUpload", "Candidate", new { Area = "CMS" })"><i class="icon-table"></i>Candidate CheckIn CheckOut Upload</a></li>*@
                 <li class="nav-item"><a class="nav-link" href="@Url.Action("AccomodationHistory", "Accommodation", new { Area = "CMS" })"><i class="icon-table"></i>Accomodation history</a></li>
             </ul>
         </div>
     </li>
-    @*<li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-14" aria-controls="submenu-14"><i class="icon-pen"></i>PMS</a>
-        <div id="submenu-14" class="collapse submenu" style="">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Resignation", "Letter", new { Area = "EMS" })"><i class="icon-file"></i>Resignation</a>
-                    </li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Letter", new { Area = "EMS" })"><i class="icon-calendar-1"></i>Employee Resigantion</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("EmployeeConfirmation", "Payroll", new { Area = "PMS" })"><i class="icon-calendar-1"></i>Employee Confimation</a></li>
-            </ul>
-        </div>
-    </li>*@
     @*if (AJSolutions.DAL.Global.IsIPPBStatusReportAccess(user.SubscriberId))
         {
             //<li class="nav-item"><a class="nav-link" href="@Url.Action("MasterTrainerTrainingOrder", "Course", new { Area = "TMS" })"><i class="icon-file"></i>Master Trainer Training Order</a></li>
             <li class="nav-item"><a class="nav-link" href="@Url.Action("EndUserDashBoard", "Course", new { Area = "TMS" })"><i class="icon-file"></i>Live Data Trends</a></li>
             //<li class="nav-item"><a class="nav-link" href="@Url.Action("TrackerDashBoard", "Course", new { Area = "TMS" })"><i class="icon-file"></i>Tracker DashBoard</a></li>
         }*@
+    @*<li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-15" aria-controls="submenu-15"><i class="icon-list"></i>Reports</a>
+            <div id="submenu-15" class="collapse submenu" style="">
+                <ul class="nav flex-column">
+                    @if (user.UserId == user.SubscriberId)
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("AdminReport", "Report", new { Area = "" })"><i class="icon-location"></i>Admin Reports</a></li>
+                    }
+                </ul>
+            </div>
+        </li>*@
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-15" aria-controls="submenu-15"><i class="icon-list"></i>Reports</a>
-        <div id="submenu-15" class="collapse submenu" style="">
+        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="icon-stack"></i>Settings</a>
+        <div id="submenu-6" class="collapse submenu" style="">
             <ul class="nav flex-column">
-                @if (user.UserId == user.SubscriberId)
-                {
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("AdminReport", "Report", new { Area = "" })"><i class="icon-location"></i>Admin Reports</a></li>
-                }
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("CompanySetting", "User", new { Area = "CMS"})"><i class="icon-settings"></i>Company Settings</a></li>
+
+                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("EngagementType", "Employee", new { Area = "EMS" })"><i class="icon-calendar"></i>Leave Settings</a></li>*@
+                @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Payrollheads", "Payroll", new { Area = "PMS" })"><i class="icon-file"></i>Payroll Setting</a></li>*@
             </ul>
         </div>
     </li>

@@ -34,12 +34,12 @@
                     <label>Reason for Leaving<small>*</small></label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                        @Html.DropDownList("LeavingReason", null, "--- Select Reason of Leaving ---", htmlAttributes: new { @class = "sm-form-control required", id = "LeavingReason" })
+                        @Html.DropDownList("LeavingReason", null, "--- Select Reason of Leaving ---", htmlAttributes: new { @class = "form-control required", id = "LeavingReason" })
                     </div>
                 </div>
                 <div class="col_full">
                     <label>Reason<small>*</small></label>
-                    @Html.TextAreaFor(model => model.Reason, 5, 124, htmlAttributes: new { @class = "sm-form-control required", @Maxlength = 2048, id = "Reason", @placeholder = "Reason here.." })
+                    @Html.TextAreaFor(model => model.Reason, 5, 124, htmlAttributes: new { @class = "form-control required", @Maxlength = 2048, id = "Reason", @placeholder = "Reason here.." })
                 </div>
                 <div class="col_full">
                     <input type="submit" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" id="SubmitForm" />

@@ -1,227 +1,107 @@
-﻿@using MIS.Models;
-@using MIS.DAL;
-@model IEnumerable<MIS.Models.CourseMaster>
+﻿@using AJSolutions.Models;
+@using AJSolutions.DAL;
+@model IEnumerable<AJSolutions.Models.CourseMaster>
 @{
     ViewBag.Title = "Home";
     Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
-    MIS.Models.UserViewModel user = ViewData["UserProfile"] as MIS.Models.UserViewModel;
+    AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     IEnumerable<CourseBatchViewModel> CourseBatches = ViewData["CandidateCourse"] as IEnumerable<CourseBatchViewModel>;
     List<CourseMasterViewModel> LMSCourseMasters = ViewData["LMSCourseMasters"] as List<CourseMasterViewModel>;
     List<TrainingAssessmentView> candidateTrngAssmt = ViewData["CandidateTrngAssmt"] as List<TrainingAssessmentView>;
 
 }
-<div class="container clearfix">
-    <div class="si-sticky toast-top-left topmargin-sm">
-        <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-            <i class="icon-question"></i>
-            <i class="icon-question"></i>
-        </a>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header" id="top">
+            <h2 class="pageheader-title">Dashboard</h2>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Index</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-section" id="overview">
+                @if (CourseBatches.Count() > 0)
+                {
+                    foreach (var item in CourseBatches)
+                    {
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h2>@item.CourseName (@item.CourseCode)</h2>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
 
-    <div class="row nobottommargin">
-        @if (CourseBatches.Count() > 0)
-        {
-            foreach (var item in CourseBatches)
-            {
-                string status, statusClass = string.Empty;
-                if (item.FromDate > DateTime.Today)
-                {
-                    status = "Upcoming";
-                    statusClass = "panel-primary";
-                }
-                else if (item.FromDate <= DateTime.Today && item.ToDate >= DateTime.Today)
-                {
-                    status = "Ongoing";
-                    statusClass = "panel-success";
+                                    </div>
+                                    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <a href="@Url.Action("UpdateLikes","Dashboard",new {area ="Candidate", BatchId = @item.BatchId} )" class="btn btn-primary btn-xs" id="SubmitData" style="float:right;"><i class="fa fa-thumbs-up"></i> Like</a>
+                                    </div>
+
+                                </div>
+
+                                <ul class="list-unstyled arrow">
+                                    <li><a href="#"><i class="icon-location"></i>Batch:  @item.BatchName</a></li>
+                                    <li><a href="#"><i class="icon-calendar"></i>Start Date:  @item.FromDate.ToString("dd-MMM-yyyy")</a></li>
+                                    <li><a href="#"><i class="icon-calendar"></i>End Date: @item.ToDate.ToString("dd-MMM-yyyy")</a></li>
+                                    <li><a href="@Url.Action("Discussion","Review", new {@area ="LMS", CourseCode = item.CourseCode})">Discussion Forum</a></li>
+                                    @if (!string.IsNullOrEmpty(@item.ContentLink))
+                                    {
+                                        <li><a href="@item.ContentLink" title="Click here to view content" target="_blank">Training Content</a></li>
+                                    }
+                                    @if (!string.IsNullOrEmpty(@item.FeedbackLink))
+                                    {
+                                        <li><a href="@item.FeedbackLink" title="Click here to view content" target="_blank">Give Feedback</a></li>
+                                    }
+                                    @if (candidateTrngAssmt != null)
+                                    {
+                                        int index = candidateTrngAssmt.FindIndex(rowData => rowData.BatchId == item.BatchId);
+                                        if (index >= 0)
+                                        {
+                                            // element exists, make visible My Assessment
+                                            <li><i class="icon-paper-clip"></i><a href="@Url.Action("MyAssessments", "TMS", new { @area = "TMS", Id = item.CourseCode, BatchId = item.BatchId })" target="_blank" title="Click here to view assessment details">My Assessments</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 }
                 else
                 {
-                    status = "Completed";
-                    statusClass = "panel-info";
+                    <div class="col_full">
+                        <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                            <div class="fbox-icon">
+                                <i class="icon-user3"></i>
+                            </div>
+                            <h3>Welcome @user.Name</h3>
+                        </div>
+                    </div>
                 }
-                <div class="pricing-box pricing-extended bottommargin clearfix">
-                    <div class="pricing-desc">
-                        <div class="pricing-title">
-                            <h4>
-                                @if (item.Like)
-                                {
-                                    <span class="label" style="float:right"><i class="icon-thumbs-up2"></i> Liked</span>
-                                }
-                                else
-                                {
-                                    <a href="@Url.Action("UpdateLikes","Dashboard",new {area ="Candidate", BatchId = @item.BatchId} )" class="button button-rounded button-amber" id="SubmitData" style="float:right;"><i class="icon-thumbs-up2"></i>Like</a>
-                                }
-                                @item.CourseName - @item.BatchName <span class="@statusClass">@status </span>
-
-                            </h4>
-                        </div>
-                        <div class="pricing-features">
-                            <ul class="iconlist-color clearfix">
-                                <li><i class="icon-desktop"></i> CourseCode: @item.CourseCode</li>
-                                <li><i class="icon-calendar3"></i> @item.FromDate.ToString("dd-MMM-yyyy") ~ @item.ToDate.ToString("dd-MMM-yyyy") | <i class="icon-time"></i> @item.FromTime.ToShortTimeString() - @item.ToTime.ToShortTimeString()</li>
-                                <li><i class="icon-chat"></i> <a href="@Url.Action("Discussion","Review", new {@area ="LMS", CourseCode = item.CourseCode})">Discussion Forum</a></li>
-                                @if (LMSCourseMasters.Count != 0)
-                                {
-                                    foreach (var lmscrs in LMSCourseMasters)
-                                    {
-                                        if (item.LMSCourseCode == lmscrs.CourseCode && lmscrs.TotalLecture != 0 && item.ContentAvailability)
-                                        {
-                                            <li><i class="icon-line-content-right"></i> <a href="@Url.Action("CourseContent", "Dashboard", new { area = "Candidate", Id = item.CourseCode })" target="_blank">Course Content</a></li>
-                                        }
-                                    }
-                                }
-                                @if (@item.TotalFees >= 0 && item.TotalFeeAmount == 0)
-                                {
-                                    <li><i class="icon-money"></i> Total Course Fee: @item.TotalFees <span class="price-tenure">INR</span> </li>
-                                }
-                                else
-                                {
-                                    <li><i class="icon-money"></i> Total Course Fee: @item.TotalFeeAmount <span class="price-tenure">INR</span> </li>
-                                }
-                                <li><i class="icon-bars"></i> Total Installment: <a href="#" onclick="PaymentDetails('@item.CourseCode', '@item.BatchId', '@user.UserId');" title="Click here to view payment details">@item.InstallmentId</a></li>
-                                @if (candidateTrngAssmt != null)
-                                {
-                                    int index = candidateTrngAssmt.FindIndex(rowData => rowData.BatchId == item.BatchId);
-                                    if (index >= 0)
-                                    {
-                                        // element exists, make visible My Assessment
-                                        <li><i class="icon-paper-clip"></i><a href="@Url.Action("MyAssessments", "TMS", new { @area = "TMS", Id = item.CourseCode, BatchId = item.BatchId })" target="_blank" title="Click here to view assessment details">My Assessments</a></li>
-                                    }
-                                }
-                                @if (!string.IsNullOrEmpty(@item.FeedbackLink))
-                                {
-                                    <li><i class="icon-pen"></i> <a href="@item.FeedbackLink" title="Click here to give FeedBack" target="_blank">Give FeedBack</a></li>
-                                }
-                                @*@if (@item.CourseCode == "CC201805040001")
-                                {*@
-                                    <li><i class="icon-certificate"></i><a href="@Url.Action("MyCertificate", "TMS", new { @area = "TMS", Id = item.CourseCode})" target="_blank" title="Click here to view Certificate">View Certificate</a></li>
-                                @*}*@
-                                @if (!string.IsNullOrEmpty(@item.ContentLink))
-                                {
-                                    <li><i class="icon-pen"></i> <a href="@item.ContentLink" title="Click here to view content" target="_blank">Training Content</a></li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="pricing-action-area">
-                        <div class="pricing-meta">
-                        </div>
-                        <div class="pricing-price">
-                            @if (item.TotalFeeAmount > 0)
-                            {
-                                @(Math.Round((@item.TotalFeeAmount / @item.InstallmentId), 2)) <span class="price-tenure">INR/Installment</span>
-                            }
-                            else
-                            {
-                                @(Math.Round((@item.TotalFees / @item.InstallmentId), 2)) <span class="price-tenure">INR/Installment</span>
-                            }
-                        </div>
-                        <div class="pricing-action">
-                            @if (item.TotalFees > item.TotalFeePaid)
-                            {
-                                if (item.LastInstallmentStatus != "Initiate")
-                                {
-                                    double InstallmentAmount = 0;
-                                    if (@item.TotalFeeAmount > 0)
-                                    {
-                                        InstallmentAmount = (@item.TotalFeeAmount / @item.InstallmentId);
-                                    }
-                                    else
-                                    {
-                                        InstallmentAmount = (@item.TotalFees / @item.InstallmentId);
-                                    }
-                                    <a href="@Url.Action("FeeDetails", "Candidate", new { BId = item.BatchId, InstallmentAmount = InstallmentAmount })" , class="button button-rounded button-amber">Pay Now</a>
-                                }
-                                else
-                                {
-                                    <button type="button" class="btn btn-default btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Last Transaction is Not Aproved yet. Contact Account's Department" data-original-title="" title=""><i class="icon-warning-sign"></i></button>
-                                }
-                            }
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            <div class="col_full">
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-user3"></i>
-                    </div>
-                    <h3>Welcome @user.Name</h3>
-                </div>
-            </div>
-        }
-    </div>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                    This page contain details of courses in which candidate is enrolled he/she can be able to access the course content from here.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/candidatedashboard.png" target="_blank" data-lightbox="gallery-item">
-
-                                            <img src="~/images/HelpImages/candidatedashboard.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="cutoff">
-        <div class="form-process"></div>
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        Payment Details
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <br />
-
-                    </div>
-                    <div class="modal-body" id="cndBody">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br /><center>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- JEResponsive -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6029014565691295"
-             data-ad-slot="6109277368"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </center>
+</div>
+<br /><center>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- JEResponsive -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6029014565691295"
+         data-ad-slot="6109277368"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</center>
 
 </div>
 <input type="hidden" id="weburl" value="@Global.WebsiteUrl()" />

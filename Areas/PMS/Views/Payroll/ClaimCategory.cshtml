@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("ClaimCategory", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "ClaimCategory", role = "form" }))
+@using (Html.BeginForm("ClaimCategory", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "ClaimCategory", role = "form" }))
     {
         @Html.AntiForgeryToken()
         <div class="container">
@@ -25,7 +25,7 @@
                         @Html.LabelFor(model => model.CategoryName, "Claim Category")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-cog"> </i></span>
-                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "sm-form-control required", id = "CategoryName", placeholder = "Enter Claim Category" } })
+                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control required", id = "CategoryName", placeholder = "Enter Claim Category" } })
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                         @Html.LabelFor(model => model.CategoryType, "Category Type")<small>*</small>
                         <div class="input-group ">
                             <span class="input-group-addon"><i class="icon-list-ul"> </i></span>
-                            @Html.DropDownList("CategoryType",null, "--- Select Category ---", htmlAttributes: new { @class = "sm-form-control required", id = "CategoryType", placeholder = "Enter Category Type" } )
+                            @Html.DropDownList("CategoryType",null, "--- Select Category ---", htmlAttributes: new { @class = "form-control required", id = "CategoryType", placeholder = "Enter Category Type" } )
                         </div>
                     </div>
 

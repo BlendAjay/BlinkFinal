@@ -10,7 +10,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("LeadDetails", "Candidate", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", id = "LeadDetails", role = "form" }))
+@using (Html.BeginForm("LeadDetails", "Candidate", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", id = "LeadDetails", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Result as string)
@@ -31,7 +31,7 @@
                     @Html.LabelFor(model => model.Name, " Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "sm-form-control required", id = "Name", placeholder = "Enter Your Name" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control required", id = "Name", placeholder = "Enter Your Name" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     <br>
@@ -39,7 +39,7 @@
                     @Html.LabelFor(model => model.PhoneNumber, "Phone Number")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-mobile"> </i></span>
-                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "sm-form-control required", id = "PhoneNumber", placeholder = "Enter Your Phone Number" } })
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control required", id = "PhoneNumber", placeholder = "Enter Your Phone Number" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                     <br>
@@ -47,7 +47,7 @@
                     @Html.Label("Date of Birth")
                     <div class="input-group travel-date-group">
                         <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        <input type="text" value="@ViewBag.DOB" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="DOB" name="DOB">
+                        <input type="text" value="@ViewBag.DOB" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="DOB" name="DOB">
                     </div>
                     @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                     <br>
@@ -55,7 +55,7 @@
                     @Html.LabelFor(model => model.FatherName, "Father Name")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user"> </i></span>
-                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "sm-form-control", id = "FatherName", placeholder = "Enter Your Father Name" } })
+                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", id = "FatherName", placeholder = "Enter Your Father Name" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
                     <br>
@@ -63,8 +63,8 @@
                     @Html.LabelFor(model => model.IdName, "Identification Name")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-list"> </i></span>
-                        @*@Html.EditorFor(model => model.IdName, new { htmlAttributes = new { @class = "sm-form-control", id = "IdName", placeholder = "Enter Your Identification Name" } })*@
-                        @Html.DropDownList("AllIdentification", null, "--- Select Identification Type ---", htmlAttributes: new { @class = "sm-form-control", @id = "AllIdentification" })
+                        @*@Html.EditorFor(model => model.IdName, new { htmlAttributes = new { @class = "form-control", id = "IdName", placeholder = "Enter Your Identification Name" } })*@
+                        @Html.DropDownList("AllIdentification", null, "--- Select Identification Type ---", htmlAttributes: new { @class = "form-control", @id = "AllIdentification" })
                     </div>
                     @Html.ValidationMessageFor(model => model.IdName, "", new { @class = "text-danger" })
                     <br>
@@ -72,7 +72,7 @@
                     @Html.LabelFor(model => model.Category, "Category")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
-                        @Html.DropDownList("AllCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "sm-form-control", @id = "AllCategory" })
+                        @Html.DropDownList("AllCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "form-control", @id = "AllCategory" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     <br>
@@ -80,13 +80,13 @@
                     @Html.LabelFor(model => model.BelowPoverty, "Below Poverty Line")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-line-bar-graph"> </i><i class="icon-female"> </i></span>
-                        @Html.DropDownList("option", null, "--- Select BelowPoverty ---", htmlAttributes: new { @class = "sm-form-control", @id = "option" })
+                        @Html.DropDownList("option", null, "--- Select BelowPoverty ---", htmlAttributes: new { @class = "form-control", @id = "option" })
                     </div>
                     @Html.ValidationMessageFor(model => model.BelowPoverty, "", new { @class = "text-danger" })
                     <br>
 
                     @Html.LabelFor(model => model.DifferentlyAbled, "Differently Abled")
-                    @Html.CheckBoxFor(model => model.DifferentlyAbled, new { htmlAttributes = new { @class = "sm-form-control", id = "DifferentlyAbled" } })
+                    @Html.CheckBoxFor(model => model.DifferentlyAbled, new { htmlAttributes = new { @class = "form-control", id = "DifferentlyAbled" } })
                     @Html.ValidationMessageFor(model => model.DifferentlyAbled, "", new { @class = "text-danger" })
                     <br>
                 </div>
@@ -94,7 +94,7 @@
                     @Html.LabelFor(model => model.EmailId, " Email Id")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-mail"> </i></span>
-                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "sm-form-control", id = "EmailId", placeholder = "Enter Your Email Id" } })
+                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", id = "EmailId", placeholder = "Enter Your Email Id" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
                     <br>
@@ -102,7 +102,7 @@
                     @Html.LabelFor(model => model.Gender, "Gender")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
-                        @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "sm-form-control", @id = "Gender" })
+                        @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                     <br />
@@ -110,7 +110,7 @@
                     @Html.LabelFor(model => model.MaritalStatus, "Marital Status")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-glass"></i></span>
-                        @Html.DropDownList("MaritalStatus", null, "--- Select Marital Status ---", htmlAttributes: new { @class = "sm-form-control", @id = "MaritalStatus" })
+                        @Html.DropDownList("MaritalStatus", null, "--- Select Marital Status ---", htmlAttributes: new { @class = "form-control", @id = "MaritalStatus" })
                     </div>
                     @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
                     <br>
@@ -118,7 +118,7 @@
                     @Html.LabelFor(model => model.FatherOccupation, "Father Occupation")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-money"> </i></span>
-                        @Html.EditorFor(model => model.FatherOccupation, new { htmlAttributes = new { @class = "sm-form-control", id = "FatherOccupation", placeholder = "Enter Your Father Occupation" } })
+                        @Html.EditorFor(model => model.FatherOccupation, new { htmlAttributes = new { @class = "form-control", id = "FatherOccupation", placeholder = "Enter Your Father Occupation" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.FatherOccupation, "", new { @class = "text-danger" })
                     <br>
@@ -126,7 +126,7 @@
                     @Html.LabelFor(model => model.IdNumber, "Identification Number")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-list-ol"> </i></span>
-                        @Html.EditorFor(model => model.IdNumber, new { htmlAttributes = new { @class = "sm-form-control", id = "IdNumber", placeholder = "Enter Your Identification Number" } })
+                        @Html.EditorFor(model => model.IdNumber, new { htmlAttributes = new { @class = "form-control", id = "IdNumber", placeholder = "Enter Your Identification Number" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.IdNumber, "", new { @class = "text-danger" })
                     <br>
@@ -134,7 +134,7 @@
                     @Html.LabelFor(model => model.Qualification, "Highest Qualification")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-book"> </i></span>
-                        @Html.DropDownList("Qualifications", null, "--- Select Highest Qualifications ---", htmlAttributes: new { @class = "sm-form-control", @id = "Qualifications" })
+                        @Html.DropDownList("Qualifications", null, "--- Select Highest Qualifications ---", htmlAttributes: new { @class = "form-control", @id = "Qualifications" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
                     <br>
@@ -142,7 +142,7 @@
                     @Html.LabelFor(model => model.Religion, "Religion")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-list-ul"> </i></span>
-                        @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "sm-form-control", id = "Religion", placeholder = "Enter Your Religion" } })
+                        @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", id = "Religion", placeholder = "Enter Your Religion" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
                     <br>
@@ -150,18 +150,18 @@
                     @Html.LabelFor(model => model.FamilyIncome, "Family Income / Gross Family Income")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-money"> </i></span>
-                        @Html.EditorFor(model => model.FamilyIncome, new { htmlAttributes = new { @class = "sm-form-control", id = "FamilyIncome", placeholder = "Enter Your Family Income" } })
+                        @Html.EditorFor(model => model.FamilyIncome, new { htmlAttributes = new { @class = "form-control", id = "FamilyIncome", placeholder = "Enter Your Family Income" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.FamilyIncome, "", new { @class = "text-danger" })
                     <br />
                     @Html.LabelFor(model => model.Relocate, "Relocate")
-                    @Html.CheckBoxFor(model => model.Relocate, new { htmlAttributes = new { @class = "sm-form-control", id = "Relocate" } })
+                    @Html.CheckBoxFor(model => model.Relocate, new { htmlAttributes = new { @class = "form-control", id = "Relocate" } })
                     @Html.ValidationMessageFor(model => model.Relocate, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 @Html.LabelFor(model => model.Comments, "Enter your Comments", htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.Comments, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comments here.." })
+                @Html.TextAreaFor(model => model.Comments, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comments here.." })
                 <div id="textarea_feedback" class="text-danger"></div>
             </div>
             <input type="submit" id="generaldetails" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" />
@@ -239,7 +239,7 @@
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    var state = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='sm-form-control required' id='StateId'>";
+                    var state = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='form-control required' id='StateId'>";
                     state = state + '<option value="">--- Select State ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         state = state + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
@@ -259,7 +259,7 @@
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    var city = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='sm-form-control required' id='CityId'>";
+                    var city = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='form-control required' id='CityId'>";
                     city = city + '<option value="">--- Select City ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         city = city + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';

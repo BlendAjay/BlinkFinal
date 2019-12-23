@@ -18,7 +18,7 @@
                 <div class="col_half">
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.Installment, new { htmlAttributes = new { @class = "sm-form-control", PlaceHolder = "Installment" } })
+                        @Html.EditorFor(model => model.Installment, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Installment" } })
                         @Html.ValidationMessageFor(model => model.Installment, "", new { @class = "text-danger" })
                     </div>
                 </div>

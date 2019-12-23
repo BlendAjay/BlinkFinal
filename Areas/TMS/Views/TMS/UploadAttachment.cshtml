@@ -11,7 +11,7 @@
     @Html.Hidden("TrainingId", ViewBag.TrainingId as string)
     <div class="container">
         <div class="col_full">
-            <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="sm-form-control" />
+            <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="form-control" />
         </div>
         <div class="row">
             <br />  <input type="submit" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" id="SubmitForm" name="SubmitForm" />

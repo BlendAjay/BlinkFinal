@@ -16,7 +16,7 @@
     Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
 
 }
-@using (Html.BeginForm("GetMasterTrainerTO", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "GetMasterTrainerTO", role = "form" }))
+@using (Html.BeginForm("GetMasterTrainerTO", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "GetMasterTrainerTO", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Data as string)

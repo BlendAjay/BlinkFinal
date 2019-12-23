@@ -17,13 +17,13 @@
                 <div class="col_half">
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "sm-form-control", PlaceHolder = "Department" } })
+                        @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Department" } })
                         @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
                     </div>
                     <br />
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "sm-form-control", PlaceHolder = "Role Id" } })
+                        @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "form-control", PlaceHolder = "Role Id" } })
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
                     </div>
                 </div>

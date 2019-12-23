@@ -12,162 +12,135 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="container">
-
-        <div class="si-sticky toast-top-left topmargin-sm">
-            <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-                <i class="icon-question"></i>
-                <i class="icon-question"></i>
-            </a>
-        </div>
-        <div id="contact-form-overlay" class="clearfix">
-            <div class="row">
-                <div class="form-process"></div>
-                <div class="fancy-title title-bottom-border">
-                    <h4>My Profile</h4>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Company Profile</a></li>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="col_half">
-                    @Html.LabelFor(model => model.Name, "Full Name")<small>*</small>
-                    <div class="input-group divcenter">
-                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "sm-form-control required", id = "Name", placeholder = "e.g. John Smith" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    <br>
-                    @Html.LabelFor(model => model.AlternateContact, "Alternate Contact")
-                    <div class="input-group divcenter">
-                        <span class="input-group-addon"><i class="icon-phone"></i></span>
-                        @Html.EditorFor(model => model.AlternateContact, new { htmlAttributes = new { @class = "sm-form-control ", id = "AlternateContact", placeholder = "e.g. +910123456789" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.AlternateContact, "", new { @class = "text-danger" })
-                    <br>
-
-                </div>
-                <div class="col_half col_last">
-                    @Html.LabelFor(model => model.AlternateEmail, "Alternate Email")
-                    <div class="input-group divcenter">
-                        <span class="input-group-addon"><i class="icon-email3"> </i></span>
-                        @Html.EditorFor(model => model.AlternateEmail, new { htmlAttributes = new { @class = "sm-form-control", id = "AlternateEmail", placeholder = "e.g. xyz@domain.com" } })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.AlternateEmail, "", new { @class = "text-danger" })
-                    <br>
-                    @if (user.CorporateId == null || user.CorporateId == user.SubscriberId)
-                    {
-                        @Html.LabelFor(model => model.Nationality, "Nationality")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-flag"> </i></span>
-                            @Html.DropDownList("Nationality", null, " --- Select Nationality ---", htmlAttributes: new { @class = "sm-form-control required", @id = "Nationality" })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
-                    }
-                </div>
-                @if (user.Role == "Admin" && user.DepartmentId.ToUpper() == "ADI")
-                {
-                    <div class="col_half">
-                        @*<div class="feature-box center media-box fbox-bg">
-                                <br />
-                                <div class="fbox-media">
-                                    <a href="#">
-                                        @if (content != null)
-                                        {
-                                            <img id="uploadPreview" src="~/File/CompanyLogo?id=@content.FileId" alt="Logo" />
-                                        }
-                                        else
-                                        {
-                                            <img id="uploadPreview" align="middle" src="~/images/logo_preview.png" alt="Logo" />
-                                        }
-                                    </a>
-                                </div>
-                                <div class="fbox-desc">
-                                    <small>File size should not exceed 512KB. ( jpg /jpeg /gif /png formats only )</small>
-                                </div>
-                                @Html.LabelFor(model => model.AdminLogoFile, "Company Logo")
-                                <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("Logo"), this, 'Photo')" class="sm-form-control" />
-                                @if (content != null)
-                                {
-                                    <a href="~/File/CompanyLogo?id=@content.FileId" alt="CV" target="_blank" title="Click here to download the attachment"><i class="icon-clip"></i> &nbsp;Download Your Logo</a>
-                                }
-                            </div>*@
-                        <input id="input-11" name="input11[]" type="file" class="file-loading" accept="image/*">
-                        @if (content != null)
-                        {
-                            <a href="~/File/CompanyLogo?id=@content.FileId" alt="CV" target="_blank" title="Click here to download the logo"><i class="icon-clip"></i> &nbsp;Download your current logo</a>
-                        }
-                    </div>
-                }
-                <div class="col_full">
-                    <input type="submit" id="Submit" value="Submit" class="button button-3d button-rounded button-teal" style="float:right" />
-
-                    @Html.HiddenFor(model => model.CorporateId)
-                    @Html.HiddenFor(model => model.DepartmentId)
-                    @Html.HiddenFor(model => model.SubscriberId)
-                </div>
-
-
-
-                <br /><center>
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- JEResponsive -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-6029014565691295"
-                         data-ad-slot="6109277368"
-                         data-ad-format="auto"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </center>
             </div>
         </div>
     </div>
-    @Html.Hidden("RedirectToHome", Url.Action("Myprofile", "Dashboard"));
-
-    @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                    In this page users are able to give their genral details like name, email etc.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-
-                                        @if (user.Role == "Admin" && user.DepartmentId.ToUpper() == "ADI")
-                                        {
-                                            <a href="~/images/HelpImages/profileadmin.png" target="_blank" data-lightbox="gallery-item">
-
-                                                <img src="~/images/HelpImages/profileadmin.png" />
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a href="~/images/HelpImages/profileclient.png" target="_blank" data-lightbox="gallery-item">
-                                                <img src="~/images/HelpImages/profileclient.png" />
-                                            </a>
-                                        }
-
-                                    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="form-process"></div>
+                <h5 class="card-header">My Profile</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="input-group divcenter">
+                                @Html.LabelFor(model => model.Name, "Full Name")<small>*</small>
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "Name", placeholder = "e.g. John Smith", required = "required" } })
                                 </div>
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                                @Html.LabelFor(model => model.AlternateContact, "Alternate Contact")
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-phone"></i></span>
+                                    @Html.EditorFor(model => model.AlternateContact, new { htmlAttributes = new { @class = "form-control ", id = "AlternateContact", placeholder = "e.g. +910123456789", required = "required" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AlternateContact, "", new { @class = "text-danger" })
+
                             </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.AlternateEmail, "Alternate Email")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-email3"> </i></span>
+                                @Html.EditorFor(model => model.AlternateEmail, new { htmlAttributes = new { @class = "form-control", id = "AlternateEmail", placeholder = "e.g. xyz@domain.com" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AlternateEmail, "", new { @class = "text-danger" })
+
+                            @if (user.CorporateId == null || user.CorporateId == user.SubscriberId)
+                            {
+                                @Html.LabelFor(model => model.Nationality, "Nationality")<small>*</small>
+                                <div class="input-group divcenter">
+                                    @Html.DropDownList("Nationality", null, " --- Select Nationality ---", htmlAttributes: new { @class = "form-control required", @id = "Nationality" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                            }
+                        </div>
+
+                        @if (user.Role == "Admin" && user.DepartmentId.ToUpper() == "ADI")
+                        {<br />
+                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                             <br />
+                             <input id="input-11" name="input11[]" type="file" class="file-loading" accept="image/*">
+                             @if (content != null)
+                             {
+                                 <a href="~/File/CompanyLogo?id=@content.FileId" alt="CV" target="_blank" title="Click here to download the logo"><i class="icon-clip"></i> &nbsp;Download your current logo</a>
+                             }
+                         </div>
+                        }
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <input type="submit" id="Submit" value="Submit" class="btn btn-primary" style="float:right" />
+                            @Html.HiddenFor(model => model.CorporateId)
+                            @Html.HiddenFor(model => model.DepartmentId)
+                            @Html.HiddenFor(model => model.SubscriberId)
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>*@
+    </div>
+
+    @Html.Hidden("RedirectToHome", Url.Action("Myprofile", "Dashboard"));
+
+    @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Help</h4>
+                        </div>
+                        <div class="modal-body" id="moBody">
+
+                            <div class="container-fluid">
+                                <div class="col_half">
+                                    <p>
+                                        In this page users are able to give their genral details like name, email etc.
+                                    </p>
+
+                                </div>
+                                <div class="col_half col_last">
+                                    <div class="feature-box center media-box fbox-bg">
+                                        <div class="fbox-media">
+
+
+                                            @if (user.Role == "Admin" && user.DepartmentId.ToUpper() == "ADI")
+                                            {
+                                                <a href="~/images/HelpImages/profileadmin.png" target="_blank" data-lightbox="gallery-item">
+
+                                                    <img src="~/images/HelpImages/profileadmin.png" />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/images/HelpImages/profileclient.png" target="_blank" data-lightbox="gallery-item">
+                                                    <img src="~/images/HelpImages/profileclient.png" />
+                                                </a>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
     <div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -197,7 +170,7 @@
                                     <h6>If you want Add/Edit your profile. You can do it through  "My Profile". </h6>
                                     <h6>Navigation to Add profile</h6>
                                     <p>•Click on Navigation bar "My Account"  Then click on  Menu Item "My Profile" .</p>
-                                    
+
                                     <img src="~/images/Images1/Picture1.png " width="300" height="350"><br>
                                     </br>
 
@@ -245,7 +218,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                   
+
                                 </div>
 
                             </div>

@@ -3,7 +3,7 @@
     Layout = "~/Areas/Candidate/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Feedback";
 }
-@using (Html.BeginForm("Feedback", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "Feedback", role = "form" }))
+@using (Html.BeginForm("Feedback", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "Feedback", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col_half">
                     <label>Name of Circle</label>
-                    <select name="Answer1" id="Answer1" tabindex="9" class="sm-form-control ">
+                    <select name="Answer1" id="Answer1" tabindex="9" class="form-control ">
                         @if (string.IsNullOrEmpty(Model.Answer1))
                         {
                             <option value="" selected="selected">-- Select --</option>
@@ -217,7 +217,7 @@
 
                 <div class="col_half col_last">
                     <label>Name of IPPB Branch</label>
-                    <input type="text" id="Answer2" name="Answer2" value="@Model.Answer2" class="sm-form-control required" placeholder="Enter Name of IPPB Branch" />
+                    <input type="text" id="Answer2" name="Answer2" value="@Model.Answer2" class="form-control required" placeholder="Enter Name of IPPB Branch" />
                 </div>
                 <div class="clear"></div>
                 <div class="acctitle"></div>
@@ -226,20 +226,20 @@
                     @*<div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>Location</div>*@
                     <div class="col_half ">
                         <label>Name of the Office</label>
-                        <input type="text" id="Answer17" name="Answer17" value="@Model.Answer17" class="  sm-form-control" placeholder="Name of the Office" />
+                        <input type="text" id="Answer17" name="Answer17" value="@Model.Answer17" class="  form-control" placeholder="Name of the Office" />
                     </div>
                     <div class="col_half col_last">
                         <label>Division</label>
-                        <input type="text" id="Answer18" name="Answer18" value="@Model.Answer18" class="  sm-form-control" placeholder="Division" />
+                        <input type="text" id="Answer18" name="Answer18" value="@Model.Answer18" class="  form-control" placeholder="Division" />
                     </div>
 
                     <div class="col_half">
                         <label>Training Start Date</label>
-                        <input type="date" name="Answer87" id="Answer87" value="@Model.Answer87" size="22" tabindex="4" class="sm-form-control " />
+                        <input type="date" name="Answer87" id="Answer87" value="@Model.Answer87" size="22" tabindex="4" class="form-control " />
                     </div>
                     <div class="col_half col_last">
                         <label>Training End Date</label>
-                        <input type="date" name="Answer88" id="Answer88" value="@Model.Answer88" size="22" tabindex="4" class="sm-form-control " />
+                        <input type="date" name="Answer88" id="Answer88" value="@Model.Answer88" size="22" tabindex="4" class="form-control " />
                     </div>
                     <div class="clear"></div>
 
@@ -247,7 +247,7 @@
                 <div class="row">
                     <div class="col_half">
                         <label>Reckonn is accessible at the Training Location</label>
-                        <select name="Answer25" id="Answer25" tabindex="9" class="sm-form-control ">
+                        <select name="Answer25" id="Answer25" tabindex="9" class="form-control ">
                             @if (string.IsNullOrEmpty(Model.Answer25))
                             {
                                 <option value="" selected="selected">-- Select --</option>
@@ -281,19 +281,19 @@
                     <div class="acctitle"><i class="acc-closed icon-ok-circle"></i><i class="acc-open icon-remove-circle"></i>SPOC - IPPB:</div>
                     <div class="col_half">
                         <label>Name </label>
-                        <input type="text" id="Answer26" name="Answer26" value="@Model.Answer26" class="sm-form-control" placeholder="Name" />
+                        <input type="text" id="Answer26" name="Answer26" value="@Model.Answer26" class="form-control" placeholder="Name" />
                     </div>
                     <div class="col_half col_last">
                         <label>Designation </label>
-                        <input type="text" name="Answer27" id="Answer27" value="@Model.Answer27" size="22" tabindex="4" class="sm-form-control " placeholder="Designation" />
+                        <input type="text" name="Answer27" id="Answer27" value="@Model.Answer27" size="22" tabindex="4" class="form-control " placeholder="Designation" />
                     </div>
                     <div class="col_half">
                         <label>Contact Number</label>
-                        <input type="text" name="Answer28" id="Answer28" value="@Model.Answer28" size="22" tabindex="4" class="sm-form-control number" placeholder="Contact Number" />
+                        <input type="text" name="Answer28" id="Answer28" value="@Model.Answer28" size="22" tabindex="4" class="form-control number" placeholder="Contact Number" />
                     </div>
                     <div class="col_half col_last">
                         <label>E-Mail </label>
-                        <input type="email" name="Answer29" id="Answer29" value="@Model.Answer29" size="22" tabindex="5" class="sm-form-control email " placeholder="E-Mail" />
+                        <input type="email" name="Answer29" id="Answer29" value="@Model.Answer29" size="22" tabindex="5" class="form-control email " placeholder="E-Mail" />
                     </div>
                 </div>
                 <div class="clear"></div>

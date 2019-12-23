@@ -7,7 +7,7 @@
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     List<AJSolutions.Models.PayrollHeads> payrollHeads = ViewData["AllPayrollHeads"] as List<AJSolutions.Models.PayrollHeads>;
 }
-@using (Html.BeginForm("AddPayrollheads", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "AddPayrollheads", role = "form" }))
+@using (Html.BeginForm("AddPayrollheads", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "AddPayrollheads", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Data as string)
@@ -31,7 +31,7 @@
                     @Html.LabelFor(model => model.HeadName, "Head Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-banknote"> </i></span>
-                        @Html.EditorFor(model => model.HeadName, new { htmlAttributes = new { @class = "sm-form-control required", id = "HeadName", placeholder = "e.g. General" } })
+                        @Html.EditorFor(model => model.HeadName, new { htmlAttributes = new { @class = "form-control required", id = "HeadName", placeholder = "e.g. General" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.HeadName, "", new { @class = "text-danger" })
                     <br /><br />
@@ -40,7 +40,7 @@
                     @Html.LabelFor(model => model.DefaultPercentage, "DefaultPercentage")<small>*</small>
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.DropDownList("Marks", null, "--- Select Default Percentage ---", htmlAttributes: new { @class = "sm-form-control required ", id = "Marks" })
+                        @Html.DropDownList("Marks", null, "--- Select Default Percentage ---", htmlAttributes: new { @class = "form-control required ", id = "Marks" })
                     </div>
                     @Html.ValidationMessageFor(model => model.DefaultPercentage, "", new { @class = "text-danger" })
                     <br /><br />
@@ -49,7 +49,7 @@
                     @Html.LabelFor(model => model.Category, "Category")<small>*</small>
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.DropDownList("PayrollCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "sm-form-control required ", id = "PayrollCategory" })
+                        @Html.DropDownList("PayrollCategory", null, "--- Select Category ---", htmlAttributes: new { @class = "form-control required ", id = "PayrollCategory" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     <br /><br />
@@ -57,7 +57,7 @@
                     @Html.LabelFor(model => model.MaxLimit, "Max Limit")
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.EditorFor(model => model.MaxLimit, new { htmlAttributes = new { @class = "sm-form-control", id = "MaxLimit", placeholder = "e.g. MaxLimit" } })
+                        @Html.EditorFor(model => model.MaxLimit, new { htmlAttributes = new { @class = "form-control", id = "MaxLimit", placeholder = "e.g. MaxLimit" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.MaxLimit, "", new { @class = "text-danger" })
                 </div>
@@ -66,13 +66,13 @@
                     @Html.LabelFor(model => model.Period, "Period")<small>*</small>
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.DropDownList("PeriodFrequencyStatus", null, "--- Select Period ---", htmlAttributes: new { @class = "sm-form-control required ", id = "PeriodFrequencyStatus" })
+                        @Html.DropDownList("PeriodFrequencyStatus", null, "--- Select Period ---", htmlAttributes: new { @class = "form-control required ", id = "PeriodFrequencyStatus" })
                     </div>
                     <br /><br />
 
 
                     @Html.LabelFor(model => model.TaxExemption, "Tax Exemption")
-                    @Html.EditorFor(model => model.TaxExemption, new { htmlAttributes = new { @class = "sm-form-control", id = "TaxExemption", name = "TaxExemption" } })
+                    @Html.EditorFor(model => model.TaxExemption, new { htmlAttributes = new { @class = "form-control", id = "TaxExemption", name = "TaxExemption" } })
 
                     @Html.ValidationMessageFor(model => model.TaxExemption, "", new { @class = "text-danger" })
                     <br /><br />
@@ -81,13 +81,13 @@
                     @Html.LabelFor(model => model.AvailableByDefault, "Available By Default")
                     @*@if (Model.AvailableByDefault)
                     {
-                        <input type="checkbox" class="sm-form-control" id="AvailableByDefault" name="AvailableByDefault" checked ="checked" />
+                        <input type="checkbox" class="form-control" id="AvailableByDefault" name="AvailableByDefault" checked ="checked" />
                     }
                     else
                     {
-                        <input type="checkbox" class="sm-form-control" id="AvailableByDefault" name="AvailableByDefault" />
+                        <input type="checkbox" class="form-control" id="AvailableByDefault" name="AvailableByDefault" />
                     }*@
-                           @Html.EditorFor(model => model.AvailableByDefault, new { htmlAttributes = new { @class = "sm-form-control", id = "AvailableByDefault", name = "AvailableByDefault" } })
+                           @Html.EditorFor(model => model.AvailableByDefault, new { htmlAttributes = new { @class = "form-control", id = "AvailableByDefault", name = "AvailableByDefault" } })
                            @Html.ValidationMessageFor(model => model.AvailableByDefault, "", new { @class = "text-danger" })<br /><br /><br /><br />
                     <input type="submit" id="AddPayroll" value="Submit" class="button button-3d button-rounded button-teal trigh" />
 

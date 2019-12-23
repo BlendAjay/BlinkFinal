@@ -9,7 +9,7 @@
     List<AJSolutions.Areas.Candidate.Models.CandidateTransactionViewModel> Fee = ViewData["FeeDetails"] as List<AJSolutions.Areas.Candidate.Models.CandidateTransactionViewModel>;
 }
 <section>
-    @using (Html.BeginForm("Index", "Dashboard", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("Index", "Dashboard", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", role = "form" }))
     {
         @Html.AntiForgeryToken()
         var isClientView = false;
@@ -101,7 +101,7 @@
                                             {
                                                 <tr>
                                                     <td>
-                                                        @item.TrainingId
+                                                        @Html.ActionLink(item.SubjectLine, "TrainingDetails", "TMS", new {area = "TMS", Id = item.TrainingId }, new { target = "_blank" }) (@item.TrainingId)
                                                     </td>
                                                     <td>@item.FromDate.ToString("dd-MMM-yyyy")</td>
                                                     <td>@item.ToDate.ToString("dd-MMM-yyyy")</td>
@@ -112,9 +112,11 @@
                                     }
                                     else
                                     {
-                                        <div class="ecommerce-widget">
-                                            <i class="fa fa-long-arrow-down fa-4x"></i>
-                                            <h3>No Record Found<span class="subtitle"></span></h3>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <br />
+                                                <h3 class="text-center">No Record Found</h3>
+                                            </div>
                                         </div>
                                     }
                                 </table>

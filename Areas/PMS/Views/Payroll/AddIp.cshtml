@@ -6,7 +6,7 @@
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     List<AJSolutions.Models.BranchLocationView> ip = ViewData["Ip"] as List<AJSolutions.Models.BranchLocationView>;
 }
-@using (Html.BeginForm("AddIp", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "AddIp", role = "form" }))
+@using (Html.BeginForm("AddIp", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "AddIp", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("UserId", user.UserId as string)
@@ -26,19 +26,19 @@
                 <div class="col_full">
                     @Html.LabelFor(model => model.BranchId, "Work Location")<small>*</small>
 
-                    @Html.DropDownList("BranchId", null, "---Select Work Location ---", htmlAttributes: new { id = "BranchId", @class = "sm-form-control required" })
+                    @Html.DropDownList("BranchId", null, "---Select Work Location ---", htmlAttributes: new { id = "BranchId", @class = "form-control required" })
 
                 </div>
                 <div class="col_full">
                     @Html.LabelFor(model => model.Authenticate, "Authentication")<small>*</small>
 
-                    @Html.DropDownList("Authenticate", null, "---Select Authentication Type ---", htmlAttributes: new { id = "Authenticate", @class = "sm-form-control required" })
+                    @Html.DropDownList("Authenticate", null, "---Select Authentication Type ---", htmlAttributes: new { id = "Authenticate", @class = "form-control required" })
 
                 </div>
                 <div id="IPRange" class="col_full">
                     <div class="col_half">
                         @Html.LabelFor(model => model.IPAddressFrom, "IP Address 1")<small>*</small>
-                        <div class="input-group divcenter sm-form-control">
+                        <div class="input-group divcenter form-control">
                             <input type="text" id="first" value="@ViewBag.ips1" name="first" size="4" onkeyup="movetoNext(this, 'second')" maxlength="3" />
                             <input type="text" id="second" value="@ViewBag.ips2" name="second" size="4" onkeyup="movetoNext(this, 'third')" maxlength="3" />
                             <input type="text" id="third" value="@ViewBag.ips3" name="third" size="4" onkeyup="movetoNext(this, 'forth')" maxlength="3" />
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col_half col_last">
                         @Html.LabelFor(model => model.IPAddressTo, "IP Address 2")<small>*</small>
-                        <div class="input-group divcenter sm-form-control">
+                        <div class="input-group divcenter form-control">
                             <input type="text" id="ipsTo1" value="@ViewBag.ipsTo1" name="ipsTo1" size="4" onkeyup="movetoNext(this, 'ipsTo2')" maxlength="3" />
                             <input type="text" id="ipsTo2" value="@ViewBag.ipsTo2" name="ipsTo2" size="4" onkeyup="movetoNext(this, 'ipsTo3')" maxlength="3" />
                             <input type="text" id="ipsTo3" value="@ViewBag.ipsTo3" name="ipsTo3" size="4" onkeyup="movetoNext(this, 'ipsTo4')" maxlength="3" />
@@ -63,25 +63,25 @@
                     <div class="col_half">
                         @Html.LabelFor(model => model.LatitudeFrom, "Latitude From")<small>*</small>
 
-                        @Html.EditorFor(model => model.LatitudeFrom, new { htmlAttributes = new { @class = "sm-form-control", id = "LatitudeFrom", placeholder = "Latitude Range From" } })
+                        @Html.EditorFor(model => model.LatitudeFrom, new { htmlAttributes = new { @class = "form-control", id = "LatitudeFrom", placeholder = "Latitude Range From" } })
 
                     </div>
                     <div class="col_half col_last">
                         @Html.LabelFor(model => model.LatitudeTo, "Latitude To")<small>*</small>
 
-                        @Html.EditorFor(model => model.LatitudeTo, new { htmlAttributes = new { @class = "sm-form-control", id = "LatitudeTo", placeholder = "Latitude Range To" } })
+                        @Html.EditorFor(model => model.LatitudeTo, new { htmlAttributes = new { @class = "form-control", id = "LatitudeTo", placeholder = "Latitude Range To" } })
 
                     </div>
                     <div class="col_half">
                         @Html.LabelFor(model => model.LongitudeFrom, "Longitude From")<small>*</small>
 
-                        @Html.EditorFor(model => model.LongitudeFrom, new { htmlAttributes = new { @class = "sm-form-control", id = "LongitudeFrom", placeholder = "Longitude Range From" } })
+                        @Html.EditorFor(model => model.LongitudeFrom, new { htmlAttributes = new { @class = "form-control", id = "LongitudeFrom", placeholder = "Longitude Range From" } })
 
                     </div>
                     <div class="col_half col_last">
                         @Html.LabelFor(model => model.LongitudeTo, "Longitude To")<small>*</small>
 
-                        @Html.EditorFor(model => model.LongitudeTo, new { htmlAttributes = new { @class = "sm-form-control", id = "LongitudeTo", placeholder = "Longitude Range To" } })
+                        @Html.EditorFor(model => model.LongitudeTo, new { htmlAttributes = new { @class = "form-control", id = "LongitudeTo", placeholder = "Longitude Range To" } })
 
                     </div>
                 </div>

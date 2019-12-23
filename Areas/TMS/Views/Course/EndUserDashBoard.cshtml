@@ -9,7 +9,7 @@
 }
 
 <h2></h2>
-@using (Html.BeginForm("EndUserDashBoard", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("EndUserDashBoard", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", role = "form" }))
 {
     <div class="container">
         <div class="row">
@@ -1933,7 +1933,7 @@
             datatype: "json",
             traditional: true,
             success: function (data) {
-                var branch = "  <select class='sm-form-control required' id='Branch'>";
+                var branch = "  <select class='form-control required' id='Branch'>";
                 branch = branch + '<option value="">--- Select Branch ---</option>';
                 for (var i = 0; i < data.length; i++) {
                     branch = branch + '<option value=' + data[i].Value + '>' + data[i].Value + '</option>';

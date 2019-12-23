@@ -17,322 +17,78 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("TrainerPlanner", "TMS", FormMethod.Post, new { @class = "form-horizontal", id = "TrainerPlanner", enctype = "multipart/form-data", role = "form" }))
+@using (Html.BeginForm("TrainerPlanner", "TMS", FormMethod.Post, new { @class = "form-horizontal needs-validation", id = "TrainerPlanner", enctype = "multipart/form-data", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SaveStatus", ViewBag.Result as string)
     @Html.Hidden("Deleted", ViewBag.Deleted as string)
-    <div class="container">
-        <div id="contact-form-overlay" class="clearfix">
-            <div class="row">
-                @*<div class="form-process"></div>*@
-                <div class="col_full fancy-title title-bottom-border">
-                    <h4>My Engagements</h4>
-                    @if (user.Role == "Employee")
-                    {
-                        <div class="tright" id="total"></div>
-                    }
-                </div>
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.Hidden("PlannerId", ViewBag.PlannerId as string)
-                <div class="col_half travel-date-group">
-                    <label>Engagement Schedule</label>
-                    <div class="input-group divcenter">
-                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                        <input type="text" class="sm-form-control daterange2" value="@ViewBag.Schedule" id="Schedule" name="Schedule" />
-                    </div>
-                </div>
-                <div class="col_half col_last">
-                    <label>Engagement Type</label>
-                    <div class="input-group divcenter">
-                        <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                        @Html.DropDownList("EngagementTypeId", null, "--- Select Engagement Type ---", htmlAttributes: new { @class = "sm-form-control required", id = "EngagementTypeId" })
-                    </div>
-                </div>
-                <div class="col_full ">
-
-                    @Html.CheckBoxFor(model => model.HalfDay, htmlAttributes: new { id = "HalfDay" })  @Html.LabelFor(model => model.HalfDay, "Half Day Engagement")
-                </div>
-
-                <div class="col_full">
-                    <label>Reason<small>*</small></label>
-                    @Html.TextAreaFor(model => model.Remarks, 5, 124, htmlAttributes: new { @class = "sm-form-control required", @Maxlength = 2048, id = "Remarks", @placeholder = "Reason here.." })
-                </div>
-
-                <div class="col_full">
-                    <div class="fancy-title title-bottom-border">
-                        <label>ATTACHMENT</label><small style="float:right">If Any</small>
-                        <h4></h4>
-                    </div>
-                    @*<input  type="file" name="uploadPhoto" id="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="sm-form-control" />*@
-                    <input type="file" name="uploadPhoto" />
-                    @if (content != null)
-                    {
-                        <a href="~/File/EngagementAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
-                    }
-                </div>
-                <div class="col_full">
-                    <input type="submit" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" id="SubmitForm" />
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">My Engagements</a></li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <br />
-            @if (planner.Count() > 0)
-            {
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-bordered nobottommargin">
-                            <tr>
-                                <th> Start Date </th>
-                                <th> End Date </th>
-                                <th> Time From </th>
-                                <th> Time To </th>
-                                <th>Total Days</th>
-                                <th>Engagement Name</th>
-                                <th> Reason </th>
-                                <th>Actions</th>
-                                @if (role != "Admin")
-                                {
-                                    <th>Approved By</th>
-                                }
-                            </tr>
-                            @foreach (var item in planner)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="form-process"></div>
+                <h5 class="card-header">Add Engagements</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 travel-date-group">
+                            <label>Engagement Schedule</label>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                <input type="text" class="form-control daterange2" value="@ViewBag.Schedule" id="Schedule" name="Schedule" />
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <label>Engagement Type</label>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-clock"> </i></span>
+                                @Html.DropDownList("EngagementTypeId", null, "--- Select Engagement Type ---", htmlAttributes: new { @class = "form-control required", id = "EngagementTypeId", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+
+                            @Html.CheckBoxFor(model => model.HalfDay, htmlAttributes: new { id = "HalfDay" })  @Html.LabelFor(model => model.HalfDay, "Half Day Engagement")
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label>Reason<small>*</small></label>
+                            @Html.TextAreaFor(model => model.Remarks, 5, 124, htmlAttributes: new { @class = "form-control required", @Maxlength = 2048, id = "Remarks", @placeholder = "Reason here..", @required = "required" })
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="fancy-title title-bottom-border">
+                                <br />
+                                <label>ATTACHMENT</label><small style="float:right">If Any</small>
+                                <h4></h4>
+                            </div>
+                            <input type="file" name="uploadPhoto" />
+                            @if (content != null)
                             {
-                                <tr>
-                                    <td>
-                                        @item.FromDate.ToString("dd-MMM-yyyy")
-                                    </td>
-                                    <td>
-                                        @item.ToDate.ToString("dd-MMM-yyyy")
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FromTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ToTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TotalDays)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.EngagementType)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Remarks)
-                                    </td>
-                                    @if (item.IsApproved == 0)
-                                    {
-                                        <td>
-                                            @Html.ActionLink("Edit", "TrainerPlanner", "TMS", new { PlannerId = item.PlannerId, useraction = "Edit" }, new { title = "Edit" })
-                                            /
-                                            <a href="@Url.Action("TrainerPlanner", "TMS", new { plannerId = @item.PlannerId, useraction = "Cancel" })">Cancel</a>
-                                            @*<a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.PlannerId');" title="Remove">Delete</a>*@
-                                        </td>
-                                    }
-                                    else if (item.IsApproved == 3)
-                                    {
-                                        <td><b>Cancelled</b></td>
-                                    }
-                                    else if (item.IsApproved == 2)
-                                    {
-                                        <td>
-                                            @if (item.FromDate < DateTime.Today)
-                                            {
-                                                <a href="@Url.Action("TrainerPlanner", "TMS", new { plannerId = @item.PlannerId, useraction = "Cancel" })">Cancel  /</a>
-                                            }
-                                            <b>Disapproved</b>
-                                            @*@if (item.EngagementType == "Business Tour" && item.TourId == 0)
-                                                {
-                                                    <span>/</span>
-                                                    <a href="@Url.Action("AddEmployeeTourRecord", "Calendar", new { Area = "CMS", PlannerId = item.PlannerId })" align="right">Add Tour Detail</a>
-                                                }*@
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            <b>Approved</b>
-                                            @if (item.EngagementType == "Business Tour" && item.TourId == 0)
-                                            {
-                                                <span>/</span>
-                                                <a href="@Url.Action("AddEmployeeTourRecord", "Calendar", new { Area = "CMS", PlannerId = item.PlannerId })" align="right">Add Tour Detail</a>
-                                            }
-                                        </td>
-                                    }
-                                    @if (item.IsApproved != 3 && item.ApprovedByName != null)
-                                    {
-                                        <td>
-                                            <span>@item.ApprovedByName</span>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        if (user.DepartmentId != "ADI")
-                                        {
-                                            <td></td>
-                                        }
-                                    }
-                                </tr>
+                                <a href="~/File/EngagementAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
                             }
-                        </table>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <input type="submit" value="Submit" style="float: right;" class="btn btn-primary" id="SubmitForm" />
+                        </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
-        @Html.Hidden("RedirectToHome", Url.Action("TrainerPlanner", "TMS"))
     </div>
+
 }
-
-@*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                    This page has the facility of adding our own engagements. If you are not available for some days then you can add engagements from here.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/addengagement.png" target="_blank" data-lightbox="gallery-item">
-
-
-                                            <img src="~/images/HelpImages/addengagement.png" />
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="col_half ">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/typesofenagement.png" target="_blank" data-lightbox="gallery-item">
-
-                                            <img src="~/images/HelpImages/typesofenagement.png" />
-
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col_half col_last">
-                                <p>
-                                    These are the follwing types of enagagements.
-                                </p>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-<div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel13" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel16"><b>Help & Support</b> </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="tabs clearfix" id="tab-1">
-
-                        <ul class="tab-nav clearfix">
-                            <li><a href="#tabs-1"><nobr>Navigation</nobr></a></li>
-                            <li><a href="#tabs-2">Page Elements </a></li>
-                            <li><a href="#tabs-3">Video</a></li>
-                        </ul>
-                        <div class="tab-container">
-
-                            <div class="tab-content clearfix" id="tabs-1">
-                                <h4> Navigation to Add Engagement</h4>
-                                <img src="~/images/gif/navigation to add engagements.gif" alt="Save icon" />
-
-                            </div>
-                            <div class="tab-content clearfix" id="tabs-2">
-                                <h6>In This page, you can add your Engagements.</h6>
-                                <h6> Navigation to Add Engagement</h6>
-                                <p>Click on Navigation bar "Calendar" then click on MenuItem "Add Engagement".</p>
-                                <img src="~/images/Images1/Add engagements.jpg" width="300" height="500"><br></br>
-
-                                <p><b>I. Engagement Schedule</b> - you can Add your Engagement schedule with Date & time from here.</p>
-                                <img src="~/images/Images1/Engagements schedule.jpg" width="300" height="100"><br></br>
-                                <img src="~/images/Images1/Engagements schedule Page.jpg" width="350" height="200"><br></br>
-
-                                <p><b>II.	Engagement Type</b> - you can select your Engagement type from drop down menu.</p>
-                                <img src="~/images/Images1/Engagements Type.png" width="300" height="100"><br></br>
-                                <img src="~/images/Images1/Engagement type.jpg" width="300" height="200"><br></br>
-
-                                <p>
-                                    - In this Page, you will see Engagement Type field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                </p>
-                                <img src="~/images/Images1/engagement type1.jpg" width="300" height="100"><br></br>
-
-                                <p><b>III. Reason</b> – Write your Engagement Reason.</p>
-                                <img src="~/images/Images1/Reason.jpg" width="300" height="150">
-                                <p>
-                                    - In this Page, you will see Reason field with is Asterisk Mark,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/Reason1.jpg" width="300" height="150"><br></br>
-
-                                <h6>NOTE: “Without enter Mandatory fields, you cannot submit it”</h6>
-                                <img src="~/images/Images1/My Engagement Page.jpg" width="300" height="300"><br></br>
-
-                                <p> fill all details then click on Submit Button.</p>
-                                <img src="~/images/Images1/My Engagement Page1.jpg" width="300" height="300"><br></br>
-
-                                <p><b>Submit</b> - To save this detail click on this Submit button.</p>
-                                <img src="~/images/Images1/Submit.jpg" width="80" height="50"><br></br><br></br>
-
-                                <h6> After clicking on submit button a popup window opens indicating that your data has been saved successfully.</h6>
-                                <img src="~/images/Images1/Message.png" width="200" height="100"><br></br>
-
-                                <p> You can edit or delete it before being approved or rejected by the administrator.</p>
-                                <img src="~/images/Images1/Engagement(Edit.Delete).jpg" width="400" height="300">
-
-                            </div>
-
-                            <div class="tab-content clearfix" id="tabs-3">
-
-                                <h4> Help video for Add Engagement</h4>
-                                <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/uPHOYjNoCvo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 <script type="text/javascript">
 
@@ -370,24 +126,12 @@
     $("#TrainerPlanner").validate({
         submitHandler: function (form) {
 
-            //$('.form-process').fadeIn()
-
-            //var data = new FormData($('input[name^="uploadPhoto"]'));
-            //jQuery.each($('input[name^="uploadPhoto"]')[0].files, function (i, file) {
-            //    data.append(i, file);
-            //});
-            //var logo = $('#uploadPhoto')[0].files[0];
-             
-            //var fileUpload = $("#uploadPhoto").get(0);
-            //var files = fileUpload.files;
-            //alert(files);
-
             $.ajax({
                 type: "post",
                 url: "/TMS/TMS/TrainerPlanner",
                 data: {
                     PlannerId: $('#PlannerId').val(),
-                    Remarks: $('#Remarks').val(),                 
+                    Remarks: $('#Remarks').val(),
                     EngagementTypeId: $('#EngagementTypeId').val(),
                     uploadPhoto: $('#uploadPhoto')[0].files[0],
                     Schedule: $('#Schedule').val()
@@ -412,25 +156,6 @@
             });
         }
     });
-    //function ConfirmationDialog(PlannerId) {
-    //    $.confirm({
-    //        title: 'Confirmation',
-    //        content: 'Are you sure you want to delete?',
-    //        confirmButton: 'Yes',
-    //        confirmButtonClass: 'button button-3d button-rounded button-green',
-    //        cancelButton: 'No',
-    //        cancelButtonClass: 'button button-3d button-rounded button-red',
-    //        icon: 'icon-warning-sign icon-2x',
-    //        animation: 'scale',
-    //        animationClose: 'top',
-    //        confirm: function () {
-    //            var url = $("#RedirectTo").val() + "?Id=" + PlannerId;
-    //            location.href = url;
-    //        }
-    //    });
-    //    return false;
-    //}
-
     function pagehelp() {
         $('#Popup').modal('show');
         $("#Popup").modal({

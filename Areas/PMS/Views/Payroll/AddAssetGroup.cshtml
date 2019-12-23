@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("AddAssetGroup", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "AssetGroup", role = "form" }))
+@using (Html.BeginForm("AddAssetGroup", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "AssetGroup", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @*@Html.Hidden("SaveStatus", ViewBag.Result as string)*@
@@ -27,7 +27,7 @@
                     @Html.LabelFor(model => model.AssetGroupName, "Asset Group")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="object-group"> </i></span>
-                        @Html.EditorFor(model => model.AssetGroupName, new { htmlAttributes = new { @class = "sm-form-control required", id = "AssetGroupName", placeholder = "Enter Asset Group Name" } })
+                        @Html.EditorFor(model => model.AssetGroupName, new { htmlAttributes = new { @class = "form-control required", id = "AssetGroupName", placeholder = "Enter Asset Group Name" } })
                     </div>
                 </div>
 

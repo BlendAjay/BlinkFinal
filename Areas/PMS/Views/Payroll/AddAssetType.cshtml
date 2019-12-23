@@ -11,7 +11,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("AddAssetType", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal", id = "AddAssetType", role = "form" }))
+@using (Html.BeginForm("AddAssetType", "Payroll", FormMethod.Post, new { @area = "PMS", @class = "form-horizontal needs-validation", id = "AddAssetType", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @*@Html.Hidden("SaveStatus", ViewBag.Result as string)*@
@@ -27,8 +27,8 @@
                     @Html.Label("Asset Type Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.AssetTypeName, new { htmlAttributes = new { @class = "sm-form-control required", id = "AssetTypeName", placeholder = "Enter Asset Type Name" } })
-                        @*@Html.DropDownList("AssetGroupId", null, "--- Select Asset Group ---", htmlAttributes: new { @class = "sm-form-control required", id = "AssetGroupId" })*@
+                        @Html.EditorFor(model => model.AssetTypeName, new { htmlAttributes = new { @class = "form-control required", id = "AssetTypeName", placeholder = "Enter Asset Type Name" } })
+                        @*@Html.DropDownList("AssetGroupId", null, "--- Select Asset Group ---", htmlAttributes: new { @class = "form-control required", id = "AssetGroupId" })*@
                     </div>
 
                 </div>
@@ -36,7 +36,7 @@
                     @Html.LabelFor(model => model.AssetGroupId, "Asset Group")<small>*</small><a href="@Url.Action("AddAssetGroup", "Payroll", new { Area = "PMS"})" class="btn btn-default btn-xs" style="float:right" target="_blank">Add Assets Group</a>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.DropDownList("AssetGroupId", null, "--- Select Asset Group ---", htmlAttributes: new { @class = "sm-form-control required", id = "AssetGroupId" })
+                        @Html.DropDownList("AssetGroupId", null, "--- Select Asset Group ---", htmlAttributes: new { @class = "form-control required", id = "AssetGroupId" })
                     </div>
                 </div>
 

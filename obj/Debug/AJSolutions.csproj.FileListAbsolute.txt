@@ -61,7 +61,6 @@ c:\users\ajay\documents\visual studio 2013\Projects\AJSolutions\AJSolutions\obj\
 c:\users\ajay\documents\visual studio 2013\Projects\AJSolutions\AJSolutions\obj\Debug\AJSolutions.pdb
 C:\Users\ajay\Documents\Visual Studio 2013\Projects\AJSolutions\AJSolutions\obj\Debug\AJSolutions.Migrations.InitialMigration.resources
 C:\Users\ajay\Documents\Visual Studio 2013\Projects\AJSolutions\AJSolutions\obj\Debug\AJSolutions.csproj.GenerateResource.Cache
-F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.csprojResolveAssemblyReference.cache
 F:\Ajay\AJSolutions\AJSolutions\bin\AJSolutions.dll.config
 F:\Ajay\AJSolutions\AJSolutions\bin\AJSolutions.dll
 F:\Ajay\AJSolutions\AJSolutions\bin\AJSolutions.pdb
@@ -179,6 +178,22 @@ F:\Ajay\AJSolutions\AJSolutions\bin\de\PdfSharp.resources.dll
 F:\Ajay\AJSolutions\AJSolutions\bin\de\PdfSharp.Charting.resources.dll
 F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.dll
 F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.pdb
-F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.Web.Helpers.dll
 F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.Migrations.First.resources
 F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.csproj.GenerateResource.Cache
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.Common.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.DataVisualization.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.Design.DLL
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.WebForms.DLL
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.ReportViewer.WinForms.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\EnvDTE.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.VisualStudio.Shell.Interop.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\EnvDTE80.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\stdole.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.VisualStudio.OLE.Interop.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+F:\Ajay\AJSolutions\AJSolutions\bin\Microsoft.MSXML.dll
+F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.csprojAssemblyReference.cache
+F:\Ajay\AJSolutions\AJSolutions\obj\Debug\AJSolutions.csproj.CopyComplete

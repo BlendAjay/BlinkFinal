@@ -28,21 +28,21 @@
                         @Html.LabelFor(model => model.LectureName, "Lecture Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.LectureName, new { htmlAttributes = new { @class = "sm-form-control required", id = "LectureName", @Placeholder = "Enter Lecture Name" } })
+                            @Html.EditorFor(model => model.LectureName, new { htmlAttributes = new { @class = "form-control required", id = "LectureName", @Placeholder = "Enter Lecture Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.LectureName, "", new { @class = "text-danger" })
                         <br>
                     </div>
                     <div class="col_full">
                         @Html.LabelFor(model => model.LectureDescription, "Description", htmlAttributes: new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.LectureDescription, 5, 124, htmlAttributes: new { @class = "sm-form-control required", @Maxlength = 1024, id = "LectureDescription", @placeholder = "Enter your Description here.." })
+                        @Html.TextAreaFor(model => model.LectureDescription, 5, 124, htmlAttributes: new { @class = "form-control required", @Maxlength = 1024, id = "LectureDescription", @placeholder = "Enter your Description here.." })
                         <div id="textarea_feedback" class="text-danger"></div>
                         @Html.ValidationMessageFor(model => model.LectureDescription, "", new { @class = "text-danger" })
                         <br>
                     </div>
                     <div class="col_full">
                         @Html.LabelFor(model => model.Keywords, "Keywords")
-                        <input type="text" name="Keywords" data-val="true" value=@ViewBag.Keywords @*class="sm-form-control"*@ id="Keywords" placeholder="Enter Keywords" />
+                        <input type="text" name="Keywords" data-val="true" value=@ViewBag.Keywords @*class="form-control"*@ id="Keywords" placeholder="Enter Keywords" />
                         @Html.ValidationMessageFor(model => model.Keywords, "", new { @class = "text-danger" })
                         <br>
                     </div>
@@ -50,7 +50,7 @@
                         @Html.LabelFor(model => model.Weightage, "Weightage")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.Weightage, new { htmlAttributes = new { @class = "sm-form-control", id = "Weightage", @Placeholder = "Weightage" } })
+                            @Html.EditorFor(model => model.Weightage, new { htmlAttributes = new { @class = "form-control", id = "Weightage", @Placeholder = "Weightage" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Weightage, "", new { @class = "text-danger" })
                         <br>
@@ -73,14 +73,14 @@
                         @Html.LabelFor(model => content.FileName, "Name your Document")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-line2-doc"></i></span>
-                            @Html.TextBox("Name", content.FileName as string, new { @class = "sm-form-control", @id = "Name", placeholder = "Enter Document Name" })
+                            @Html.TextBox("Name", content.FileName as string, new { @class = "form-control", @id = "Name", placeholder = "Enter Document Name" })
                         </div>
                     </div>
                     <div class="col_half col_last">
                         @Html.LabelFor(model => content.FileId, "Browse")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-upload-alt"></i></span>
-                            <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="sm-form-control" /><nobr></nobr>
+                            <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="form-control" /><nobr></nobr>
                             @if (content.FileId != 0)
                             {
                                 <a href="~/File/Attachment?id=@content.FileId" alt="Attachment" id="FileId" target="_blank"><span class="fa fa-download"></span>&nbsp;@content.FileName</a>

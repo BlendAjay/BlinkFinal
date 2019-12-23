@@ -29,8 +29,8 @@
                     <table class="table table-bordered nobottommargin">
                         <tr>
                             @*<th>
-                    Sno
-                </th>*@
+                                    Sno
+                                </th>*@
                             <th class="strong-left">
                                 Education Level<small>*</small>
                             </th>
@@ -58,26 +58,26 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             @*<th>
 
-                </th>*@
+                                </th>*@
                             <th class="strong-left">
                                 @Html.Hidden("EduLevelId", ViewBag.EduLevelId as string)
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.DropDownList("EducationLevel", ViewBag.EducationLevelList as SelectList, "Education Level", htmlAttributes: new { @class = "sm-form-control required", @id = "EducationLevelId", placeholder = "Education Level" })
+                                    @Html.DropDownList("EducationLevel", ViewBag.EducationLevelList as SelectList, "Education Level", htmlAttributes: new { @class = "form-control required", @id = "EducationLevelId", placeholder = "Education Level" })
                                 }
                                 else
                                 {
-                                    @Html.DropDownList("EducationLevel", ViewBag.EducationLevelList as SelectList, "Education Level", htmlAttributes: new { @disabled = "disabled", @class = "sm-form-control required", @id = "EducationLevelId", placeholder = "Education Level" })
+                                    @Html.DropDownList("EducationLevel", ViewBag.EducationLevelList as SelectList, "Education Level", htmlAttributes: new { @disabled = "disabled", @class = "form-control required", @id = "EducationLevelId", placeholder = "Education Level" })
                                 }
                             </th>
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.TextBox("Degree", ViewBag.Degree as string, new { @class = "sm-form-control required", @id = "Degree", placeholder = "Degree" })
+                                    @Html.TextBox("Degree", ViewBag.Degree as string, new { @class = "form-control required", @id = "Degree", placeholder = "Degree" })
                                 }
                                 else
                                 {
-                                    @Html.TextBox("Degree", ViewBag.Degree as string, new { @class = "sm-form-control required", @id = "Degree", placeholder = "Degree" })
+                                    @Html.TextBox("Degree", ViewBag.Degree as string, new { @class = "form-control required", @id = "Degree", placeholder = "Degree" })
                                 }
 
 
@@ -85,55 +85,55 @@
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.TextBox("Institution", ViewBag.Institution as string, new { @class = "sm-form-control required", @id = "Institution", placeholder = "Institution" })
+                                    @Html.TextBox("Institution", ViewBag.Institution as string, new { @class = "form-control required", @id = "Institution", placeholder = "Institution" })
                                 }
                                 else
                                 {
-                                    @Html.TextBox("Institution", ViewBag.Institution as string, new { @class = "sm-form-control required", @id = "Institution", placeholder = "Institution" })
+                                    @Html.TextBox("Institution", ViewBag.Institution as string, new { @class = "form-control required", @id = "Institution", placeholder = "Institution" })
                                 }
                             </th>
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.TextBox("Percentage", ViewBag.Percentage as string, new { @class = "sm-form-control required", @id = "Percentage", placeholder = "Percentage" })
+                                    @Html.TextBox("Percentage", ViewBag.Percentage as string, new { @class = "form-control required", @id = "Percentage", placeholder = "Percentage" })
                                 }
                                 else
                                 {
-                                    @Html.TextBox("Percentage", ViewBag.Percentage as string, new { @class = "sm-form-control required", @id = "Percentage", placeholder = "Percentage" })
+                                    @Html.TextBox("Percentage", ViewBag.Percentage as string, new { @class = "form-control required", @id = "Percentage", placeholder = "Percentage" })
                                 }
                             </th>
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.TextBox("Specialization", ViewBag.Specialization as string, new { @class = "sm-form-control required", @id = "Specialization", placeholder = "Specialization" })
+                                    @Html.TextBox("Specialization", ViewBag.Specialization as string, new { @class = "form-control required", @id = "Specialization", placeholder = "Specialization" })
                                 }
                                 else
                                 {
-                                    @Html.TextBox("Specialization", ViewBag.Specialization as string, new { @class = "sm-form-control required", @id = "Specialization", placeholder = "Specialization" })
+                                    @Html.TextBox("Specialization", ViewBag.Specialization as string, new { @class = "form-control required", @id = "Specialization", placeholder = "Specialization" })
                                 }
                             </th>
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.TextBox("University", ViewBag.University as string, new { @class = "sm-form-control required", @id = "University", placeholder = "University" })
+                                    @Html.TextBox("University", ViewBag.University as string, new { @class = "form-control required", @id = "University", placeholder = "University" })
                                 }
                                 else
                                 {
-                                    @Html.TextBox("University", ViewBag.University as string, new { @class = "sm-form-control required", @id = "University", placeholder = "University" })
+                                    @Html.TextBox("University", ViewBag.University as string, new { @class = "form-control required", @id = "University", placeholder = "University" })
                                 }
                             </th>
                             <th class="strong-left">
                                 @if (ViewBag.Action == "Add")
                                 {
-                                    @Html.DropDownList("YearOfPassing", ViewBag.YearOfPassing as SelectList, "Passing Year", htmlAttributes: new { @class = "sm-form-control required", @id = "YearOfPassing", placeholder = "Year of Passing" })
+                                    @Html.DropDownList("YearOfPassing", ViewBag.YearOfPassing as SelectList, "Passing Year", htmlAttributes: new { @class = "form-control required", @id = "YearOfPassing", placeholder = "Year of Passing" })
                                 }
                                 else
                                 {
-                                    @Html.DropDownList("YearOfPassing", ViewBag.YearOfPassing as SelectList, "Passing Year", htmlAttributes: new { @class = "sm-form-control required", @id = "YearOfPassing", placeholder = "Year of Passing" })
+                                    @Html.DropDownList("YearOfPassing", ViewBag.YearOfPassing as SelectList, "Passing Year", htmlAttributes: new { @class = "form-control required", @id = "YearOfPassing", placeholder = "Year of Passing" })
                                 }
                             </th>
                             <th>
-                                <input type="submit" id="educatiodetails" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal" />
+                                <input type="submit" id="educatiodetails" value="Submit" style="float: right;" class="btn btn-primary" />
                                 @Html.Hidden("UserId", ViewBag.UserId as string)
                                 @Html.Hidden("UserProfile", ViewBag.UserProfile as string)
                             </th>
@@ -143,8 +143,8 @@
                             <tr>
 
                                 @*<td>
-                        @Html.DisplayFor(modelItem => item.EducationLevel)
-                    </td>*@
+                                        @Html.DisplayFor(modelItem => item.EducationLevel)
+                                    </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.EducationLevelName)
                                 </td>
@@ -179,24 +179,25 @@
                                    YearOfPassing = item.YearOfPassing,
                                    useraction = "Edit"
                                }, new { title = "Edit" }) | <a href="#" id="Remove" onclick="javascript: ConfirmationDialog('@item.EducationLevel');" title="Remove">Delete</a>
-                        </td>
-                    </tr>
+                                </td>
+                            </tr>
                         }
                     </table>
 
                 </div>
             </div>
         }
-        <br /><center><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                  <!-- JEResponsive -->
-                  <ins class="adsbygoogle"
-                       style="display:block"
-                       data-ad-client="ca-pub-6029014565691295"
-                       data-ad-slot="6109277368"
-                       data-ad-format="auto"></ins>
-                  <script>
-                      (adsbygoogle = window.adsbygoogle || []).push({});
-                  </script>
+        <br /><center>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- JEResponsive -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6029014565691295"
+                 data-ad-slot="6109277368"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </center>
         @Html.Hidden("RedirectTo", Url.Action("RemoveEducationDetails", "Employee"))
         @Html.Hidden("RedirectToHome", Url.Action("EducationalDetails", "Employee"))
@@ -204,41 +205,41 @@
 }
 
 @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Help</h4>
+                    </div>
+                    <div class="modal-body" id="moBody">
 
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                               This page provides you facility of adding educational details.
-                            </p>
+                        <div class="container-fluid">
+                            <div class="col_half">
+                                <p>
+                                   This page provides you facility of adding educational details.
+                                </p>
 
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
+                            </div>
+                            <div class="col_half col_last">
+                                <div class="feature-box center media-box fbox-bg">
+                                    <div class="fbox-media">
 
-                                    <a href="~/images/HelpImages/educationtrainer.png" target="_blank" data-lightbox="gallery-item">
-                                        <img src="~/images/HelpImages/educationtrainer.png" />
-                                    </a>
+                                        <a href="~/images/HelpImages/educationtrainer.png" target="_blank" data-lightbox="gallery-item">
+                                            <img src="~/images/HelpImages/educationtrainer.png" />
+                                        </a>
 
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 <div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
@@ -274,7 +275,7 @@
                                 <p>Click on Navigation Bar "My Account", Then click on MenuItem "Education".</p>
                                 <img src="~/images/Images1/Education.png" width="300" height="500" /><br>
                                 </br>
-                                
+
                                 <h6>Add your Educational Details-</h6>
 
                                 <p><b>• Education Level </b> – Select the Education Level from Drop Down.</p>
@@ -363,7 +364,7 @@
 
                             </div>
 
-                           
+
                             <div class="tab-content clearfix" id="tabs-3">
 
                                 <h4> Help video for Add Education details</h4>
@@ -373,7 +374,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -554,7 +555,7 @@
     //        return false;
     //    }
 
-       
+
 
     //    if ($("#YearOfPassing").val() == undefined || $('#YearOfPassing').val() == '') {
     //        $.alert({
@@ -571,7 +572,7 @@
     //        return false;
     //    }
 
-       
+
 
     //    $('#EducationalDetails').submit();
     //});

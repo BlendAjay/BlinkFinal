@@ -20,7 +20,7 @@
     var lopAmount =  Alldeduction.Where(d => d.PayrollHeadName == "LoP").FirstOrDefault().Amount;
 }
 
-@using (Html.BeginForm("Edit", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "EditSalary", role = "form" }))
+@using (Html.BeginForm("Edit", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "EditSalary", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.GrossCTC)
@@ -79,7 +79,7 @@
                                 @earning.PayrollHeadName
                             </div>
                             <div class="col_half col_last">
-                                @Html.TextBox(earning.EmployeeMonthlySalaryHeadId.ToString(), earning.Amount, new { @class = "sm-form-control earning required", id = earning.EmployeeMonthlySalaryHeadId, name = earning.EmployeeMonthlySalaryHeadId, placeholder = @earning.PayrollHeadName })
+                                @Html.TextBox(earning.EmployeeMonthlySalaryHeadId.ToString(), earning.Amount, new { @class = "form-control earning required", id = earning.EmployeeMonthlySalaryHeadId, name = earning.EmployeeMonthlySalaryHeadId, placeholder = @earning.PayrollHeadName })
                                 @*@Html.EditorFor(e => earning.Amount, new { htmlAttributes = new { @class = "xs-form-control required", id = earning, placeholder = earning.PayrollHeadName } })*@
                             </div>
                         </div>
@@ -107,8 +107,8 @@
                                 @deduction.PayrollHeadName
                             </div>
                             <div class="col_half col_last">
-                                @Html.TextBox(deduction.EmployeeMonthlySalaryHeadId.ToString(), deduction.Amount, new { @class = "sm-form-control deduction required", @id = @deduction.EmployeeMonthlySalaryHeadId, name = deduction.EmployeeMonthlySalaryHeadId, placeholder = @deduction.PayrollHeadName })
-                                @*@Html.EditorFor(d => deduction.Amount, new { htmlAttributes = new { @class = "sm-form-control required", @id = "deduction" + (c++), placeholder = deduction.PayrollHeadName } })*@
+                                @Html.TextBox(deduction.EmployeeMonthlySalaryHeadId.ToString(), deduction.Amount, new { @class = "form-control deduction required", @id = @deduction.EmployeeMonthlySalaryHeadId, name = deduction.EmployeeMonthlySalaryHeadId, placeholder = @deduction.PayrollHeadName })
+                                @*@Html.EditorFor(d => deduction.Amount, new { htmlAttributes = new { @class = "form-control required", @id = "deduction" + (c++), placeholder = deduction.PayrollHeadName } })*@
                             </div>
                         </div>
                         TotalDeduction = TotalDeduction + deduction.Amount;
@@ -138,11 +138,11 @@
                 <div class="col_one_fourth col_last" id="total">
                     @if (@NetSalary != null)
                     {
-                        <input type="text" name="NetSalary" id="NetSalary" value="@NetSalary" class="sm-form-control" />
+                        <input type="text" name="NetSalary" id="NetSalary" value="@NetSalary" class="form-control" />
                     }
                     else
                     {
-                        <input type="text" name="NetSalary" id="NetSalary" value="" class="sm-form-control" />
+                        <input type="text" name="NetSalary" id="NetSalary" value="" class="form-control" />
                     }
                 </div>
             </div><br/>

@@ -13,7 +13,7 @@
     }
     List<EmployeeTourView> employeetour = ViewData["EmployeeTourList"] as List<EmployeeTourView>;
 }
-@using (Html.BeginForm("AddEmployeeTourRecord", "Calendar", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", enctype = "multipart/form-data", id = "AddEmployeeTourRecord", role = "form" }))
+@using (Html.BeginForm("AddEmployeeTourRecord", "Calendar", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", enctype = "multipart/form-data", id = "AddEmployeeTourRecord", role = "form" }))
 {
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

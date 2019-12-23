@@ -35,14 +35,14 @@
                     @Html.Label("Scheme Name")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.DropDownList("SchemeId", null, "---Select Scheme Name ---", htmlAttributes: new { id = "SchemeId", @class = "sm-form-control" })
+                        @Html.DropDownList("SchemeId", null, "---Select Scheme Name ---", htmlAttributes: new { id = "SchemeId", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col_one_third">
                     @Html.Label("Departments Name")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.DropDownList("DepartmentId", null, "---Select Departments Name ---", htmlAttributes: new { id = "DepartmentId", @class = "sm-form-control" })
+                        @Html.DropDownList("DepartmentId", null, "---Select Departments Name ---", htmlAttributes: new { id = "DepartmentId", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col_one_third col_last">
@@ -58,7 +58,7 @@
                         <label>Select Range</label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                            <input type="text" class="sm-form-control daterange4" value="" id="Schedule" name="Schedule" />
+                            <input type="text" class="form-control daterange4" value="" id="Schedule" name="Schedule" />
                         </div>
                     </div>
                 }
@@ -66,12 +66,12 @@
                     @Html.Label("Leave Type")
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                        @Html.DropDownList("LeaveTypeId", null, "---Select Leave Type---", htmlAttributes: new { id = "LeaveTypeId", @class = "sm-form-control" })
+                        @Html.DropDownList("LeaveTypeId", null, "---Select Leave Type---", htmlAttributes: new { id = "LeaveTypeId", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col_one_third">
                     @Html.Label("Search By Name")
-                    @Html.TextBox("Name", ViewBag.Name as string, new { @class = "sm-form-control", @id = "Name", placeholder = "Name" })
+                    @Html.TextBox("Name", ViewBag.Name as string, new { @class = "form-control", @id = "Name", placeholder = "Name" })
                 </div>*@
         </div>
         <div class="fancy-title title-bottom-border title-right">

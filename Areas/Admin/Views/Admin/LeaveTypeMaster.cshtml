@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     List<LeaveType> leavetype = ViewData["LeaveType"] as List<LeaveType>;
 }  
-@using (Html.BeginForm("LeaveTypeMaster", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal", id = "LeaveTypeMaster", role = "form" }))
+@using (Html.BeginForm("LeaveTypeMaster", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal needs-validation", id = "LeaveTypeMaster", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @*@Html.Hidden("SaveStatus", ViewBag.Result as string)*@
@@ -20,7 +20,7 @@
                     @Html.LabelFor(m => m.LeaveTypeId, "Leave TypeId")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.LeaveTypeId, new { htmlAttributes = new { @class = "sm-form-control required", id = "LeaveTypeId", placeholder = "Enter LeaveTypeId" } })
+                        @Html.EditorFor(model => model.LeaveTypeId, new { htmlAttributes = new { @class = "form-control required", id = "LeaveTypeId", placeholder = "Enter LeaveTypeId" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.LeaveTypeId, "", new { @class = "text-danger" })
                     <br>
@@ -30,7 +30,7 @@
                     @Html.LabelFor(m => m.LeaveTypeName, "Leave Type Name")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.EditorFor(model => model.LeaveTypeName, new { htmlAttributes = new { @class = "sm-form-control required", id = "LeaveTypeName", placeholder = "Enter LeaveTypeName" } })
+                        @Html.EditorFor(model => model.LeaveTypeName, new { htmlAttributes = new { @class = "form-control required", id = "LeaveTypeName", placeholder = "Enter LeaveTypeName" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.LeaveTypeName, "", new { @class = "text-danger" })
                     <br>
@@ -40,7 +40,7 @@
                     @Html.LabelFor(m => m.LeaveTypeCategory, "Leave Type Category")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                        @Html.DropDownList("LeaveCategory", null, "---Select LeaveCategory ---", htmlAttributes: new { @class = "sm-form-control required", id = "LeaveCategory" })
+                        @Html.DropDownList("LeaveCategory", null, "---Select LeaveCategory ---", htmlAttributes: new { @class = "form-control required", id = "LeaveCategory" })
                     </div>
                     @Html.ValidationMessageFor(model => model.LeaveTypeCategory, "", new { @class = "text-danger" })
                     <br> 

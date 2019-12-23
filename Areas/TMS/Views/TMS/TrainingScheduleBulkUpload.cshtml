@@ -4,7 +4,7 @@
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml"; 
 }
 
- @using (Html.BeginForm("TrainingScheduleBulkUpload", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "CandidateBulkUpload", enctype = "multipart/form-data", role = "form" }))
+ @using (Html.BeginForm("TrainingScheduleBulkUpload", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "CandidateBulkUpload", enctype = "multipart/form-data", role = "form" }))
  {
     @Html.Hidden("Success", ViewBag.result as string)
 

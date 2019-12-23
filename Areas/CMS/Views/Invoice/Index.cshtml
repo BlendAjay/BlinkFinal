@@ -29,7 +29,7 @@
     </a>
 </div>
 
-@using (Html.BeginForm("Index", "Invoice", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal", id = "Index", enctype = "multipart/form-data", role = "form" }))
+@using (Html.BeginForm("Index", "Invoice", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal needs-validation", id = "Index", enctype = "multipart/form-data", role = "form" }))
 {
     float itemTotal = 0;
     float NetTotal = 0;
@@ -45,12 +45,12 @@
                 </div>
                 <div class="col_full">
                     <label>Subject</label>
-                    @Html.TextBox("InvoiceSubject", ViewBag.InvoiceSubject as string, htmlAttributes: new { @class = "sm-form-control required", @id = "InvoiceSubject", placeholder = "Enter Subject" })
+                    @Html.TextBox("InvoiceSubject", ViewBag.InvoiceSubject as string, htmlAttributes: new { @class = "form-control required", @id = "InvoiceSubject", placeholder = "Enter Subject" })
                 </div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="col_full">
-                    @Html.TextAreaFor(model => model.EntryDescription, 5, 80, htmlAttributes: new { @class = "sm-form-control required", id = "EntryDescription", placeholder = "Enter Description here..." })
-                    @*@Html.TextAreaFor(model => model.EntryDescription, 6, 120, new { htmlAttributes = new { @class = "sm-form-control", @id = "EntryDescription", placeholder = "EntryDescription" } })*@
+                    @Html.TextAreaFor(model => model.EntryDescription, 5, 80, htmlAttributes: new { @class = "form-control required", id = "EntryDescription", placeholder = "Enter Description here..." })
+                    @*@Html.TextAreaFor(model => model.EntryDescription, 6, 120, new { htmlAttributes = new { @class = "form-control", @id = "EntryDescription", placeholder = "EntryDescription" } })*@
                     @Html.ValidationMessageFor(model => model.EntryDescription, "", new { @class = "text-danger" })
                 </div>
                 <div class="row">
@@ -88,11 +88,11 @@
 
                                         NetTotal = NetTotal + itemTotal;
                                         <tr class="cart_item">
-                                            <td class="hidden">
-                                                <input type="text" class="ItemId sm-form-control" id="ItemId" name="ItemId[]" value="0" />
+                                            <td style = "display:none">
+                                                <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
                                             </td>
                                             <td>
-                                                <select class="sm-form-control" id="ItemType" name="ItemType[]">
+                                                <select class="form-control" id="ItemType" name="ItemType[]">
                                                     <option value="0"> - - - Select Item Type - - - </option>
                                                     @{
 
@@ -112,19 +112,19 @@
                                                 </select>
                                             </td>
                                             @*<td class="cart-product-type">
-                                                    <input type="hidden" class="code sm-form-control" id="ItemType" name="ItemType[]" value='@item.ItemTypeId' placeholder="Item Type" />
-                                                    <input type="text" class="code sm-form-control" id="ItemTypeName" name="ItemTypeName[]" value='@item.ItemTypeName' placeholder="Item Type Name" />
+                                                    <input type="hidden" class="code form-control" id="ItemType" name="ItemType[]" value='@item.ItemTypeId' placeholder="Item Type" />
+                                                    <input type="text" class="code form-control" id="ItemTypeName" name="ItemTypeName[]" value='@item.ItemTypeName' placeholder="Item Type Name" />
                                                 </td>*@
                                             <td class="cart-product-name">
-                                                <input type="text" class="code sm-form-control" id="itemDesc" name="ItemDescription[]" value='@item.ItemDescription' placeholder="Item Description" />
+                                                <input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value='@item.ItemDescription' placeholder="Item Description" />
                                             </td>
 
                                             <td class="cart-product-price">
-                                                <input type="text" class="Unit sm-form-control" id="Unit" name="Unit[]" value='@item.Unit' placeholder="Unit" />
+                                                <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value='@item.Unit' placeholder="Unit" />
                                             </td>
                                             <td class="cart-product-quantity">
                                                 <div class="quantity clearfix">
-                                                    <input type="text" class="UnitPrice sm-form-control" id="UnitPrice" name="UnitPrice[]" value='@item.UnitPrice' placeholder="Unit Price" />
+                                                    <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value='@item.UnitPrice' placeholder="Unit Price" />
                                                 </div>
                                             </td>
                                             <td>
@@ -139,7 +139,7 @@
                                                     itemTotal = Convert.ToSingle(item.Unit) * item.UnitPrice;
                                                 }
 
-                                                <select class="dura sm-form-control" id="ItemDuration" name="ItemDuration[]">
+                                                <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
                                                     @{
 
                                                         <option selected="selected" value="0">NA</option>
@@ -161,15 +161,15 @@
                                                 </select>
                                             </td>
                                             @*<td>
-                                                    <input type="text" class="Dura sm-form-control" id="ItemDuration" name="ItemDuration[]" value='@duration' placeholder="Item Duration" />
+                                                    <input type="text" class="Dura form-control" id="ItemDuration" name="ItemDuration[]" value='@duration' placeholder="Item Duration" />
                                                 </td>*@
                                             <td class="cart-product-subtotal">
-                                                <input type="text" class="TAmt sm-form-control" id="TAmt" name="TAmt[]" value='@itemTotal' readonly="readonly" />
+                                                <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value='@itemTotal' readonly="readonly" />
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" id="addCF">Add</a>
                                             </td>
-                                            <td class="hidden"><input type="text" class="code sm-form-control" id="Actions" name="Actions[]" value="I" /></td>
+                                            <td style = "display:none"><input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" /></td>
                                         </tr>
                                     }
                                 }
@@ -190,11 +190,11 @@
 
                                         NetTotal = NetTotal + itemTotal;
                                         <tr class="cart_item">
-                                            <td class="hidden">
-                                                <input type="text" class="ItemId sm-form-control" id="ItemId" name="ItemId[]" value="0" />
+                                            <td style = "display:none">
+                                                <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
                                             </td>
                                             <td>
-                                                <select class="sm-form-control" id="ItemType" name="ItemType[]">
+                                                <select class="form-control" id="ItemType" name="ItemType[]">
                                                     <option value="0"> - - - Select Item Type - - - </option>
                                                     @{
                                         foreach (var row in ItemTypeValues)
@@ -213,19 +213,19 @@
                                                 </select>
                                             </td>
                                             @*<td class="cart-product-type">
-                                                    <input type="hidden" class="code sm-form-control" id="ItemType" name="ItemType[]" value='@item.ItemTypeId' placeholder="Item Type" />
-                                                    <input type="text" class="code sm-form-control" id="ItemTypeName" name="ItemTypeName[]" value='@item.ItemTypeName' placeholder="Item Type Name" />
+                                                    <input type="hidden" class="code form-control" id="ItemType" name="ItemType[]" value='@item.ItemTypeId' placeholder="Item Type" />
+                                                    <input type="text" class="code form-control" id="ItemTypeName" name="ItemTypeName[]" value='@item.ItemTypeName' placeholder="Item Type Name" />
                                                 </td>*@
                                             <td class="cart-product-name">
-                                                <input type="text" class="code sm-form-control" id="itemDesc" name="ItemDescription[]" value='@item.ItemDescription' placeholder="Item Description" />
+                                                <input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value='@item.ItemDescription' placeholder="Item Description" />
                                             </td>
 
                                             <td class="cart-product-price">
-                                                <input type="text" class="Unit sm-form-control" id="Unit" name="Unit[]" value='@item.Unit' placeholder="Unit" />
+                                                <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value='@item.Unit' placeholder="Unit" />
                                             </td>
                                             <td class="cart-product-quantity">
                                                 <div class="quantity clearfix">
-                                                    <input type="text" class="UnitPrice sm-form-control" id="UnitPrice" name="UnitPrice[]" value='@item.UnitPrice' placeholder="Unit Price" />
+                                                    <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value='@item.UnitPrice' placeholder="Unit Price" />
                                                 </div>
                                             </td>
                                             <td>
@@ -240,7 +240,7 @@
                                                     itemTotal = Convert.ToSingle(item.Unit) * item.UnitPrice;
                                                 }
 
-                                                <select class="dura sm-form-control" id="ItemDuration" name="ItemDuration[]">
+                                                <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
                                                     @{
 
                                                         <option selected="selected" value="0">NA</option>
@@ -262,15 +262,15 @@
                                                 </select>
                                             </td>
                                             @*<td>
-                                                    <input type="text" class="Dura sm-form-control" id="ItemDuration" name="ItemDuration[]" value='@duration' placeholder="Item Duration" />
+                                                    <input type="text" class="Dura form-control" id="ItemDuration" name="ItemDuration[]" value='@duration' placeholder="Item Duration" />
                                                 </td>*@
                                             <td class="cart-product-subtotal">
-                                                <input type="text" class="TAmt sm-form-control" id="TAmt" name="TAmt[]" value='@itemTotal' readonly="readonly" />
+                                                <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value='@itemTotal' readonly="readonly" />
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" id="addCF">Add</a>
                                             </td>
-                                            <td class="hidden"><input type="text" class="code sm-form-control" id="Actions" name="Actions[]" value="U" /></td>
+                                            <td style = "display:none"><input type="text" class="code form-control" id="Actions" name="Actions[]" value="U" /></td>
                                         </tr>
                                     }
                                 }
@@ -278,11 +278,11 @@
                             else
                             {
                                 <tr>
-                                    <td class="hidden">
-                                        <input type="text" class="ItemId sm-form-control" id="ItemId" name="ItemId[]" value="0" />
+                                    <td style = "display:none">
+                                        <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
                                     </td>
                                     <td>
-                                        <select class="sm-form-control" id="ItemType" name="ItemType[]">
+                                        <select class="form-control" id="ItemType" name="ItemType[]">
                                             <option selected="selected" value="0"> - - - Select Item Type - - - </option>
 
 
@@ -298,28 +298,28 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class="ItemDescription sm-form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" />
+                                        <input type="text" class="ItemDescription form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" />
                                     </td>
 
                                     <td>
-                                        <input type="text" class="Unit sm-form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" />
+                                        <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" />
                                     </td>
                                     <td>
-                                        <input type="text" class="UnitPrice sm-form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" />
+                                        <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" />
                                     </td>
                                     <td>
-                                        <select class="dura sm-form-control" id="ItemDuration" name="ItemDuration[]">
+                                        <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
                                             <option selected="selected">NA</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class="TAmt sm-form-control" id="TAmt" name="TAmt[]" value="" readonly="readonly" />
+                                        <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value="" readonly="readonly" />
                                     </td>
                                     <td>
                                         <a href="javascript:void(0);" id="addCF">Add</a>
                                     </td>
-                                    <td class="hidden">
-                                        <input type="text" class="code sm-form-control" id="Actions" name="Actions[]" value="I" />
+                                    <td style = "display:none">
+                                        <input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" />
                                     </td>
                                 </tr>
                             }
@@ -332,7 +332,7 @@
                         @Html.LabelFor(model => model.Currency, "Currency", htmlAttributes: new { @class = "control-label" })
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-money"> </i></span>
-                            @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "sm-form-control required", id = "Currency" })
+                            @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "form-control required", id = "Currency" })
                             @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -340,8 +340,8 @@
 
                     <div class="col_one_third col_last">
                         <label>Grand Total</label>
-                        <input type="text" class="sm-form-control" id="NetAmount" name="NetAmount" value='@NetTotal' placeholder="Net Amount" readonly="readonly" />
-                        @*@Html.EditorFor(model => model.NetAmount, new { htmlAttributes = new { @class = "sm-form-control", placeholder = "Duration", id = "NetAmount", @readonly = "readonly" } })*@
+                        <input type="text" class="form-control" id="NetAmount" name="NetAmount" value='@NetTotal' placeholder="Net Amount" readonly="readonly" />
+                        @*@Html.EditorFor(model => model.NetAmount, new { htmlAttributes = new { @class = "form-control", placeholder = "Duration", id = "NetAmount", @readonly = "readonly" } })*@
                     </div>
                 </div>
                 <br />
@@ -382,12 +382,12 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" class="txPer sm-form-control" id="TaxationValue" name="TaxationValue[]" value="@titem.TaxationValue" readonly="readonly" />
+                                        <input type="text" class="txPer form-control" id="TaxationValue" name="TaxationValue[]" value="@titem.TaxationValue" readonly="readonly" />
                                     </td>
                                     <td>
-                                        <input type="text" class="txVal sm-form-control" id="CalculatedTax" name="CalculatedTax[]" value="@titem.TaxactionAmount" readonly="readonly" />
+                                        <input type="text" class="txVal form-control" id="CalculatedTax" name="CalculatedTax[]" value="@titem.TaxactionAmount" readonly="readonly" />
                                     </td>
-                                    <td class="hidden"><input type="text" class="ActionTax sm-form-control" id="ActionTax" name="ActionTax[]" value="U" /></td>
+                                    <td style = "display:none"><input type="text" class="ActionTax form-control" id="ActionTax" name="ActionTax[]" value="U" /></td>
                                 </tr>
                                 TaxCount = TaxCount + 1;
                             }
@@ -400,15 +400,15 @@
                                     <select class="tax form-control" id="Taxation" name="Taxation[]">
                                         <option selected="selected"> - - - Select Taxes - - - </option>
                                     </select>
-                                    @*@Html.DropDownList("Taxation", null, "---  Select Taxes ---", htmlAttributes: new { @class = "tax sm-form-control", @id = "Taxation", @name = "Taxation[]" })*@
+                                    @*@Html.DropDownList("Taxation", null, "---  Select Taxes ---", htmlAttributes: new { @class = "tax form-control", @id = "Taxation", @name = "Taxation[]" })*@
                                 </td>
                                 <td>
-                                    <input type="text" class="txPer sm-form-control" id="TaxationValue" name="TaxationValue[]" readonly="readonly" />
+                                    <input type="text" class="txPer form-control" id="TaxationValue" name="TaxationValue[]" readonly="readonly" />
                                 </td>
                                 <td>
-                                    <input type="text" class="txVal sm-form-control" id="CalculatedTax" name="CalculatedTax[]" readonly="readonly" />
+                                    <input type="text" class="txVal form-control" id="CalculatedTax" name="CalculatedTax[]" readonly="readonly" />
                                 </td>
-                                <td class="hidden"><input type="text" class="ActionTax sm-form-control" id="ActionTax" name="ActionTax[]" value="I" /></td>
+                                <td style = "display:none"><input type="text" class="ActionTax form-control" id="ActionTax" name="ActionTax[]" value="I" /></td>
 
                             </tr>
                         }
@@ -418,27 +418,27 @@
                 <div class="row">
                     <div class="col-md-9 control-label text-right"> Additional Cost</div>
                     <div class="col-md-3">
-                        @Html.TextArea("AdditionalCost", ViewBag.AdditionalCost as string, htmlAttributes: new { @class = "sm-form-control", @id = "AdditionalCost", placeholder = "Additional Cost" })
+                        @Html.TextArea("AdditionalCost", ViewBag.AdditionalCost as string, htmlAttributes: new { @class = "form-control", @id = "AdditionalCost", placeholder = "Additional Cost" })
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-md-9 control-label text-right"> Deductions</div>
                     <div class="col-md-3">
-                        @Html.TextArea("Deductions", ViewBag.Deductions as string, htmlAttributes: new { @class = "sm-form-control", @id = "Deductions", placeholder = "Deductions" })
+                        @Html.TextArea("Deductions", ViewBag.Deductions as string, htmlAttributes: new { @class = "form-control", @id = "Deductions", placeholder = "Deductions" })
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-md-9 control-label text-right">Grand Total</div>
                     <div class="col-md-3">
-                        <input type="text" class="sm-form-control" id="GrandTotal" name="GrandTotal" value='@ViewBag.NetAmount' placeholder="Net Amount" readonly="readonly" />
+                        <input type="text" class="form-control" id="GrandTotal" name="GrandTotal" value='@ViewBag.NetAmount' placeholder="Net Amount" readonly="readonly" />
                     </div>
                 </div>
                 <br />
                 <div class="col_full">
-                    @Html.TextAreaFor(model => model.Remarks, 5, 80, htmlAttributes: new { @class = "sm-form-control", id = "EntryDescription", placeholder = "Enter Remarks here..." })
-                    @* @Html.TextAreaFor(model => model.Remarks, 5, 120, new { htmlAttributes = new { @class = "sm-form-control", @id = "EntryDescription", placeholder = "EntryDescription" } })*@
+                    @Html.TextAreaFor(model => model.Remarks, 5, 80, htmlAttributes: new { @class = "form-control", id = "EntryDescription", placeholder = "Enter Remarks here..." })
+                    @* @Html.TextAreaFor(model => model.Remarks, 5, 120, new { htmlAttributes = new { @class = "form-control", @id = "EntryDescription", placeholder = "EntryDescription" } })*@
                     @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-4" style="padding: 20px;">
@@ -457,7 +457,7 @@
                     </div>
 
                     <div class="col_full">
-                        <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="sm-form-control" />
+                        <input id="uploadImage" type="file" name="uploadPhoto" onchange="ValidatePreviewImage(@Global.MaxSize("ATTACHMENT"), this, 'ATTACHMENT')" class="form-control" />
                         @if (content != null)
                         {
                             <a href="~/File/InvoiceAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
@@ -673,14 +673,14 @@
             itemDuration = itemDuration + '</select>';
 
             $("#customFields").append('<tr><td> ' + state + ' </td>' +
-                                            '<td class="hidden"><input type="text" class="ItemId sm-form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
-                                            '<td><input type="text" class="code sm-form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" /></td>' +
-                                            '<td><input type="text" class="Unit sm-form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" /></td>' +
-                                            '<td><input type="text" class="UnitPrice sm-form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" /></td>' +
+                                            '<td style = "display:none"><input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
+                                            '<td><input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" /></td>' +
+                                            '<td><input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" /></td>' +
+                                            '<td><input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" /></td>' +
                                             '<td> ' + itemDuration + ' </td>' +
-                                            '<td><input type="text" class="TAmt sm-form-control" id="TAmt" name="TAmt[]" value=""  readonly="readonly" /></td>' +
+                                            '<td><input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value=""  readonly="readonly" /></td>' +
                                             '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>' +
-                                            '<td class="hidden"><input type="text" class="code sm-form-control" id="Actions" name="Actions[]" value="I" /></td>'
+                                            '<td style = "display:none"><input type="text" class="code form-control" id="Actions" name="Actions[]" value="I" /></td>'
                                       );
 
             $("#customFields").on('click', '#remCF', function () {
@@ -816,9 +816,9 @@
             state = state + '</select>';
 
             $("#customTaxes").append('<tr> <td><a href="javascript:void(0);" id="remCTX"><i class="icon-remove"/></a></td> <td> ' + state + ' </td> ' +
-                               '<td><input type="text" class="txPer sm-form-control" id="TaxationValue" name="TaxationValue[]" readonly="readonly" /> </td>  ' +
-                                '<td> <input type="text" class="txVal sm-form-control" id="CalculatedTax" name="CalculatedTax[]" readonly="readonly" /></td> ' +
-                                '<td class="hidden"><input type="text" class="ActionTax sm-form-control" id="Actions" name="ActionTax[]" value="I" /></td></tr>');
+                               '<td><input type="text" class="txPer form-control" id="TaxationValue" name="TaxationValue[]" readonly="readonly" /> </td>  ' +
+                                '<td> <input type="text" class="txVal form-control" id="CalculatedTax" name="CalculatedTax[]" readonly="readonly" /></td> ' +
+                                '<td style = "display:none"><input type="text" class="ActionTax form-control" id="Actions" name="ActionTax[]" value="I" /></td></tr>');
 
             $("#customTaxes").on('click', '#remCTX', function () {
                 $(this).closest('tr').remove();

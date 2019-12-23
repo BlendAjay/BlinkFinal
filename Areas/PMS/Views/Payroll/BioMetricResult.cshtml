@@ -12,7 +12,7 @@
         Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
     }
 }
-@using (Html.BeginForm("BioMetricResult", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "BioMetricResult", role = "form" }))
+@using (Html.BeginForm("BioMetricResult", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "BioMetricResult", role = "form" }))
 {
     @Html.Hidden("SId", user.UserId as string);
     @Html.AntiForgeryToken()
@@ -21,23 +21,23 @@
 
         <div class="col_one_fourth">
             <label>Select Month</label>
-                @Html.DropDownList("Month", null, "Select Month", htmlAttributes: new { @class = "sm-form-control", id = "Mon" })
+                @Html.DropDownList("Month", null, "Select Month", htmlAttributes: new { @class = "form-control", id = "Mon" })
             @*<label>Select Range</label>
             <div class="input-group divcenter">
                 <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                <input type="text" class="sm-form-control daterange4" value="" id="Schedule" />
+                <input type="text" class="form-control daterange4" value="" id="Schedule" />
             </div>*@
         </div>
         <div class="col_one_fourth">
             <label>Select Department</label>
             <div class="input-group divcenter">
                 <span class="input-group-addon"><i class="icon-link"> </i></span>
-                @Html.DropDownList("DepartmentId", null, "--- Select Role ---", htmlAttributes: new { @class = "sm-form-control", @id = "DepartmentId", placeholder = "Select Role" })
+                @Html.DropDownList("DepartmentId", null, "--- Select Role ---", htmlAttributes: new { @class = "form-control", @id = "DepartmentId", placeholder = "Select Role" })
             </div>
         </div>
         <div class="col_one_fourth">
             <label>Select Employee</label>
-            @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "sm-form-control required", id = "UserId" })
+            @Html.DropDownList("UserId", null, "Select Employee", htmlAttributes: new { @class = "form-control required", id = "UserId" })
         </div>
         <div class="col_one_fourth col_last">
             <br /><br />
@@ -50,7 +50,7 @@
                 <label>Select Range</label>
                 <div class="input-group divcenter">
                     <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                    <input type="text" class="sm-form-control daterange4" value="" id="Schedule" />
+                    <input type="text" class="form-control daterange4" value="" id="Schedule" />
                 </div>
             </div>
             <div class="col_half col_last">

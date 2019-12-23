@@ -6,19 +6,10 @@
     ViewBag.Title = "AddEmployee";
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
-    //List<EmployeeBasicDetails> employeeBasicDetails = ViewData["EmployeeBasicDetails"] as List<EmployeeBasicDetails>;
-    //EmpJoiningDetail empjoining = new EmpJoiningDetail();
-    List<CorporatePayrollHead> PayrollHead = ViewData["CorporatePayrollHeads"] as List<CorporatePayrollHead>;
-    List<EmployeeSalary> salaryRecords = ViewData["SalaryRecords"] as List<EmployeeSalary>;
-    List<EmployeeSalaryHeads> salaryHeadRecords = ViewData["SalaryHeadRecords"] as List<EmployeeSalaryHeads>;
     List<EmployeeLeaveSummariesViewModel> empLeaveLimits = ViewData["EmpEngagement"] as List<EmployeeLeaveSummariesViewModel>;
-    List<EmployeeSalaryHeads> salaryHeadLatest = ViewData["LatestSalary"] as List<EmployeeSalaryHeads>;
-
-    var BasicHeadId = @PayrollHead.Where(p => p.PayrollHeadID == Global.BasicHeadId()).FirstOrDefault();
-    var SpecialHeadId = @PayrollHead.Where(p => p.PayrollHeadID == Global.SpecialAllowancesHeadId()).FirstOrDefault();
 
 }
-@using (Html.BeginForm("AddEmployee", "User", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal", id = "AddEmployee", role = "form" }))
+@using (Html.BeginForm("AddEmployee", "User", FormMethod.Post, new { @area = "CMS", @class = "needs-validation", id = "AddEmployee", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("Uid", ViewBag.Uid as string)
@@ -29,569 +20,663 @@
         @Html.HiddenFor(m => m.ESID, new { id = "ESID" })
         @Html.HiddenFor(m => m.JoiningId, new { id = "JoiningId" })
     }
-    <section id="content">
-        <div class="container clearfix">
-            <div class="form-process"></div>
-            <div class="fancy-title title-bottom-border">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Add Employee</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="form-process"></div>
+                <h5 class="card-header">Add Employee</h5>
                 <div align="right">
                     <a href="@Url.Action("Employees", "User", new { Area = "CMS" })" class="btn btn-default btn-xs" align="right">My Employees</a>
                 </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.Name, "Name")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "Name", placeholder = "Enter Name", required = "required" } })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.Email, "Email")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-email"> </i></span>
+                                @if (Model.Email != null)
+                                {
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control email", id = "Email", placeholder = "ex:xyz@gmail.com", @readonly = "readonly", required = "required" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control email", id = "Email", placeholder = "ex:xyz@gmail.com", required = "required" } })
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.PhoneNumber, "Contact Number")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                @if (Model.PhoneNumber != null)
+                                {
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "form-control", id = "PhoneNumber", placeholder = "ex:8856230145", @readonly = "readonly", required = "required" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "form-control required", id = "PhoneNumber", placeholder = "ex:8856230145", required = "required" } })
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br />@Html.LabelFor(model => model.AlternateEmail, "Alternate Email")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-email"> </i></span>
+                                @Html.EditorFor(model => model.AlternateEmail, new { htmlAttributes = new { @class = "form-control email", id = "AlternateEmail", placeholder = "ex:xyz@gmail.com", } })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br />@Html.LabelFor(model => model.AlternateContact, "Alternate Contact Number")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                @Html.EditorFor(model => model.AlternateContact, new { htmlAttributes = new { @maxlength = 12, @class = "form-control", id = "AlternateContact", placeholder = "ex:8856230145" } })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /><label> Date Of Birth</label>
+                            <div class="input-group divcenter travel-date-group">
+                                <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                <input type="text" value="@ViewBag.DOB" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="DOB" name="DOB">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.Gender, "Gender")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
+                                @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
+
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.MaritalStatus, "Marital Status")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                @Html.DropDownList("MaritalStatus", null, "--- Select Marital Status ---", htmlAttributes: new { @class = "form-control", @id = "MaritalStatus" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.Nationality, "Nationality")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-globe"> </i></span>
+                                @Html.DropDownList("Nationality", null, "--- Select Nationality ---", htmlAttributes: new { @class = "form-control", @id = "Nationality" })
+                            </div>
+                        </div>
+                       
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" style="margin-top:30px">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td><p class="nomargin">PhysicallyChallenged ? </p></td>
+                                        <td>
+                                            @if (ViewBag.PhysicallyChallenged == null)
+                                            {
+                                                ViewBag.PhysicallyChallenged = false;
+                                            }
+                                            @Html.CheckBox("PhysicallyChallenged", (bool)ViewBag.PhysicallyChallenged, new { htmlAttributes = new { @class = "form-control" } })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                            <br />@Html.LabelFor(model => model.Location, "Location")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", id = "Location", placeholder = "Enter Location" } })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br />@Html.LabelFor(model => model.EmployeeId, "Employee Code")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control", id = "EmployeeId", placeholder = "Enter Employee Code", required = "required" } })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.DepartmentId, "Department")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-type"> </i></span>
+                                @Html.DropDownList("DepartmentId", null, "---Select Department ---", htmlAttributes: new { id = "DepartmentId", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.DesignationId, "Designation")<small>*</small>
+                            <a href="@Url.Action("Designation", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Designation</a>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-type"> </i></span>
+                                @Html.DropDownList("DesignationId", null, "--- Select Designation ---", htmlAttributes: new { @class = "form-control required", @id = "DesignationId", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br /> @Html.LabelFor(model => model.ReportingAuthority, "Reporting Authority")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                @Html.DropDownList("ReportingAuthority", null, "---Select Reporting Authority ---", htmlAttributes: new { id = "ReportingAuthority", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>
+                        @*<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                            <br /> @Html.Label("Current Status")<small>*</small>
+                            <a href="@Url.Action("StatusMaster", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Status</a>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-pen"> </i></span>
+                                @Html.DropDownList("StatusId", null, "---Select Status ---", htmlAttributes: new { id = "StatusId", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br />@Html.Label("Shift")<small>*</small>
+                            <a href="@Url.Action("AddShift", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Shift</a>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.DropDownList("ShiftId", null, "---Select Shift---", htmlAttributes: new { id = "ShiftId", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>*@
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                            <br /><label>Joining Date</label><small>*</small>
+                            <div class="input-group" id="datetimepicker4" data-target-input="nearest">
+                                <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                <input type="text" value="@ViewBag.JoiningDate" class="form-control datetimepicker-input" placeholder="DD/MM/YYYY" id="JoiningDate" name="JoiningDate" required="required">
+                                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <br />  @Html.Label("Grade")<small>*</small>
+                            <a href="@Url.Action("MyGrade", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Grade</a>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-align-right"> </i></span>
+                                @Html.DropDownList("GradeId", null, "---Select Grade ---", htmlAttributes: new { id = "GradeId", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                            <br /> @Html.Label("Work Location")<small>*</small>
+                            <a href="@Url.Action("Branches", "Dashboard")" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Work Location</a>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.DropDownList("BranchId", null, "---Select Work Location ---", htmlAttributes: new { id = "BranchId", @class = "form-control required", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" style="margin-top:30px">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td><p class="nomargin">ManagerLevel ? </p></td>
+                                        <td>
+                                            @if (ViewBag.ManagerLevel == null)
+                                            {
+                                                ViewBag.ManagerLevel = false;
+                                            }
+                                            @Html.CheckBox("ManagerLevel", (bool)ViewBag.ManagerLevel, new { htmlAttributes = new { @class = "form-control" } })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12" style="margin-top:30px">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td><p class="nomargin">Emplanelled ? </p></td>
+                                        <td>
+                                            @if (ViewBag.Emplanelled == null)
+                                            {
+                                                ViewBag.Emplanelled = false;
+                                            }
+                                            @Html.CheckBox("Emplanelled", (bool)ViewBag.Emplanelled, new { htmlAttributes = new { @class = "form-control" } })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" align="right">
+                            <br /><br />
+                            <input type="submit" value="Submit" id="AddEmp" name="AddEmp" style="float: right;" class="btn btn-primary" />
+                            @*<input type="button" id="AddEmp" value="Submit" class="btn btn-primary" />*@
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="tabs clearfix" id="tab-2">
-                <ul class="tab-nav clearfix" style="pointer-events: none;">
-                    <li class="active"><a href=" #tabs-4" data-toggle="tab">Employee</a></li>
-                    <li><a href=" #tabs-5" data-toggle="tab">Personal</a></li>
-                    <li><a href="#tabs-6" data-toggle="tab">Joining</a></li>
-                    <li><a href="#tabs-7" data-toggle="tab">Leave</a></li>
-                    <li><a href="#tabs-8" data-toggle="tab">Salary</a></li>
-                </ul>
-                <div class="tab-container">
-                    <div class="tab-content clearfix" id="tabs-4">
-                        @*<div class="fancy-title title-bottom-border">
-                                <h4>Employee Basic Details</h4>
-                            </div>*@
-                        <div class="col_full">
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.Name, "Name")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "sm-form-control required", id = "Name", placeholder = "Enter Name" } })
-                                </div>
-                            </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.Email, "Email")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-email"> </i></span>
-                                    @if (Model.Email != null)
-                                    {
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "sm-form-control required email", id = "Email", placeholder = "ex:xyz@gmail.com", @readonly = "readonly" } })
-                                    }
-                                    else
-                                    {
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "sm-form-control required email", id = "Email", placeholder = "ex:xyz@gmail.com", } })
-                                    }
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                @Html.LabelFor(model => model.PhoneNumber, "Contact Number")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-mobile"> </i></span>
-                                    @if (Model.PhoneNumber != null)
-                                    {
-                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "sm-form-control required", id = "PhoneNumber", placeholder = "ex:8856230145", @readonly = "readonly" } })
-                                    }
-                                    else
-                                    {
-                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "sm-form-control required", id = "PhoneNumber", placeholder = "ex:8856230145" } })
-                                    }
-                                </div>
-                            </div>
 
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.AlternateEmail, "Alternate Email")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-email"> </i></span>
-                                    @Html.EditorFor(model => model.AlternateEmail, new { htmlAttributes = new { @class = "sm-form-control email", id = "AlternateEmail", placeholder = "ex:xyz@gmail.com", } })
-                                </div>
-                            </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.AlternateContact, "Alternate Contact Number")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-mobile"> </i></span>
-                                    @Html.EditorFor(model => model.AlternateContact, new { htmlAttributes = new { @maxlength = 12, @class = "sm-form-control", id = "AlternateContact", placeholder = "ex:8856230145" } })
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                <label> Date Of Birth</label>
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" value="@ViewBag.DOB" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="DOB" name="DOB">
-                                </div>
-                            </div>
 
-                            <div class="col_one_third ">
-                                @Html.LabelFor(model => model.Gender, "Gender")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
-                                    @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "sm-form-control", @id = "Gender" })
 
-                                </div>
-                            </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.MaritalStatus, "Marital Status")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.DropDownList("MaritalStatus", null, "--- Select Marital Status ---", htmlAttributes: new { @class = "sm-form-control", @id = "MaritalStatus" })
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                @Html.LabelFor(model => model.Nationality, "Nationality")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-globe"> </i></span>
-                                    @Html.DropDownList("Nationality", null, "--- Select Nationality ---", htmlAttributes: new { @class = "sm-form-control", @id = "Nationality" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fright">
-                            <input type="button" id="btnNext1" name="btnNext1" class="btn btn-success" value="Next" />
-                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<section id="content">
+            <div class="container clearfix">
+                <div class="form-process"></div>
+                <div class="fancy-title title-bottom-border">
+                    <div align="right">
+                        <a href="@Url.Action("Employees", "User", new { Area = "CMS" })" class="btn btn-default btn-xs" align="right">My Employees</a>
                     </div>
-                    <div class="tab-content clearfix" id="tabs-5">
-                        <div class="col_full">
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.FatherName, "Father Name")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "sm-form-control", id = "FatherName", placeholder = "Enter Father Name" } })
-                                </div>
-                            </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.SpouseName, "Spouse Name")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.EditorFor(model => model.SpouseName, new { htmlAttributes = new { @class = "sm-form-control", id = "SpouseName", placeholder = "Enter Spouse Name" } })
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                <label>Marriage Date</label>
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" value="@ViewBag.MarriageDate" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="MarriageDate" name="MarriageDate">
-                                </div>
-                            </div>
+                </div>
 
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.EmergencyContactName, "Emergency Contact Name")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.EditorFor(model => model.EmergencyContactName, new { htmlAttributes = new { @class = "sm-form-control", id = "EmergencyContactName", placeholder = "Enter Emergency Contact Name" } })
+                <div class="tabs clearfix" id="tab-2">
+                    <ul class="tab-nav clearfix" style="pointer-events: none;">
+                        <li class="active"><a href=" #tabs-4" data-toggle="tab">Employee</a></li>
+                        <li><a href=" #tabs-5" data-toggle="tab">Personal</a></li>
+                        <li><a href="#tabs-6" data-toggle="tab">Joining</a></li>
+                        <li><a href="#tabs-7" data-toggle="tab">Leave</a></li>
+                        <li><a href="#tabs-8" data-toggle="tab">Salary</a></li>
+                    </ul>
+                    <div class="tab-container">
+                        <div class="tab-content clearfix" id="tabs-4">
+                            <div class="col_full">
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.Name, "Name")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control required", id = "Name", placeholder = "Enter Name" } })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.EmergencyContactNumber, "Emergency Contact Number")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-mobile"> </i></span>
-                                    @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "sm-form-control", id = "EmergencyContactNumber", placeholder = "Enter Emergency Contact Number" } })
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.Email, "Email")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-email"> </i></span>
+                                        @if (Model.Email != null)
+                                        {
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control required email", id = "Email", placeholder = "ex:xyz@gmail.com", @readonly = "readonly" } })
+                                        }
+                                        else
+                                        {
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control required email", id = "Email", placeholder = "ex:xyz@gmail.com", } })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                @Html.LabelFor(model => model.BloodGroup, "Blood Group")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                                    @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "sm-form-control", id = "BloodGroup", placeholder = "Enter Blood Group" } })
+                                <div class="col_one_third col_last">
+                                    @Html.LabelFor(model => model.PhoneNumber, "Contact Number")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                        @if (Model.PhoneNumber != null)
+                                        {
+                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "form-control required", id = "PhoneNumber", placeholder = "ex:8856230145", @readonly = "readonly" } })
+                                        }
+                                        else
+                                        {
+                                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @maxlength = 12, @class = "form-control required", id = "PhoneNumber", placeholder = "ex:8856230145" } })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col_one_third" style="margin-top:30px">
-                                <table class="table table-striped table-responsive">
-                                    <tbody>
-                                        <tr>
-                                            <td><p class="nomargin">PhysicallyChallenged ? </p></td>
-                                            <td>
-                                                @if (ViewBag.PhysicallyChallenged == null)
-                                                {
-                                                    ViewBag.PhysicallyChallenged = false;
-                                                }
-                                                @Html.CheckBox("PhysicallyChallenged", (bool)ViewBag.PhysicallyChallenged, new { htmlAttributes = new { @class = "sm-form-control" } })
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            @*<div class="col_one_third">
-                                    @Html.LabelFor(model => model.PhysicallyChallenged, "Physically Challenged") &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.CheckBoxFor(model => model.PhysicallyChallenged, new { Id = "ManagerLevel" })
-                                </div>*@
-                            <div class="col_one_third ">
-                                @Html.LabelFor(model => model.Location, "Location")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-location"> </i></span>
-                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "sm-form-control", id = "Location", placeholder = "Enter Location" } })
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
 
-                            </div>
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.AlternateEmail, "Alternate Email")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-email"> </i></span>
+                                        @Html.EditorFor(model => model.AlternateEmail, new { htmlAttributes = new { @class = "form-control email", id = "AlternateEmail", placeholder = "ex:xyz@gmail.com", } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.AlternateContact, "Alternate Contact Number")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                        @Html.EditorFor(model => model.AlternateContact, new { htmlAttributes = new { @maxlength = 12, @class = "form-control", id = "AlternateContact", placeholder = "ex:8856230145" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+                                    <label> Date Of Birth</label>
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" value="@ViewBag.DOB" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="DOB" name="DOB">
+                                    </div>
+                                </div>
 
-                        </div>
-                        <div class="col_full">
-                            <div class="col_half" align="left">
-                                <input type="button" id="btnBack1" name="btnBack1" class="btn btn-success" value="Previous" />
-                            </div>
-                            <div class="col_half col_last" align="right">
-                                <input type="button" id="btnNext2" name="btnNext2" class="btn btn-success" value="Next" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content clearfix" id="tabs-6">
-                        <div class="col_full">
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.EmployeeId, "Employee Code")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "sm-form-control required", id = "EmployeeId", placeholder = "Enter Employee Code" } })
+                                <div class="col_one_third ">
+                                    @Html.LabelFor(model => model.Gender, "Gender")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
+                                        @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
+
+                                    </div>
+                                </div>
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.MaritalStatus, "Marital Status")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.DropDownList("MaritalStatus", null, "--- Select Marital Status ---", htmlAttributes: new { @class = "form-control", @id = "MaritalStatus" })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+                                    @Html.LabelFor(model => model.Nationality, "Nationality")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-globe"> </i></span>
+                                        @Html.DropDownList("Nationality", null, "--- Select Nationality ---", htmlAttributes: new { @class = "form-control", @id = "Nationality" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.DepartmentId, "Department")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-type"> </i></span>
-                                    @Html.DropDownList("DepartmentId", null, "---Select Department ---", htmlAttributes: new { id = "DepartmentId", @class = "sm-form-control required" })
-                                </div>
-                            </div>
-                            <div class="col_one_third col_last">
-                                @Html.LabelFor(model => model.DesignationId, "Designation")<small>*</small>
-                                <a href="@Url.Action("Designation", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Designation</a>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-type"> </i></span>
-                                    @Html.DropDownList("DesignationId", null, "--- Select Designation ---", htmlAttributes: new { @class = "sm-form-control required", @id = "DesignationId" })
-                                </div>
+                            <div class="fright">
+                                <input type="button" id="btnNext1" name="btnNext1" class="btn btn-success" value="Next" />
                             </div>
                         </div>
-                        <div class="col_full">
-                            <div class="col_one_third">
-                                @Html.LabelFor(model => model.ReportingAuthority, "Reporting Authority")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user"> </i></span>
-                                    @Html.DropDownList("ReportingAuthority", null, "---Select Reporting Authority ---", htmlAttributes: new { id = "ReportingAuthority", @class = "sm-form-control required" })
+                        <div class="tab-content clearfix" id="tabs-5">
+                            <div class="col_full">
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.FatherName, "Father Name")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", id = "FatherName", placeholder = "Enter Father Name" } })
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col_one_third ">
-                                @Html.Label("Current Status")<small>*</small>
-                                <a href="@Url.Action("StatusMaster", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Status</a>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                                    @Html.DropDownList("StatusId", null, "---Select Status ---", htmlAttributes: new { id = "StatusId", @class = "sm-form-control required" })
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.SpouseName, "Spouse Name")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.EditorFor(model => model.SpouseName, new { htmlAttributes = new { @class = "form-control", id = "SpouseName", placeholder = "Enter Spouse Name" } })
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col_one_third col_last">
+                                    <label>Marriage Date</label>
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" value="@ViewBag.MarriageDate" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="MarriageDate" name="MarriageDate">
+                                    </div>
+                                </div>
 
-                            <div class="col_one_third col_last">
-                                @Html.Label("Shift")<small>*</small>
-                                <a href="@Url.Action("AddShift", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Shift</a>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-location"> </i></span>
-                                    @Html.DropDownList("ShiftId", null, "---Select Shift---", htmlAttributes: new { id = "ShiftId", @class = "sm-form-control required" })
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.EmergencyContactName, "Emergency Contact Name")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.EditorFor(model => model.EmergencyContactName, new { htmlAttributes = new { @class = "form-control", id = "EmergencyContactName", placeholder = "Enter Emergency Contact Name" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.EmergencyContactNumber, "Emergency Contact Number")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                        @Html.EditorFor(model => model.EmergencyContactNumber, new { htmlAttributes = new { @class = "form-control", id = "EmergencyContactNumber", placeholder = "Enter Emergency Contact Number" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+                                    @Html.LabelFor(model => model.BloodGroup, "Blood Group")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-pen"> </i></span>
+                                        @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", id = "BloodGroup", placeholder = "Enter Blood Group" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third" style="margin-top:30px">
+                                    <table class="table table-striped table-responsive">
+                                        <tbody>
+                                            <tr>
+                                                <td><p class="nomargin">PhysicallyChallenged ? </p></td>
+                                                <td>
+                                                    @if (ViewBag.PhysicallyChallenged == null)
+                                                    {
+                                                        ViewBag.PhysicallyChallenged = false;
+                                                    }
+                                                    @Html.CheckBox("PhysicallyChallenged", (bool)ViewBag.PhysicallyChallenged, new { htmlAttributes = new { @class = "form-control" } })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col_one_third ">
+                                    @Html.LabelFor(model => model.Location, "Location")
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", id = "Location", placeholder = "Enter Location" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+
+                                </div>
+
+                            </div>
+                            <div class="col_full">
+                                <div class="col_half" align="left">
+                                    <input type="button" id="btnBack1" name="btnBack1" class="btn btn-success" value="Previous" />
+                                </div>
+                                <div class="col_half col_last" align="right">
+                                    <input type="button" id="btnNext2" name="btnNext2" class="btn btn-success" value="Next" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col_full">
-                            <div class="col_one_third ">
-                                <label>Joining Date</label><small>*</small>
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" value="@ViewBag.JoiningDate" class="sm-form-control past-enabled required" placeholder="DD/MM/YYYY" id="JoiningDate" name="JoiningDate">
+                        <div class="tab-content clearfix" id="tabs-6">
+                            <div class="col_full">
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.EmployeeId, "Employee Code")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control required", id = "EmployeeId", placeholder = "Enter Employee Code" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.DepartmentId, "Department")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-type"> </i></span>
+                                        @Html.DropDownList("DepartmentId", null, "---Select Department ---", htmlAttributes: new { id = "DepartmentId", @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+                                    @Html.LabelFor(model => model.DesignationId, "Designation")<small>*</small>
+                                    <a href="@Url.Action("Designation", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Designation</a>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-type"> </i></span>
+                                        @Html.DropDownList("DesignationId", null, "--- Select Designation ---", htmlAttributes: new { @class = "form-control required", @id = "DesignationId" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col_one_third">
-                                <label>Probation Period</label><small style="float:right">In days</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                                    @Html.EditorFor(model => model.ProbationPeriod, new { htmlAttributes = new { @class = "sm-form-control", id = "ProbationPeriod", placeholder = "Enter Probation Period" } })
+                            <div class="col_full">
+                                <div class="col_one_third">
+                                    @Html.LabelFor(model => model.ReportingAuthority, "Reporting Authority")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user"> </i></span>
+                                        @Html.DropDownList("ReportingAuthority", null, "---Select Reporting Authority ---", htmlAttributes: new { id = "ReportingAuthority", @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="col_one_third ">
+                                    @Html.Label("Current Status")<small>*</small>
+                                    <a href="@Url.Action("StatusMaster", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Status</a>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-pen"> </i></span>
+                                        @Html.DropDownList("StatusId", null, "---Select Status ---", htmlAttributes: new { id = "StatusId", @class = "form-control required" })
+                                    </div>
+                                </div>
+
+                                <div class="col_one_third col_last">
+                                    @Html.Label("Shift")<small>*</small>
+                                    <a href="@Url.Action("AddShift", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Shift</a>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                        @Html.DropDownList("ShiftId", null, "---Select Shift---", htmlAttributes: new { id = "ShiftId", @class = "form-control required" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col_one_third col_last">
-                                @Html.Label("Confirmation Date")
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" value="@ViewBag.ConfirmationDate" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="ConfirmationDate" name="ConfirmationDate">
+                            <div class="col_full">
+                                <div class="col_one_third ">
+                                    <label>Joining Date</label><small>*</small>
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" value="@ViewBag.JoiningDate" class="form-control past-enabled required" placeholder="DD/MM/YYYY" id="JoiningDate" name="JoiningDate">
+                                    </div>
                                 </div>
+                                <div class="col_one_third">
+                                    <label>Probation Period</label><small style="float:right">In days</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-clock"> </i></span>
+                                        @Html.EditorFor(model => model.ProbationPeriod, new { htmlAttributes = new { @class = "form-control", id = "ProbationPeriod", placeholder = "Enter Probation Period" } })
+                                    </div>
+                                </div>
+                                <div class="col_one_third col_last">
+                                    @Html.Label("Confirmation Date")
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" value="@ViewBag.ConfirmationDate" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="ConfirmationDate" name="ConfirmationDate">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col_full">
+                                <div class="col_one_third ">
+                                    <label>Notice Period</label><small style="float:right">In days</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-clock"> </i></span>
+                                        @Html.EditorFor(model => model.NoticePeriod, new { htmlAttributes = new { @class = "form-control", id = "NoticePeriod", placeholder = "Enter Notice Period" } })
+                                    </div>
+                                </div>
+
+                                <div class="col_one_third col_last">
+                                    @Html.Label("Grade")<small>*</small>
+                                    <a href="@Url.Action("MyGrade", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Grade</a>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-align-right"> </i></span>
+                                        @Html.DropDownList("GradeId", null, "---Select Grade ---", htmlAttributes: new { id = "GradeId", @class = "form-control required" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col_full">
+                                <div class="col_one_third ">
+                                    @Html.Label("Work Location")<small>*</small>
+                                    <a href="@Url.Action("Branches", "Dashboard")" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Work Location</a>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                       @Html.DropDownList("BranchId", null, "---Select Work Location ---", htmlAttributes: new { id = "BranchId", @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="col_one_third" style="margin-top:30px">
+                                    <table class="table table-striped table-responsive">
+                                        <tbody>
+                                            <tr>
+                                                <td><p class="nomargin">ManagerLevel ? </p></td>
+                                                <td>
+                                                    @if (ViewBag.ManagerLevel == null)
+                                                    {
+                                                        ViewBag.ManagerLevel = false;
+                                                    }
+                                                    @Html.CheckBox("ManagerLevel", (bool)ViewBag.ManagerLevel, new { htmlAttributes = new { @class = "form-control" } })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col_one_third col_last" style="margin-top:30px">
+                                    <table class="table table-striped table-responsive">
+                                        <tbody>
+                                            <tr>
+                                                <td><p class="nomargin">Emplanelled ? </p></td>
+                                                <td>
+                                                    @if (ViewBag.Emplanelled == null)
+                                                    {
+                                                        ViewBag.Emplanelled = false;
+                                                    }
+                                                    @Html.CheckBox("Emplanelled", (bool)ViewBag.Emplanelled, new { htmlAttributes = new { @class = "form-control" } })
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
 
-                        </div>
-                        <div class="col_full">
-                            <div class="col_one_third ">
-                                <label>Notice Period</label><small style="float:right">In days</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                                    @Html.EditorFor(model => model.NoticePeriod, new { htmlAttributes = new { @class = "sm-form-control", id = "NoticePeriod", placeholder = "Enter Notice Period" } })
+                            <div class="col_full">
+                                <div class="col_half" align="left">
+                                    <input type="button" id="btnBack2" name="btnBack2" class="btn btn-success" value="Previous" />
+                                </div>
+                                <div class="col_half col_last" align="right">
+                                    <input type="button" id="btnNext3" name="btnNext3" class="btn btn-success" value="Next" />
                                 </div>
                             </div>
-                            @*<div class="col_one_third">
+                        </div>
+
+                        <div class="tab-content clearfix" id="tabs-7">
+                            <div class="col_full">
+                                <div class="col_half">
                                     @Html.Label("Scheme")<small>*</small>
                                     <div class="input-group divcenter">
                                         <span class="input-group-addon"><i class="icon-location"> </i></span>
-                                        @Html.DropDownList("SchemeId", null, "---Select Schema ---", htmlAttributes: new { id = "SchemeId", @class = "sm-form-control required" })
+                                        @Html.DropDownList("SchemeId", null, "---Select Scheme ---", htmlAttributes: new { id = "SchemeId", @class = "form-control required" })
                                     </div>
-                                </div>*@
-                            <div class="col_one_third col_last">
-                                @Html.Label("Grade")<small>*</small>
-                                <a href="@Url.Action("MyGrade", "Payroll", new { area = "PMS" })" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Grade</a>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-align-right"> </i></span>
-                                    @Html.DropDownList("GradeId", null, "---Select Grade ---", htmlAttributes: new { id = "GradeId", @class = "sm-form-control required" })
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="col_full">
-                            <div class="col_one_third ">
-                                @Html.Label("Work Location")<small>*</small>
-                                <a href="@Url.Action("Branches", "Dashboard")" title="List" target="_blank" class="btn btn-default btn-xs fright">Add Work Location</a>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-location"> </i></span>
-                                    @*@Html.EditorFor(model => model.WorkLocation, new { htmlAttributes = new { @class = "sm-form-control", id = "WorkLocation", placeholder = "Enter Work Location" } })*@
-                                    @Html.DropDownList("BranchId", null, "---Select Work Location ---", htmlAttributes: new { id = "BranchId", @class = "sm-form-control required" })
-                                </div>
-                            </div>
-                            <div class="col_one_third" style="margin-top:30px">
-                                <table class="table table-striped table-responsive">
-                                    <tbody>
-                                        <tr>
-                                            <td><p class="nomargin">ManagerLevel ? </p></td>
-                                            <td>
-                                                @if (ViewBag.ManagerLevel == null)
-                                                {
-                                                    ViewBag.ManagerLevel = false;
-                                                }
-                                                @Html.CheckBox("ManagerLevel", (bool)ViewBag.ManagerLevel, new { htmlAttributes = new { @class = "sm-form-control" } })
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col_one_third col_last" style="margin-top:30px">
-                                <table class="table table-striped table-responsive">
-                                    <tbody>
-                                        <tr>
-                                            <td><p class="nomargin">Emplanelled ? </p></td>
-                                            <td>
-                                                @if (ViewBag.Emplanelled == null)
-                                                {
-                                                    ViewBag.Emplanelled = false;
-                                                }
-                                                @Html.CheckBox("Emplanelled", (bool)ViewBag.Emplanelled, new { htmlAttributes = new { @class = "sm-form-control" } })
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            @*<div class="col_one_third">
-                                    @Html.LabelFor(model => model.ManagerLevel, "Manager Level") &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.CheckBoxFor(model => model.ManagerLevel, new { Id = "ManagerLevel" })
-                                </div>*@
-
-                            @*<div class="col_one_third col_last">
-                                    @Html.LabelFor(model => model.Emplanelled, "Emplanelled ?") &nbsp;&nbsp;&nbsp;&nbsp;
-                                    @Html.CheckBoxFor(model => model.Emplanelled, new { Id = "Emplanelled" })
-                                    @Html.CheckBox("Emplanelled", (bool)ViewBag.Emplanelled, new { htmlAttributes = new { @class = "sm-form-control" } })
-                                </div>*@
-                        </div>
-
-                        <div class="col_full">
-                            <div class="col_half" align="left">
-                                <input type="button" id="btnBack2" name="btnBack2" class="btn btn-success" value="Previous" />
-                            </div>
-                            <div class="col_half col_last" align="right">
-                                <input type="button" id="btnNext3" name="btnNext3" class="btn btn-success" value="Next" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content clearfix" id="tabs-7">
-                        <div class="col_full">
-                            <div class="col_half">
-                                @Html.Label("Scheme")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-location"> </i></span>
-                                    @Html.DropDownList("SchemeId", null, "---Select Scheme ---", htmlAttributes: new { id = "SchemeId", @class = "sm-form-control required" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive col_full">
-                            <table class="table table-striped" id="SchemeEngagementWise"></table>
-                        </div>
-                        <div class="col_full" id="NoSchemeEngagementWise">
                             <div class="table-responsive col_full">
-                                <table class="table table-striped" id="SchemeEngagementWise">
-                                    @if (empLeaveLimits != null && empLeaveLimits.Count > 0)
-                                    {
-                                        foreach (var leavelimits in empLeaveLimits)
+                                <table class="table table-striped" id="SchemeEngagementWise"></table>
+                            </div>
+                            <div class="col_full" id="NoSchemeEngagementWise">
+                                <div class="table-responsive col_full">
+                                    <table class="table table-striped" id="SchemeEngagementWise">
+                                        @if (empLeaveLimits != null && empLeaveLimits.Count > 0)
                                         {
-                                            <tr>
-                                                <td>
-                                                    @leavelimits.EngagementType
-                                                </td>
-                                                <td>
-                                                    @leavelimits.LeaveLimit
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="col_full">
-                            <div class="col_half" align="left">
-                                <input type="button" id="btnBack3" name="btnBack3" class="btn btn-success" value="Previous" />
-                            </div>
-                            <div class="col_half col_last" align="right">
-                                <input type="button" id="btnNext4" name="btnNext4" class="btn btn-success" value="Next" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-content clearfix" id="tabs-8">
-
-                        <div class="table-responsive col_full">
-                            <table class="table table-bordered alignright">
-                                <tr>
-                                    <td>Monthly CTC<small>*</small></td>
-                                    <td>@Html.EditorFor(model => model.MonthlyCTC, new { htmlAttributes = new { @class = "sm-form-control required", @id = "MonthlyCTC", placeholder = "eg. 1,20,000" } })</td>
-                                </tr>
-                            </table>
-
-                            <table class="table table-bordered" id="heads">
-                                @*<tr
-                                        <td>Monthly CTC<small>*</small></td>
-                                        <td>@Html.EditorFor(model => model.MonthlyCTC, new { htmlAttributes = new { @class = "sm-form-control required", @id = "MonthlyCTC", placeholder = "eg. 1,20,000" } })</td>
-                                    </tr>*@
-                                <tr>
-                                    <td>Annual CTC<small>*</small></td>
-                                    <td>@Html.EditorFor(model => model.AnnualCTC, new { htmlAttributes = new { @class = "sm-form-control required alignright", @readonly = "readonly", id = "AnnualCTC", placeholder = "eg. 1,20,000" } })</td>
-                                </tr>
-
-                                @if (PayrollHead.Count > 0)
-                                {
-                                    if (salaryHeadLatest != null)
-                                    {
-                                        foreach (var item in salaryHeadLatest)
-                                        {
-                                            var PHeadName = @PayrollHead.Where(p => p.CorporatePayrollHeadID == item.CorporatePayrollHeadID).FirstOrDefault();
-                                            long specialAllowance = 0;
-
-                                            <tr>
-                                                <td>
-
-                                                    @if (PHeadName != null)
-                                                    {
-                                                        @PHeadName.PayrollHeadName
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    @if (SpecialHeadId != null)
-                                                    {
-                                                        specialAllowance = SpecialHeadId.CorporatePayrollHeadID;
-                                                    }
-                                                    @if (item.CorporatePayrollHeadID == BasicHeadId.CorporatePayrollHeadID )//|| item.CorporatePayrollHeadID == specialAllowance)
-                                                    {
-                                                        @Html.TextBox(item.CorporatePayrollHeadID.ToString(), item.Amount, new { @class = "sm-form-control heads required", id = item.CorporatePayrollHeadID.ToString(), name = item.CorporatePayrollHeadID.ToString(), placeholder = @item.CorporatePayrollHead, onchange = "ChangeHeads();" })
-                                                    }
-                                                    else
-                                                    {
-                                                        @Html.TextBox(item.CorporatePayrollHeadID.ToString(), item.Amount, new { @class = "sm-form-control heads required", id = item.CorporatePayrollHeadID.ToString(), name = item.CorporatePayrollHeadID.ToString(), placeholder = @item.CorporatePayrollHead })
-                                                    }
-                                                </td>
-
-                                            </tr>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foreach (var head in PayrollHead)
-                                        {
-                                            <tr>
-                                                <td>@head.PayrollHeadName</td>
-                                                <td></td>
-                                            </tr>
-                                        }
-
-                                    }
-                                }
-                                <tr>
-                                    <td>Pay Out Month<small>*</small></td>
-                                    <td>@Html.DropDownList("MonthList", null, "---Select Month ---", htmlAttributes: new { id = "MonthList", @class = "sm-form-control required" })</td>
-                                </tr>
-
-                            </table>
-
-                        </div>
-
-                        <div class="col_full">
-                            @Html.LabelFor(model => model.Remarks, "Remarks", htmlAttributes: new { @class = "sm-control-label" })
-                            @Html.TextAreaFor(model => model.Remarks, 5, 80, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 256, id = "Remarks", @placeholder = "Remarks here.." })
-                            <div id="textarea" class="text-danger"></div>
-                        </div>
-                        <div class="col_full">
-                            <div class="col_half" align="left">
-
-                                <input type="button" id="btnBack4" name="btnBack4" class="btn btn-success" value="Previous" />
-                            </div>
-                            <div class="col_half col_last" align="right">
-                                <input type="button" id="AddEmp" value="Submit" class="button button-3d button-rounded button-blue" />
-                            </div>
-                        </div>
-                        @if (salaryRecords.Count() > 0)
-                        {
-                            <div class="col_full">
-
-                                <div class="table-responsive">
-                                    <table class="table table-bordered nobottommargin">
-                                        <tr>
-                                            <th>Monthly CTC</th>
-                                            <th>Annual CTC</th>
-                                            <th>Payout Month</th>
-                                            <th>Effective From</th>
-                                            @if (PayrollHead.Count() > 0)
+                                            foreach (var leavelimits in empLeaveLimits)
                                             {
-                                                foreach (var item in PayrollHead.OrderBy(p => p.CorporatePayrollHeadID).ToList())
-                                                {
-                                                    <th>@item.PayrollHeadName @if (@item.PayrollPercent != 0)
-                                                    {<span>(item.PayrollPercent %)</span>}</th>
-                                                }
+                                                <tr>
+                                                    <td>
+                                                        @leavelimits.EngagementType
+                                                    </td>
+                                                    <td>
+                                                        @leavelimits.LeaveLimit
+                                                    </td>
+                                                </tr>
                                             }
-                                        </tr>
-                                        @foreach (var item in salaryRecords)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @item.MonthlyCTC
-                                                </td>
-                                                <td>
-                                                    @item.AnnualCTC
-                                                </td>
-                                                <td>
-                                                    @item.PayoutMonth
-                                                </td>
-                                                <td>
-                                                    @item.EffectiveFrom.Value.ToString("dd-MMM-yyyy")
-                                                </td>
-                                                @foreach (var qitem in salaryHeadRecords.OrderBy(s => s.CorporatePayrollHeadID).ToList())
-                                                {
-                                                    if (qitem.ESID == item.ESID)
-                                                    {
-                                                        <td>
-                                                            @qitem.Amount
-                                                        </td>
-                                                    }
-                                                    @*else
-                                                        {
-                                                            <td class="center">
-                                                                -
-                                                            </td>
-                                                        }*@
-                                                }
-                                            </tr>
                                         }
                                     </table>
                                 </div>
 
                             </div>
-                            <br />
-                        }
+                            <div class="col_full">
+                                <div class="col_half" align="left">
+                                    <input type="button" id="btnBack3" name="btnBack3" class="btn btn-success" value="Previous" />
+                                </div>
 
-
+                                <div class="col_half col_last" align="right">
+                                    <input type="button" id="AddEmp" value="Submit" class="button button-3d button-rounded button-blue" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>*@
     @Html.Hidden("RedirectTo", Url.Action("AddEmployee", "User"))
     <input type="hidden" id="weburl" value="@Global.WebsiteUrl()" />
-    @Html.Hidden("CorporateBasicId", BasicHeadId.CorporatePayrollHeadID)
-    @Html.Hidden("SpecialAllowanceId", SpecialHeadId.CorporatePayrollHeadID)
 }
 <script>
     $(document).on("keydown", "#AlternateContact", function () {
@@ -648,12 +733,12 @@
 
                         heads = heads + "<tr><td>" + data[i].PayrollHeadName + "</td>" +
                                         "<td>" +
-                                        "<input type='text' value='" + data[i].Amount + "' class='sm-form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' onchange=ChangeHeads(); /></td> </tr>";
+                                        "<input type='text' value='" + data[i].Amount + "' class='form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' onchange=ChangeHeads(); /></td> </tr>";
                     }
                     else{
                         heads = heads + "<tr><td>" + data[i].PayrollHeadName + "</td>" +
                                        "<td>" +
-                                       "<input type='text' value='" + data[i].Amount + "' class='sm-form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "'  />" +
+                                       "<input type='text' value='" + data[i].Amount + "' class='form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "'  />" +
                                        "</td> </tr>";
                     }
                 }
@@ -663,11 +748,11 @@
 
                 annualctc = annualctc + "<tr><td> Annual CTC </td>" +
                                     "<td>" +
-                                    "<input type='text' value='" + annualamount + "' id='AnnualCTC' name='AnnualCTC' class='sm-form-control' readonly = 'readonly'/></td> </tr>";
+                                    "<input type='text' value='" + annualamount + "' id='AnnualCTC' name='AnnualCTC' class='form-control' readonly = 'readonly'/></td> </tr>";
                 annualctc = annualctc + heads;
 
 
-                var selectlimit = '<select class="sm-form-control required" id="MonthList" name="MonthList" "><option selected="selected" value="">---Select Month ---</option>';
+                var selectlimit = '<select class="form-control required" id="MonthList" name="MonthList" "><option selected="selected" value="">---Select Month ---</option>';
 
                 selectlimit = selectlimit + '<option value=1>January</option>';
                 selectlimit = selectlimit + '<option value=2>February</option>';
@@ -722,13 +807,13 @@
                         {
                             heads = heads + "<tr><td>" + data[i].PayrollHeadName + "</td>" +
                                             "<td>" +
-                                            "<input type='text' value='" + data[i].Amount + "' class='sm-form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' onchange = ChangeHeads(); />" +
+                                            "<input type='text' value='" + data[i].Amount + "' class='form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' onchange = ChangeHeads(); />" +
                                             "</td> </tr>";
                         }
                         else{
                             heads = heads + "<tr><td>" + data[i].PayrollHeadName + "</td>" +
                                            "<td>" +
-                                           "<input type='text' value='" + data[i].Amount + "' class='sm-form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' />" +
+                                           "<input type='text' value='" + data[i].Amount + "' class='form-control heads' id='" + data[i].CorporatePayrollHeadID + "' name='" + data[i].CorporatePayrollHeadID  +  "' />" +
                                            "</td> </tr>";
                         }
 
@@ -744,11 +829,11 @@
 
                 annualctc = annualctc + "<tr><td> Annual CTC </td>" +
                                     "<td>" +
-                                    "<input type='text' value='" + annualamount + "' id='AnnualCTC' name='AnnualCTC' class='sm-form-control' readonly = 'readonly'/></td> </tr>";
+                                    "<input type='text' value='" + annualamount + "' id='AnnualCTC' name='AnnualCTC' class='form-control' readonly = 'readonly'/></td> </tr>";
                 annualctc = annualctc + heads;
 
 
-                var selectlimit = '<select class="sm-form-control required" id="MonthList" name="MonthList" "><option selected="selected" value="">---Select Month ---</option>';
+                var selectlimit = '<select class="form-control required" id="MonthList" name="MonthList" "><option selected="selected" value="">---Select Month ---</option>';
 
                 selectlimit = selectlimit + '<option value=1>January</option>';
                 selectlimit = selectlimit + '<option value=2>February</option>';
@@ -820,8 +905,8 @@
                         {
                             tr = $('<tr>');
                             tr.append("<td>" + data[i].EngagementType + "</td>");
-                            tr.append("<td><input type='text' class='sm-form-control' name='ItemId[]' id='Text"+data[i].EngagementTypeId+"' value="+data[i].LeaveLimit+" onchange='ShowHide("+data[i].EngagementTypeId+","+data[i].LeaveLimit+")' readonly='true'/></td>");
-                            tr.append("<td><button class='btn btn-xs btn-warning' onclick='javascript:ShowHideDivOnButtonClick("+data[i].EngagementTypeId+")' type='button'>Edit</button><input type='hidden' class='sm-form-control' name='ItemId1[]' value='"+data[i].EngagementTypeId+"'/></td>");
+                            tr.append("<td><input type='text' class='form-control' name='ItemId[]' id='Text"+data[i].EngagementTypeId+"' value="+data[i].LeaveLimit+" onchange='ShowHide("+data[i].EngagementTypeId+","+data[i].LeaveLimit+")' readonly='true'/></td>");
+                            tr.append("<td><button class='btn btn-xs btn-warning' onclick='javascript:ShowHideDivOnButtonClick("+data[i].EngagementTypeId+")' type='button'>Edit</button><input type='hidden' class='form-control' name='ItemId1[]' value='"+data[i].EngagementTypeId+"'/></td>");
                             $('#SchemeEngagementWise').append(tr);
                         }
 
@@ -908,8 +993,7 @@
 
             var salaryHeads = new Array();
 
-            $.each($(".heads"),function(index)
-            {
+            $.each($(".heads"), function (index) {
                 salaryHeads.push($(this).attr("id") + "-" + $(this).val());
                 // salaryHeads[$(this).attr("id")] =  $(this).val();
             });

@@ -2,7 +2,7 @@
 @using AJSolutions.Models;
 @model IEnumerable<AJSolutions.Models.CourseMasterView>
 @{
-    ViewBag.Title = "Add Course";
+    ViewBag.Title = "Add Sector";
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     if (user.Role != "Employee")
     {
@@ -15,7 +15,7 @@
     //Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
     //CourseAttachment content = ViewData["Content"] as CourseAttachment;
 }
-@using (Html.BeginForm("CourseMasters", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "CourseMasters", role = "form" }))
+@using (Html.BeginForm("CourseMasters", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "CourseMasters", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -25,7 +25,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Add Course</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Add Sector</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -37,9 +37,9 @@
             <div class="card">
                 <div class="form-process"></div>
                 <div align="right">
-                    <a href="@Url.Action("Mycourses", "TMS", new { Area = "TMS" })" class="btn btn-default btn-xs" align="right">My Courses</a>
+                    <a href="@Url.Action("Mycourses", "TMS", new { Area = "TMS" })" class="btn btn-default btn-xs" align="right">My Sector</a>
                 </div>
-                <h5 class="card-header">Add New Course</h5>
+                <h5 class="card-header">Add New Sector</h5>
                 <div class="card-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -47,7 +47,7 @@
                     @Html.Hidden("IsLMS", ViewBag.IsLMS as string)
 
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <label>Course Name<small>*</small></label>
+                        <label>Sector Name<small>*</small></label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-book3"> </i></span>
                             @Html.TextBox("CourseName", ViewBag.CourseName as string, new { @class = "form-control required", @id = "CourseName", placeholder = "Eg: JAVA", required = "required" })
@@ -55,7 +55,7 @@
                     </div>
                     <br />
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <label>Course Description<small>*</small></label>
+                        <label>Sector Description<small>*</small></label>
 
                         @Html.TextArea("CourseDescription", ViewBag.CourseDescription as string, 5, 124, new { @Maxlength = 1024, @class = "form-control required", @id = "CourseDescription", placeholder = "Enter The Description", required = "required" })
                         <div id="textarea_feedback" class="text-danger"></div>
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
-                            <label>Course Duration</label><small>*</small><small style="float:right">In Days</small>
+                            <label>Sector Duration</label><small>*</small><small style="float:right">In Days</small>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-calendar"> </i></span>
                                 @Html.DropDownList("CourseDuration", null, "--- Select Duration ---", htmlAttributes: new { @class = "form-control required", id = "CourseDuration", required = "required" })
@@ -81,113 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <h5 class="card-header">Costing</h5>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered nobottommargin">
-                                <tr>
-                                    <th>Fee Details</th>
-                                    <th>Amount</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Course Fee</label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("CourseFee", ViewBag.CourseFee as string, new { @class = "form-control txt required", @id = "CourseFee", placeholder = "Eg: 10000", required = "required" })
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Accommodation</label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("Accommodation", ViewBag.Accommodation as string, new { @class = "form-control txt", @id = "Accommodation", placeholder = "Eg: 1000" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Transport</label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("Transport", ViewBag.Transport as string, new { @class = "form-control txt", @id = "Transport", placeholder = "Eg: 1000" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Others</label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("Others", ViewBag.Others as string, new { @class = "form-control txt", @id = "Others", placeholder = "Eg: 1000" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Installment Interest</label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("InstallmentInterest", ViewBag.InstallmentInterest as string, new { @class = "form-control txt", @id = "InstallmentInterest", placeholder = "Eg: 1000" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Discount <small>(In Rupees)</small></label>
-                                    </td>
-                                    <td>
-                                        @Html.TextBox("Discount", ViewBag.Discount as string, new { @class = "form-control txt", @id = "Discount", placeholder = "Eg: 1000" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Currency</label>
-                                    </td>
-                                    <td>
-                                        @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "form-control", id = "Currency" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="fright">Total Fees</label>
-                                    </td>
-                                    <td id="total">
-                                        @if (ViewBag.CourseCode != null)
-                                        {
-                                            double amt = (@ViewBag.CourseFee + ViewBag.Accommodation + ViewBag.Transport + ViewBag.Others + ViewBag.InstallmentInterest - ViewBag.Discount);
-                                        <input type="text" name="name" value="@amt" readonly="readonly" class="form-control" />
-                                        }
-                                        else
-                                        {
-                                        <input type="text" name="name" value="" readonly="readonly" class="form-control" />
-                                        }
-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <br /><br />
-                    </div>
                     <br />
-                    <div class="row">
-                        <h5 class="card-header">Course Category</h5>
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                <label>Category<small>*</small></label>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-file"> </i></span>
-                                    @Html.DropDownList("CategoryId", null, "--- Select Category ---", htmlAttributes: new { @class = "form-control required", id = "CategoryId", required = "required" })
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                <label>Content Visibility<small>*</small></label>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("ContentVisiblity", null, "---Select Content Visibility ---", htmlAttributes: new { @class = "form-control required", id = "ContentVisiblity", required = "required" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <br /><input type="submit" value="Submit" style="float: right;" class="btn btn-primary" id="SubmitForm" name="SubmitForm" />
@@ -204,22 +98,18 @@
             <div class="table-responsive">
                 <table class="table table-bordered nobottommargin">
                     <tr>
-                        <th>Course Code</th>
-                        <th>Course Name</th>
+                        <th>Sector Code</th>
+                        <th>Sector Name</th>
                         <th>Duration</th>
-                        <th>Fee</th>
-                        <th>Currency</th>
-                        <th>Content Visibility</th>
                         <th>Likes</th>
                         <th>Batches</th>
                         <th>Edit</th>
-                        @*<th>Add</th>*@
                     </tr>
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>
-                                @item.CourseCode@*@Html.ActionLink(item.CourseCode, "AddCourseTopic", "Course", new { area = "LMS", Id = item.CourseCode }, htmlAttributes: new { target = "_blank" })*@
+                                <a href="@Url.Action("CourseDetail", "TMS", new { Area = "TMS", CourseCode = item.CourseCode, TrainingId = item.TrainingId })" target="_blank">@item.CourseCode</a>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CourseName) <span>(@Html.DisplayFor(modelItem => item.CategoryName))</span>
@@ -227,27 +117,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.CourseDuration)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CourseFee)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Currency)
-                            </td>
-                            <td>
-                                @if (item.ContentVisiblity == 1)
-                                {
-                                    <span>Private</span>
-                                }
-                                else if (item.ContentVisiblity == 2)
-                                {
-                                    <span>Public</span>
-                                }
-                                else if (item.ContentVisiblity == 3)
-                                {
-                                    <span>Hidden</span>
-                                }
-
-                            </td>
+                            
                             <td>
                                 @Html.DisplayFor(modelItem => item.CountLikes)
                             </td>
@@ -255,11 +125,8 @@
                                 @Html.DisplayFor(modelItem => item.TotalBatches)
                             </td>
                             <td>
-                                <a href="@Url.Action("CourseMasters", "TMS", new { CourseCode = item.CourseCode, UserAction = "Edit" })" title="Edit" style="float:right"><i class="icon-pen"></i></a>
+                                <a href="@Url.Action("CourseMasters", "TMS", new { CourseCode = item.CourseCode, UserAction = "Edit" })" title="Edit"><i class="fa fa-pen-square fa-2x"></i></a>
                             </td>
-                            @*<td>
-                                    <a href="@Url.Action("AddCourseTopic", "Course", new { Area = "LMS", Id = item.CourseCode })" class="btn btn-default btn-xs" align="right" target="_blank">Topics</a>
-                                </td>*@
                         </tr>
                     }
                 </table>

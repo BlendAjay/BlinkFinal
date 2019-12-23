@@ -11,12 +11,11 @@
     {
         Layout = "~/Areas/EMS/Views/Shared/_Layout.cshtml";
     }
-    //Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
-
 }
-@using (Html.BeginForm("CourseBatch", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "CourseBatch", role = "form" }))
+@using (Html.BeginForm("CourseBatch", "TMS", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "CourseBatch", role = "form" }))
 {
     @Html.AntiForgeryToken()
+    <div class="form-process"></div>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
@@ -37,20 +36,20 @@
                 <div class="form-process"></div>
                 <h5 class="card-header">Add New Batch</h5>
                 <div class="card-body">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.Hidden("BatchId", ViewBag.BatchId as string)
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <label>Batch Name<small>*</small></label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-book3"> </i></span>
                             @Html.EditorFor(model => model.BatchName, new { htmlAttributes = new { @class = "form-control required", placeholder = "Enter Batch Name", id = "BatchName", required = "required" } })
-
+                            <div class="invalid-feedback">
+                            </div>
                         </div>
                     </div>
                     <br />
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <label>Course<small>*</small></label>
-                        <small style="float:right"><a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })" target="_blank">Add Course</a></small>
+                        <small style="float:right"><a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })" target="_blank">Add Sector</a></small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-book3"> </i></span>
                             @Html.DropDownList("CourseCode", null, "--- Select Course ---", htmlAttributes: new { @class = "form-control required ", id = "CourseCode", @disabled = "disabled", required = "required" })
@@ -173,7 +172,6 @@
 }
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         $('#CountryId').change(function () {
             $.ajax({
@@ -235,30 +233,9 @@
         //});
     })
 
-
-
     $("#CourseBatch").validate({
+
         submitHandler: function (form) {
-
-            //if ($('#chkAcomodation').is(":checked")) {
-
-            //    var accomodation = "True";
-            //}
-            //else {
-            //    accomodation = "False";
-            //}
-            //if ($('#chkAttandence').is(":checked")) {
-
-            //    var attendance = "True";
-            //}
-            //else {
-            //    attendance = "False";
-            //}
-            //var ContentAv = false;
-            //if ($('#ContentAvailability').val() == 1)
-            //{
-            //    ContentAv = true;
-            //}
             $('.form-process').fadeIn()
             $.ajax({
                 type: "post",
@@ -282,7 +259,6 @@
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    $('.form-process').fadeOut()
                     $.alert({
                         title: 'Cheers',
                         content: 'Batch Added <b> SUCCESSFULLY.</b>',
@@ -299,10 +275,4 @@
             });
         }
     });
-
-
-    //FromDate: $('#FromDate').val(),
-    //ToDate: $('#ToDate').val(),
-    //FromTime: $('#FromTime').val(),
-    //ToTime: $('#ToTime').val(),
 </script>

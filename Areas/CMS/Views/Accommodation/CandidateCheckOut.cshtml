@@ -30,141 +30,119 @@
 
     <div class="container">
         <div class="row">
-            <div class="form-process"></div>
-            <div class="fancy-title title-bottom-border">
-                <h4>
-                    Candidate CheckOut
-                </h4>
-            </div>
-            <div class="col_one_third">
-                <label>Course<small>*</small></label>
-                <div class="input-group divcenter">
-                    <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Course", id = "CourseCode" })
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Candidate CheckOut</a></li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-            <div class="col_one_third">
-                <label>Batch<small>*</small></label>
-
-                <div class="input-group divcenter" id="Batch">
-                    <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "sm-form-control required", placeholder = "Select Batch", id = "BatchId" })
-                </div>
-
-            </div>
-            <div class="col_one_third col_last filter-group" style="padding-top:2.4em">
-                <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick="SendValue()" title="Search">Submit</button>
-                <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("CandidateCheckOut", "Accommodation", new { Area = "CMS"})'" title="Clear">Clear</button>
             </div>
         </div>
-        <br />
-
-        @if (Model != null)
-        {
-            if (Model.Count() > 0)
-            {
+        <div class="card">
+            <div class="form-process"></div>
+            <h5 class="card-header">Candidate CheckOut</h5>
+            <div class="card-body">
                 <div class="row">
-                    <div class="col_half">
-                        Search By Name
-                        @Html.TextBox("FilterName", ViewBag.Name as string, new { @class = "sm-form-control", @id = "FilterName", placeholder = "Candidate Name Here.." })
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <label>Course<small>*</small></label>
+                        <div class="input-group divcenter">
+                            <span class="input-group-addon"><i class="icon-book3"> </i></span>
+                            @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode" })
+                        </div>
                     </div>
-                    <div class="col_half col_last">
-                        <br /><a href='#' onclick='javascript:submit();' class="button button-3d button-mini button-rounded button-teal">Search</a>&nbsp;
-                        <button class="button button-3d button-mini button-rounded button-teal" id="buttonclear" title="click here to Clear Search">Clear</button>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <label>Batch<small>*</small></label>
+                        <div class="input-group divcenter" id="Batch">
+                            <span class="input-group-addon"><i class="icon-book3"> </i></span>
+                            @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId" })
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 filter-group" style="padding-top:2.4em">
+                        <button type="button" id="btnSearch" class="btn btn-success btn-xs" onclick="SendValue()" title="Search">Submit</button>
+                        <button type="button" class="btn btn-danger btn-xs" onclick="location.href='@Url.Action("CandidateCheckOut", "Accommodation", new { Area = "CMS"})'" title="Clear">Clear</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped nobottommargin" id="myTable">
-                            <tr>
-                                <th><input type='checkbox' id='UserChkAll' name='UserChkAll' value='checkAll' onclick="CheckUncheckAll();" /></th>
-                                <th><a href="@Url.Action("CandidateCheckOut", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.NameSortParam, FilterName = ViewBag.Name, page = ViewBag.Page, PageSize = ViewBag.Paging })">Student Name&nbsp;<span class="icon-sort"></span></a></th>
-                                <th>CheckInDate</th>
-                                <th>Select Date & Time</th>
-                            </tr>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td data-title="Parameter">
-                                        <input type="checkbox" id="UserId" name="UserId[]" value="@item.UserId" />
-                                        <input type="hidden" id="Users" name="Users[]" value="@item.UserId" />
-                                    </td>
-                                    <td>@item.Name</td>
-                                    <td>@item.CheckInDate</td>
-                                    <td>
-                                        <input type="text" class=" tleft sm-form-control datetimepicker" placeholder="DD/MM/YYYY" id="CheckOutDate" name="CheckOutDate[]">
-                                    </td>
-                                </tr>
-                            }
-                        </table>
+            </div>
+            <br />
 
-                        <br />
-                        <input type="submit" id="candidateCheckOut" class="button button-3d button-rounded button-teal fright" />
-                    </div>
-                </div>
-                <br />
-                <ul class="pagination">
-                    <li>@Html.PagedListPager(Model, page => Url.Action("CandidateCheckOut", new { page, PageSize = ViewBag.Paging }))</li>
-                    <li>@Html.DropDownList("PageSize", null, htmlAttributes: new { @id = "PageSize", @onchange = "submitform();" })</li>
-                </ul>
-            }
-            else
+            @if (Model != null)
             {
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-thumbs-down2"></i>
+                if (Model.Count() > 0)
+                {
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                Search By Name
+                                @Html.TextBox("FilterName", ViewBag.Name as string, new { @class = "form-control", @id = "FilterName", placeholder = "Candidate Name Here.." })
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                <br /><a href='#' onclick='javascript:submit();' class="btn btn-success btn-xs">Search</a>&nbsp;
+                                <button class="btn btn-danger btn-xs" id="buttonclear" title="click here to Clear Search">Clear</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped nobottommargin" id="myTable">
+                                    <tr>
+                                        <th><input type='checkbox' id='UserChkAll' name='UserChkAll' value='checkAll' onclick="CheckUncheckAll();" /></th>
+                                        <th><a href="@Url.Action("CandidateCheckOut", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.NameSortParam, FilterName = ViewBag.Name, page = ViewBag.Page, PageSize = ViewBag.Paging })">Student Name&nbsp;<span class="icon-sort"></span></a></th>
+                                        <th>CheckInDate</th>
+                                        <th>Select Date & Time</th>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td data-title="Parameter">
+                                                <input type="checkbox" id="UserId" name="UserId[]" value="@item.UserId" />
+                                                <input type="hidden" id="Users" name="Users[]" value="@item.UserId" />
+                                            </td>
+                                            <td>@item.Name</td>
+                                            <td>@item.CheckInDate</td>
+                                            <td>
+                                                <input type="text" class=" tleft form-control datetimepicker" placeholder="DD/MM/YYYY" id="CheckOutDate" name="CheckOutDate[]">
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+
+                                <br />
+                                <input type="submit" id="candidateCheckOut" class="btn btn-brand" />
+                            </div>
+                        </div>
                     </div>
-                    <h3>No Candidates<span class="subtitle">Select Course & Batch</span></h3>
-                </div>
+                    <br />
+                    <ul class="pagination">
+                        <li>@Html.PagedListPager(Model, page => Url.Action("CandidateCheckOut", new { page, PageSize = ViewBag.Paging }))</li>
+                        <li>@Html.DropDownList("PageSize", null, htmlAttributes: new { @id = "PageSize", @onchange = "submitform();" })</li>
+                    </ul>
+                }
+                else
+                {
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h3 class="text-center">No Candidates<span class="subtitle"> Select Course & Batch</span></h3>
+                        </div>
+                    </div>
+                }
             }
-        }
+        </div>
     </div>
     @Html.Hidden("TBatchId", ViewBag.TBatchId as string)
     @Html.Hidden("RedirectToHome", Url.Action("CandidateCheckOut", "Accommodation"));
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                    Here you can add candidate's check-out time.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/candidatecheckout1.png" target="_blank" data-lightbox="gallery-item">
-
-                                            <img src="~/images/HelpImages/candidatecheckout1.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 }
-<br /><br />
+<br />
+<br />
 <script>
     $(document).ready(function () {
-        if (($("#Status").val() == "True" || $("#Status").val() == true) && ( $("#Status").val() != null && $("#Status").val() != "")) {
+        if (($("#Status").val() == "True" || $("#Status").val() == true) && ($("#Status").val() != null && $("#Status").val() != "")) {
             $.alert({
                 title: 'Cheers',
                 content: 'Candidates CheckIn <b> SUCCESSFUL.</b>',
@@ -178,7 +156,7 @@
                 }
             });
         }
-        else if (($("#Status").val() == "False" || $("#Status").val() == false) && ( $("#Status").val() != null && $("#Status").val() != "")) {
+        else if (($("#Status").val() == "False" || $("#Status").val() == false) && ($("#Status").val() != null && $("#Status").val() != "")) {
             $.alert({
                 title: 'Oops',
                 content: 'Candidates CheckIn <b> FAILED.</b>',
@@ -245,7 +223,7 @@
                 traditional: true,
                 success: function (data) {
                     $('.form-process').fadeOut()
-                    var batch = "   <span class='input-group-addon'><i class='icon-book3'> </i></span><select class='sm-form-control' id='BatchId'>";
+                    var batch = "   <span class='input-group-addon'><i class='icon-book3'> </i></span><select class='form-control' id='BatchId'>";
                     batch = batch + '<option value="">--- Select Batch ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         batch = batch + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';

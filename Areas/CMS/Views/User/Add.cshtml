@@ -71,7 +71,7 @@
                     }
                     @if (module == "TPU")
                     {
-                        <a href="@Url.Action("MeetingMinutes", "User", new { Area = "CMS" })" class="btn btn-default btn-xs" target="_blank" align="right">MOM</a>
+                        @*<a href="@Url.Action("MeetingMinutes", "User", new { Area = "CMS" })" class="btn btn-default btn-xs" target="_blank" align="right">MOM</a>*@
                         <a href="@Url.Action("Clients", "User", new { Area = "CMS" })" class="btn btn-default btn-xs" align="right">My Clients</a>
                     }
                     @if (module == "EMP")
@@ -94,17 +94,15 @@
                         @Html.LabelFor(model => model.Name, "Name")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "e.g. john smith", id = "FullName", required = "required" })
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "e.g. john smith", id = "FullName", required = "required" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                         @Html.LabelFor(m => m.Email, "Email")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-mail"> </i></span>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control email", placeholder = "e.g. xyz@domain.com", id = "Email", @type="email" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control email", placeholder = "e.g. xyz@domain.com", id = "Email", @type="email", required = "required" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                         @Html.LabelFor(m => m.PhoneNumber, "Phone Number")<small>*</small>
@@ -112,7 +110,6 @@
                             <span class="input-group-addon"><i class="icon-phone"> </i></span>
                             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "1234567890", id = "PhoneNumber", maxlength = "10", required = "required", @type = "number" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                         @if (module != "CND" && module != "ADI")
@@ -122,7 +119,6 @@
                                 <span class="input-group-addon"><i class="icon-link"> </i></span>
                                 @Html.DropDownList("DepartmentId", null, "--- Select Role ---", htmlAttributes: new { @class = "form-control required", @id = "DepartmentId", placeholder = "Select Role", required = "required" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
                         }
                         @if (module == "CND")
                         {
@@ -131,7 +127,6 @@
                                 <span class="input-group-addon"><i class="icon-male"> </i><i class="icon-female"> </i></span>
                                 @Html.DropDownList("Gender", null, "--- Select Gender ---", htmlAttributes: new { @class = "form-control", @id = "Gender" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
 
                             @*</div>*@
                         }
@@ -146,7 +141,6 @@
                                         <td>@Html.LabelFor(m => m.ManagerLevel, "Manager Level ?   ")</td>
                                         <td>
                                             @Html.CheckBoxFor(model => model.ManagerLevel, new { Id = "ManagerLevel" })
-                                            @Html.ValidationMessageFor(model => model.ManagerLevel, "", new { @class = "text-danger" })
                                         </td>
                                     </tr>
                                 </tbody>
@@ -159,7 +153,6 @@
                                 <span class="input-group-addon"><i class="icon-user2"></i></span>
                                 @Html.TextBoxFor(m => m.RegistrationId, new { @class = "form-control", placeholder = "ID", id = "RegistrationId" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.RegistrationId, "", new { @class = "text-danger" })
                         }
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -170,7 +163,6 @@
                                 <span class="input-group-addon"><i class="icon-user2"> </i></span>
                                 @Html.DropDownList("ReportingAuthority", null, "---Select Reporting Authority ---", htmlAttributes: new { id = "ReportingAuthority", @class = "form-control required", required = "required" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.ReportingAuthority, "", new { @class = "text-danger" })
                         }
                         @if (module == "CND")
                         {
@@ -189,7 +181,6 @@
                                     @Html.TextBoxFor(m => m.Designation, new { @class = "form-control required", placeholder = "", id = "Designation", required = "required" })
                                 </div>
                             }
-                            @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                         }
                     </div>
                     @if (module == "EMP")
@@ -203,7 +194,6 @@
                                     <span class="input-group-addon"><i class="icon-line-paper-stack"> </i></span>
                                     @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", id = "Designation", @Placeholder = "Designation" } })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                                 <br>
 
                             </div>
@@ -235,7 +225,6 @@
                                         @Html.DropDownList("Nationality", null, " --- Select Nationality ---", htmlAttributes: new { @class = "form-control", @id = "Nationality" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => myprofile.Nationality, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -258,7 +247,6 @@
                                         @Html.TextBoxFor(m => Model.AlternateContact, new { @class = "form-control", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => myprofile.AlternateContact, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -281,7 +269,6 @@
                                         @Html.TextBoxFor(m => Model.AlternateEmail, new { @class = "form-control email", placeholder = "Enter Client Email", id = "Email", @type = "email" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => myprofile.AlternateEmail, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                             </div>
@@ -310,7 +297,6 @@
                                         @Html.TextBoxFor(m => Model.CompanyName, new { @class = "form-control", placeholder = "e.g. Company Name", id = "CompanyName" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => companyprofile.CompanyName, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                 @Html.LabelFor(m => companyprofile.CompanyType, "Company Type")
@@ -332,7 +318,6 @@
                                         @Html.DropDownList("CompanyType", null, " --- Select Company Type ---", htmlAttributes: new { @class = "form-control", id = "CompanyType" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => companyprofile.CompanyType, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                 @Html.LabelFor(m => companyprofile.CompanySize, "Company Size")
@@ -354,7 +339,6 @@
                                         @Html.DropDownList("CompanySize", null, " --- Select Company Size ---", htmlAttributes: new { @class = "form-control", id = "CompanySize" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => companyprofile.CompanySize, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                 @Html.LabelFor(m => companyprofile.Website, "Website")
@@ -376,7 +360,6 @@
                                         @Html.TextBoxFor(m => Model.Website, new { @class = "form-control", placeholder = "Website", id = "Website" })
                                     }
                                 </div>
-                                @Html.ValidationMessageFor(model => companyprofile.Website, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     }
@@ -398,7 +381,6 @@
                                     <span class="input-group-addon"><i class="icon-location"> </i></span>
                                     @Html.TextBoxFor(m => m.Region, new { @class = "form-control", placeholder = "East/West/North/South", id = "Region" })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -410,7 +392,6 @@
                                     <span class="input-group-addon"><i class="icon-road"> </i></span>
                                     @Html.TextBoxFor(m => m.Branch, new { @class = "form-control", placeholder = "Branch Name", id = "Branch" })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -419,7 +400,6 @@
                                     <span class="input-group-addon"><i class="icon-location"> </i></span>
                                     @Html.TextBoxFor(m => m.BranchCategory, new { @class = "form-control required", placeholder = "Rural/Urban/Semi-Urban", id = "BranchCategory", required = "required" })
                                 </div>
-                                @Html.ValidationMessageFor(m => m.BranchCategory, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="row">
@@ -430,7 +410,6 @@
                                     <span class="input-group-addon"><i class="icon-location"> </i></span>
                                     @Html.TextBoxFor(m => m.BranchState, new { @class = "form-control required", placeholder = "Branch State", id = "BranchState", required = "required" })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.BranchState, "", new { @class = "text-danger" })
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -439,7 +418,6 @@
                                     <span class="input-group-addon"><i class="icon-line-anchor"> </i></span>
                                     @Html.TextBoxFor(m => m.BranchCode, new { @class = "form-control", placeholder = "Branch Code", id = "BranchCode" })
                                 </div>
-                                @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     }

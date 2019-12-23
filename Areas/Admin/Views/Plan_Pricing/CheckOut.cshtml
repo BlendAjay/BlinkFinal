@@ -5,7 +5,7 @@
     UserViewModel user = ViewData["UserProfile"] as UserViewModel;
 }
 
-@using (Html.BeginForm("CheckOut", "Plan_Pricing", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", id = "CheckOut", role = "form" }))
+@using (Html.BeginForm("CheckOut", "Plan_Pricing", FormMethod.Post, new { area = "Admin", @class = "form-horizontal needs-validation", id = "CheckOut", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("PlanType", ViewBag.Message as string)

@@ -7,7 +7,7 @@
     //var IppbBranchValues = ViewData["IppbBranch"] as IEnumerable<AJSolutions.Models.BranchMaster>;
     List<BranchMaster> branchs = ViewData["Branch"] as List<BranchMaster>;
 }
-@using (Html.BeginForm("FeedbackBatchWise", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "FeedbackBatchWise", role = "form" }))
+@using (Html.BeginForm("FeedbackBatchWise", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "FeedbackBatchWise", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -429,7 +429,7 @@
                                         <a href="javascript:void(0);" id="delCF">Remove</a>
                                         }
                             </td>
-                            <td class="hidden">
+                            <td style = "display:none">
                                 <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="U" />
                             </td>
                         </tr>
@@ -490,7 +490,7 @@
                             <td>
                                 <a href="javascript:void(0);" id="addCF">Add New Row</a>
                             </td>
-                            <td class="hidden">
+                            <td style = "display:none">
                                 <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" />
                             </td>
                         </tr>
@@ -985,7 +985,7 @@
             },
         })
         $("#customFields").append('<tr class="Dynamic">' +
-                                       '<td class="hidden"></td>' +
+                                       '<td style = "display:none"></td>' +
                                        '<td><input type="text" class="EUTraineeId form-control hidden" id="EUTraineeId" name="EUTraineeId[]" value="0" /><input type="text" class="ItemDescription form-control" id="TrackerId" name="uriName' + dynamicCount + '" value="" placeholder="Tracker Id" /></td>' +
                                         '<td><input type="text" class="ItemDescription form-control uriName" id="Name" name="uriName Name' + dynamicCount + '" value="" placeholder="e.g.john smith" /></td>' +
                                         '<td><input type="text" class="ItemDescription form-control number uriName" minlength="10", maxlength="10",  id="PhoneNumber" name="uriName PhoneNumber' + dynamicCount + '" value="" placeholder="1234567890" /></td>' +
@@ -996,7 +996,7 @@
                                          '<td><input type="text" class="ItemDescription form-control uriName" id="AccessPoint" name="uriName AccessPoint' + dynamicCount + '" value="" placeholder="Access Point" /></td>' +
                                          '<td>' + branch + '</td>' +
                                         '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>' +
-                                        '<td class="hidden"><input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" /></td>'
+                                        '<td style = "display:none"><input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" /></td>'
                                   );
 
         $("#customFields").on('click', '#remCF', function () {

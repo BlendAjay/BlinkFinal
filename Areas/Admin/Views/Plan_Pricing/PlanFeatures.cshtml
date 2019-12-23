@@ -20,7 +20,7 @@
                         @Html.LabelFor(model => model.PlanId, "Feature Sequence")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.DropDownList("PlanId", null, "---  Select Plan ---", htmlAttributes: new { @class = "sm-form-control", id = "PlanId", placeholder = "Select Plan" })
+                            @Html.DropDownList("PlanId", null, "---  Select Plan ---", htmlAttributes: new { @class = "form-control", id = "PlanId", placeholder = "Select Plan" })
                         </div>
                         @Html.ValidationMessageFor(model => model.PlanId, "", new { @class = "text-danger" })
                         <br>

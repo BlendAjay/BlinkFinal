@@ -43,65 +43,66 @@
                 <div class="form-process"></div>
                 <h5 class="card-header">Bank Account</h5>
                 <div class="card-body">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <label for="validationCustom01">Bank Name</label>
-                        @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control ", id = "BankName", placeholder = "e.g. Punjab National  Bank", required = "required" } })
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <label for="validationCustom01">Bank Name</label>
+                            @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control ", id = "BankName", placeholder = "e.g. Punjab National  Bank", required = "required" } })
+                            <br>
+                            @Html.LabelFor(model => model.AccountNumber, "Account Number")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-note"> </i></span>
+                                @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @class = "form-control number", id = "ContactNumber", placeholder = "e.g. 2179001400000890", required = "required" } })
+                            </div>
+                            <br>
+                            @Html.LabelFor(model => model.AccountOwner, "Account Owner")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-user3"> </i></span>
+                                @Html.EditorFor(model => model.AccountOwner, new { htmlAttributes = new { @class = "form-control required", id = "AccountOwner", placeholder = "e.g. john smith", required = "required" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AccountOwner, "", new { @class = "text-danger" })
+                            <br>
+                            @Html.LabelFor(model => model.BranchAddress, "Branch Location")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.EditorFor(model => model.BranchAddress, new { htmlAttributes = new { @class = "form-control required", id = "BranchAddress", placeholder = "e.g. Raipur", required = "required" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BranchAddress, "", new { @class = "text-danger" })
+                            <br>
 
-                        <br>
-                        @Html.LabelFor(model => model.AccountNumber, "Account Number")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-note"> </i></span>
-                            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @class = "form-control number", id = "ContactNumber", placeholder = "e.g. 2179001400000890", required = "required" } })
                         </div>
-                        @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
-                        <br>
-                        @Html.LabelFor(model => model.AccountOwner, "Account Owner")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-user3"> </i></span>
-                            @Html.EditorFor(model => model.AccountOwner, new { htmlAttributes = new { @class = "form-control required", id = "AccountOwner", placeholder = "e.g. john smith", required = "required" } })
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.IfscCode, "IFSC Code")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-clip"> </i></span>
+                                @Html.EditorFor(model => model.IfscCode, new { htmlAttributes = new { @class = "form-control required", id = "IfscCode", placeholder = "e.g. PUNB0039900", required = "required" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.IfscCode, "", new { @class = "text-danger" })
+                            <br>
+                            @Html.LabelFor(model => model.BranchCode, "Branch Code")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-box"> </i></span>
+                                @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control required", id = "BranchCode", placeholder = "e.g. 039900", required = "required" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
+                            <br>
+                            @Html.LabelFor(model => model.ContactNumber, "Contact Number")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-mobile"> </i></span>
+                                @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control required", id = "ContactNumber", placeholder = "e.g. +918765456789", required = "required" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                            <br>
+                            @*@if (user.SubscriberId == user.UserId || user.DepartmentId == "BPT" || user.Role == "Employee")
+                                {*@
+                            @Html.Hidden("CorporateId", ViewBag.CorporateId as string)
+                            <input type="submit" id="bankdetails" value="Submit" style="float: right;" class="btn btn-primary" />
+                            @*}*@
                         </div>
-                        @Html.ValidationMessageFor(model => model.AccountOwner, "", new { @class = "text-danger" })
-                        <br>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.IfscCode, "IFSC Code")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-clip"> </i></span>
-                            @Html.EditorFor(model => model.IfscCode, new { htmlAttributes = new { @class = "form-control required", id = "IfscCode", placeholder = "e.g. PUNB0039900", required = "required" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.IfscCode, "", new { @class = "text-danger" })
-                        <br>
-                        @Html.LabelFor(model => model.BranchCode, "Branch Code")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-box"> </i></span>
-                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control required", id = "BranchCode", placeholder = "e.g. 039900", required = "required" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
-                        <br>
-                        @Html.LabelFor(model => model.ContactNumber, "Contact Number")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-mobile"> </i></span>
-                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control required", id = "ContactNumber", placeholder = "e.g. +918765456789", required = "required" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
-                        <br>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
-                        @Html.LabelFor(model => model.BranchAddress, "Branch Location")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-location"> </i></span>
-                            @Html.EditorFor(model => model.BranchAddress, new { htmlAttributes = new { @class = "form-control required", id = "BranchAddress", placeholder = "e.g. Raipur", required = "required" } })
-                        </div>
-                        @Html.ValidationMessageFor(model => model.BranchAddress, "", new { @class = "text-danger" })
-                        <br>
 
-                        @*@if (user.SubscriberId == user.UserId || user.DepartmentId == "BPT" || user.Role == "Employee")
-                            {*@
-                        @Html.Hidden("CorporateId", ViewBag.CorporateId as string)
-                        <input type="submit" id="bankdetails" value="Submit" style="float: right;" class="btn btn-primary" />
-                        @*}*@
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,168 +110,6 @@
     </div>
     @Html.Hidden("RedirectToHome", Url.Action("BankDetails", "Dashboard"));
 }
-
-@*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Help</h4>
-                    </div>
-                    <div class="modal-body" id="moBody">
-
-                        <div class="container-fluid">
-                            <div class="col_half">
-                                <p>
-                                   In this page you have to provide your bank details like account number, IFSC codes, branch name etc.
-                                </p>
-
-                            </div>
-                            <div class="col_half col_last">
-                                <div class="feature-box center media-box fbox-bg">
-                                    <div class="fbox-media">
-
-                                        <a href="~/images/HelpImages/bankdetail.png" target="_blank" data-lightbox="gallery-item">
-                                            <img src="~/images/HelpImages/bankdetail.png" />
-                                        </a>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-
-<div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel15" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel15"><b>Help & Support</b> </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="tabs clearfix" id="tab-1">
-
-                        <ul class="tab-nav clearfix">
-                            <li><a href="#tabs-1"><nobr>Navigation</nobr></a></li>
-                            <li><a href="#tabs-2">Page Elements </a></li>
-                            <li><a href="#tabs-3">Video</a></li>
-                        </ul>
-                        <div class="tab-container">
-
-                            <div class="tab-content clearfix" id="tabs-1">
-                                <h4> Navigation to Bank Details</h4>
-                                <img src="~/images/gif/navigation to bank details.gif" alt="Save icon" />
-                            </div>
-
-                            <div class="tab-content clearfix" id="tabs-2">
-                                <h6> This page contains Bank Account details of Trainer.You can add your bank details here. </h6>
-                                <h6> Navigation to Add Bank Details.</h6>
-                                <p>Click on Navigation bar "My Account" then click on MenuItem "Bank Details".</p>
-
-                                <img src="~/images/Images1/Bankdetails.jpg" width="300" height="500">
-
-                                <p><b>1. Bank Name</b> -  Enter Your Bank name.</p>
-                                <img src="~/images/Images1/Bankname.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Bank Name field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/Bankname1.jpg" width="300" height="100">
-
-                                <p><b>2. IFSC Code </b> -  Enter your bank's IFSC code.</p>
-                                <img src="~/images/Images1/IFCScode.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see IFCS Code field with Asterisk Mark, means that they are mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/IFCSCode1.jpg" width="300" height="100">
-
-                                <p><b>3. Account number </b> -  Enter your Account number.</p>
-                                <img src="~/images/Images1/Accountno.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Account number field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/Accountno1.jpg" width="300" height="100">
-
-                                <p><b>4. Branch Code </b> -  Enter Branch Code.</p>
-                                <img src="~/images/Images1/Branchcode.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Branch Code field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/Branchcode1.jpg" width="300" height="100">
-
-                                <p><b>5. Account Owner  </b> -  Enter Account Owner Name.</p>
-                                <img src="~/images/Images1/AccountOwner.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Account Owner field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/AccountOwner1.jpg" width="300" height="100">
-
-                                <p><b>6. Contact Number   </b> -  Enter your Contact Number.</p>
-                                <img src="~/images/Images1/contact no.jpg" width="300" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Contact Number field is with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/contact no1.jpg" width="300" height="100">
-
-                                <p><b>7. Branch Location </b> -  Enter Branch Location.</p>
-                                <img src="~/images/Images1/Branchlocation.jpg" width="400" height="100"><br></br>
-                                <p>
-                                    - In this Page, you will see Branch Location field with Asterisk Mark, means it is a mandatory field,
-                                    if you not enter details on this field validation appears in red.
-                                </p>
-                                <img src="~/images/Images1/Branchlocation1.jpg" width="400" height="100">
-
-                                <h6>
-                                    NOTE: “Without enter Mandatory fields, you cannot submit it”.<h6>
-                                        <img src="~/images/Images1/BankAccountPage1.jpg" width="500" height="300"><br></br>
-
-                                        <p> fill all details then click on submit Button.</p>
-                                        <img src="~/images/Images1/BankAccountPage.jpg" width="500" height="300"><br></br>
-
-                                        <p><b>Submit</b> - To save this detail click on this Submit button.</p>
-                                        <img src="~/images/Images1/Submit.jpg" width="80" height="50"><br></br>
-
-                                        <p> After clicking on submit button a popup window opens indicating that your data has been saved successfully.</p>
-                                        <img src="~/images/Images1/Message.png" width="200" height="100"><br></br>
-                            </div>
-
-                            <div class="tab-content clearfix" id="tabs-3">
-
-                                <h4>Help video for Add Bank Details</h4>
-                                <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/jPMRNuYDdXk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>></iframe>
-
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
 <script type="text/javascript">
     $(document).on("keydown", "#ContactNumber", function () {
         if ($("#ContactNumber").val() != undefined || $('#ContactNumber').val() != '') {
@@ -307,16 +146,15 @@
     });
     $("#BankDetails").validate({
         submitHandler: function (form) {
+            alert("hello");
             $('.form-process').fadeIn()
             $(form).ajaxSubmit({
-                success: function () {
-                    $('.form-process').fadeOut()
+                success: function () {                   
                     $.alert({
                         title: 'Cheers',
                         content: 'Your Data has been saved <b> SUCCESSFULLY.</b>',
                         confirmButton: 'OK',
                         confirmButtonClass: 'button button-3d button-rounded button-amber',
-
                         icon: 'icon-thumbs-up icon-2x ',
                         animation: 'zoom',
                         confirm: function () {
@@ -329,137 +167,4 @@
         }
     });
 
-    function pagehelp() {
-        $('#Popup').modal('show');
-        $("#Popup").modal({
-            backdrop: 'static',
-            keyboard: false,
-        })
-    };
 </script>
-
-@*<script type="text/javascript">
-        $('#bankdetails').click(function (e) {
-            e.preventDefault();
-
-            if ($("#BankName").val() == undefined || $('#BankName').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Bank Name</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#BankName").focus();
-                return false;
-            }
-            if ($("#AccountNumber").val() == undefined || $('#AccountNumber').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Account Number</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#AccountNumber").focus();
-                return false;
-            }
-            if ($("#AccountOwner").val() == undefined || $('#AccountOwner').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Account Owner</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#AccountOwner").focus();
-                return false;
-            }
-            if ($("#IfscCode").val() == undefined || $('#IfscCode').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Ifsc Code</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#IfscCode").focus();
-                return false;
-            }
-            if ($("#BranchCode").val() == undefined || $('#BranchCode').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Branch Code</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#BranchCode").focus();
-                return false;
-            }
-            if ($("#ContactNumber").val() == undefined || $('#ContactNumber').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Contact Number</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#ContactNumber").focus();
-                return false;
-            }
-            if ($("#BranchAddress").val() == undefined || $('#BranchAddress').val() == '') {
-                $.alert({
-                    title: 'Alert',
-                    content: '<b>Branch Address</b> is required',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-red',
-                    icon: 'icon-thumbs-down2 icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-                $("#BranchAddress").focus();
-                return false;
-            }
-            $('#BankDetails').submit();
-        });
-
-
-        $(document).ready(function () {
-
-            if ($('#SaveStatus').val() == "Succeeded") {
-
-                $.alert({
-                    title: 'Cheers',
-                    content: 'Your Data has been saved <b> SUCCESSFULLY.</b>',
-                    confirmButton: 'OK',
-                    confirmButtonClass: 'button button-3d button-rounded button-amber',
-                    icon: 'icon-thumbs-up icon-2x ',
-                    animation: 'zoom',
-                    confirm: function () {
-                    }
-                });
-            }
-
-        });
-
-    </script>*@

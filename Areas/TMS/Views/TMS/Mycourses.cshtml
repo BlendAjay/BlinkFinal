@@ -1,7 +1,7 @@
 ﻿@using AJSolutions.Models;
 @model IEnumerable<CourseMasterView>
 @{
-    ViewBag.Title = "My Courses";
+    ViewBag.Title = "My Sector";
     //Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
     AJSolutions.Models.UserViewModel user = ViewData["UserProfile"] as AJSolutions.Models.UserViewModel;
     if (user.Role != "Employee")
@@ -15,246 +15,182 @@
     List<CourseMasterViewModel> lmsCourses = ViewData["LMSCourse"] as List<CourseMasterViewModel>;
 
 }
-<div class="si-sticky toast-top-left topmargin-sm">
-    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-        <i class="icon-question"></i>
-        <i class="icon-question"></i>
-    </a>
-</div>
-@*@if (@ViewBag.Message != null)
-    {
-        <div class="container">
-
-            <div id="contact-form-overlay" class="clearfix">
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-thumbs-down2"></i>
-                    </div>
-                    <h3>@ViewBag.Message<span class="subtitle"></span></h3>
-                </div>
-            </div>
-        </div>
-    }
-    else
-        {*@
-<div class="container">
-    @if (user.Role != "Client")
-    {
+<div class="dashboard-influence">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
         <div class="row">
-            <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })" class="btn btn-default btn-xs" style="float:right;">Add New Course</a>
-        </div>
-    }
-</div>
-<div class="container">
-    <div class="fancy-title title-bottom-border">
-        <h4>My Courses</h4>
-    </div>
-    @if (user.Role != "Client")
-    {
-        <div class="row">
-            <div class="col_one_fourth">
-                @Html.Label("Select Client")
-                <div class="input-group divcenter">
-                    @Html.DropDownList("CorporateId", null, "--- Select Client ---", htmlAttributes: new { @class = "sm-form-control", id = "CorporateId", placeholder = "Select Client" })
-                </div>
-            </div>
-            <div class="col_one_fourth">
-                @Html.Label("")
-                <div class="input-group divcenter">
-                    <br /><br />
-                    <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick='SendValue()'>Filter</button>&nbsp;
-                    <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("Mycourses", "TMS", new { Area = "TMS" })'">Clear</button>
-                </div>
-            </div>
-            <div class="col_one_fourth"></div>
-            <div class="col_one_fourth col_last"></div>
-        </div>
-    }
-    @if (Model.Count() > 0)
-    {
-        foreach (var item in Model)
-        {
-            <div class="pricing-box pricing-extended bottommargin clearfix">
-                <div class="pricing-desc">
-                    <div class="pricing-title">
-                        @*<h3>@item.CourseName</h3>*@
-
-                        <h3><a href="@Url.Action("CourseDetail", "TMS", new { Area = "TMS", CourseCode = item.CourseCode, TrainingId = item.TrainingId })">@item.CourseName</a></h3>
-                    </div>
-                    <div class="pricing-features">
-                        <ul class="iconlist-color clearfix">
-                            @*<li><i class="icon-barcode"></i> Course Code : @item.CourseCode</li>*@@*@Html.ActionLink(item.CourseCode, "Discussion", "Review", new { area = "LMS", coursecode = item.CourseCode }, htmlAttributes: new { target = "_blank" })*@
-                            <li><i class="icon-calendar"></i> @item.CourseDuration Days</li>
-                            <li><i class="icon-magic"></i> @item.TotalBatches Batches</li>@*<a href="~/TMS/TMS/CourseDetail?CourseCode=@item.CourseCode" target="_blank" title="Click here to view task details">*@
-                            @if (user.Role != "Client")
-                            {
-                                if (lmsCourses.Count != 0)
-                                {
-                                    foreach (var lmscrs in lmsCourses)
-                                    {
-                                        if (item.LMSCourseCode == lmscrs.CourseCode)
-                                        {
-                                            <li><i class="icon-line-paper-stack"></i> @lmscrs.TotalTopics Topics</li>
-                                            <li><i class="icon-line-paper"></i> @lmscrs.TotalLecture Lectures</li>
-                                        }
-                                    }
-                                }
-
-                            }
-                            <li><i class="icon-thumbs-up"></i> @item.CountLikes Likes</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="pricing-action-area">
-                    <div class="pricing-meta">
-                    </div>
-                    <div class="pricing-price">
-                        <small>@item.TotalFees</small><span class="price-tenure"> @item.Currency</span>
-                    </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h3 class="mb-2">My Sector</h3>
                     @if (user.Role != "Client")
                     {
-                        <div class="pricing-action">
-                            <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS", item.CourseCode, CourseName = "item.CourseName", item.CourseDuration, item.CourseFee, item.Currency, item.CourseDescription, useraction = "Edit" })" class="button button-3d" align="right">Edit </a>
+                        <div class="row">
+                            <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })" class="btn btn-default btn-xs right" style="float:right;">Add New Sector</a>
                         </div>
                     }
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">My Course</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card influencer-profile-data">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="text-center">
+                                            <img src="~/Images/Images1/avatar-1.jpg" alt="User Avatar" class="rounded-circle user-avatar-xxl">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
+                                        <div class="user-avatar-info">
+                                            <div class="m-b-20">
+                                                <div class="user-avatar-name">
+                                                    <h2><a href="@Url.Action("CourseDetail", "TMS", new { Area = "TMS", CourseCode = item.CourseCode, TrainingId = item.TrainingId })">@item.CourseName</a></h2>
+                                                </div>
+                                                <div class="rating-star  d-inline-block">
+                                                    @if (user.Role != "Client")
+                                                    {
+                                                        <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS", item.CourseCode, CourseName = "item.CourseName", item.CourseDuration, item.CourseFee, item.Currency, item.CourseDescription, useraction = "Edit" })" class="mb-2 ml-xl-4 d-xl-inline-block d-block button button-3d" style="float: right;"><i class="fa fa-pencil-alt"></i> Edit </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="user-avatar-address">
+                                                <p class="border-bottom pb-3">
+                                                    <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-calendar"></i> @item.CourseDuration Days</span>
+                                                    <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><i class="fa fa btn-account"></i> @item.TotalBatches Batches</span>
+
+                                                    <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><i class="fa fa-thumbs-up"></i> @item.CountLikes Likes</span>
+                                                    <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><i class="fa fa-code"></i> @item.CourseCode</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">No Courses</h3>
+                    </div>
                 </div>
             </div>
         }
-    }
-    else
-    {
-        <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-            <div class="fbox-icon">
-                <i class="icon-thumbs-down2"></i>
-            </div>
-            <h3>No Courses<span class="subtitle"></span></h3>
-        </div>
-    }
+    </div>
 </div>
 
-@*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
 
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                                This page contain details of courses according to the joborders of clients.
-                            </p>
-
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
-
-                                    <a href="~/images/HelpImages/courseclient.png" target="_blank" data-lightbox="gallery-item">
-                                        <img src="~/images/HelpImages/courseclient.png" />
-                                    </a>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+@*<div class="container">
+        @if (user.Role != "Client")
+        {
+            <div class="row">
+                <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS" })" class="btn btn-default btn-xs" style="float:right;">Add New Course</a>
             </div>
-        </div>
+        }
     </div>
-</div>*@
-
-<div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel22" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel22"><b>Help & Support</b> </h4>
+    <div class="container">
+        <div class="fancy-title title-bottom-border">
+            <h4>My Courses</h4>
+        </div>
+        @if (user.Role != "Client")
+        {
+            <div class="row">
+                <div class="col_one_fourth">
+                    @Html.Label("Select Client")
+                    <div class="input-group divcenter">
+                        @Html.DropDownList("CorporateId", null, "--- Select Client ---", htmlAttributes: new { @class = "form-control", id = "CorporateId", placeholder = "Select Client" })
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="tabs clearfix" id="tab-1">
-
-                        <ul class="tab-nav clearfix">
-                            <li><a href="#tabs-1"><nobr>Navigation</nobr></a></li>
-                            <li><a href="#tabs-2">Page Elements </a></li>
-                            <li><a href="#tabs-3">Video</a></li>
-                            
-                        </ul>
-                        <div class="tab-container">
-                            <div class="tab-content clearfix" id="tabs-1">
-                                <h4>  Navigation to Courses </h4>
-                                <img src="~/images/gif/navigation My Courses.gif" alt="Save icon" />
-                            </div>
-                            <div class="tab-content clearfix" id="tabs-2">
-                                <h6>My Stuff is containing details of Job orders, Invoices, Courses, My Training </h6>
-                                <h6>Navigation to Courses</h6>
-                                <p>•Click on Navigation bar My Stuff Then their Menu Item is open  click on Courses</p>
-                                <img src="~/images/Images1/201.png" width="259" height="341" /><br>
-                                <h6>This page contain details of all courses</h6>
-                                <img src="~/images/Images1/202.png" width="1069" height="579">
-                                <h4>Course Page Description</h4>
-                                <h6>• Click on course Name  to see the full details of course</h6>
-                                <img src="~/images/Images1/203.png" width="500" height="150">
-                                <h6> Here you can see course duration </h6>
-                                <img src="~/images/Images1/204.png" width="500" height="150">
-                                <h6> Here you can see the total number of batch under the course  </h6>
-                                <img src="~/images/Images1/205.png" width="500" height="150">
-                                <h6> Here you can see the course fee.  </h6>
-                                <img src="~/images/Images1/206.png" width="500" height="150">
-                                <p>•Course contains details of Courses,Batches,Trainings,Attendance & Evaluations</p>
-                                <h6>After clicking on course name you can see the full details of course </h6>
-                                <img src="~/images/Images1/207.png" width="700" height="250">
-                            </div>
-                            <div class="tab-content clearfix" id="tabs-3">
-
-                                <h4> Training Video for course details view   </h4>
-
-                                <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/VDs0wqaIAuE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-                            </div>
-                            @*<div class="tab-content clearfix" id="tabs-4">
-                                <p>
-                                    <img src="C:\Reckonn Help\HTML\images\link images\j3.png" width="700" height="150">
-                                </p>
-
-                                <a href="#" onclick="showImage();">DOP Trainers  </a><br>
-                               
-                                <div id="course">
-
-                                </div>
-                                <script type="text/javascript">
-                                    function showImage() {
-                                        $("#course").html('<img src="file:///C:/Reckonn%20Help/HTML/images/link%20images/j4.PNG" />');
+                <div class="col_one_fourth">
+                    @Html.Label("")
+                    <div class="input-group divcenter">
+                        <br /><br />
+                        <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick='SendValue()'>Filter</button>&nbsp;
+                        <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("Mycourses", "TMS", new { Area = "TMS" })'">Clear</button>
+                    </div>
+                </div>
+                <div class="col_one_fourth"></div>
+                <div class="col_one_fourth col_last"></div>
+            </div>
+        }
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="pricing-box pricing-extended bottommargin clearfix">
+                    <div class="pricing-desc">
+                        <div class="pricing-title">
+                            <h3><a href="@Url.Action("CourseDetail", "TMS", new { Area = "TMS", CourseCode = item.CourseCode, TrainingId = item.TrainingId })">@item.CourseName</a></h3>
+                        </div>
+                        <div class="pricing-features">
+                            <ul class="iconlist-color clearfix">
+                                <li><i class="icon-calendar"></i> @item.CourseDuration Days</li>
+                                <li><i class="icon-magic"></i> @item.TotalBatches Batches</li>
+                                @if (user.Role != "Client")
+                                {
+                                    if (lmsCourses.Count != 0)
+                                    {
+                                        foreach (var lmscrs in lmsCourses)
+                                        {
+                                            if (item.LMSCourseCode == lmscrs.CourseCode)
+                                            {
+                                                <li><i class="icon-line-paper-stack"></i> @lmscrs.TotalTopics Topics</li>
+                                                <li><i class="icon-line-paper"></i> @lmscrs.TotalLecture Lectures</li>
+                                            }
+                                        }
                                     }
-                                </script>
-                            </div>*@
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                
-                            </div>
 
+                                }
+                                <li><i class="icon-thumbs-up"></i> @item.CountLikes Likes</li>
+                            </ul>
                         </div>
-
                     </div>
-
-
+                    <div class="pricing-action-area">
+                        <div class="pricing-meta">
+                        </div>
+                        <div class="pricing-price">
+                            <small>@item.TotalFees</small><span class="price-tenure"> @item.Currency</span>
+                        </div>
+                        @if (user.Role != "Client")
+                        {
+                            <div class="pricing-action">
+                                <a href="@Url.Action("CourseMasters", "TMS", new { Area = "TMS", item.CourseCode, CourseName = "item.CourseName", item.CourseDuration, item.CourseFee, item.Currency, item.CourseDescription, useraction = "Edit" })" class="button button-3d" align="right">Edit </a>
+                            </div>
+                        }
+                    </div>
                 </div>
-
+            }
+        }
+        else
+        {
+            <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
+                <div class="fbox-icon">
+                    <i class="icon-thumbs-down2"></i>
+                </div>
+                <h3>No Courses<span class="subtitle"></span></h3>
             </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-@*}*@
+        }
+    </div>*@
 
 <script type="text/javascript">
 

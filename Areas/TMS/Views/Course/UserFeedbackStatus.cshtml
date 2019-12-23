@@ -11,7 +11,7 @@
     }
     ViewBag.Title = "UserFeedbackStatus";
 }
-@using (Html.BeginForm("UserFeedbackStatus", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal", id = "UserFeedbackStatus", role = "form" }))
+@using (Html.BeginForm("UserFeedbackStatus", "Course", FormMethod.Post, new { area = "TMS", @class = "form-horizontal needs-validation", id = "UserFeedbackStatus", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -295,7 +295,7 @@
                     </div>
                     @*<div class="col_half col_last">
                             <label>Number of Smartphones Suppied</label>
-                            <input type="text" name="Answer53" id="Answer53" value="" size="22" tabindex="7" class="sm-form-control number" placeholder="Number of Airtel SIMs available" />
+                            <input type="text" name="Answer53" id="Answer53" value="" size="22" tabindex="7" class="form-control number" placeholder="Number of Airtel SIMs available" />
                         </div>*@
                     <div class="clear"></div>
                     <label>Mobile service provider (SIM provisioning from)</label>

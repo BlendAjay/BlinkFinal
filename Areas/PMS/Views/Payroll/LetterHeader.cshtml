@@ -29,7 +29,7 @@
             <div class="col_full">
                 <div class="row" id="dvPassport">
                     <div class="col_half">
-                        <input id="uploadImage" type="file" name="uploadPhoto" class="sm-form-control" />
+                        <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <label>Header Name<small>*</small></label>
                 <div class="input-group divcenter">
                     <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                    @Html.TextBoxFor(model => model.HeaderName, new { @class = "sm-form-control required", @id = "HeaderName" })
+                    @Html.TextBoxFor(model => model.HeaderName, new { @class = "form-control required", @id = "HeaderName" })
                 </div>
             </div>
             @if (Model.HeaderId != 0)

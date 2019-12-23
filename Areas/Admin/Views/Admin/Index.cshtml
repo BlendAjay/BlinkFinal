@@ -4,7 +4,7 @@
     ViewBag.Title = "Home";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Index", "Dashboard", FormMethod.Post, new { area = "Admin", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Index", "Dashboard", FormMethod.Post, new { area = "Admin", @class = "form-horizontal needs-validation", role = "form" }))
 {
     @Html.AntiForgeryToken()
 

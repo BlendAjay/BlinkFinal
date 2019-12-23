@@ -53,38 +53,38 @@
                                 <th>Edit</th>
                             </tr>
                             @{
-                var count = 1;
-                foreach (var item in Model)
-                {
+                                var count = 1;
+                                foreach (var item in Model)
+                                {
 
-                    <tr>
-                        <td>
-                            @count
-                        </td>
+                                    <tr>
+                                        <td>
+                                            @count
+                                        </td>
 
-                        <td>
-                            @Html.ActionLink(item.Name, "CoAdminProfile", "User", new { area = "CMS", CorporateId = item.CorporateId }, htmlAttributes: new { target = "_blank" })
-                        </td>
+                                        <td>
+                                            @Html.ActionLink(item.Name, "CoAdminProfile", "User", new { area = "CMS", CorporateId = item.CorporateId }, htmlAttributes: new { target = "_blank" })
+                                        </td>
 
-                        <td>
-                            @item.RegisteredOn
-                        </td>
-                        <td>
-                            @item.LastLogin
-                        </td>
+                                        <td>
+                                            @item.RegisteredOn
+                                        </td>
+                                        <td>
+                                            @item.LastLogin
+                                        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-                        <td class="text-center">
-                            <a href="@Url.Action("Add", "User", new { area = "CMS", Id = "ADI", Uid = item.CorporateId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a>
-                        </td>
-                    </tr>
-                    count++;
-                }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Add", "User", new { area = "CMS", Id = "ADI", Uid = item.CorporateId, UserAction = "Edit" })" title="Edit"><i class="icon-pen"></i></a>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
                             }
                         </table>
                     </div>
@@ -93,11 +93,11 @@
             }
             else
             {
-                <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                    <div class="fbox-icon">
-                        <i class="icon-thumbs-down2"></i>
+                <br /><br />
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">No Co-Admin(S)</h3>
                     </div>
-                    <h3>No Co-Admin(S)<span class="subtitle"></span></h3>
                 </div>
             }
         }

@@ -15,7 +15,7 @@
 }
 
 
-@using (Html.BeginForm("Payment", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", id = "Payment", role = "form" }))
+@using (Html.BeginForm("Payment", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", id = "Payment", role = "form" }))
 {
     <div class="container">
         @Html.Hidden("Initiated", ViewBag.Initiated as string)
@@ -101,7 +101,7 @@
                             <tr>
                                 <td>Installment Amount</td>
                                 <td>
-                                    <input type="text" id="InstallmentAmount" name="InstallmentAmount" value="" placeholder="Enter Amount" class="sm-form-control" />
+                                    <input type="text" id="InstallmentAmount" name="InstallmentAmount" value="" placeholder="Enter Amount" class="form-control" />
                                     @*@ViewBag.InstallmentAmount>*@
                                 </td>
                             </tr>
@@ -122,14 +122,14 @@
                     <label>Payment Mode</label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-list-ul"> </i></span>
-                        @Html.DropDownList("PaymentModeId", null, "--- Select Payment Mode ---", htmlAttributes: new { @id = "PaymentModeId", @class = "sm-form-control", placeholder = "Payment Mode" })
+                        @Html.DropDownList("PaymentModeId", null, "--- Select Payment Mode ---", htmlAttributes: new { @id = "PaymentModeId", @class = "form-control", placeholder = "Payment Mode" })
                     </div>
                 </div>
                 <div class="col_half  col_last" id="bankName">
                     <label>Bank Name</label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-building"> </i></span>
-                        @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @id = "PayeeBankName", @class = "sm-form-control", placeholder = "Bank Name" } })
+                        @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @id = "PayeeBankName", @class = "form-control", placeholder = "Bank Name" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
                 </div>
@@ -138,7 +138,7 @@
                         <label>Payment Date</label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-calendar3"> </i></span>
-                            @Html.EditorFor(model => model.PaymentDate, new { htmlAttributes = new { @id = "PaymentDate", @class = "sm-form-control", placeholder = "Payment Date" } })
+                            @Html.EditorFor(model => model.PaymentDate, new { htmlAttributes = new { @id = "PaymentDate", @class = "form-control", placeholder = "Payment Date" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.PaymentDate, "", new { @class = "text-danger" })
                     </div>
@@ -147,14 +147,14 @@
                     <label>Reference No</label>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-barcode"> </i></span>
-                        @Html.EditorFor(model => model.ReferenceNumber, new { htmlAttributes = new { @id = "ChequeNo", @class = "sm-form-control", placeholder = "Reference Number" } })
+                        @Html.EditorFor(model => model.ReferenceNumber, new { htmlAttributes = new { @id = "ChequeNo", @class = "form-control", placeholder = "Reference Number" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.ReferenceNumber, "", new { @class = "text-danger" })
                 </div>
                 <div class="col_full">
                     <label>Comments</label>
                     <div class="input-group divcenter">
-                        @Html.TextAreaFor(model => model.Remarks, 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
+                        @Html.TextAreaFor(model => model.Remarks, 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
                     </div>
                     @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
                 </div>

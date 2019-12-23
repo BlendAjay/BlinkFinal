@@ -23,7 +23,7 @@
                         @Html.LabelFor(model => model.CorporateId, "Client")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                            @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", htmlAttributes: new { @class = "sm-form-control required", id = "CorporateId" })
+                            @Html.DropDownList("CorporateId", null, "--- Select Corporate ---", htmlAttributes: new { @class = "form-control required", id = "CorporateId" })
                         </div>
                     </div>
                    @if (ViewBag.Action == "Edit")
@@ -32,7 +32,7 @@
                         @Html.LabelFor(model => model.BranchCode, "Branch Code")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @readonly = true, @class = "sm-form-control required", id = "BranchCode", @Placeholder = "Enter Branch Code" } })
+                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @readonly = true, @class = "form-control required", id = "BranchCode", @Placeholder = "Enter Branch Code" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
                         <br>
@@ -44,7 +44,7 @@
                         @Html.LabelFor(model => model.BranchCode, "Branch Code")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "sm-form-control required", id = "BranchCode", @Placeholder = "Enter Branch Code" } })
+                            @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @class = "form-control required", id = "BranchCode", @Placeholder = "Enter Branch Code" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.BranchCode, "", new { @class = "text-danger" })
                         <br>
@@ -54,7 +54,7 @@
                         @Html.LabelFor(model => model.BranchName, "Branch Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "sm-form-control required", id = "BranchName", @Placeholder = "Enter Branch Name" } })
+                            @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "form-control required", id = "BranchName", @Placeholder = "Enter Branch Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
                         <br>
@@ -63,7 +63,7 @@
                         @Html.LabelFor(model => model.BranchZone, "Branch Zone")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.BranchZone, new { htmlAttributes = new { @class = "sm-form-control required", id = "BranchZone", @Placeholder = "Enter Branch Zone" } })
+                            @Html.EditorFor(model => model.BranchZone, new { htmlAttributes = new { @class = "form-control required", id = "BranchZone", @Placeholder = "Enter Branch Zone" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.BranchZone, "", new { @class = "text-danger" })
                         <br>

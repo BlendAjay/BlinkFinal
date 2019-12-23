@@ -20,7 +20,7 @@
     int RCount = 0;
 }
 
-@using (Html.BeginForm("Task", "Task", FormMethod.Post, new { @class = "form-horizontal", id = "Task", enctype = "multipart/form-data", role = "form" }))
+@using (Html.BeginForm("Task", "Task", FormMethod.Post, new { @class = "form-horizontal needs-validation", id = "Task", enctype = "multipart/form-data", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("result", ViewBag.Result as string)
@@ -56,40 +56,26 @@
                             </div>
                             <br>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                            <label>Select Task Type<small>*</small></label><small style="float:right"><a href="@Url.Action("Index", "JobOrderType", new { Area = "Admin" })" target="_blank">Add New</a></small>
-                            <div class="input-group divcenter">
-                                <span class="input-group-addon"><i class="icon-tasks"></i></span>
-                                @Html.DropDownListFor(model => model.TaskTypeId, new SelectList(ViewBag.JobOrderTypeList, "Value", "Text"), "--- Select Task Type ---", htmlAttributes: new { @class = "form-control required", @id = "TaskTypeId", placeholder = "Enter Your TaskTypeId", required = "required" })
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                            <div id="JO">
-                                <label>Select Job Order</label>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-newspaper"></i></span>
-                                    @Html.DropDownListFor(model => model.JobOrderNumber, new SelectList(ViewBag.JobOrderList, "Value", "Text", ViewBag.JONo), "--- Select Job Order ---", htmlAttributes: new { @class = "form-control", @id = "JobOrderNumber", placeholder = "Enter Your Job Order Number" })
+
+                        @*<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div id="JO">
+                                    <label>Select Job Order</label>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-newspaper"></i></span>
+                                        @Html.DropDownListFor(model => model.JobOrderNumber, new SelectList(ViewBag.JobOrderList, "Value", "Text", ViewBag.JONo), "--- Select Job Order ---", htmlAttributes: new { @class = "form-control", @id = "JobOrderNumber", placeholder = "Enter Your Job Order Number" })
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                            <div id="IF">
-                                <label>Select Invoice Frequency</label>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-line2-bar-chart"></i></span>
-                                    @Html.DropDownListFor(model => model.InvoiceFrequency, new SelectList(ViewBag.InvoiceFrequencyList, "Value", "Text"), "--- Select Invoice Frequency ---", htmlAttributes: new { @class = "form-control", @id = "InvoiceFrequency", placeholder = "Enter Your Invoice Frequency" })
+                            </div>*@
+                        @*<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                <div id="IF">
+                                    <label>Select Invoice Frequency</label>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-line2-bar-chart"></i></span>
+                                        @Html.DropDownListFor(model => model.InvoiceFrequency, new SelectList(ViewBag.InvoiceFrequencyList, "Value", "Text"), "--- Select Invoice Frequency ---", htmlAttributes: new { @class = "form-control", @id = "InvoiceFrequency", placeholder = "Enter Your Invoice Frequency" })
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col_full">
-                            <label>Enter Description<small>*</small></label>
-                            <div class="input-group divcenter">
-                                @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Enter Description", required = "required" })
-                                <div id="textarea_feedback" class="text-danger"></div>
-                            </div>
-                            <br>
-                        </div>
+                            </div>*@
+
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                             <label>Select Country<small>*</small></label>
                             <div class="input-group divcenter">
@@ -114,26 +100,34 @@
                             </div>
                             <br>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                            <label>Select Task Type<small>*</small></label><small style="float:right"><a href="@Url.Action("Index", "JobOrderType", new { Area = "Admin" })" target="_blank">Add New</a></small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-tasks"></i></span>
+                                @Html.DropDownListFor(model => model.TaskTypeId, new SelectList(ViewBag.JobOrderTypeList, "Value", "Text"), "--- Select Task Type ---", htmlAttributes: new { @class = "form-control required", @id = "TaskTypeId", placeholder = "Enter Your TaskTypeId", required = "required" })
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                             <label>Venue<small>*</small></label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-road"> </i></span>
                                 @Html.EditorFor(model => model.Venue, new { htmlAttributes = new { @class = "form-control required", id = "Venue", placeholder = "Enter Venue" } })
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                             <label>Assign To<small>*</small></label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-user3"></i></span>
                                 @Html.DropDownListFor(model => model.AssignedTo, new SelectList(ViewBag.AssignedToList, "Value", "Text"), "--- Select Employee ---", htmlAttributes: new { @class = "form-control required", @id = "AssignedTo", placeholder = "Enter AssignedTo ", required = "required" })
                             </div>
                         </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="fancy-title title-bottom-border">
-                            <label>DURATION</label><small style="float:right">If Any</small>
-                            <h5></h5>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <label>Enter Description<small>*</small></label>
+                            <div class="input-group divcenter">
+                                @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Enter Description", required = "required" })
+                            </div><div id="textarea_feedback" class="text-danger"></div>
+                            <br>
                         </div>
                         <div class="col-xl-6 col-lg- col-md-12 col-sm-12 col-12">
                             <label> Start Date</label><small>*</small>
@@ -176,46 +170,46 @@
                                     {
                                         var itemDuration = "NA";
                                         var itemAmt = 0.0;
-                                <tr>
-                                    <td class="hidden">
-                                        <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="@item.ItemId" />
-                                    </td>
-                                    @*<td>
-                                            <select class="form-control" id="ItemType" name="ItemType[]">
-                                                <option selected="selected" value="@item.ItemTypeId"> @item.ItemTypeName </option>
-                                            </select>
-                                        </td>*@
-                                    <td>
-                                        <select class="form-control" id="ItemType" name="ItemType[]">
-                                            <option value="0"> - - - Select Item Type - - - </option>
-                                            @{
+                                        <tr>
+                                            <td style="display:none">
+                                                <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="@item.ItemId" />
+                                            </td>
+                                            @*<td>
+                                                    <select class="form-control" id="ItemType" name="ItemType[]">
+                                                        <option selected="selected" value="@item.ItemTypeId"> @item.ItemTypeName </option>
+                                                    </select>
+                                                </td>*@
+                                            <td>
+                                                <select class="form-control" id="ItemType" name="ItemType[]">
+                                                    <option value="0"> - - - Select Item Type - - - </option>
+                                                    @{
 
-                                        foreach (var row in ItemTypeValues)
-                                        {
-                                            if (row.ItemTypeId == item.ItemTypeId)
-                                            {
+                                                        foreach (var row in ItemTypeValues)
+                                                        {
+                                                            if (row.ItemTypeId == item.ItemTypeId)
+                                                            {
 
-                                            <option selected="selected" value="@row.ItemTypeId"> @row.ItemTypeName </option>
-                                            }
-                                            else
-                                            {
-                                            <option value="@row.ItemTypeId"> @row.ItemTypeName </option>
-                                            }
-                                        }
-                                            }
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="code form-control" id="ItemDescription" name="ItemDescription[]" value="@item.ItemDescription" placeholder="Item Description" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="@item.Unit" placeholder="Unit" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="@item.UnitPrice" placeholder="Unit Price" />
-                                    </td>
-                                    <td>
-                                        @if (item.Duration > 0)
+                                                                <option selected="selected" value="@row.ItemTypeId"> @row.ItemTypeName </option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@row.ItemTypeId"> @row.ItemTypeName </option>
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="code form-control" id="ItemDescription" name="ItemDescription[]" value="@item.ItemDescription" placeholder="Item Description" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="@item.Unit" placeholder="Unit" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="@item.UnitPrice" placeholder="Unit Price" />
+                                            </td>
+                                            <td>
+                                                @if (item.Duration > 0)
                                                 {
                                                     itemDuration = Convert.ToString(item.Duration);
                                                     itemAmt = Convert.ToSingle(item.Unit) * item.UnitPrice * Convert.ToSingle(item.Duration);
@@ -224,114 +218,101 @@
                                                 {
                                                     itemAmt = Convert.ToSingle(item.Unit) * item.UnitPrice;
                                                 }
-                                        @*<select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
-                                                <option selected="selected" value="@item.Duration">@itemDuration</option>
-                                            </select>*@
+                                                <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
+                                                    @{
+                                                        <option value="0">NA</option>
+                                                        var itemDurations = ViewData["ItemDuration"] as IEnumerable<AJSolutions.DAL.Global.DurationList>;
 
-                                        <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
-                                            @{
-
-                                                <option value="0">NA</option>
-                                                var itemDurations = ViewData["ItemDuration"] as IEnumerable<AJSolutions.DAL.Global.DurationList>;
-
-                                                foreach (var duration in itemDurations)
-                                                {
-                                                    if (duration.Duration == item.Duration)
-                                                    {
-                                            <option selected="selected" value="@duration.Duration">@duration.DurationName</option>
+                                                        foreach (var duration in itemDurations)
+                                                        {
+                                                            if (duration.Duration == item.Duration)
+                                                            {
+                                                                <option selected="selected" value="@duration.Duration">@duration.DurationName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@duration.Duration">@duration.DurationName</option>
+                                                            }
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                            <option value="@duration.Duration">@duration.DurationName</option>
-                                                    }
-                                                }
-
-                                            }
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value="@itemAmt" readonly="readonly" />
-                                    </td>
-                                    <td>
-                                        @if (RCount == 0)
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value="@itemAmt" readonly="readonly" />
+                                            </td>
+                                            <td>
+                                                @if (RCount == 0)
                                                 {
-                                        <a href="javascript:void(0);" id="addCF">Add</a>
+                                                    <a href="javascript:void(0);" id="addCF">Add</a>
                                                 }
                                                 else
                                                 {
-                                        <a href="javascript:void(0);" id="delCF">Remove</a>
+                                                    <a href="javascript:void(0);" id="delCF">Remove</a>
                                                 }
-                                    </td>
-                                    <td class="hidden">
-                                        <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="U" />
-                                    </td>
-                                </tr>
-                                                RCount = RCount + 1;
+                                            </td>
+                                            <td style="display:none">
+                                                <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="U" />
+                                            </td>
+                                        </tr>
+                                        RCount = RCount + 1;
                                     }
                                 }
                                 else
                                 {
-                                <tr>
-                                    <td class="hidden">
-                                        <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
-                                    </td>
-                                    @*<td>
+                                    <tr>
+                                        <td style="display:none">
+                                            <input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" />
+                                        </td>
+                                        <td>
                                             <select class="form-control" id="ItemType" name="ItemType[]">
-                                                <option selected="selected"> - - - Select Item Type - - - </option>
-                                            </select>
-                                        </td>*@
-                                    <td>
-                                        <select class="form-control" id="ItemType" name="ItemType[]">
-                                            <option selected="selected" value="0"> - - - Select Item Type - - - </option>
+                                                <option selected="selected" value="0"> - - - Select Item Type - - - </option>
 
 
-                                            @foreach (var row in ItemTypeValues)
+                                                @foreach (var row in ItemTypeValues)
                                                 {
 
-                                            <option value="@row.ItemTypeId"> @row.ItemTypeName </option>
+                                                    <option value="@row.ItemTypeId"> @row.ItemTypeName </option>
 
                                                 }
 
 
 
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="ItemDescription form-control" id="ItemDescription" name="ItemDescription[]" value="" placeholder="Item Description" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" />
-                                    </td>
-                                    <td>
-                                        <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
-                                            <option selected="selected">NA</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value="" readonly="readonly" />
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" id="addCF">Add</a>
-                                    </td>
-                                    <td class="hidden">
-                                        <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" />
-                                    </td>
-                                </tr>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="ItemDescription form-control" id="ItemDescription" name="ItemDescription[]" value="" placeholder="Item Description" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" />
+                                        </td>
+                                        <td>
+                                            <select class="dura form-control" id="ItemDuration" name="ItemDuration[]">
+                                                <option selected="selected">NA</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value="" readonly="readonly" />
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" id="addCF">Add</a>
+                                        </td>
+                                        <td style="display:none">
+                                            <input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" />
+                                        </td>
+                                    </tr>
                                 }
                             </table>
                         </div>
                     </div>
                     <br />
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    @*<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                             <label>Currency</label>
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-money"> </i></span>
-                                @*@Html.DropDownListFor(model => model.Currency, new SelectList(ViewBag.Currency, "Value", "Text", Model.Currency), "--- Select Currency ---", htmlAttributes: new { @class = "form-control", id = "Currency" })*@
-                                @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "form-control", id = "Currency" })
+                                 @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "form-control", id = "Currency" })
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -340,13 +321,12 @@
                                 <span class="input-group-addon"><i class="icon-money"></i></span>
                                 @Html.EditorFor(model => model.TaskAmount, new { htmlAttributes = new { @class = "form-control", id = "TaskAmount", placeholder = "Enter Your TaskAmount" } })
                             </div>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.HiddenFor(model => model.SubscriberId, new { @id = "SubscriberId" })
-                            @Html.HiddenFor(model => model.CreatedBy, new { @id = "CreatedBy" })
-                            @Html.HiddenFor(model => model.TaskId, new { @id = "TaskId" })
+                        </div>*@
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        @Html.HiddenFor(model => model.SubscriberId, new { @id = "SubscriberId" })
+                        @Html.HiddenFor(model => model.CreatedBy, new { @id = "CreatedBy" })
+                        @Html.HiddenFor(model => model.TaskId, new { @id = "TaskId" })
 
-                        </div>
                     </div>
                     <div class="row">
                         <div class="fancy-title title-bottom-border">
@@ -361,9 +341,9 @@
                                 <a href="~/File/TaskAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
                             }
                         </div>
-                    </div>
-                    <div class="row">
-                        <br />  <input type="submit" value="Submit" style="float: right;" class="btn btn-primary" id="SubmitForm" name="SubmitForm" />
+                    </div> <br />
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                        <input type="submit" value="Submit" class="btn btn-primary" id="SubmitForm" name="SubmitForm" style="float:right" />
                     </div>
 
                 </div>
@@ -679,15 +659,15 @@
             itemDuration = itemDuration + '</select>';
 
             $("#customFields").append('<tr><td> ' + state + ' </td>' +
-                                           '<td class="hidden"><input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
-                                            '<td><input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" /></td>' +
-                                            '<td><input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" /></td>' +
-                                            '<td><input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" /></td>' +
-                                            '<td> ' + itemDuration + ' </td>' +
-                                            '<td><input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value=""  readonly="readonly" /></td>' +
-                                            '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>' +
-                                            '<td class="hidden"><input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" /></td>'
-                                      );
+                '<td style = "display:none"><input type="text" class="ItemId form-control" id="ItemId" name="ItemId[]" value="0" /></td>' +
+                '<td><input type="text" class="code form-control" id="itemDesc" name="ItemDescription[]" value="" placeholder="Item Description" /></td>' +
+                '<td><input type="text" class="Unit form-control" id="Unit" name="Unit[]" value="" placeholder="Unit" /></td>' +
+                '<td><input type="text" class="UnitPrice form-control" id="UnitPrice" name="UnitPrice[]" value="" placeholder="Unit Price" /></td>' +
+                '<td> ' + itemDuration + ' </td>' +
+                '<td><input type="text" class="TAmt form-control" id="TAmt" name="TAmt[]" value=""  readonly="readonly" /></td>' +
+                '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>' +
+                '<td style = "display:none"><input type="text" class="Actions form-control" id="Actions" name="Actions[]" value="I" /></td>'
+            );
 
 
             $("#customFields").on('click', '#remCF', function () {
@@ -756,46 +736,46 @@
     $(function () {
 
         $("body").on("change", ".Unit",
-                      function () {
-                          var row = $(this).closest('tr');
-                          var customPRICE = row.find('.UnitPrice').val();
-                          var customQTY = row.find('.Unit').val();
-                          var customDuration = row.find('.dura').val();
-                          var total = parseFloat(customPRICE) * parseFloat(customQTY);
-                          if (!(customDuration == "NA" || customDuration == 0)) {
-                              total = total * parseFloat(customDuration);
-                          }
-                          row.find('.TAmt').val(total);
-                          calculateGrandTotal();
-                      });
+            function () {
+                var row = $(this).closest('tr');
+                var customPRICE = row.find('.UnitPrice').val();
+                var customQTY = row.find('.Unit').val();
+                var customDuration = row.find('.dura').val();
+                var total = parseFloat(customPRICE) * parseFloat(customQTY);
+                if (!(customDuration == "NA" || customDuration == 0)) {
+                    total = total * parseFloat(customDuration);
+                }
+                row.find('.TAmt').val(total);
+                calculateGrandTotal();
+            });
 
         $("body").on("change", ".UnitPrice",
-                      function () {
-                          var row = $(this).closest('tr');
-                          var customPRICE = row.find('.UnitPrice').val();
-                          var customQTY = row.find('.Unit').val();
-                          var customDuration = row.find('.dura').val();
-                          var total = parseFloat(customPRICE) * parseFloat(customQTY);
-                          if (!(customDuration == "NA" || customDuration == 0)) {
-                              total = total * parseFloat(customDuration);
-                          }
-                          row.find('.TAmt').val(total);
-                          calculateGrandTotal();
-                      });
+            function () {
+                var row = $(this).closest('tr');
+                var customPRICE = row.find('.UnitPrice').val();
+                var customQTY = row.find('.Unit').val();
+                var customDuration = row.find('.dura').val();
+                var total = parseFloat(customPRICE) * parseFloat(customQTY);
+                if (!(customDuration == "NA" || customDuration == 0)) {
+                    total = total * parseFloat(customDuration);
+                }
+                row.find('.TAmt').val(total);
+                calculateGrandTotal();
+            });
 
         $("body").on("change", ".dura",
-                  function () {
-                      var row = $(this).closest('tr');
-                      var customPRICE = row.find('.UnitPrice').val();
-                      var customQTY = row.find('.Unit').val();
-                      var customDuration = row.find('.dura').val();
-                      var total = parseFloat(customPRICE) * parseFloat(customQTY);
-                      if (!(customDuration == "NA" || customDuration == 0)) {
-                          total = total * parseFloat(customDuration);
-                      }
-                      row.find('.TAmt').val(total);
-                      calculateGrandTotal();
-                  });
+            function () {
+                var row = $(this).closest('tr');
+                var customPRICE = row.find('.UnitPrice').val();
+                var customQTY = row.find('.Unit').val();
+                var customDuration = row.find('.dura').val();
+                var total = parseFloat(customPRICE) * parseFloat(customQTY);
+                if (!(customDuration == "NA" || customDuration == 0)) {
+                    total = total * parseFloat(customDuration);
+                }
+                row.find('.TAmt').val(total);
+                calculateGrandTotal();
+            });
     });
 
     function calculateGrandTotal() {

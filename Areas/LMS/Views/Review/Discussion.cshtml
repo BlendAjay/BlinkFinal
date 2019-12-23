@@ -43,7 +43,7 @@
         <div id="comments" class="clearfix">
             <div class="row">
                 <h3>Leave a <span>Comment</span></h3>
-                @Html.TextArea("Comments", "", 5, 124, htmlAttributes: new { @class = "sm-form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
+                @Html.TextArea("Comments", "", 5, 124, htmlAttributes: new { @class = "form-control", @Maxlength = 2048, id = "Comments", @placeholder = "Comment here...." })
                 <div id="textarea_feedback" class="text-danger"></div>
             </div>
             <div class="row">
@@ -76,7 +76,7 @@
                             <div class="row comment-content clearfix" id="@item.CommentId" style="display:none">
                                 <div class="col_full" id="reply">
                                     <h3><span>Reply</span> here</h3>
-                                    @Html.TextArea("Reply", "", 5, 124, htmlAttributes: new { @class = "sm-form-control", @id = "userReply", @Maxlength = 2048, @placeholder = "Reply here...." })
+                                    @Html.TextArea("Reply", "", 5, 124, htmlAttributes: new { @class = "form-control", @id = "userReply", @Maxlength = 2048, @placeholder = "Reply here...." })
                                     <br />  <input type="button" id="reply" value="Reply" class="button button-3d button-rounded button-teal" style="float: left;" onclick="SubmitData(@item.CommentId)" />
                                 </div>
                             </div>

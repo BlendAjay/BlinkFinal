@@ -17,13 +17,13 @@
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.ProgrammeId, htmlAttributes: new { @class = "input-group-addon" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.ProgrammeId, new { htmlAttributes = new { @class = "sm-form-control", placeholder = "Programme Id" } })
+                        @Html.EditorFor(model => model.ProgrammeId, new { htmlAttributes = new { @class = "form-control", placeholder = "Programme Id" } })
                         @Html.ValidationMessageFor(model => model.ProgrammeId, "", new { @class = "text-danger" })
                     </div><br />
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.ProgrammeName, htmlAttributes: new { @class = "input-group-addon" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.EditorFor(model => model.ProgrammeName, new { htmlAttributes = new { @class = "sm-form-control", placeholder = " Programme Name" } })
+                        @Html.EditorFor(model => model.ProgrammeName, new { htmlAttributes = new { @class = "form-control", placeholder = " Programme Name" } })
                         @Html.ValidationMessageFor(model => model.ProgrammeName, "", new { @class = "text-danger" })
                     </div><br />
                 </div>
@@ -32,7 +32,7 @@
                     <div class="input-group divcenter">
                         @*@Html.LabelFor(model => model.ProgrammeName, htmlAttributes: new { @class = "input-group-addon" })*@
                         <span class="input-group-addon"><i class="icon-email2"> </i></span>
-                        @Html.DropDownList("ModuleId", null,  "---  Select Module Id ---", htmlAttributes: new { @class = "sm-form-control", @id = "ModuleId", placeholder = "Module" })
+                        @Html.DropDownList("ModuleId", null,  "---  Select Module Id ---", htmlAttributes: new { @class = "form-control", @id = "ModuleId", placeholder = "Module" })
                         @Html.ValidationMessageFor(model => model.ModuleId, "", new { @class = "text-danger" })
                     </div><br />
                     <input type="submit" value="Create" class="button button-3d button-rounded button-teal" style="float: right;" />

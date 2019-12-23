@@ -4,7 +4,7 @@
     ViewBag.Title = "IncomeTaxSlab";
     List<AJSolutions.Models.IncomeTaxSlab> slab = ViewData["Slabs"] as List<AJSolutions.Models.IncomeTaxSlab>;
 }
-@using (Html.BeginForm("IncomeTaxSlab", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal", id = "IncomeTaxSlab", role = "form" }))
+@using (Html.BeginForm("IncomeTaxSlab", "Admin", FormMethod.Post, new { @area = "Admin", @class = "form-horizontal needs-validation", id = "IncomeTaxSlab", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("Result", ViewBag.Result as string)
@@ -23,21 +23,21 @@
                     @Html.LabelFor(model => model.IncomeTaxSlabFrom, "Income Tax Slab From")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-banknote"> </i></span>
-                        @Html.EditorFor(model => model.IncomeTaxSlabFrom, new { htmlAttributes = new { @class = "sm-form-control required", id = "IncomeTaxSlabFrom", placeholder = "e.g. IncomeTaxSlabFrom" } })
+                        @Html.EditorFor(model => model.IncomeTaxSlabFrom, new { htmlAttributes = new { @class = "form-control required", id = "IncomeTaxSlabFrom", placeholder = "e.g. IncomeTaxSlabFrom" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.IncomeTaxSlabFrom, "", new { @class = "text-danger" })
                     <br /><br />
                     @Html.LabelFor(model => model.IncomeTaxSlabTo, "Income Tax Slab To")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.EditorFor(model => model.IncomeTaxSlabTo, new { htmlAttributes = new { @class = "sm-form-control required", id = "IncomeTaxSlabTo", placeholder = "e.g. IncomeTaxSlabTo" } })
+                        @Html.EditorFor(model => model.IncomeTaxSlabTo, new { htmlAttributes = new { @class = "form-control required", id = "IncomeTaxSlabTo", placeholder = "e.g. IncomeTaxSlabTo" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.IncomeTaxSlabTo, "", new { @class = "text-danger" })
                     <br /><br />
                     @Html.LabelFor(model => model.SecondaryAndHigherEducationCess, "Secondary And Higher EducationCess")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.EditorFor(model => model.SecondaryAndHigherEducationCess, new { htmlAttributes = new { @class = "sm-form-control required", id = "SecondaryAndHigherEducationCess", placeholder = "e.g. SecondaryAndHigherEducationCess" } })
+                        @Html.EditorFor(model => model.SecondaryAndHigherEducationCess, new { htmlAttributes = new { @class = "form-control required", id = "SecondaryAndHigherEducationCess", placeholder = "e.g. SecondaryAndHigherEducationCess" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.SecondaryAndHigherEducationCess, "", new { @class = "text-danger" })
                 </div>
@@ -45,13 +45,13 @@
                     @Html.LabelFor(model => model.IncomeTaxRate, "Income Tax Rate")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.EditorFor(model => model.IncomeTaxRate, new { htmlAttributes = new { @class = "sm-form-control required", id = "IncomeTaxRate", placeholder = "e.g. IncomeTaxRate" } })
+                        @Html.EditorFor(model => model.IncomeTaxRate, new { htmlAttributes = new { @class = "form-control required", id = "IncomeTaxRate", placeholder = "e.g. IncomeTaxRate" } })
                     </div>
                     <br /><br />
                     @Html.LabelFor(model => model.Educationcess, "Education cess")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-clock"></i></span>
-                        @Html.EditorFor(model => model.Educationcess, new { htmlAttributes = new { @class = "sm-form-control required", id = "Educationcess", placeholder = "e.g. Educationcess" } })
+                        @Html.EditorFor(model => model.Educationcess, new { htmlAttributes = new { @class = "form-control required", id = "Educationcess", placeholder = "e.g. Educationcess" } })
                     </div>
                     @Html.ValidationMessageFor(model => model.Educationcess, "", new { @class = "text-danger" })
 

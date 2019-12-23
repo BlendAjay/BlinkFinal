@@ -31,7 +31,7 @@
                         @Html.LabelFor(model => model.Name, "Name")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                            @Html.TextBoxFor(m => m.Name, new { @class = "sm-form-control required", placeholder = "e.g. john smith", id = "FullName" })
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "e.g. john smith", id = "FullName" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
@@ -41,11 +41,11 @@
                             <span class="input-group-addon"><i class="icon-mail"> </i></span>
                             @if (Model != null)
                             {
-                                @Html.TextBoxFor(m => m.EmailId, new { @class = "sm-form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email", @readonly = "readonly" })
                             }
                             else
                             {
-                                @Html.TextBoxFor(m => m.EmailId, new { @class = "sm-form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
+                                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control required email", placeholder = "e.g. xyz@domain.com", id = "Email" })
                             }
                         </div>
                         @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
@@ -56,11 +56,11 @@
                             <span class="input-group-addon"><i class="icon-phone"> </i></span>
                             @if (Model != null)
                             {
-                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "sm-form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber", @readonly = "readonly" })
                             }
                             else
                             {
-                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "sm-form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control required", placeholder = "e.g. +917876543456", id = "PhoneNumber" })
                             }
                         </div>
                         @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
@@ -69,14 +69,14 @@
                         @Html.LabelFor(m => m.Designation, "Designation")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"></i></span>
-                            @Html.TextBoxFor(m => m.Designation, new { @class = "sm-form-control required", placeholder = "e.g. Accountant", id = "Designation" })
+                            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control required", placeholder = "e.g. Accountant", id = "Designation" })
                         </div>
                     </div>
                     <div class="col_half ">
                         @Html.LabelFor(m => m.EmpRoleId, "Roles")<small>*</small>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-user2"></i></span>
-                            @Html.DropDownList("EmpRoleId", null, "---  Select Roles ---", htmlAttributes: new { @class = "sm-form-control required", id = "EmpRoleId" })
+                            @Html.DropDownList("EmpRoleId", null, "---  Select Roles ---", htmlAttributes: new { @class = "form-control required", id = "EmpRoleId" })
                         </div>
                     </div>
                     <div class="col_full" id="userRights">

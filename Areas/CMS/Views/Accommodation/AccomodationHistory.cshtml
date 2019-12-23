@@ -15,143 +15,107 @@
     }
 
 }
-
-<div class="si-sticky toast-top-left topmargin-sm">
-    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-        <i class="icon-question"></i>
-        <i class="icon-question"></i>
-    </a>
-</div>
-
 <div class="container">
     <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="page-header">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Candidate CheckOut</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="form-process"></div>
-        <div class="fancy-title title-bottom-border">
-            <h4>
-                Accommodation History
-            </h4>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col_one_third">
-            <label>Course<small>*</small></label>
-            <div class="input-group divcenter">
-                <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                @Html.DropDownList("CourseCode", null, "--- Select Course ---", htmlAttributes: new { @class = "sm-form-control", id = "CourseCode" })
-                @*@Html.ValidationMessageFor(model => model.CourseCode, "", new { @class = "text-danger" })*@
-            </div>
-        </div>
-        <div class="col_one_third">
-            <label>Batch<small>*</small></label>
-            <div class="input-group divcenter" id="Batch">
-                <span class="input-group-addon"><i class="icon-book3"> </i></span>
-                @Html.DropDownList("BatchId", null, "--- Select Batch ---", htmlAttributes: new { @class = "sm-form-control  ", id = "BatchId" })
-            </div>
-
-        </div>
-        <div class="col_one_third col_last filter-group" style="padding-top:2.4em">
-            <button type="button" id="btnSearch" class="btn btn-green btnalignleft" onclick="SendValue()" title="Search"><i class="icon-search2"></i></button>
-            <button type="button" class="btn btn-green btnalignleft" onclick="location.href='@Url.Action("AccomodationHistory", "Accommodation", new { Area = "CMS" })'" title="Clear"><i class="icon-pen"></i></button>
-        </div>
-    </div>
-    @if (Model != null)
-    {
-        if (Model.Count() > 0)
-        {
+        <h5 class="card-header">Candidate CheckOut</h5>
+        <div class="card-body">
             <div class="row">
-                <div class="col_half">
-                    Search By Name
-                    @Html.TextBox("FilterName", ViewBag.Name as string, new { @class = "sm-form-control", @id = "FilterName", placeholder = "Name" })
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Course<small>*</small></label>
+                    <div class="input-group divcenter">
+                        <span class="input-group-addon"><i class="icon-book3"> </i></span>
+                        @Html.DropDownList("CourseCode", null, "--- Select Course ---", htmlAttributes: new { @class = "form-control", id = "CourseCode" })
+                        @*@Html.ValidationMessageFor(model => model.CourseCode, "", new { @class = "text-danger" })*@
+                    </div>
                 </div>
-                <div class="col_half col_last">
-                    <br />
-                    <a href='#' onclick='javascript:submit();' class="button button-3d button-mini button-rounded button-teal">Search</a>
-
-                    @*<button type="submit" id="search" class="button button-3d button-mini button-rounded button-teal" title="click here to Search">Search</button>*@&nbsp;
-                    <button class="button button-3d button-mini button-rounded button-teal" id="buttonclear" title="click here to Clear Search">Clear</button>
-                </div>
-            </div><br />
-            <div class="row">
-
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped nobottommargin">
-                        <tr>
-                            <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.NameSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">Student Name&nbsp;<span class="icon-sort"></span></a></th>
-                            <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.CheckInSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">CheckInDate&nbsp;<span class="icon-sort"></span></a></th>
-                            <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.CheckOutSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">CheckOutDate&nbsp;<span class="icon-sort"></span></th>
-                        </tr>
-                        @foreach (var item in Model)
-                        {
-
-                            <tr>
-                                <td>@item.Name</td>
-                                <td>@item.CheckInDate</td>
-                                <td>@item.CheckOutDate</td>
-                            </tr>
-                        }
-                    </table>
-
-                </div>
-            </div>
-            <br />
-            <ul class="pagination">
-                <li>@Html.PagedListPager(Model, page => Url.Action("AccomodationHistory", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, page, PageSize = ViewBag.Paging }))</li>
-                <li>@Html.DropDownList("PageSize", null, htmlAttributes: new { @id = "PageSize", @onchange = "submitform();" })</li>
-            </ul>
-        }
-
-        else
-        {
-
-            <div class="feature-box fbox-center fbox-bg fbox-border fbox-effect">
-                <div class="fbox-icon">
-                    <i class="icon-thumbs-down2"></i>
-                </div>
-                <h3>No Accomodation History<span class="subtitle">Select Course & Batch</span></h3>
-            </div>
-        }
-    }
-
-</div>
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-body">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Help</h4>
-                </div>
-                <div class="modal-body" id="moBody">
-
-                    <div class="container-fluid">
-                        <div class="col_half">
-                            <p>
-                                This page contain details of accomodation history of all the candidates of a particular batch.                             </p>
-
-                        </div>
-                        <div class="col_half col_last">
-                            <div class="feature-box center media-box fbox-bg">
-                                <div class="fbox-media">
-
-                                    <a href="~/images/HelpImages/accomodationhistory.png" target="_blank" data-lightbox="gallery-item">
-                                        <img src="~/images/HelpImages/accomodationhistory.png" />
-
-                                    </a>
-
-
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Batch<small>*</small></label>
+                    <div class="input-group divcenter" id="Batch">
+                        <span class="input-group-addon"><i class="icon-book3"> </i></span>
+                        @Html.DropDownList("BatchId", null, "--- Select Batch ---", htmlAttributes: new { @class = "form-control  ", id = "BatchId" })
                     </div>
 
                 </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 filter-group">
+                    <br />
+                    <button type="button" id="btnSearch" class="btn btn-success btn-xs" onclick="SendValue()" title="Search">Search</button>
+                    <button type="button" class="btn btn-danger btn-xs" onclick="location.href='@Url.Action("AccomodationHistory", "Accommodation", new { Area = "CMS" })'" title="Clear">Clear</button>
+                </div>
             </div>
         </div>
+        @if (Model != null)
+        {
+            if (Model.Count() > 0)
+            {
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            Search By Name
+                            @Html.TextBox("FilterName", ViewBag.Name as string, new { @class = "form-control", @id = "FilterName", placeholder = "Name" })
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <br />
+                            <a href='#' onclick='javascript:submit();' class="btn btn-success btn-xs">Search</a>
+                            <button class="btn btn-danger btn-xs" id="buttonclear" title="click here to Clear Search">Clear</button>
+                        </div>
+                    </div><br />
+                    <div class="row">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped nobottommargin">
+                                <tr>
+                                    <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.NameSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">Student Name&nbsp;<span class="icon-sort"></span></a></th>
+                                    <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.CheckInSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">CheckInDate&nbsp;<span class="icon-sort"></span></a></th>
+                                    <th><a href="@Url.Action("AccomodationHistory", "Accommodation", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, sortOrder = ViewBag.CheckOutSortParam, FilterName = ViewBag.Name, CheckIn = ViewBag.CheckIn, checkOut = ViewBag.checkOut, page = ViewBag.Page, PageSize = ViewBag.Paging })">CheckOutDate&nbsp;<span class="icon-sort"></span></th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.CheckInDate</td>
+                                        <td>@item.CheckOutDate</td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <ul class="pagination">
+                    <li>@Html.PagedListPager(Model, page => Url.Action("AccomodationHistory", new { CourseCode = ViewBag.Course, BatchId = ViewBag.Batch, page, PageSize = ViewBag.Paging }))</li>
+                    <li>@Html.DropDownList("PageSize", null, htmlAttributes: new { @id = "PageSize", @onchange = "submitform();" })</li>
+                </ul>
+            }
+
+            else
+            {
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">No Accomodation History<span class="subtitle"> Select Course & Batch</span></h3>
+                    </div>
+                </div>
+            }
+        }
+
     </div>
 </div>
-
 @Html.Hidden("RedirectTo", Url.Action("AccomodationHistory", "Accommodation"));
 <script>
     function submitform() {
@@ -194,7 +158,7 @@
                 traditional: true,
                 success: function (data) {
                     $('.form-process').fadeOut()
-                    var batch = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='sm-form-control' id='BatchId'>";
+                    var batch = "   <span class='input-group-addon'><i class='icon-location'> </i></span><select class='form-control' id='BatchId'>";
                     batch = batch + '<option value="">--- Select Batch ---</option>';
                     for (var i = 0; i < data.length; i++) {
                         batch = batch + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
@@ -237,9 +201,10 @@
             });
             return false;
         }
-        if(coursecode !="" && batchid !="" ){
+        if (coursecode != "" && batchid != "") {
             var url = "AccomodationHistory?CourseCode=" + coursecode + "&BatchId=" + batchid;
-            window.location.href = url;}
+            window.location.href = url;
+        }
     }
 
 

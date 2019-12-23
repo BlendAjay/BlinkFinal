@@ -7,13 +7,6 @@
     IEnumerable<AddressViewModel> addresses = ViewData["AddressList"] as IEnumerable<AddressViewModel>;
 }
 
-<div class="si-sticky toast-top-left topmargin-sm">
-    <a href="#" class="social-icon si-rounded si-colored si-aim si-small" onclick="pagehelp();" title="Help For You">
-        <i class="icon-question"></i>
-        <i class="icon-question"></i>
-    </a>
-</div>
-
 @using (Html.BeginForm("AddressDetails", "CMS", FormMethod.Post, new { @class = "form-horizontal", id = "AddressDetails", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -44,7 +37,7 @@
 
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-road"> </i></span>
-                            @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control required", placeholder = "e.g. Street address, P.O. box, company name, c/o", id = "AddressLine1", required = "required" } })
+                            @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. Street address, P.O. box, company name, c/o", id = "AddressLine1", required = "required" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
                     </div>
@@ -57,63 +50,65 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.CountryId, "Select Country")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-location"> </i></span>
-                            @Html.DropDownList("CountryId", null, "---  Select Country ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Country", id = "CountryId", required = "required" })
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.CountryId, "Select Country")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.DropDownList("CountryId", null, "---  Select Country ---", htmlAttributes: new { @class = "form-control", placeholder = "Select Country", id = "CountryId", required = "required", @onchange="FillCity()" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.StateId, "Select State")<small>*</small>
-                        <div class="input-group divcenter" id="State">
-                            <span class="input-group-addon"><i class="icon-location"> </i></span>
-                            @Html.DropDownList("StateId", null, "---  Select State ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select State", id = "StateId", required = "required" })
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.StateId, "Select State")<small>*</small>
+                            <div class="input-group divcenter" id="State">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.DropDownList("StateId", null, "---  Select State ---", htmlAttributes: new { @class = "form-control", placeholder = "Select State", id = "StateId", required = "required" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.CityId, "Select City")<small>*</small>
-                        <div class="input-group divcenter" id="City">
-                            <span class="input-group-addon"><i class="icon-location"> </i></span>
-                            @Html.DropDownList("CityId", null, "---  Select City ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select City", id = "CityId", required = "required" })
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.CityId, "Select City")<small>*</small>
+                            <div class="input-group divcenter" id="City">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.DropDownList("CityId", null, "---  Select City ---", htmlAttributes: new { @class = "form-control", placeholder = "Select City", id = "CityId", required = "required" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.PostalCode, "Postal Code")
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-location"> </i></span>
-                            @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. 493554", id = "PostalCode" } })
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.PostalCode, "Postal Code")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-location"> </i></span>
+                                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. 493554", id = "PostalCode" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.FaxNo, "Fax No")
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-printer"> </i></span>
-                            @Html.EditorFor(model => model.FaxNo, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g.  234-1-345346", id = "FaxNo" } })
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.FaxNo, "Fax No")
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-printer"> </i></span>
+                                @Html.EditorFor(model => model.FaxNo, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g.  234-1-345346", id = "FaxNo" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FaxNo, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.FaxNo, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        @Html.LabelFor(model => model.AddressType, "Address Type")<small>*</small>
-                        <div class="input-group divcenter">
-                            <span class="input-group-addon"><i class="icon-line-anchor"> </i></span>
-                            @if (ViewBag.UserAction == "Edit")
-                            {
-                                @Html.DropDownList("AddressType", null, "---  Select Address Type ---", htmlAttributes: new { @disabled = "disabled", @class = "form-control required", @id = "AddressType", required = "required" })
-                            }
-                            else
-                            {
-                                @Html.DropDownList("AddressType", null, "---  Select Address Type ---", htmlAttributes: new { @class = "form-control required", @id = "AddressType", required = "required" })
-                            }
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.AddressType, "Address Type")<small>*</small>
+                            <div class="input-group divcenter">
+                                <span class="input-group-addon"><i class="icon-line-anchor"> </i></span>
+                                @if (ViewBag.UserAction == "Edit")
+                                {
+                                    @Html.DropDownList("AddressType", null, "---  Select Address Type ---", htmlAttributes: new { @disabled = "disabled", @class = "form-control required", @id = "AddressType", required = "required" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("AddressType", null, "---  Select Address Type ---", htmlAttributes: new { @class = "form-control", @id = "AddressType", required = "required" })
+                                }
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AddressType, "", new { @class = "text-danger" })
                         </div>
-                        @Html.ValidationMessageFor(model => model.AddressType, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <br />
                         @Html.Hidden("CorporateId", ViewBag.CorporateId as string)
                         <input type="submit" value="Submit" id="SubmitData" name="SubmitData" style="float: right;" class="btn btn-primary" />
                     </div>
@@ -139,7 +134,7 @@
                                 <li><i class="icon-location"></i> @item.City , @item.State</li>
                                 <li>
                                     <i class="icon-location"></i> @item.Country @if (!string.IsNullOrEmpty(item.PostalCode))
-                                    { <i> - </i> @item.PostalCode}
+                                    {<i> - </i> @item.PostalCode}
                                 </li>
                                 @if (!string.IsNullOrEmpty(item.FaxNo))
                                 {
@@ -164,7 +159,7 @@
                             <li><i class="icon-location"></i> @item.City , @item.State</li>
                             <li>
                                 <i class="icon-location"></i> @item.Country @if (!string.IsNullOrEmpty(item.PostalCode))
-                                { <i> - </i> @item.PostalCode}
+                                {<i> - </i> @item.PostalCode}
                             </li>
                             @if (!string.IsNullOrEmpty(item.FaxNo))
                             {
@@ -189,7 +184,7 @@
                                 <li><i class="icon-location"></i> @item.City , @item.State</li>
                                 <li>
                                     <i class="icon-location"></i> @item.Country @if (!string.IsNullOrEmpty(item.PostalCode))
-                                    { <i> - </i> @item.PostalCode}
+                                    {<i> - </i> @item.PostalCode}
                                 </li>
                                 @if (!string.IsNullOrEmpty(item.FaxNo))
                                 {
@@ -214,7 +209,7 @@
                             <li><i class="icon-location"></i> @item.City , @item.State</li>
                             <li>
                                 <i class="icon-location"></i> @item.Country @if (!string.IsNullOrEmpty(item.PostalCode))
-                                { <i> - </i> @item.PostalCode}
+                                {<i> - </i> @item.PostalCode}
                             </li>
                             @if (!string.IsNullOrEmpty(item.FaxNo))
                             {
@@ -229,216 +224,29 @@
     @Html.Hidden("RedirectTo", Url.Action("RemoveAddressDetails", "Dashboard"));
     @Html.Hidden("RedirectToHome", Url.Action("AddressDetails", "Dashboard"));
 
-    @*<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="Popup">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-body">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Help</h4>
-                        </div>
-                        <div class="modal-body" id="moBody">
-
-                            <div class="container-fluid">
-                                <div class="col_half">
-                                    <p>
-                                        This page contain address details of users. Users can fill different types of address like present, permanent and more.
-                                    </p>
-
-                                </div>
-                                <div class="col_half col_last">
-                                    <div class="feature-box center media-box fbox-bg">
-                                        <div class="fbox-media">
-
-                                            <a href="~/images/HelpImages/addressclient.png" target="_blank" data-lightbox="gallery-item">
-                                                <img src="~/images/HelpImages/addressclient.png" />
-                                            </a>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-    <div class="modal fade" id="Popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-body">
-                <div class="modal-content ">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel2"><b>Help & Support</b></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="tabs clearfix" id="tab-1">
-
-                            <ul class="tab-nav clearfix">
-                                <li><a href="#tabs-1"><nobr>Navigation</nobr></a></li>
-                                <li><a href="#tabs-2">Page Elements </a></li>
-                                <li><a href="#tabs-3">Video</a></li>
-                            </ul>
-
-
-                            <div class="tab-container">
-
-                                <div class="tab-content clearfix" id="tabs-1">
-                                    <h4> Navigation to Address </h4>
-
-                                    <img src="~/images/gif/navigation to adress.gif" alt="Save icon" />
-                                </div>
-                                <div class="tab-content clearfix" id="tabs-2">
-                                    <h6>Add Address Details. .  </h6>
-                                    <h6>You can Add/Edit Your Address Details.  </h6>
-                                    <h6>Navigation to Add address</h6>
-                                    <p>Click on Navigation bar My Account click on  Menu Item  "Address" .</p>
-                                    <img src="~/images/Images1/117.png" width="300" height="350" /><br>
-                                    </br>
-
-                                    <h6> 	Enter your address details.</h6>
-                                    <p>
-                                        <b>	Address Line 1- </b>  – Enter Address E.g.  Area Name, Street Address, P.O. Box, Company name.
-                                    </p>
-                                    <img src="~/images/Images1/119.PNG" width="612" height="82" />
-                                    <p>
-                                        •In Address Page, you can see Address Line 1 with Asterisk Mark means it is a  Mandatory field.
-                                        if you not enter details on this field validation appears in red
-                                    </p>
-                                    <img src="~/images/Images1/118.PNG" width="612" height="82" />
-                                    <p>
-                                        <b> Address Line 2- </b>  –  Enter Address E.g. Land Mark etc.
-                                    </p>
-                                    <img src="~/images/Images1/120.PNG" width="612" height="82" />
-
-
-
-                                    <h6>Country - Select Your Country.</h6>
-
-                                    <img src="~/images/Images1/121.png" width="300" height="350">
-                                    <p>
-                                        •In Address Page, you can see Select Country with Asterisk Mark means it is a Mandatory field.
-                                        if you not enter details on this field validation appears in red.
-                                    </p>
-                                    <img src="~/images/Images1/122.PNG" width="412" height="108" />
-                                    <h6>	Select State-select your state.</h6>
-                                    <img src="~/images/Images1/123.png" width="300" height="350">
-                                    <p>
-                                        •	In Address Page, you can see Select State with Asterisk Mark means it is a Mandatory field.
-                                        if you not enter details on this field validation appears in red.
-                                    </p>
-                                    <img src="~/images/Images1/124.png">
-
-                                    <h6>	Select City- Select your city.</h6>
-
-                                    <img src="~/images/Images1/125.png" width="455" height="347">
-
-                                    <p>
-                                        •In Address Page, you can see Select City with Asterisk Mark means it is a Mandatory field.
-                                        if you not enter details on this field validation appears in red.
-                                    </p>
-                                    <img src="~/images/Images1/126.PNG" width="418" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                                    <h6>	Postal code-Enter Postal Code of your City.</h6>
-                                    <img src="~/images/Images1/127.PNG" width="418" height="100">
-                                    <h6>	FAX No.-Enter Fax No.</h6>
-                                    <img src="~/images/Images1/133.PNG" width="418" height="100">
-
-                                    <h6>	Address type-Select Address type from the drop down  </h6>
-                                    <img src="~/images/Images1/130.png" width="350" height="300">
-                                    <p>
-                                        •In Address Page, you can see Address Type with Asterisk Mark means it is a Mandatory field.
-                                        if you not enter details on this field validation appears in red.
-                                    </p>
-                                    <img src="~/images/Images1/131.PNG" width="418" height="100">
-                                    <p>
-                                        •In Address Page, you can see Address line 1,Select country ,Select State ,Select city  & Address type
-                                        all are with Asterisk Mark means that they all are Mandatory field.
-                                        if you not enter details on this fields red color field Validation come on screen
-                                    </p>
-                                    <img src="~/images/Images1/132.PNG" width="450" height="350">
-                                    <h6>Enter all the details then Click on Submit button </h6>
-                                    <img src="~/images/Images1/134.PNG" width="450" height="350">
-                                    <p>•After clicking on submit button a popup window is open indicating that  that your data has been saved successfully.</p>
-                                    <img src="~/images/Images1/135.PNG" width="300" height="150">
-                                    <p>
-                                        •You can see your address details as a list at the bottom of address page,
-                                        from here you can edit and delete your address details
-                                    </p>
-                                    <img src="~/images/Images1/136.png" width="450" height="300">
-                                </div>
-                                <div class="tab-content clearfix" id="tabs-3">
-
-                                    <h4> Help video</h4>
-                                    <iframe style="width:100%;height:200px" src="https://www.youtube.com/embed/g066KqmUbIE" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 }
-
 <script type="text/javascript">
-
-    $("#AddressDetails").validate({
-        submitHandler: function (form) {
-            $('.form-process').fadeIn()
-            $.ajax({
-                type: "post",
-                url: "/CMS/Dashboard/AddressDetails",
-                data: {
-                    AddressType: $('#AddressType :selected').val(),
-                    AddressLine1: $('#AddressLine1').val(),
-                    AddressLine2: $('#AddressLine2').val(),
-                    CityId: $('#CityId').val(),
-                    StateId: $('#StateId').val(),
-                    PostalCode: $('#PostalCode').val(),
-                    CountryId: $('#CountryId').val(),
-                    FaxNo: $('#FaxNo').val()
-                },
-                datatype: "json",
-                traditional: true,
-                success: function (data) {
-                    $('.form-process').fadeOut()
-                    $.alert({
-                        title: 'Cheers',
-                        content: 'Your Data has been saved <b> SUCCESSFULLY.</b>',
-                        confirmButton: 'OK',
-                        confirmButtonClass: 'button button-3d button-rounded button-amber',
-                        icon: 'icon-thumbs-up icon-2x ',
-                        animation: 'zoom',
-                        confirm: function () {
-                            var url = $("#RedirectToHome").val();
-                            location.href = url;
-                        }
-                    });
-                }
+    function FillCity() 
+    alert("jdhfjdf");
+    var stateId = $('#State').val();
+    $.ajax({
+        url: '/Employees/FillCity',
+        type: "GET",
+        dataType: "JSON",
+        data: { State: stateId},
+        success: function (cities) {                    
+            $("#City").html(""); // clear before appending new list 
+            $.each(cities, function (i, city) {
+                $("#City").append(
+                    $('<option></option>').val(city.CityId).html(city.CityName));
             });
-
         }
     });
+  }
 
-    $(document).ready(function () {
-
+     $(document).ready(function () {
         $('#CountryId').change(function () {
+            alert("hello");
             $.ajax({
                 type: "post",
                 url: "/CMS/Dashboard/GetState",
@@ -478,6 +286,46 @@
         });
 
     });
+    $("#AddressDetails").validate({
+        submitHandler: function (form) {
+            $('.form-process').fadeIn()
+            $.ajax({
+                type: "post",
+                url: "/CMS/Dashboard/AddressDetails",
+                data: {
+                    AddressType: $('#AddressType :selected').val(),
+                    AddressLine1: $('#AddressLine1').val(),
+                    AddressLine2: $('#AddressLine2').val(),
+                    CityId: $('#CityId').val(),
+                    StateId: $('#StateId').val(),
+                    PostalCode: $('#PostalCode').val(),
+                    CountryId: $('#CountryId').val(),
+                    FaxNo: $('#FaxNo').val()
+                },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    $('.form-process').fadeOut()
+                    $.alert({
+                        title: 'Cheers',
+                        content: 'Your Data has been saved <b> SUCCESSFULLY.</b>',
+                        confirmButton: 'OK',
+                        confirmButtonClass: 'button button-3d button-rounded button-amber',
+                        icon: 'icon-thumbs-up icon-2x ',
+                        animation: 'zoom',
+                        confirm: function () {
+                            var url = $("#RedirectToHome").val();
+                            location.href = url;
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+
+
+   
 
     function ConfirmationDialog(AddressType) {
         $.confirm({

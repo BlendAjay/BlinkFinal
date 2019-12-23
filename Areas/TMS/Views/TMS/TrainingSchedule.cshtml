@@ -19,7 +19,7 @@
     List<PublicationView> asstment = ViewData["Assessments"] as List<PublicationView>;
 }
 
-@using (Html.BeginForm("TrainingSchedule", "TMS", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", id = "TrainingSchedule", role = "form" }))
+@using (Html.BeginForm("TrainingSchedule", "TMS", FormMethod.Post, new { @class = "form-horizontal needs-validation", enctype = "multipart/form-data", id = "TrainingSchedule", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TrainingId, new { htmlAttributes = new { @id = "TrainingId" } })
@@ -52,50 +52,41 @@
                 <div class="card-body">
                     @if (Model == null)
                     {
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => model.SubjectLine, " Subject")<small>*</small>
-                            <div class="input-group divcenter">
-                                <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control required ", id = "SubjectLine", placeholder = "Enter Subject", required = "required" } })
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
-                            <div class="input-group divcenter">
-                                <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => model.BatchId, " Select Batch")<small>*</small>
-                            <div class="input-group divcenter" id="Batch">
-
-                                <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId", @readonly = "readonly", required = "required" })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                            <br />
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => model.TaskId, "Task")
-                            <div class="input-group divcenter">
-                                <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                @Html.DropDownList("TaskId", null, "---  Select Task ---", htmlAttributes: new { @class = "form-control", placeholder = "Select Task", id = "TaskId" })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
-                            <br>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
-                            @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", required = "required" })
-                            <div id="textarea_feedback" class="text-danger"></div>
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-
-                        </div>
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.SubjectLine, " Subject")<small>*</small>
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                    @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control ", id = "SubjectLine", placeholder = "Enter Subject", required = "required" } })
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.BatchId, " Select Batch")<small>*</small>
+                                <div class="input-group divcenter" id="Batch">
+
+                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId", @readonly = "readonly", required = "required" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
+                                <br />
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
+                                @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", required = "required" })
+                                <div id="textarea_feedback" class="text-danger"></div>
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Address, "Venue")<small>*</small>
                                 <div class="input-group divcenter">
                                     <span class="input-group-addon"><i class="icon-road"> </i></span>
@@ -103,7 +94,7 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.TrainerId, "Primary Trainer")<small>*</small>
                                 <div class="input-group divcenter">
                                     <span class="input-group-addon"><i class="icon-user2"> </i></span>
@@ -111,268 +102,178 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.TrainerId, "", new { @class = "text-danger" })
                             </div>
-                        </div>
-                        @*<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.LabelFor(model => model.OtherTrainerId, "Other Trainers")
-                                @Html.DropDownList("OtherTrainerId", null, "---Select Other Trainer ---", htmlAttributes: new { id = "OtherTrainerId", @multiple = "multiple", @class = "required", required = "required" })
-                                @Html.ValidationMessageFor(model => model.OtherTrainerId)
-                            </div>*@
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                            @Html.LabelFor(model => model.TrainerMentor, "Location Co-ordinator")
-                            <div class="input-group divcenter">
-                                <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                @Html.DropDownList("TrainerMentor", null, "---Select Co-ordinator---", htmlAttributes: new { id = "TrainerMentor", placeholder = "Select Mentor Trainer", @class = "form-control" })
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.TrainerMentor, "Location Co-ordinator")
+                                <div class="input-group divcenter">
+                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                    @Html.DropDownList("TrainerMentor", null, "---Select Co-ordinator---", htmlAttributes: new { id = "TrainerMentor", placeholder = "Select Mentor Trainer", @class = "form-control" })
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                        </div>
-                        <br />
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="fancy-title title-bottom-border">
-                                <label>ATTACHMENT</label><small> (If Any)</small>
-                                <h4></h4>
-                            </div>
-
-                            <div class="row">
+                            <br /><br />
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="fancy-title title-bottom-border">
+                                    <label>ATTACHMENT</label><small> (If Any)</small>
+                                </div>
                                 <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" />
                                 @if (content != null)
                                 {
                                     <a href="~/File/TrainingScheduleAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
                                 }
+                                <br />
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="fancy-title title-bottom-border">
-                                <label>Assessment</label><small> (If Any)</small>
-                                <a href="javascript: LoginToPrelore();" target="_blank" class="button button-3d button-mini button-rounded button-green pull-right">Create Assessment</a>
-                                <h5></h5>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="fancy-title title-bottom-border">
+                                    <label>Assessment</label><small> (If Any)</small>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="customFields" class="table table-bordered nobottommargin">
+                                        <tr>
+                                            <th>Assessment</th>
+                                            <th>Weightage</th>
+                                            <th>Add/Remove</th>
+                                        <tr />
+                                        @if (assessment.Count() > 0)
+                                        {
+                                            var cnt = 0;
+                                            foreach (var Item in assessment)
+                                            {
+                                                <tr>
+                                                    <td style="display:none">
+                                                        <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="@Item.AssessmentId" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="@Item.Assessment" placeholder="Assessment Name" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="@Item.Weightage" placeholder="Weightage" />
+                                                    </td>
+                                                    @*<td style="display:none">
+                                                            <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" value="@Item.StartDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
+                                                        </td>
+                                                        <td style="display:none">
+                                                            <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" value="@Item.EndDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
+                                                        </td>
+                                                        <td style="display:none">
+                                                            <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" value="@Item.StartTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
+                                                        </td>
+                                                        <td style="display:none">
+                                                            <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" value="@Item.EndTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal" onclick="ShowSchedule(this)">Schedule</a>
+                                                        </td>*@
+                                                    <td>
+                                                        @if (cnt == 0)
+                                                        {
+                                                            <a href="javascript:void(0);" id="addCF">Add</a> }
+                                                        else
+                                                        { <a href="javascript:void(0);" id="delCF">Remove</a>}
+                                                    </td>
 
-                            </div>
-                            <div class="table-responsive">
-                                <table id="customFields" class="table table-bordered nobottommargin">
-                                    <tr>
-                                        <th>Assessment</th>
-                                        <th style="width:5%">Weightage</th>
-                                        <th>Select Assessment</th>
-                                        <th></th>
-                                        <th></th>
-                                    <tr />
-                                    @if (assessment.Count() > 0)
-                                    {
-                                        var cnt = 0;
-                                        foreach (var Item in assessment)
+                                                </tr>
+                                                cnt++;
+                                            }
+                                        }
+                                        else
                                         {
                                             <tr>
-                                                <td class="hidden">
-                                                    <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="@Item.AssessmentId" />
+                                                <td style="display:none">
+                                                    <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="0" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="@Item.Assessment" placeholder="Assessment Name" />
+                                                    <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="" placeholder="Assessment Name" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="@Item.Weightage" placeholder="Weightage" />
+                                                    <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="" placeholder="Weightage" />
                                                 </td>
+                                                @*<td style="display:none">
+                                                        <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" placeholder="DD/MM/YYYY" />
+                                                    </td>
+                                                    <td style="display:none">
+                                                        <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" placeholder="DD/MM/YYYY" />
+                                                    </td>
+                                                    <td style="display:none">
+                                                        <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" placeholder="00:00 AM/PM" />
+                                                    </td>
+                                                    <td style="display:none">
+                                                        <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" placeholder="00:00 AM/PM" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal">Schedule</a>
+                                                    </td>*@
                                                 <td>
-                                                    <select class="PublicationId form-control" id="PublicationId" name="PublicationId[]" placeholder="Publication">
-                                                        <option selected="selected" value="0">--Select Assessment--</option>
-                                                        @if (ViewData["Assessments"] != null)
-                                                        {
-                                                            foreach (var asst in ViewData["Assessments"] as List<PublicationView>)
-                                                            {
-                                                                if (asst.PublicationId == Item.PublicationId)
-                                                                {
-                                                                    <option selected="selected" value="@asst.PublicationId">@asst.Title</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@asst.PublicationId">@asst.Title</option>
-                                                                }
-                                                            }
-                                                        }
-                                                    </select>
-                                                </td>
-                                                <td class="hidden">
-                                                    <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" value="@Item.StartDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
-                                                </td>
-                                                <td class="hidden">
-                                                    <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" value="@Item.EndDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
-                                                </td>
-                                                <td class="hidden">
-                                                    <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" value="@Item.StartTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
-                                                </td>
-                                                <td class="hidden">
-                                                    <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" value="@Item.EndTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal" onclick="ShowSchedule(this)">Schedule</a>
-                                                </td>
-                                                <td>
-                                                    @if (cnt == 0)
-                                                    {
-                                                        <a href="javascript:void(0);" id="addCF">Add</a> }
-                                                    else
-                                                    {  <a href="javascript:void(0);" id="delCF">Remove</a>}
+                                                    <a href="javascript:void(0);" id="addCF">Add</a>
                                                 </td>
 
                                             </tr>
-                                                    cnt++;
                                         }
-                                    }
-                                    else
-                                    {
-                                        <tr>
-                                            <td class="hidden">
-                                                <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="0" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="" placeholder="Assessment Name" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="" placeholder="Weightage" />
-                                            </td>
-                                            <td>
-                                                <select class="PublicationId form-control" id="PublicationId" name="PublicationId[]" placeholder="Publication">
-                                                    <option selected="selected" value="0">--Select Assessment--</option>
-                                                    @if (ViewData["Assessments"] != null)
-                                                    {
-                                                        foreach (var item in ViewData["Assessments"] as List<PublicationView>)
-                                                        {
-                                                            <option value="@item.PublicationId">@item.Title</option>
-                                                        }
-                                                    }
-                                                </select>
-                                            </td>
-                                            <td class="hidden">
-                                                <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" placeholder="DD/MM/YYYY" />
-                                            </td>
-                                            <td class="hidden">
-                                                <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" placeholder="DD/MM/YYYY" />
-                                            </td>
-                                            <td class="hidden">
-                                                <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" placeholder="00:00 AM/PM" />
-                                            </td>
-                                            <td class="hidden">
-                                                <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" placeholder="00:00 AM/PM" />
-                                            </td>
-                                            <td>
-                                                <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal">Schedule</a>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0);" id="addCF">Add</a>
-                                            </td>
-
-                                        </tr>
-                                    }
-                                </table>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     }
                     else
                     {
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @if (Model.Status == "Assigned")
-                            {
-                                @Html.LabelFor(model => model.SubjectLine, "Subject")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control required ", id = "SubjectLine", placeholder = "Enter Subject", required = "required" } })
-                                </div>
-                                <br>
-                            }
-                            else
-                            {
-                                @Html.LabelFor(model => model.SubjectLine, "Subject")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control required ", id = "SubjectLine", placeholder = "Enter Subject", @readonly = "readonly", required = "required" } })
-                                </div>
-                                <br>
-                            }
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @if (Model.Status == "Assigned")
-                            {
-                                @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
-                                </div>
-                                <br>
-                            }
-                            else
-                            {
-                                @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
-                                </div>
-                                <br>
-                            }
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @if (Model.Status == "Assigned")
-                            {
-                                @Html.LabelFor(model => model.BatchId, " Select Batch")<small>*</small>
-                                <div class="input-group divcenter" id="Batch">
-
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId", @readonly = "readonly", required = "required" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                                <br />
-                            }
-                            else
-                            {
-                                @Html.LabelFor(model => model.BatchId, " Select Batch")<small>*</small>
-                                <div class="input-group divcenter" id="Batch">
-
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("BatchId", null, "---  Select Batch ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Batch", id = "BatchId", @readonly = "readonly", required = "required" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.BatchId, "", new { @class = "text-danger" })
-                                <br />
-                            }
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @if (Model.Status == "Assigned")
-                            {
-                                @Html.LabelFor(model => model.TaskId, "Task")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("TaskId", null, "---  Select Task ---", htmlAttributes: new { @class = "form-control", placeholder = "Select Task", id = "TaskId" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
-                                <br>
-                            }
-                            else
-                            {
-                                @Html.LabelFor(model => model.TaskId, "Task")
-                                <div class="input-group divcenter">
-                                    <span class="input-group-addon"><i class="icon-user2"> </i></span>
-                                    @Html.DropDownList("TaskId", null, "---  Select Task ---", htmlAttributes: new { @class = "form-control", placeholder = "Select Task", id = "TaskId", @disabled = "disabled" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
-                                <br>
-                            }
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            @if (Model.Status == "Assigned")
-                            {
-                                @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
-                                @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", required = "required" })
-                                <div id="textarea_feedback" class="text-danger"></div>
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            }
-                            else
-                            {
-                                @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
-                                @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", @readonly = "readonly", required = "required" })
-                                <div id="textarea_feedback" class="text-danger"></div>
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            }
-                        </div>
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @if (Model.Status == "Assigned")
+                                {
+                                    @Html.LabelFor(model => model.SubjectLine, "Subject")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                        @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control required ", id = "SubjectLine", placeholder = "Enter Subject", required = "required" } })
+                                    </div>
+                                    <br>
+                                }
+                                else
+                                {
+                                    @Html.LabelFor(model => model.SubjectLine, "Subject")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                        @Html.EditorFor(model => model.SubjectLine, new { htmlAttributes = new { @class = "form-control required ", id = "SubjectLine", placeholder = "Enter Subject", @readonly = "readonly", required = "required" } })
+                                    </div>
+                                    <br>
+                                }
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @if (Model.Status == "Assigned")
+                                {
+                                    @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                        @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
+                                    </div>
+                                    <br>
+                                }
+                                else
+                                {
+                                    @Html.LabelFor(model => CourseeM.CourseCode, " Select Course")<small>*</small>
+                                    <div class="input-group divcenter">
+                                        <span class="input-group-addon"><i class="icon-user2"> </i></span>
+                                        @Html.DropDownList("CourseCode", null, "---  Select Course ---", htmlAttributes: new { @class = "form-control required", placeholder = "Select Course", id = "CourseCode", @disabled = "disabled", required = "required" })
+                                    </div>
+                                    <br>
+                                }
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                @if (Model.Status == "Assigned")
+                                {
+                                    @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
+                                    @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", required = "required" })
+                                    <div id="textarea_feedback" class="text-danger"></div>
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                }
+                                else
+                                {
+                                    @Html.LabelFor(model => model.Description, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
+                                    @Html.TextAreaFor(model => model.Description, 5, 124, htmlAttributes: new { @class = "form-control required", id = "Description", @placeholder = "Description here..", @readonly = "readonly", required = "required" })
+                                    <div id="textarea_feedback" class="text-danger"></div>
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                }
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 @if (Model.Status == "Assigned")
                                 {
                                     @Html.LabelFor(model => model.Address, "Venue")<small>*</small>
@@ -395,7 +296,7 @@
                                 }
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.TrainerId, "Primary Trainer")<small>*</small>
                                 <div class="input-group divcenter">
                                     <span class="input-group-addon"><i class="icon-user2"> </i></span>
@@ -405,13 +306,7 @@
                                 <br>
                             </div>
                         </div>
-                        @*<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.LabelFor(model => model.OtherTrainerId, "Other Trainers")
-                                @Html.DropDownList("OtherTrainerId", null, "---Select Other Trainer ---", htmlAttributes: new { id = "OtherTrainerId", @multiple = "multiple", @class = "required", required = "required" })
-                                @Html.ValidationMessageFor(model => model.OtherTrainerId)
-                                <br>
-                            </div>*@
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                             @Html.LabelFor(model => model.TrainerMentor, "Mentor")
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-user2"> </i></span>
@@ -420,216 +315,175 @@
                             @Html.ValidationMessageFor(model => model.TrainerMentor)
                             <br>
                         </div>
-
-                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                        <div class="row">
-                            <div class="fancy-title title-bottom-border">
-                                <label>ATTACHMENT</label><small> (If Any)</small>
-                                <h4></h4>
-                            </div>
-
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                @if (Model.Status == "Assigned")
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            @if (Model.Status == "Assigned")
+                            {
+                                <label>ATTACHMENT</label>
+                                <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" />
+                                if (content != null)
                                 {
-                                    <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" />
-                                    if (content != null)
-                                    {
-                                        <a href="~/File/TrainingScheduleAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
-                                    }
+                                    <a href="~/File/TrainingScheduleAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
                                 }
-                                else
+                            }
+                            else
+                            {
+                                <label>ATTACHMENT</label>
+                                <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" disabled="disabled" />
+                                if (content != null)
                                 {
-                                    <input id="uploadImage" type="file" name="uploadPhoto" class="form-control" disabled="disabled" />
-                                    if (content != null)
-                                    {
-                                        <a href="~/File/TrainingScheduleAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
-                                    }
+                                    <a href="~/File/TrainingScheduleAttachment?id=@content.FileId" alt="CV" target="_blank">( Click here to download your attachment)</a>
                                 }
-                            </div>
+                            }
                         </div>
 
-                        <div class="row">
-                            <div class="fancy-title title-bottom-border">
-                                <label>Assessment</label><small> (If Any)</small>
-                                <a href="javascript: LoginToPrelore();" target="_blank" class="button button-3d button-mini button-rounded button-green pull-right">Create Assessment</a>
-                                <h5></h5>
+                        <div class="fancy-title title-bottom-border">
+                            <label>Assessment</label><small> (If Any)</small>
+                            <h5></h5>
 
-                            </div>
-                            <div class="table-responsive">
-                                <table id="customFields" class="table table-bordered nobottommargin">
-                                    <tr>
-                                        <th>Assessment</th>
-                                        <th style="width:5%">Weightage</th>
-                                        <th>Select Assessment</th>
-                                        <th></th>
-                                        <th></th>
-                                    <tr />
-                                    @if (assessment.Count() > 0)
+                        </div>
+                        <div class="table-responsive">
+                            <table id="customFields" class="table table-bordered nobottommargin">
+                                <tr>
+                                    <th>Assessment</th>
+                                    <th>Weightage</th>
+                                    <th></th>
+                                <tr />
+                                @if (assessment.Count() > 0)
+                                {
+                                    var cnt = 0;
+                                    foreach (var Item in assessment)
                                     {
-                                        var cnt = 0;
-                                        foreach (var Item in assessment)
-                                        {
-                                            <tr>
-                                                <td class="hidden">
-                                                    <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="@Item.AssessmentId" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="@Item.Assessment" placeholder="Assessment Name" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="@Item.Weightage" placeholder="Weightage" />
-                                                </td>
-                                                <td>
-                                                    <select class="PublicationId form-control" id="PublicationId" name="PublicationId[]" placeholder="Publication">
-                                                        <option selected="selected" value="0">--Select Assessment--</option>
-                                                        @if (ViewData["Assessments"] != null)
-                                                        {
-                                                            foreach (var asst in ViewData["Assessments"] as List<PublicationView>)
-                                                            {
-                                                                if (asst.PublicationId == Item.PublicationId)
-                                                                {
-                                                                    <option selected="selected" value="@asst.PublicationId">@asst.Title</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@asst.PublicationId">@asst.Title</option>
-                                                                }
-                                                            }
-                                                        }
-                                                    </select>
-                                                </td>
-                                                <td class="hidden">
+                                        <tr>
+                                            <td style="display:none">
+                                                <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="@Item.AssessmentId" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="@Item.Assessment" placeholder="Assessment Name" />
+                                            </td>
+                                            <td>
+                                                <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="@Item.Weightage" placeholder="Weightage" />
+                                            </td>
+                                            @*<td style="display:none">
                                                     <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" value="@Item.StartDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
                                                 </td>
-                                                <td class="hidden">
+                                                <td style="display:none">
                                                     <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" value="@Item.EndDate.ToString("dd/MM/yyyy")" placeholder="DD/MM/YYYY" />
                                                 </td>
-                                                <td class="hidden">
+                                                <td style="display:none">
                                                     <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" value="@Item.StartTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
                                                 </td>
-                                                <td class="hidden">
+                                                <td style="display:none">
                                                     <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" value="@Item.EndTime.ToString("hh:mm tt")" placeholder="00:00 AM/PM" />
                                                 </td>
                                                 <td>
                                                     <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal" onclick="ShowSchedule(this)">Schedule</a>
-                                                </td>
-                                                <td>
-                                                    @if (cnt == 0)
-                                                    {
-                                                        <a href="javascript:void(0);" id="addCF">Add</a> }
-                                                    else
-                                                    {  <a href="javascript:void(0);" id="delCF">Remove</a>}
-                                                </td>
+                                                </td>*@
+                                            <td>
+                                                @if (cnt == 0)
+                                                {
+                                                    <a href="javascript:void(0);" id="addCF">Add</a> }
+                                                else
+                                                { <a href="javascript:void(0);" id="delCF">Remove</a>}
+                                            </td>
 
-                                            </tr>
-                                                    cnt++;
-                                        }
+                                        </tr>
+                                        cnt++;
                                     }
-                                    else
-                                    {
-                                        <tr>
-                                            <td class="hidden">
-                                                <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="0" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="" placeholder="Assessment Name" />
-                                            </td>
-                                            <td>
-                                                <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="" placeholder="Weightage" />
-                                            </td>
-                                            <td>
-                                                <select class="PublicationId form-control" id="PublicationId" name="PublicationId[]" placeholder="Publication">
-                                                    <option selected="selected" value="0">--Select Assessment--</option>
-                                                    @if (ViewData["Assessments"] != null)
-                                                    {
-                                                        foreach (var item in ViewData["Assessments"] as List<PublicationView>)
-                                                        {
-                                                            <option value="@item.PublicationId">@item.Title</option>
-                                                        }
-                                                    }
-                                                </select>
-                                            </td>
-                                            <td class="hidden">
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td style="display:none">
+                                            <input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]" value="0" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="Assessment form-control" id="Assessment" name="Assessment[]" value="" placeholder="Assessment Name" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="" placeholder="Weightage" />
+                                        </td>
+                                        @*<td style="display:none">
                                                 <input type="text" class="StartDate form-control" id="StartDate" name="StartDate[]" placeholder="DD/MM/YYYY" />
                                             </td>
-                                            <td class="hidden">
+                                            <td style="display:none">
                                                 <input type="text" class="EndDate form-control" id="EndDate" name="EndDate[]" placeholder="DD/MM/YYYY" />
                                             </td>
-                                            <td class="hidden">
+                                            <td style="display:none">
                                                 <input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" placeholder="00:00 AM/PM" />
                                             </td>
-                                            <td class="hidden">
+                                            <td style="display:none">
                                                 <input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" placeholder="00:00 AM/PM" />
                                             </td>
                                             <td>
                                                 <a href="#" id="ShowSchedule" class="ShowSchedules" data-toggle="modal">Schedule</a>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0);" id="addCF">Add</a>
-                                            </td>
+                                            </td>*@
+                                        <td>
+                                            <a href="javascript:void(0);" id="addCF">Add</a>
+                                        </td>
 
-                                        </tr>
-                                    }
-                                </table>
-                            </div>
+                                    </tr>
+                                }
+                            </table>
                         </div>
                     }
+                    <br />
+                    <input type="submit" id="SubmitForm" value="Submit" style="float: right;" class="btn btn-primary" />
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="ModSchedule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-body">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="mySchedule">Assessment Schedule</h4>
-                    </div>
-                    <div class="modal-body" id="ScheduleBody">
-                        <div class="container">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.Label("StartDate", "Available From")<small>*</small>
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" class="StartDate1 form-control  past-enabled required" id="StartDate1" placeholder="DD/MM/YYYY" required="required" />
+    @*<div class="modal fade" id="ModSchedule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-body">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="mySchedule">Assessment Schedule</h4>
+                        </div>
+                        <div class="modal-body" id="ScheduleBody">
+                            <div class="container">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    @Html.Label("StartDate", "Available From")<small>*</small>
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" class="StartDate1 form-control  past-enabled required" id="StartDate1" placeholder="DD/MM/YYYY" required="required" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.Label("EndDate", "Available Till")<small>*</small>
-                                <div class="input-group divcenter travel-date-group">
-                                    <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                                    <input type="text" class="EndDate1 form-control  past-enabled required" id="EndDate1" placeholder="DD/MM/YYYY" required="required" />
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    @Html.Label("EndDate", "Available Till")<small>*</small>
+                                    <div class="input-group divcenter travel-date-group">
+                                        <span class="input-group-addon"><i class="icon-calendar"> </i></span>
+                                        <input type="text" class="EndDate1 form-control  past-enabled required" id="EndDate1" placeholder="DD/MM/YYYY" required="required" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="clear"></div>
-                            @Html.Label("Time of availability")
-                            <div class="clear"></div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.Label("StartTime", "From")<small>*</small>
-                                <div class="input-group divcenter datetimepicker1">
-                                    <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                                    <input type="text" class="StartTime1 tleft form-control forTime required" id="StartTime1" placeholder="00:00 AM/PM" required="required" />
+                                <div class="clear"></div>
+                                @Html.Label("Time of availability")
+                                <div class="clear"></div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    @Html.Label("StartTime", "From")<small>*</small>
+                                    <div class="input-group divcenter datetimepicker1">
+                                        <span class="input-group-addon"><i class="icon-clock"> </i></span>
+                                        <input type="text" class="StartTime1 tleft form-control forTime required" id="StartTime1" placeholder="00:00 AM/PM" required="required" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                @Html.Label("EndTime", "Till")<small>*</small>
-                                <div class="input-group divcenter datetimepicker1">
-                                    <span class="input-group-addon"><i class="icon-clock"> </i></span>
-                                    <input type="text" class="EndTime1 tleft form-control forTime required" id="EndTime1" placeholder="00:00 AM/PM" required="required" />
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    @Html.Label("EndTime", "Till")<small>*</small>
+                                    <div class="input-group divcenter datetimepicker1">
+                                        <span class="input-group-addon"><i class="icon-clock"> </i></span>
+                                        <input type="text" class="EndTime1 tleft form-control forTime required" id="EndTime1" placeholder="00:00 AM/PM" required="required" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-                                <button type="button" class="btn btn-primary" onclick="javascript: AddSchedule();">Schedule</button>
+                                    <button type="button" class="btn btn-primary" onclick="javascript: AddSchedule();">Schedule</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
     @Html.Hidden("RedirectTo", Url.Action("CourseDetail", "TMS", new { area = "TMS", CourseCode = @ViewBag.Course }))
     @Html.Hidden("RedirectToPrelore", Url.Action("LoginToPrelore", "TMS"))
     @*@Html.Hidden("SelBatch")*@
@@ -640,6 +494,7 @@
 }
 
 <script type="text/javascript">
+
     $(document).on("keydown", "#Weightage", function () {
         if ($("#Weightage").val() != undefined || $('#Weightage').val() != '') {
             // Allow: backspace, delete, tab, escape, and enter
@@ -676,7 +531,6 @@
         }
     });
 
-
     $(document).ready(function () {
 
         var text_max = 1024;
@@ -699,7 +553,6 @@
     $("#TrainingSchedule").validate({
         submitHandler: function (form) {
             $('.form-process').fadeIn()
-
             var formData = new FormData();
             var totalFiles = document.getElementById("uploadImage").files.length;
             for (var i = 0; i < totalFiles; i++) {
@@ -739,31 +592,31 @@
             });
 
 
-            if(publicationId.length > 0)
-            {
-                var i=0
-                for(i=0;i<publicationId.length;i++)
-                {
-                    if(publicationId[i] != 0)
-                    {
-                        if(startDate[i] =="" || endDate[i] =="" || startTime[i] =="" || endTime[i] =="")
-                        {
-                            $('.form-process').fadeOut()
-                            $.alert({
-                                title: 'Cheers',
-                                content: 'You selected online assessment '+ pTitle[i] +' on line number '+ (i+1) +' <b> Please schedule date and time for the assessment</b>',
-                                confirmButton: 'OK',
-                                confirmButtonClass: 'button button-3d button-rounded button-amber',
-                                icon: 'icon-thumbs-down icon-2x ',
-                                animation: 'zoom',
-                                confirm: function () {
-                                }
-                            });
-                            return false;
-                        }
-                    }
-                }
-            }
+            //if(publicationId.length > 0)
+            //{
+            //    var i=0
+            //    for(i=0;i<publicationId.length;i++)
+            //    {
+            //        if(publicationId[i] != 0)
+            //        {
+            //            if(startDate[i] =="" || endDate[i] =="" || startTime[i] =="" || endTime[i] =="")
+            //            {
+            //                $('.form-process').fadeOut()
+            //                $.alert({
+            //                    title: 'Cheers',
+            //                    content: 'You selected online assessment '+ pTitle[i] +' on line number '+ (i+1) +' <b> Please schedule date and time for the assessment</b>',
+            //                    confirmButton: 'OK',
+            //                    confirmButtonClass: 'button button-3d button-rounded button-amber',
+            //                    icon: 'icon-thumbs-down icon-2x ',
+            //                    animation: 'zoom',
+            //                    confirm: function () {
+            //                    }
+            //                });
+            //                return false;
+            //            }
+            //        }
+            //    }
+            //}
             $.ajax({
                 type: "post",
                 url: "/TMS/TMS/TrainingSchedule",
@@ -774,6 +627,9 @@
                     Description: $('#Description').val(),
                     TrainerId: $('#TrainerId').val(),
                     OtherTrainerId:$('#OtherTrainerId').val(),
+                    //CountryId: $('#CountryId :selected').val(),
+                    //StateId: $('#State :selected').val(),
+                    //CityId: $('#City :selected').val(),
                     Address: $('#Address').val(),
                     TaskId: $('#TaskId :selected').val(),
                     Status: $('#Status').val(),
@@ -887,14 +743,13 @@
         var rowCount = $('#customFields tr').length;
         var Rowid = "ShowSchedule" + rowCount;
 
-        $("#customFields").append('<tr> <td class="hidden"><input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]"  /></td>'+
+        $("#customFields").append('<tr> <td style = "display:none"><input type="text" class="AssessmentId form-control" id="AssessmentId" name="AssessmentId[]"  /></td>'+
                                         '<td><input type="text" class="code form-control" id="Assessment" name="Assessment[]" value="" placeholder="Assessment Name" /></td>' +
                                         '<td><input type="text" class="Weightage form-control" id="Weightage" name="Weightage[]" value="" placeholder="Weightage" /></td>' +
-                                        '<td>' + Publication + '</td>' +
-                                        '<td class="hidden"><input type="text" class="StartDate form-control  past-enabled" id="StartDate" name="StartDate[]" placeholder="DD/MM/YYYY" /></td>'+
-                                        '<td class="hidden"><input type="text" class="EndDate form-control  past-enabled" id="EndDate" name="EndDate[]" placeholder="DD/MM/YYYY" /></td>'+
-                                        '<td class="hidden"><input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" placeholder="00:00 AM/PM" /></td>'+
-                                        '<td class="hidden"><input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" placeholder="00:00 AM/PM" /></td>'+
+                                        '<td style = "display:none"><input type="text" class="StartDate form-control  past-enabled" id="StartDate" name="StartDate[]" placeholder="DD/MM/YYYY" /></td>'+
+                                        '<td style = "display:none"><input type="text" class="EndDate form-control  past-enabled" id="EndDate" name="EndDate[]" placeholder="DD/MM/YYYY" /></td>'+
+                                        '<td style = "display:none"><input type="text" class="StartTime form-control" id="StartTime" name="StartTime[]" placeholder="00:00 AM/PM" /></td>'+
+                                        '<td style = "display:none"><input type="text" class="EndTime form-control" id="EndTime" name="EndTime[]" placeholder="00:00 AM/PM" /></td>'+
                                         '<td><a href="#" id="ShowSchedule"  class="ShowSchedules" data-toggle="modal" >Schedule</a></td>' +
                                         '<td><a href="javascript:void(0);" id="remCF">Remove</a></td></tr>'
                                   );

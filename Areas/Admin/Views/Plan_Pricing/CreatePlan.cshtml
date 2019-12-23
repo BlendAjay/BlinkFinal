@@ -25,7 +25,7 @@
                         @Html.LabelFor(model => model.PlanName, "Plan Name")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.PlanName, new { htmlAttributes = new { @class = "sm-form-control required", id = "PlanName", @Placeholder = "Enter Plan Name" } })
+                            @Html.EditorFor(model => model.PlanName, new { htmlAttributes = new { @class = "form-control required", id = "PlanName", @Placeholder = "Enter Plan Name" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.PlanName, "", new { @class = "text-danger" })
                         <br>
@@ -33,7 +33,7 @@
                         @Html.LabelFor(model => model.CommenceMentDate, "Commencement Date")
                         <div class="input-group travel-date-group">
                             <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                            <input type="text" value="@ViewBag.CommenceDate" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="CommenceMentDate">
+                            <input type="text" value="@ViewBag.CommenceDate" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="CommenceMentDate">
                         </div>
                         @Html.ValidationMessageFor(model => model.CommenceMentDate, "", new { @class = "text-danger" })
                         <br>
@@ -41,7 +41,7 @@
                         @Html.LabelFor(model => model.INRAmount, "INR Amount")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.INRAmount, new { htmlAttributes = new { @class = "sm-form-control required", id = "INRAmount", @Placeholder = "Enter INR Amount" } })
+                            @Html.EditorFor(model => model.INRAmount, new { htmlAttributes = new { @class = "form-control required", id = "INRAmount", @Placeholder = "Enter INR Amount" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.INRAmount, "", new { @class = "text-danger" })
                         <br>
@@ -49,7 +49,7 @@
                         @Html.LabelFor(model => model.OtherAmount, "Other Amount")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.OtherAmount, new { htmlAttributes = new { @class = "sm-form-control required", id = "OtherAmount", @Placeholder = "Enter Other Amount" } })
+                            @Html.EditorFor(model => model.OtherAmount, new { htmlAttributes = new { @class = "form-control required", id = "OtherAmount", @Placeholder = "Enter Other Amount" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.OtherAmount, "", new { @class = "text-danger" })
                         <br>
@@ -59,7 +59,7 @@
                         @Html.LabelFor(model => model.PlanSequence, "Plan Sequence")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.PlanSequence, new { htmlAttributes = new { @class = "sm-form-control required", id = "PlanSequence", @Placeholder = "Enter Plan Sequence" } })
+                            @Html.EditorFor(model => model.PlanSequence, new { htmlAttributes = new { @class = "form-control required", id = "PlanSequence", @Placeholder = "Enter Plan Sequence" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.PlanSequence, "", new { @class = "text-danger" })
                         <br>
@@ -67,7 +67,7 @@
                         @Html.LabelFor(model => model.RetiredDate, "Retired Date")
                         <div class="input-group travel-date-group">
                             <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                            <input type="text" value="@ViewBag.RetiredDate" class="sm-form-control past-enabled" placeholder="DD/MM/YYYY" id="RetiredDate">
+                            <input type="text" value="@ViewBag.RetiredDate" class="form-control past-enabled" placeholder="DD/MM/YYYY" id="RetiredDate">
                         </div>
                         @Html.ValidationMessageFor(model => model.RetiredDate, "", new { @class = "text-danger" })
                         <br>
@@ -75,7 +75,7 @@
                         @Html.LabelFor(model => model.INRDiscount, "INR Discount")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.INRDiscount, new { htmlAttributes = new { @class = "sm-form-control required", id = "INRDiscount", @Placeholder = "Enter INR Discount" } })
+                            @Html.EditorFor(model => model.INRDiscount, new { htmlAttributes = new { @class = "form-control required", id = "INRDiscount", @Placeholder = "Enter INR Discount" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.INRDiscount, "", new { @class = "text-danger" })
                         <br>
@@ -83,13 +83,13 @@
                         @Html.LabelFor(model => model.OtherDiscount, "Other Discount")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.OtherDiscount, new { htmlAttributes = new { @class = "sm-form-control required", id = "OtherDiscount", @Placeholder = "Enter Other Discount" } })
+                            @Html.EditorFor(model => model.OtherDiscount, new { htmlAttributes = new { @class = "form-control required", id = "OtherDiscount", @Placeholder = "Enter Other Discount" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.OtherDiscount, "", new { @class = "text-danger" })
                         <br>
                     </div>
                     @Html.LabelFor(model => model.ShortDescription, "Enter your Description", htmlAttributes: new { @class = "control-label" })<small>*</small>
-                    @Html.TextAreaFor(model => model.ShortDescription, 5, 124, htmlAttributes: new { @class = "sm-form-control", id = "ShortDescription", @placeholder = "Description here.." })
+                    @Html.TextAreaFor(model => model.ShortDescription, 5, 124, htmlAttributes: new { @class = "form-control", id = "ShortDescription", @placeholder = "Description here.." })
 
                     @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
                     <br />

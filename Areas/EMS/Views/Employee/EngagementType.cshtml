@@ -17,7 +17,7 @@
         <i class="icon-question"></i>
     </a>
 </div>
-@using (Html.BeginForm("EngagementType", "Employee", FormMethod.Post, new { @area = "EMS", @class = "form-horizontal", id = "EngagementType", role = "form" }))
+@using (Html.BeginForm("EngagementType", "Employee", FormMethod.Post, new { @area = "EMS", @class = "form-horizontal needs-validation", id = "EngagementType", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("Result", @ViewBag.Result as string)
@@ -398,7 +398,7 @@
 
         count = count + 1;
 
-        var yearactionenddrp = '<select class="sm-form-control" id="Yearshortname[]" name="Yearshortname[]"><option value="">--Select Action--</option>';
+        var yearactionenddrp = '<select class="form-control" id="Yearshortname[]" name="Yearshortname[]"><option value="">--Select Action--</option>';
         var yearend =[
            @foreach(var j in yearandaction)
         {
@@ -411,11 +411,11 @@
             yearactionenddrp = yearactionenddrp +' <option value="'+yearend[k].yend+'">'+yearend[k].yendn+'</option>';
         }
 
-        newRow = newRow + '<tr>' + '<td> <input type="text" id="txtEngagementId[]" name="txtEngagementId[]" value="0" class="hidden" /><input type="checkbox" id="chekselect[]"  name="LeaveTypeId[]" class="hidden" checked="checked"/></td>' +
-        '<td><input type="text" id="txtEngagementType[]" name="txtEngagementType[]" value="" class="sm-form-control"/></td>' +
-        '<td><input type="text" id="txtLeaveTypeId[]" name="txtLeaveTypeId[]" value="" class="sm-form-control"/></td>';
+        newRow = newRow + '<tr>' + '<td> <input type="text" id="txtEngagementId[]" name="txtEngagementId[]" value="0" style = "display:none" /><input type="checkbox" id="chekselect[]"  name="LeaveTypeId[]" style = "display:none" checked="checked"/></td>' +
+        '<td><input type="text" id="txtEngagementType[]" name="txtEngagementType[]" value="" class="form-control"/></td>' +
+        '<td><input type="text" id="txtLeaveTypeId[]" name="txtLeaveTypeId[]" value="" class="form-control"/></td>';
         newRow = newRow +'<td class="Leavelimitclass">';
-        var selectlimit = '<select class="sm-form-control" id="LL_'+ count +'" name="limit[]" onchange="Maxlimit('+count+')"><option selected="selected" value=""></option>';
+        var selectlimit = '<select class="form-control" id="LL_'+ count +'" name="limit[]" onchange="Maxlimit('+count+')"><option selected="selected" value=""></option>';
         for(i=0;i<LeaveLimit.length;i++)
         {
             if(LeaveLimit[i].lim==0)
@@ -430,7 +430,7 @@
         selectlimit = selectlimit + '</select>';
         newRow = newRow + selectlimit +' </td>';
         newRow = newRow + '<td>'+yearactionenddrp+'</td>'+ '<td class="maxlimitclass">'+
-                                '<select class="sm-form-control" id="LLL_'+ count +'" name="maxlimit[]">'+
+                                '<select class="form-control" id="LLL_'+ count +'" name="maxlimit[]">'+
                                     '<option selected="selected" value="0">0</option>'+
                                 '</select>'+
                             '</td>'+
@@ -456,7 +456,7 @@
             datatype: "json",
             traditional: true,
             success: function (data) {
-                var maxlimit = "<select class='sm-form-control required' id='maxlimit_"+Id+"' name='maxlimit[]'>";
+                var maxlimit = "<select class='form-control required' id='maxlimit_"+Id+"' name='maxlimit[]'>";
                 for (var i = 0; i < data.length; i++) {
                     maxlimit = maxlimit + '<option value='+ data[i].Value +'>' + data[i].Text + '</option>';
                 }

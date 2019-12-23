@@ -23,7 +23,7 @@
 
                     <div class="col_full">
                         @Html.LabelFor(model => model.Question, "Question")
-                        @Html.TextAreaFor(model => model.Question, 5, 80, htmlAttributes: new { @class = "sm-form-control required", @Maxlength = 512, id = "Question", @placeholder = "Add question" })
+                        @Html.TextAreaFor(model => model.Question, 5, 80, htmlAttributes: new { @class = "form-control required", @Maxlength = 512, id = "Question", @placeholder = "Add question" })
                         @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
                         <br>
                     </div>
@@ -31,7 +31,7 @@
                         @Html.LabelFor(model => model.Category, "Category")
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-pen"> </i></span>
-                            @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "sm-form-control required", id = "Category", @Placeholder = "Enter Category" } })
+                            @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control required", id = "Category", @Placeholder = "Enter Category" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                         <br>

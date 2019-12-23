@@ -5,7 +5,7 @@
     ViewBag.Title = "CompanySetting";
     Layout = "~/Areas/CMS/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("CompanySetting", "User", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal", id = "CompanySetting", role = "form" }))
+@using (Html.BeginForm("CompanySetting", "User", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal needs-validation", id = "CompanySetting", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("SettingId", ViewBag.SettingId as string)
@@ -25,13 +25,13 @@
 
                             @if (Model != null)
                             {
-                                @Html.DropDownList("perweekdaylist", null, "--- Select Working Days ---", htmlAttributes: new { @class = "sm-form-control required", id = "perweekdaylist" })
-                                @*<input type="text" class="sm-form-control" value="@Model.WorkingDayPerWeek" id="txtworkingday" name="WorkingDayPerWeek" />*@
+                                @Html.DropDownList("perweekdaylist", null, "--- Select Working Days ---", htmlAttributes: new { @class = "form-control required", id = "perweekdaylist" })
+                                @*<input type="text" class="form-control" value="@Model.WorkingDayPerWeek" id="txtworkingday" name="WorkingDayPerWeek" />*@
                             }
                             else
                             {
-                                @Html.DropDownList("perweekdaylist", null, "--- Select Working Days ---", htmlAttributes: new { @class = "sm-form-control required", id = "perweekdaylist" })
-                                @*<input type="text" class="sm-form-control" value="" id="txtworkingday" name="WorkingDayPerWeek" />*@
+                                @Html.DropDownList("perweekdaylist", null, "--- Select Working Days ---", htmlAttributes: new { @class = "form-control required", id = "perweekdaylist" })
+                                @*<input type="text" class="form-control" value="" id="txtworkingday" name="WorkingDayPerWeek" />*@
                             }
                         </div>
                     </div>
@@ -42,12 +42,12 @@
 
                             @if (Model != null)
                             {
-                                <input type="text" class="sm-form-control required" value="@Model.ProbationPeriod" id="txtprobationperiods" name="ProbationPeriod" />
+                                <input type="text" class="form-control required" value="@Model.ProbationPeriod" id="txtprobationperiods" name="ProbationPeriod" />
 
                             }
                             else
                             {
-                                <input type="text" class="sm-form-control required" value="" id="txtprobationperiods" name="ProbationPeriod" />
+                                <input type="text" class="form-control required" value="" id="txtprobationperiods" name="ProbationPeriod" />
                             }
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <label><small>Default Currency</small></label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-money"> </i></span>
-                            @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "sm-form-control required", id = "Currency" })
+                            @Html.DropDownList("Currency", null, "--- Select Currency ---", htmlAttributes: new { @class = "form-control required", id = "Currency" })
                             @Html.ValidationMessageFor(model => model.DefaultCurrency, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <label><small>Calendar Year (Leave)</small></label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-calendar2"> </i></span>
-                            @Html.DropDownList("CalendarYear", null, "--- Select Calendar Year ---", htmlAttributes: new { @class = "sm-form-control required", id = "CalendarYear" })
+                            @Html.DropDownList("CalendarYear", null, "--- Select Calendar Year ---", htmlAttributes: new { @class = "form-control required", id = "CalendarYear" })
                             @Html.ValidationMessageFor(model => model.CalendarYear, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                         <label><small>Payroll Process Date</small></label>
                         <div class="input-group divcenter">
                             <span class="input-group-addon"><i class="icon-calendar2"> </i></span>
-                            @Html.DropDownList("Payrolldate", null, "--- Select Payroll Date ---", htmlAttributes: new { @class = "sm-form-control required", id = "Payrolldate" })
+                            @Html.DropDownList("Payrolldate", null, "--- Select Payroll Date ---", htmlAttributes: new { @class = "form-control required", id = "Payrolldate" })
                             @Html.ValidationMessageFor(model => model.AutoProcessPayrollDate, "", new { @class = "text-danger" })
                         </div>
                     </div>

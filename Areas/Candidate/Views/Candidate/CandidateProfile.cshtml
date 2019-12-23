@@ -1,5 +1,5 @@
-﻿@using MIS.Models;
-@model MIS.Models.UserViewModel
+﻿@using AJSolutions.Models;
+@model AJSolutions.Models.UserViewModel
 @{
     ViewBag.Title = "Candidate Profile";
     UserViewModel user = ViewData["UserProfile"] as UserViewModel;
@@ -22,7 +22,7 @@
     IEnumerable<UserExperienceDetails> Candidateexperience = ViewData["Experience"] as IEnumerable<UserExperienceDetails>;
     IEnumerable<UserSkillDetails> Candidateskill = ViewData["Skill"] as IEnumerable<UserSkillDetails>;
     UserSocialDetails Candidatesocial = ViewData["Social"] as UserSocialDetails;
-    List<MIS.Models.Certification> certificate = ViewData["Cretifications"] as List<MIS.Models.Certification>;
+    List<AJSolutions.Models.Certification> certificate = ViewData["Cretifications"] as List<AJSolutions.Models.Certification>;
 
 }
 

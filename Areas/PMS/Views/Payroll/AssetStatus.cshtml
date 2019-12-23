@@ -12,7 +12,7 @@
     </a>
 </div>
 
-@using (Html.BeginForm("AssetStatus", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal", id = "AssetStatus", role = "form" }))
+@using (Html.BeginForm("AssetStatus", "Payroll", FormMethod.Post, new { area = "PMS", @class = "form-horizontal needs-validation", id = "AssetStatus", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -26,7 +26,7 @@
                     @Html.LabelFor(model => model.AssetStatusName, "Asset Status")<small>*</small>
                     <div class="input-group divcenter">
                         <span class="input-group-addon"><i class="icon-cog"> </i></span>
-                        @Html.EditorFor(model => model.AssetStatusName, new { htmlAttributes = new { @class = "sm-form-control required", id = "AssetStatusName", placeholder = "Enter Status(eg. Issued)" } })
+                        @Html.EditorFor(model => model.AssetStatusName, new { htmlAttributes = new { @class = "form-control required", id = "AssetStatusName", placeholder = "Enter Status(eg. Issued)" } })
                     </div>
                 </div>
                 <br />

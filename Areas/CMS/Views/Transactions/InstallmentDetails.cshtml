@@ -4,7 +4,7 @@
     ViewBag.Title = "InstallmentDetails";
     Layout = "~/Areas/CMS/Views/Shared/_LayoutNoHeaderNoFooter.cshtml";
 }
-@using (Html.BeginForm("InstallmentDetails", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal", id = "InstallmentDetails", role = "form" }))
+@using (Html.BeginForm("InstallmentDetails", "Transactions", FormMethod.Post, new { area = "CMS", @class = "form-horizontal needs-validation", id = "InstallmentDetails", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("UserId", ViewBag.UserId as string);
@@ -30,7 +30,7 @@
                             <label>Course Fee</label>
                         </td>
                         <td>
-                            @Html.TextBox("CourseFee", Model.CourseFee, new { @class = "sm-form-control", @id = "CourseFee", @readonly = "readonly", placeholder = "Eg: 10000" })
+                            @Html.TextBox("CourseFee", Model.CourseFee, new { @class = "form-control", @id = "CourseFee", @readonly = "readonly", placeholder = "Eg: 10000" })
                         </td>
 
                     </tr>
@@ -47,7 +47,7 @@
                             <label>Accommodation</label>
                         </td>
                         <td>
-                            @Html.TextBox("Accommodation", Model.Accommodation, new { @class = "sm-form-control", @id = "Accommodation", @readonly = "readonly", placeholder = "Eg: 1000" })
+                            @Html.TextBox("Accommodation", Model.Accommodation, new { @class = "form-control", @id = "Accommodation", @readonly = "readonly", placeholder = "Eg: 1000" })
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +63,7 @@
                             <label>Transport</label>
                         </td>
                         <td>
-                            @Html.TextBox("Transport", Model.Transport, new { @class = "sm-form-control", @id = "Transport", @readonly = "readonly", placeholder = "Eg: 1000" })
+                            @Html.TextBox("Transport", Model.Transport, new { @class = "form-control", @id = "Transport", @readonly = "readonly", placeholder = "Eg: 1000" })
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +79,7 @@
                             <label>Others</label>
                         </td>
                         <td>
-                            @Html.TextBox("Others", Model.Others, new { @class = "sm-form-control", @id = "Others", @readonly = "readonly", placeholder = "Eg: 1000" })
+                            @Html.TextBox("Others", Model.Others, new { @class = "form-control", @id = "Others", @readonly = "readonly", placeholder = "Eg: 1000" })
                         </td>
                     </tr>
                     <tr>
@@ -95,7 +95,7 @@
                             <label>Installment Interest</label>
                         </td>
                         <td>
-                            @Html.TextBox("InstallmentInterest", Model.InstallmentInterest, new { @class = "sm-form-control", @id = "InstallmentInterest", @readonly = "readonly", placeholder = "Eg: 1000" })
+                            @Html.TextBox("InstallmentInterest", Model.InstallmentInterest, new { @class = "form-control", @id = "InstallmentInterest", @readonly = "readonly", placeholder = "Eg: 1000" })
                         </td>
                     </tr>
                     <tr>
@@ -111,7 +111,7 @@
                             <label>Discount</label>
                         </td>
                         <td>
-                            @Html.TextBox("Discount", Model.Discount, new { @class = "sm-form-control", @id = "Discount", @readonly = "readonly", placeholder = "Eg: 1000" })
+                            @Html.TextBox("Discount", Model.Discount, new { @class = "form-control", @id = "Discount", @readonly = "readonly", placeholder = "Eg: 1000" })
                         </td>
                     </tr>
                     <tr>
@@ -123,11 +123,11 @@
                             @if (@Model.TotalFeeAmount == 0.0)
                             {
                                 double amt = (@Model.CourseFee + Model.Accommodation + Model.Transport + Model.Others + Model.InstallmentInterest - Model.Discount);
-                                <input type="text" id="TotalAmt" name="TotalAmt" value="@amt" readonly="readonly" class="sm-form-control" />
+                                <input type="text" id="TotalAmt" name="TotalAmt" value="@amt" readonly="readonly" class="form-control" />
                             }
                             else
                             {
-                                <input type="text" id="TotalAmt" name="TotalAmt" value="@Model.TotalFeeAmount" readonly="readonly" class="sm-form-control" />
+                                <input type="text" id="TotalAmt" name="TotalAmt" value="@Model.TotalFeeAmount" readonly="readonly" class="form-control" />
                             }
 
                         </td>
@@ -139,7 +139,7 @@
             <label>Select Installments</label>
             <div class="input-group divcenter">
                 <span class="input-group-addon"><i class="icon-calendar"> </i></span>
-                @Html.DropDownList("Installments", null, "--- Select Installment ---", htmlAttributes: new { @class = "sm-form-control", id = "Installments" })
+                @Html.DropDownList("Installments", null, "--- Select Installment ---", htmlAttributes: new { @class = "form-control", id = "Installments" })
             </div>
             <input type="submit" value="Submit" style="float: right;" class="button button-3d button-rounded button-teal fright" id="InstallmentDetails" name="InstallmentDetails" />
         </div>
@@ -156,12 +156,12 @@
 
             if (Accommodation == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Accommodationval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Accommodationval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
         });
@@ -177,12 +177,12 @@
 
             if (Transport == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Transportval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Transportval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
         });
@@ -198,12 +198,12 @@
 
             if (Others == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(Othersval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(Othersval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
         });
@@ -218,12 +218,12 @@
 
             if (InstallmentInterest == false) {
                 sum = (parseFloat(TotalAmt) - parseFloat(InstallmentInterestval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) + parseFloat(InstallmentInterestval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
         });
@@ -238,12 +238,12 @@
 
             if (Discount == false) {
                 sum = (parseFloat(TotalAmt) + parseFloat(Discountval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
             else {
                 sum = (parseFloat(TotalAmt) - parseFloat(Discountval));
-                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='sm-form-control' />"
+                total = "<input type='text' id='TotalAmt' name='TotalAmt' value='" + sum + "' readonly='readonly' class='form-control' />"
                 $("#total").html(total);
             }
         });

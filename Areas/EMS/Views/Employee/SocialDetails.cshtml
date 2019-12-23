@@ -46,7 +46,7 @@
                             }
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-facebook2"> </i></span>
-                                @Html.EditorFor(model => model.Facebook, new { htmlAttributes = new { @class = "sm-form-control", @id = "FBId", placeholder = "https://www.facebook.com/xxxx" } })
+                                @Html.EditorFor(model => model.Facebook, new { htmlAttributes = new { @class = "form-control", @id = "FBId", placeholder = "https://www.facebook.com/xxxx" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.Facebook, "", new { @class = "text-danger" })
                             <br>
@@ -57,7 +57,7 @@
                             }
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-google-plus"> </i></span>
-                                @Html.EditorFor(model => model.GooglePlus, new { htmlAttributes = new { @class = "sm-form-control", @id = "GoogleId", @placeholder = "https://plus.google.com/xxxx" } })
+                                @Html.EditorFor(model => model.GooglePlus, new { htmlAttributes = new { @class = "form-control", @id = "GoogleId", @placeholder = "https://plus.google.com/xxxx" } })
 
                             </div>
                             @Html.ValidationMessageFor(model => model.GooglePlus, "", new { @class = "text-danger" })
@@ -71,7 +71,7 @@
                             }
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-linkedin-sign"> </i></span>
-                                @Html.EditorFor(model => model.LinkedIn, new { htmlAttributes = new { @class = "sm-form-control", @id = "LinkedInId", @placeholder = "https://www.linkedin.com/xxxx" } })
+                                @Html.EditorFor(model => model.LinkedIn, new { htmlAttributes = new { @class = "form-control", @id = "LinkedInId", @placeholder = "https://www.linkedin.com/xxxx" } })
 
                             </div>
                             @Html.ValidationMessageFor(model => model.LinkedIn, "", new { @class = "text-danger" })
@@ -79,7 +79,7 @@
                             @Html.LabelFor(model => model.Skypeid, "Skype ID")
                             <div class="input-group divcenter">
                                 <span class="input-group-addon"><i class="icon-skype"> </i></span>
-                                @Html.EditorFor(model => model.Skypeid, new { htmlAttributes = new { @class = "sm-form-control", @id = "SkypeId", @placeholder = " Enter your skype Id" } })
+                                @Html.EditorFor(model => model.Skypeid, new { htmlAttributes = new { @class = "form-control", @id = "SkypeId", @placeholder = " Enter your skype Id" } })
 
                             </div>
                             @Html.ValidationMessageFor(model => model.Skypeid, "", new { @class = "text-danger" })

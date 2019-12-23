@@ -14,7 +14,7 @@
     int count = 0;
 }
 
-@using (Html.BeginForm("Candidate", "Transactions", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal", id = "TransactionDetail", role = "form" }))
+@using (Html.BeginForm("Candidate", "Transactions", FormMethod.Post, new { @area = "CMS", @class = "form-horizontal needs-validation", id = "TransactionDetail", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">

@@ -949,6 +949,14 @@ namespace AJSolutions.Models
         public string TrainerMentor { get; set; }
 
         public string TrainerMentorId { get; set; }
+
+        [StringLength(1024)]
+        public string FeedbackLink { get; set; }
+
+        [StringLength(1024)]
+        public string ContentLink { get; set; }
+
+        public bool AccomondationNeeded { get; set; }
     }
 
     public partial class TrainingScheduleAttachment
